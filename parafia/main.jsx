@@ -1,5 +1,5 @@
 import React, { useEffect, useState, createElement } from 'react'
-import { useNavigate, useParams } from 'react-dom'
+import { useParams } from 'react-dom'
 import { createRoot } from 'react-dom/client'
 import { HashRouter as Router, Routes, Route, useNavigate } from 'react-router-dom'
 import i18n from 'i18next'
