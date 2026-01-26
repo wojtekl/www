@@ -1442,7 +1442,7 @@ const App = () => {
     document.title = t('title_app')
     document.getElementsByTagName('meta').description.content = t('meta_description')
     document.getElementsByTagName('meta').keywords.content = t('meta_keywords')
-  }, [list])
+  }, [])
 
   const mapDiv = createElement('div', { id: "map", style: { width: "100%", height: "100%" } })
 
