@@ -1,0 +1,7 @@
+php_value date.timezone UTC
+php_value display_errors Off
+
+Options -MultiViews
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^ index.html [QSA,L]
