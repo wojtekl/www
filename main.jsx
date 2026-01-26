@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react'
+import React from 'react'
 import { createRoot } from 'react-dom'
 import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom'
 import i18n from 'i18next'
@@ -26,9 +26,7 @@ const Hero = (props) => {
   const navigate = useNavigate()
   const { t } = useTranslation()
 
-  const handleClick = useCallback((name) => {
-    navigate(`${urlButtonOnline}`)
-  }, [name])
+  const handleClick = () => navigate(`${urlButtonOnline}`)
   
   return <div class="px-4 py-5 my-5 text-center">
       <img class="d-block mx-auto mb-4" src={image} />
