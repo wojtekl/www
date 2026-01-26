@@ -4,7 +4,7 @@ import { createRoot } from 'react-dom/client'
 import { HashRouter as Router, Routes, Route, useNavigate } from 'react-router-dom'
 import i18n from 'i18next'
 import { initReactI18next, useTranslation } from 'react-i18next'
-import Provider from 'react-redux'
+import { Provider } from 'react-redux'
 
 
 let installPrompt = null;
