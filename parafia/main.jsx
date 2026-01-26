@@ -1418,8 +1418,6 @@ const App = () => {
   const { t } = useTranslation()
   const [selected, setSelected] = useState(clients.clients.find(i => i.name === store.getState().value))
 
-  const list = () => useGetClients()
-
   useEffect(() => {
     const map = L.map('map').setView(selected ? [selected.latitude, selected.longitude] : [52.114503, 19.423561], 9)
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -1430,7 +1428,8 @@ const App = () => {
     const markerDefault = L.divIcon({ html: '<i class="bi bi-geo-alt-fill" style="font-size: 20px" aria-label="Marker default"></i>', className: "markerDefault", size: [20, 23], iconAnchor: [10, 11] })
     const markerLive = L.divIcon({ html: '<i class="bi bi-geo-alt-fill" style="font-size: 20px; color: red" aria-label="Marker live"></i>', className: "markerLive", size: [20, 23], iconAnchor: [10, 11] })
     const markerActive = L.divIcon({ html: '<i class="bi bi-geo-alt-fill" style="font-size: 20px; color: blue" aria-label="Marker active"></i>', className: "markerActive", size: [20, 23], iconAnchor: [10, 11] })
-    
+
+    const list = useGetClients()
     const inactive = L.layerGroup(list.filter(i => !i.incoming).map(i => L
       .marker([i.latitude, i.longitude], { icon: markerDefault })
       .bindPopup(`<p>${i.name}</p><p>${i.incoming}</p><a href="#/selected/${i.name}"> ${t('see_link')} </a>`))).addTo(map)
