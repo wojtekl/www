@@ -1,5 +1,5 @@
 import { useCallback } from 'react'
-import { render } from 'react-dom'
+import { createRoot } from 'react-dom'
 import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom'
 import i18n from 'i18next'
 import { initReactI18next, useTranslation } from 'react-i18next'
@@ -302,7 +302,7 @@ const App = () => {
 
 const container = document.getElementById('root')
 
-const root = ReactDOM.createRoot(container)
+const root = createRoot(container)
 
 root.render(
   <Router>
