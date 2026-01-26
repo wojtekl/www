@@ -4,6 +4,7 @@ import { createRoot } from 'react-dom/client'
 import { HashRouter as Router, Routes, Route, useNavigate } from 'react-router-dom'
 import i18n from 'i18next'
 import { initReactI18next, useTranslation } from 'react-i18next'
+import { createStore } from 'redux'
 import { Provider } from 'react-redux'
 
 
@@ -38,7 +39,7 @@ const selectedReducer = (state = initialState, action) => {
   }
 }
 
-const store = Redux.createStore(selectedReducer)
+const store = createStore(selectedReducer)
 store.subscribe(() => { localStorage.setItem('redux', JSON.stringify(store.getState())) })
 
 const lang = new URLSearchParams(new URL(window.location).search).get('lang') ?? initialState.lang
