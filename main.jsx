@@ -197,7 +197,7 @@ const Howto = () => {
 
 
 /* Card */
-const Card => (props) => {
+const Card = (props) => {
   const { image, description, urlButtonOnline, urlButtonGet, small } = props
   const { t } = useTranslation()
 
