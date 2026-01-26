@@ -1,4 +1,4 @@
-import { useCallback } from 'react'
+import React, { useCallback } from 'react'
 import { createRoot } from 'react-dom'
 import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom'
 import i18n from 'i18next'
