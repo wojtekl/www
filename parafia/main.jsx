@@ -1,7 +1,6 @@
 import React, { useEffect, useState, createElement } from 'react'
-import { useParams } from 'react-dom'
 import { createRoot } from 'react-dom/client'
-import { HashRouter as Router, Routes, Route, useNavigate } from 'react-router-dom'
+import { HashRouter as Router, Routes, Route, useNavigate, useParams } from 'react-router-dom'
 import i18n from 'i18next'
 import { initReactI18next, useTranslation } from 'react-i18next'
 import { createStore } from 'redux'
