@@ -22,12 +22,12 @@
   "theme_color": "#000000",
   "screenshots": [
     {
-      "src": "https://raw.githubusercontent.com/wojtekl/google-play/refs/heads/main/myparish/webapp/s_1.png",
+      "src": "https://raw.githubusercontent.com/wojtekl/www/refs/heads/main/parafia/images/s_1.png",
       "sizes": "1439x2881",
       "types": "image/png"
     },
     {
-      "src": "https://raw.githubusercontent.com/wojtekl/google-play/refs/heads/main/myparish/webapp/s_2.png",
+      "src": "https://raw.githubusercontent.com/wojtekl/www/refs/heads/main/parafia/images/s_2.png",
       "sizes": "1439x2881",
       "types": "image/png"
     }
