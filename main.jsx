@@ -95,7 +95,7 @@ const AccordionItem = (props) => {
 const Howto = () => {
   const { t } = useTranslation()
 
-  const gallery = 'https://raw.githubusercontent.com/wojtekl/google-play/refs/heads/main/webapp/'
+  const gallery = 'https://raw.githubusercontent.com/wojtekl/www/refs/heads/main/images/'
 
   return <>
     <header>
