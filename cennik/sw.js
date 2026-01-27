@@ -1,4 +1,4 @@
-const CACHE_NAME = "pricey-v2";
+const CACHE_NAME = "cennik-v1";
 
 async function networkFirst(request) {
   try {
