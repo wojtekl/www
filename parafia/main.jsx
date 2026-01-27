@@ -1404,7 +1404,18 @@ const Navi = (props) => {
             {selected && 'selected' != current && <div class="nav-item"><a class="nav-link" href={`#/selected/${selected.name}`}>{t('nav_your')}</a></div>}
             {'map' != current && <div class="nav-item"><a class="nav-link active" aria-current="page" href="#/">{t('nav_map')}</a></div>}
             {'list' != current && <div class="nav-item"><a class="nav-link" href="#/list">{t('nav_list')}</a></div>}
-            {'news' != current && <div class="nav-item"><a class="nav-link" href="#/news">{t('nav_news')}</a></div>}
+            <div class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">{t('nav_news')}</a>
+              <ul class="dropdown-menu">
+                <li><a href="https://m.niedziela.pl/" rel="external" class="dropdown-item">Niedziela</a></li>
+                <li><a href="https://www.gosc.pl/mobile" rel="external" class="dropdown-item">Gość Niedzielny</a></li>
+                <li><a href="https://rycerzniepokalanej.pl/" rel="external" class="dropdown-item">Rycerz Niepokalanej</a></li>
+                <li><a href="https://biblia.deon.pl/" rel="external" class="dropdown-item">Biblia Tysiąclecia</a></li>
+                <li><a href={t('url_privacy')} rel="privacy-policy" class="dropdown-item">{t('nav_privacy')}</a></li>
+                <li><a href="https://wlap.pl/" rel="author" class="dropdown-item">{t('nav_aboutus')}</a></li>
+                <li><a href="https://cennik.wlap.pl/" rel="external" class="dropdown-item">Historia cen produktów spożywczych w marketach</a></li>
+              </ul>
+            </div>
             <div class="nav-item"><a class="nav-link" onClick={handleInstall}>{t('nav_install')}</a></div>
             <div class="nav-item"><a class="nav-link" href="#/manage">{t('nav_manage')}</a></div>
           </div>
