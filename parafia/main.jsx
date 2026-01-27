@@ -1327,7 +1327,7 @@ const List = () => {
     setFiltered(2 < phrase.length ? preFiltered.filter(i => i.name.toLowerCase().includes(phrase)) : preFiltered)
   }
 
-  const handleClick = () => {
+  const handleClick = (name) => {
     navigate(`/selected/${name}`)
   }
 
