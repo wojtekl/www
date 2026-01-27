@@ -5,7 +5,8 @@ import i18n from 'i18next'
 import { initReactI18next, useTranslation } from 'react-i18next'
 import { createStore } from 'redux'
 import { Provider } from 'react-redux'
-import Axios from 'axios'
+import axios from 'axios'
+import L from 'leaflet'
 
 
 let installPrompt = null;
@@ -898,7 +899,7 @@ const Signin = () => {
     event.preventDefault()
     setSigninFailure(false)
     const form = document.querySelector('#form_submit')
-    Axios.post('api/signin', form).then((response) => {
+    axios.post('api/signin', form).then((response) => {
       if (response.data.length > 0) {
         navigate('/manage')
       }
