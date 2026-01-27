@@ -1,4 +1,4 @@
-const CACHE_NAME = "myparish-v2";
+const CACHE_NAME = "parafia-v1";
 
 async function networkFirst(request) {
   try {
