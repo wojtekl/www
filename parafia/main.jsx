@@ -1316,7 +1316,7 @@ const List = () => {
   const [active, setActive] = useState(false)
   const [live, setLive] = useState(false)
 
-  const filterByCriteria = (active, live, phrase) => {
+  const filterByCriteria = (active: Boolean, live: Boolean, phrase: String) => {
     let preFiltered = all
     if (active) {
       preFiltered = preFiltered.filter(i => !!i.incoming)
