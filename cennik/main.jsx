@@ -158,7 +158,7 @@ const List = (props) => {
   const handleClick = () => {
     const searchParams = new URLSearchParams()
     searchParams.append('lang', lang)
-    searchParams.append('name', selected)
+    searchParams.append('name', select)
     axios.get(`item?${searchParams.toString()}`).then((response) => {
       replace(<List properties={columns_details} plist={response.data} replace={replace} back={back} selected={select} />)
     })
