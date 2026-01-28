@@ -146,12 +146,12 @@ const columns_list = ['item', 'store', 'price', 'posted']
 const columns_details = ['store', 'price', 'posted', 'coupon', 'bulk']
 
 const List = (props) => {
-  const { list, replace, back, selected, properties, expandable } = props
+  const { plist, replace, back, selected, properties, expandable } = props
   const { t } = useTranslation()
   
-  const [list, setList] = useState(list)
+  const [list, setList] = useState(plist)
   const [select, setSelect] = useState()
-  const [filtered, setFiltered] = useState(list)
+  const [filtered, setFiltered] = useState(plist)
   const [show, setShow] = useState(false)
   const [lang, setLang] = useState(store.getState().lang)
 
@@ -160,7 +160,7 @@ const List = (props) => {
     searchParams.append('lang', lang)
     searchParams.append('name', selected)
     axios.get(`item?${searchParams.toString()}`).then((response) => {
-      replace(<List properties={columns_details} list={response.data} replace={replace} back={back} selected={select} />)
+      replace(<List properties={columns_details} plist={response.data} replace={replace} back={back} selected={select} />)
     })
   }
 
@@ -175,7 +175,7 @@ const List = (props) => {
   }
 
   const handleChange = (event) => {
-    const selectedItem = !selected ? list.find(i => i.item === select).id : select
+    const selectedItem = !selected ? plist.find(i => i.item === select).id : select
     store.dispatch({ type: event.target.checked ? 'selected/added' : 'selected/removed', payload: selectedItem })
   }
 
@@ -246,7 +246,7 @@ const List = (props) => {
               </tr>
             </thead>
             <tbody>
-              {(!selected ? filtered : list).map(row => {
+              {(!selected ? filtered : plist).map(row => {
                 const enabled = select === row['item']
                 return (<tr onMouseOver={() => setSelect(!selected ? row[properties[0]] : row['id'])}>
                   <td><input type="checkbox" class="form-check-input" name="selected" checked={store.getState().value.includes(row['id'])} onChange={handleChange} aria-label="Select" /></td>
@@ -307,7 +307,7 @@ const App = () => {
       searchParams.append('selected', selected)
     }
     axios.get(`items?${searchParams.toString()}`).then((response) => {
-      handleReplace(<List properties={columns_list} list={response.data} expandable={true} replace={handleReplace} back={handleBack} />)
+      handleReplace(<List properties={columns_list} plist={response.data} expandable={true} replace={handleReplace} back={handleBack} />)
     })
 
     document.title = t('title_app')
