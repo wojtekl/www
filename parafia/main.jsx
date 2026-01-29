@@ -123,6 +123,7 @@ const Password = () => {
         window.history.replaceState({}, document.title, 'https://parafia.wlap.pl/#/signin')
       }
     })
+    event.stopPropagation()
   }
   
   return <div class="d-flex align-items-center py-4 bg-body-tertiary">
@@ -151,8 +152,8 @@ const Password = () => {
 
 /* VisitModal */
 const VisitModal = (props) => {
-  const { t } = useTranslation()
   const { modalId } = props
+  const { t } = useTranslation()
 
   const handleSubmit = (event) => {
     event.preventDefault()
@@ -163,7 +164,7 @@ const VisitModal = (props) => {
       console.debug(response.data)
     })
     
-    return false
+    event.stopPropagation()
   }
 
   return <div class="modal fade" id={modalId} tabindex="-1" aria-labelledby={`${modalId}Label`} aria-hidden="true">
@@ -356,11 +357,27 @@ const Weeks = () => {
 
 /* CurrentWeek */
 const CurrentWeek = (props) => {
-  const { t } = useTranslation()
   const { date, type } = props
+  const { t } = useTranslation()
+
   const [currentWeek, setCurrentWeek] = useState([])
   const [selected, setSelected] = useState()
   const [refresh, setRefresh] = useState(true)
+
+  useEffect(() => {
+    if (refresh) {
+      const postData = {
+        tenant: store.getState().tenant,
+        type: type,
+        today: date
+      }
+      axios.post('api/scheduled-week', postData, { headers: { 'Content-Type': 'multipart/form-data' }}).then((response) => {
+        setCurrentWeek(response.data)
+        console.debug(response.data)
+      })
+      setRefresh(false)
+    }
+  }, [refresh])
 
   const handleSelect = (event) => {}
 
@@ -384,21 +401,6 @@ const CurrentWeek = (props) => {
       return t('label_departure')
     }
   }
-  
-  useEffect(() => {
-    if (refresh) {
-      const postData = {
-        tenant: store.getState().tenant,
-        type: type,
-        today: date
-      }
-      axios.post('api/scheduled-week', postData, { headers: { 'Content-Type': 'multipart/form-data' }}).then((response) => {
-        setCurrentWeek(response.data)
-        console.debug(response.data)
-      })
-      setRefresh(false)
-    }
-  }, [refresh])
 
   const locale = (getUrlParams().get('lang') ?? navigator.language.substring(3)).toLocaleLowerCase()
   
@@ -506,7 +508,7 @@ const Dashboard = () => {
       console.debug(response.data)
     })
     
-    return false
+    event.stopPropagation()
   }
   
   return <>
@@ -568,6 +570,17 @@ const Settings = () => {
   const [settings, setSettings] = useState()
   const [disabled, setDisabled] = useState(true)
 
+  useEffect(() => {
+    const searchParams = new URLSearchParams()
+    searchParams.append('tenant', tenant)
+    axios.get(`api/settings?${searchParams.toString()}`).then((response) => {
+      setSettings(response.data)
+      document.getElementById('settingsSchedule').value = response.data.schedule
+      document.getElementById('settingsShowVisits').checked = 0 == response.data.showVisits ? false : true
+      document.getElementById('settingsShowBooking').checked = 0 == response.data.showBooking ? false : true
+    })
+  }, [tenant])
+
   const handleDisabled = () => {
     setDisabled(!disabled)
   }
@@ -585,19 +598,8 @@ const Settings = () => {
       console.debug(response.data)
     })
     
-    return false
+    event.stopPropagation()
   }
-
-  useEffect(() => {
-    const searchParams = new URLSearchParams()
-    searchParams.append('tenant', tenant)
-    axios.get(`api/settings?${searchParams.toString()}`).then((response) => {
-      setSettings(response.data)
-      document.getElementById('settingsSchedule').value = response.data.schedule
-      document.getElementById('settingsShowVisits').checked = 0 == response.data.showVisits ? false : true
-      document.getElementById('settingsShowBooking').checked = 0 == response.data.showBooking ? false : true
-    })
-  }, [tenant])
 
   return <>
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
@@ -645,20 +647,8 @@ const DateFormatter = (props) => {
 
 /* Modal */
 const Modal = (props) => {
-  const { t } = useTranslation()
   const { modalId, itemId, type } = props
-
-  const handleSubmit = (event) => {
-    event.preventDefault()
-    
-    const form = document.querySelector(`#form_${modalId}`)
-    axios.post(!itemId ? 'api/scheduled-cd' : 'api/scheduled', form, { headers: { 'Content-Type': 'multipart/form-data' }}).then((response) => {
-      form.reset()
-      console.debug(response.data)
-    })
-    
-    return false
-  }
+  const { t } = useTranslation()
 
   useEffect(() => {
     if (!itemId) {
@@ -678,6 +668,18 @@ const Modal = (props) => {
       console.debug(response.data)
     })
   }, [itemId])
+
+  const handleSubmit = (event) => {
+    event.preventDefault()
+    
+    const form = document.querySelector(`#form_${modalId}`)
+    axios.post(!itemId ? 'api/scheduled-cd' : 'api/scheduled', form, { headers: { 'Content-Type': 'multipart/form-data' }}).then((response) => {
+      form.reset()
+      console.debug(response.data)
+    })
+    
+    event.stopPropagation()
+  }
 
   return <div class="modal fade" id={modalId} tabindex="-1" aria-labelledby={`${modalId}Label`} aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-sm">
@@ -894,6 +896,16 @@ const Signin = () => {
   const { t } = useTranslation()
   const [signinFailure, setSigninFailure] = useState(false)
 
+  useEffect(() => {
+    axios.get('api/signin').then((response) => {
+      if (response.data && !response.data.includes(';')) {
+        store.dispatch({ type: 'tenant/set', payload: response.data })
+        navigate('/manage')
+      }
+      console.debug(response.data)
+    })
+  }, [])
+
   const handleSubmit = (event) => {
     event.preventDefault()
     setSigninFailure(false)
@@ -907,16 +919,6 @@ const Signin = () => {
       }
     })
   }
-
-  useEffect(() => {
-    axios.get('api/signin').then((response) => {
-      if (response.data && !response.data.includes(';')) {
-        store.dispatch({ type: 'tenant/set', payload: response.data })
-        navigate('/manage')
-      }
-      console.debug(response.data)
-    })
-  }, [])
   
   return <div class="d-flex align-items-center py-4 bg-body-tertiary">
     <main class="form-signin w-100 m-auto" style={{maxWidth: '330px', padding: '1rem'}}>
@@ -952,12 +954,14 @@ const Signin = () => {
 /* Reader */
 const Reader = () => {
   const { t } = useTranslation()
-  const { tenant } = useParams()
+  
   const [currentWeek, setCurrentWeek] = useState([])
   const [contact, setContact] = useState()
   const [departure, setDeparture] = useState([])
   const [settings, setSettings] = useState()
   const [visit, setVisit] = useState([])
+
+  const { tenant } = useParams()
 
   const dayOfWeek = [
     { order: '2', name: t('label_monday')}, 
@@ -978,7 +982,7 @@ const Reader = () => {
       console.debug(response.data)
     })
     
-    return false
+    event.stopPropagation()
   }
 
   const handleBook = (event) => {
@@ -990,7 +994,7 @@ const Reader = () => {
       console.debug(response.data)
     })
     
-    return false
+    event.stopPropagation()
   }
 
   useEffect(() => {
@@ -1288,27 +1292,6 @@ const Selected = () => {
 }
 
 
-/* News */
-/*const News = (props) => {
-  const { t } = useTranslation()
-  
-  return <>
-    <Navi current="news" />
-    <div class="container">
-      <div class="list-group">
-        <a href="https://m.niedziela.pl/" rel="external" class="list-group-item list-group-item-action">Niedziela</a>
-        <a href="https://www.gosc.pl/mobile" rel="external" class="list-group-item list-group-item-action">Gość Niedzielny</a>
-        <a href="https://rycerzniepokalanej.pl/" rel="external" class="list-group-item list-group-item-action">Rycerz Niepokalanej</a>
-        <a href="https://biblia.deon.pl/" rel="external" class="list-group-item list-group-item-action">Biblia Tysiąclecia</a>
-        <a href={t('url_privacy')} rel="privacy-policy" class="list-group-item list-group-item-action">{t('nav_privacy')}</a>
-        <a href="https://wlap.pl/" rel="author" class="list-group-item list-group-item-action">{t('nav_aboutus')}</a>
-        <a href="https://cennik.wlap.pl/" rel="external" class="list-group-item list-group-item-action">Historia cen produktów spożywczych w marketach</a>
-      </div>
-    </div>
-  </>
-}*/
-
-
 /* List */
 const List = () => {
   const navigate = useNavigate()
@@ -1482,5 +1465,5 @@ root.render(<Provider store={store}>
       <Route path="password" element={<Password />} />
       <Route path=":tenant" element={<Reader />} />
     </Routes>
-  </Router>0
+  </Router>
 </Provider>)
