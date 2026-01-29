@@ -157,7 +157,6 @@ const List = (props) => {
   const storeName = getUrlParam('store')
   const day = getUrlParam('day')
 
-  const columns_list = ['item', 'store', 'price', 'posted']
   const columns_details = ['store', 'price', 'posted', 'coupon', 'bulk']
 
   const handleClick = () => {
@@ -354,3 +353,5 @@ const App = () => {
 const container = document.getElementById('root')
 const root = createRoot(container)
 root.render(<Provider store={store}><App /></Provider>)
+
+const columns_list = ['item', 'store', 'price', 'posted']
