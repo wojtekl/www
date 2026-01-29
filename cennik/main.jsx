@@ -184,10 +184,58 @@ const List = (props) => {
     store.dispatch({ type: event.target.checked ? 'selected/added' : 'selected/removed', payload: selectedItem })
   }
 
-  return 
-(<>
+  return (<>
   <Navi isNew={!selected} lang={lang} setLang={setLang} />
-  
+  <div class="container">
+    {!selected && <div class="row mt-3">
+      <form class="form-inline my-2" role="search" onSubmit={handleSearch}>
+        <input class="form-control mr-sm-2" type="search" name="search" placeholder={t('label_search')} aria-label="Search" onKeyUp={handleFilter} maxlength="25" />
+      </form>
+    </div>}
+    <div class="row mt-3">
+      {!!selected && <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="javascript:;" onClick={back}> {t('button_back')} </a></li>
+          {selected && <li class="breadcrumb-item active" aria-current="page"> {selected} </li>}
+        </ol>
+      </nav>}
+      <div class="table-responsive small">
+        <table class="table table-stripped table-sm table-hover">
+          <thead class="table-dark">
+            <tr>
+              <th> X </th>
+              { properties.map(property => <th>{String(t(`label_${property}`)).toUpperCase()}</th>) }
+              { expandable && <th> {t('label_more').toUpperCase()} </th> }
+            </tr>
+          </thead>
+          <tbody>
+            {(!selected ? filtered : plist).map(row => {
+              const enabled = select === row['item']
+              return (<tr onMouseOver={() => setSelect(!selected ? row[properties[0]] : row['id'])}>
+                <td><input type="checkbox" class="form-check-input" name="selected" checked={store.getState().value.includes(row['id'])} onChange={handleChange} aria-label="Select" /></td>
+                  {properties.map(property => {
+                    if ('posted' === property) {
+                      return <td><DateFormatter timestamp={row[property]} locale={locale} /></td>
+                    }
+                    else if ('price' === property) {
+                      return <td class="text-end">{ row['lowest'] === row[property] ? '!' : '' }<NumberFormatter value={row[property]} locale={locale} /></td>
+                    }
+                    else if ('coupon' === property || 'bulk' === property) {
+                      return <td><input type="checkbox" class="form-check-input" name={property} checked={"1" === row[property]} readonly aria-label={property} /></td>
+                    }
+                    else {
+                      return <td> {row[property]} </td>
+                    }
+                  })}
+                  {expandable && <td><a onClick={handleClick} disabled={!enabled}><span class={`badge text-bg-${enabled ? 'primary' : 'secondary'}`}> -{'>'} </span></a></td>}
+                </tr>)
+              })}
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <Modal item={selected} storeName={storeName} day={day} />
+    </div>
   </>)
 }
 
