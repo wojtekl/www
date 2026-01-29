@@ -1477,11 +1477,10 @@ root.render(<Provider store={store}>
       <Route path="/" element={<App />} />
       <Route path="selected/:name" element={<Selected />} />
       <Route path="list" element={<List />} />
-      <Route path="news" element={<News />} />
       <Route path="manage" element={<Manage />} />
       <Route path="signin" element={<Signin />} />
       <Route path="password" element={<Password />} />
       <Route path=":tenant" element={<Reader />} />
     </Routes>
-  </Router>
+  </Router>0
 </Provider>)
