@@ -9,21 +9,23 @@ import axios from 'axios'
 import L from 'leaflet'
 
 
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js')
+}
+
 let installPrompt = null;
 window.addEventListener("beforeinstallprompt", (event) => {
   installPrompt = event;
 });
 
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('/sw.js')
-}
+const getUrlParams = () => new URLSearchParams((new URL(window.location)).search)
 
 const state = localStorage.getItem('redux')
-const initialState = !state ? {
+const initialState = !!state ? JSON.parse(state) : {
   value: null,
   lang: navigator.language.substring(0, 2).toLocaleLowerCase(),
   tenant: null
-} : JSON.parse(state)
+}
 
 const selectedReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -43,7 +45,7 @@ const selectedReducer = (state = initialState, action) => {
 const store = createStore(selectedReducer)
 store.subscribe(() => { localStorage.setItem('redux', JSON.stringify(store.getState())) })
 
-const lang = new URLSearchParams(new URL(window.location).search).get('lang') ?? initialState.lang
+const lang = (getUrlParams().get('lang') ?? initialState.lang).toLocaleLowerCase()
 i18n.use(initReactI18next).init({
   resources: resources,
   lng: lang,
@@ -55,10 +57,9 @@ i18n.use(initReactI18next).init({
 store.dispatch({ type: 'lang/set', payload: lang })
 
 
-/*NumberFormatter */
-const NumberFormatter = (props) => {
-  const { value } = props
-  const locale = new URLSearchParams(new URL(window.location).search).get('lang') ?? navigator.language.substring(3).toLocaleLowerCase()
+/* NumberFormatter */
+const NumberFormatter = (props: { value: Number, locale: String }) => {
+  const { value, locale } = props
   const format = { maximumFractionDigits: 2, minimumFractionDigits: 2 }
   return value.toLocaleString(locale, format)
 }
@@ -66,47 +67,41 @@ const NumberFormatter = (props) => {
 
 /* AccordionItem */
 const AccordionItem = (props) => {
-  const { t } = useTranslation()
   const { id, parent, show = false, children } = props
+  const { t } = useTranslation()
 
   return <div class="accordion-item">
-    <h2 class="accordion-header">
-      <button class={`accordion-button ${!show ? 'collapsed' : ''}`} type="button" data-bs-toggle="collapse" data-bs-target={`#collapse${id}`} aria-expanded="true" aria-controlls={`collapse${id}`}>{t(`label_${id}`)}</button>
-    </h2>
-    <div id={`collapse${id}`} class={`accordion-collapse collapse ${!!show ? 'show' : ''}`} data-bs-parent={`#${parent}`}>
-      <div class="accordion-body">
-        <div class="row">
-          {children}
-        </div>
-      </div>
+  <h2 class="accordion-header">
+    <button class={`accordion-button ${!show ? 'collapsed' : ''}`} type="button" data-bs-toggle="collapse" data-bs-target={`#collapse${id}`} aria-expanded="true" aria-controlls={`collapse${id}`}>{t(`label_${id}`)}</button>
+  </h2>
+  <div id={`collapse${id}`} class={`accordion-collapse collapse ${!!show ? 'show' : ''}`} data-bs-parent={`#${parent}`}>
+    <div class="accordion-body">
+      <div class="row">{children}</div>
     </div>
   </div>
-}
+</div>}
 
 
 /* ConfirmModal */
 const ConfirmModal = (props) => {
-  const { t } = useTranslation()
   const { title, onOk } = props
+  const { t } = useTranslation()
   
   return <div class="modal" id="confirmModal" tabindex="-1">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">{t('label_title_confirm')}</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label={t('label_close')}></button>
-        </div>
-        <div class="modal-body">
-          <p>{t(title)}</p>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{t('label_cancel')}</button>
-          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onClick={onOk}>{t('label_ok')}</button>
-        </div>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">{t('label_title_confirm')}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label={t('label_close')}></button>
+      </div>
+      <div class="modal-body"><p>{t(title)}</p></div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{t('label_cancel')}</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onClick={onOk}>{t('label_ok')}</button>
       </div>
     </div>
   </div>
-}
+</div>}
 
 
 /* Password */
@@ -239,6 +234,8 @@ const Visit = () => {
     })
   }, [])
 
+  const locale = (getUrlParams().get('lang') ?? navigator.language.substring(3)).toLocaleLowerCase()
+
   return <>
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
       <h1 class="h2">{t('label_statistics')}</h1>
@@ -272,7 +269,7 @@ const Visit = () => {
             <td>{e.street}</td>
             <td>{e.number}</td>
             <td>{e.city}</td>
-            <td><NumberFormatter value={e.donation} /></td>
+            <td><NumberFormatter value={e.donation} locale={locale} /></td>
             <td><DateFormatter timestamp={e.created} format="date" /></td>
             <td><button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#confirmModal" onClick={() => { setSelected(e['id']) }}><i class="bi bi-trash"></i></button></td>
           </tr>
@@ -402,6 +399,8 @@ const CurrentWeek = (props) => {
       setRefresh(false)
     }
   }, [refresh])
+
+  const locale = (getUrlParams().get('lang') ?? navigator.language.substring(3)).toLocaleLowerCase()
   
   return <>
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
@@ -449,7 +448,7 @@ const CurrentWeek = (props) => {
               <td>{i + 1}</td>
               <td><DateFormatter timestamp={e['scheduled']} /></td>
               <td>{e['description']}</td>
-              <td><NumberFormatter value={e['value']} /></td>
+              <td><NumberFormatter value={e['value']} locale={locale} /></td>
               <td>{e['notes']}</td>
               <td>
                 <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#editScheduledModal" onClick={ () => { setSelected(e['id']) } }><i class="bi bi-pencil-square"></i></button>
@@ -1045,6 +1044,8 @@ const Reader = () => {
     })
   }, [tenant])
 
+  const locale = (getUrlParams().get('lang') ?? navigator.language.substring(3)).toLocaleLowerCase()
+
   return <>
     <header>
       <div class=" text-bg-dark collapse" id="navbarToggleExternalContent" data-bs-theme="dark">
@@ -1178,7 +1179,7 @@ const Reader = () => {
                       <td>{e.street}</td>
                       <td>{e.number}</td>
                       <td>{e.city}</td>
-                      <td><NumberFormatter value={e.donation} /></td>
+                      <td><NumberFormatter value={e.donation} locale={locale} /></td>
                       <td><DateFormatter timestamp={e.created} format="date" /></td>
                     </tr>
                   )}
@@ -1243,11 +1244,13 @@ const Selected = () => {
 
   const translate = 'https://translate.google.com/translate?js=n&sl=pl&tl=en&u='
 
-  const handleClick = () => {
+  const handleBack = (event) => {
+    event.preventDefault()
     navigate(-1)
   }
 
-  const handleSelect = () => {
+  const handleSelect = (event) => {
+    event.preventDefault()
     store.dispatch({ type: 'selected/added', payload: name })
   }
 
@@ -1262,31 +1265,31 @@ const Selected = () => {
 
   const saved = name === store.getState().value
 
-  return (<>
-    <Navi current="selected" />
-    <div class="container">
-      <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="javascript:;" onClick={handleClick}> {t('button_back')} </a></li>
-          {selected && <li class="breadcrumb-item active" aria-current="page">{selected.name}</li>}
-        </ol>
-      </nav>
-      {selected ? <div class="list-group">
-        <a href={urls.schedule} rel="external" class="list-group-item list-group-item-action">{t('list_schedule')}</a>
-        <a href={urls.announcement} rel="external" class="list-group-item list-group-item-action">{t('list_announcement')}</a>
-        <a href={urls.contact} rel="external" class="list-group-item list-group-item-action">{t('list_contact')}</a>
-        {selected.other && <a href={selected.other} rel="external" class="list-group-item list-group-item-action">{t('list_other')}</a>}
-        {selected.live && <a href={selected.live} rel="external" class="list-group-item list-group-item-action">{t('list_live')}</a>}
-        <a href={`https://www.openstreetmap.org/directions?from=&to=${selected.latitude}%2C${selected.longitude}`} rel="external" class="list-group-item list-group-item-action">{t('list_directions')}</a>
-        {!saved && <a onClick={handleSelect} class="list-group-item list-group-item-action">{t('list_select')}</a>}
-      </div> : <p>{t('label_missing')}</p>}
-    </div>
-  </>)
+  return <>
+  <Navi current="selected" />
+  <div class="container">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="#" onClick={handleBack}> {t('button_back')} </a></li>
+        {selected && <li class="breadcrumb-item active" aria-current="page">{selected.name}</li>}
+      </ol>
+    </nav>
+    {selected ? <div class="list-group">
+      <a href={urls.schedule} rel="external" class="list-group-item list-group-item-action">{t('list_schedule')}</a>
+      <a href={urls.announcement} rel="external" class="list-group-item list-group-item-action">{t('list_announcement')}</a>
+      <a href={urls.contact} rel="external" class="list-group-item list-group-item-action">{t('list_contact')}</a>
+      {selected.other && <a href={selected.other} rel="external" class="list-group-item list-group-item-action">{t('list_other')}</a>}
+      {selected.live && <a href={selected.live} rel="external" class="list-group-item list-group-item-action">{t('list_live')}</a>}
+      <a href={`https://www.openstreetmap.org/directions?from=&to=${selected.latitude}%2C${selected.longitude}`} rel="external" class="list-group-item list-group-item-action">{t('list_directions')}</a>
+      {!saved && <a href="#" onClick={handleSelect} class="list-group-item list-group-item-action">{t('list_select')}</a>}
+    </div> : <p>{t('label_missing')}</p>}
+  </div>
+</>
 }
 
 
 /* News */
-const News = (props) => {
+/*const News = (props) => {
   const { t } = useTranslation()
   
   return <>
@@ -1303,7 +1306,8 @@ const News = (props) => {
       </div>
     </div>
   </>
-}
+}*/
+
 
 /* List */
 const List = () => {
@@ -1354,36 +1358,37 @@ const List = () => {
   }
 
   return <>
-    <Navi current="list" />
-    <div class="container">
-      <form class="form-inline my-2">
-        <input class="form-control mr-sm-2" type="search" name="search" placeholder={t('label_search')} aria-label="Search" onKeyUp={handleFilter} />
-        <div class="form-check form-switch">
-          <input type="checkbox" class="form-check-input" id="switchLive" onChange={handleSwitchLive} />
-          <label class="form-check-label" for="switchLive">{t('label_live')}</label>
-        </div>
-        <div class="form-check form-switch">
-          <input type="checkbox" class="form-check-input" id="switchActive" onChange={handleSwitchActive} />
-          <label class="form-check-label" for="switchActive">{t('label_active')}</label>
-        </div>
-      </form>
-      <div class="list-group">
-        {filtered.map(i => <a onClick={() => handleClick(i.name)} className="list-group-item list-group-item-action d-flex justify-content-between align-tems-start"><div className="ms-2 me-auto">{i.name}</div><span class={`badge text-bg-${i.live ? 'danger' : 'primary'}`}>{i.incoming}</span></a>)}
+  <Navi current="list" />
+  <div class="container">
+    <form class="form-inline my-2">
+      <input class="form-control mr-sm-2" type="search" name="search" placeholder={t('label_search')} aria-label="Search" onKeyUp={handleFilter} />
+      <div class="form-check form-switch">
+        <input type="checkbox" class="form-check-input" id="switchLive" onChange={handleSwitchLive} />
+        <label class="form-check-label" for="switchLive">{t('label_live')}</label>
       </div>
+      <div class="form-check form-switch">
+        <input type="checkbox" class="form-check-input" id="switchActive" onChange={handleSwitchActive} />
+        <label class="form-check-label" for="switchActive">{t('label_active')}</label>
+      </div>
+    </form>
+    <div class="list-group">
+      {filtered.map(i => <a onClick={() => handleClick(i.name)} className="list-group-item list-group-item-action d-flex justify-content-between align-tems-start"><div className="ms-2 me-auto">{i.name}</div><span class={`badge text-bg-${i.live ? 'danger' : 'primary'}`}>{i.incoming}</span></a>)}
     </div>
-  </>
+  </div>
+</>
 }
 
 
 /* Navi */
 const Navi = (props) => {
+  const { current } = props
   const { t } = useTranslation()
   const navigate = useNavigate()
-  const { current } = props
 
   const selected = clients.clients.find(i => i.name === store.getState().value)
 
-  const handleInstall = () => {
+  const handleInstall = (event) => {
+    event.preventDefault()
     if (installPrompt) {
       installPrompt.prompt()
     }
@@ -1393,36 +1398,36 @@ const Navi = (props) => {
   }
 
   return <>
-    <div class="navbar navbar-expand-md">
-      <div class="container">
-        <div class="navbar-brand"><img src="https://raw.githubusercontent.com/wojtekl/google-play/refs/heads/main/myparish/MojaParafia/app/src/main/res/mipmap-mdpi/ic_launcher_round.webp" width="30px" height="30px" alt="" />{t('title_app')}</div>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#basic-navbar-nav" aria-controls="basic-navbar-nav" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="basic-navbar-nav">
-          <div className="navbar-nav me-auto">
-            {selected && 'selected' != current && <div class="nav-item"><a class="nav-link" href={`#/selected/${selected.name}`}>{t('nav_your')}</a></div>}
-            {'map' != current && <div class="nav-item"><a class="nav-link active" aria-current="page" href="#/">{t('nav_map')}</a></div>}
-            {'list' != current && <div class="nav-item"><a class="nav-link" href="#/list">{t('nav_list')}</a></div>}
-            <div class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">{t('nav_news')}</a>
-              <ul class="dropdown-menu">
-                <li><a href="https://m.niedziela.pl/" rel="external" class="dropdown-item">Niedziela</a></li>
-                <li><a href="https://www.gosc.pl/mobile" rel="external" class="dropdown-item">Gość Niedzielny</a></li>
-                <li><a href="https://rycerzniepokalanej.pl/" rel="external" class="dropdown-item">Rycerz Niepokalanej</a></li>
-                <li><a href="https://biblia.deon.pl/" rel="external" class="dropdown-item">Biblia Tysiąclecia</a></li>
-                <li><a href={t('url_privacy')} rel="privacy-policy" class="dropdown-item">{t('nav_privacy')}</a></li>
-                <li><a href="https://wlap.pl/" rel="author" class="dropdown-item">{t('nav_aboutus')}</a></li>
-                <li><a href="https://cennik.wlap.pl/" rel="external" class="dropdown-item">Historia cen produktów spożywczych w marketach</a></li>
-              </ul>
-            </div>
-            <div class="nav-item"><a class="nav-link" onClick={handleInstall}>{t('nav_install')}</a></div>
-            <div class="nav-item"><a class="nav-link" href="#/manage">{t('nav_manage')}</a></div>
+  <div class="navbar navbar-expand-md">
+    <div class="container">
+      <div class="navbar-brand"><img src="https://raw.githubusercontent.com/wojtekl/google-play/refs/heads/main/myparish/MojaParafia/app/src/main/res/mipmap-mdpi/ic_launcher_round.webp" width="30px" height="30px" alt="" />{t('title_app')}</div>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#basic-navbar-nav" aria-controls="basic-navbar-nav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="basic-navbar-nav">
+        <div className="navbar-nav me-auto">
+          {selected && 'selected' != current && <div class="nav-item"><a class="nav-link" href={`#/selected/${selected.name}`}>{t('nav_your')}</a></div>}
+          {'map' != current && <div class="nav-item"><a class="nav-link active" aria-current="page" href="#/">{t('nav_map')}</a></div>}
+          {'list' != current && <div class="nav-item"><a class="nav-link" href="#/list">{t('nav_list')}</a></div>}
+          <div class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">{t('nav_news')}</a>
+            <ul class="dropdown-menu">
+              <li><a href="https://m.niedziela.pl/" rel="external" class="dropdown-item">Niedziela</a></li>
+              <li><a href="https://www.gosc.pl/mobile" rel="external" class="dropdown-item">Gość Niedzielny</a></li>
+              <li><a href="https://rycerzniepokalanej.pl/" rel="external" class="dropdown-item">Rycerz Niepokalanej</a></li>
+              <li><a href="https://biblia.deon.pl/" rel="external" class="dropdown-item">Biblia Tysiąclecia</a></li>
+              <li><a href={t('url_privacy')} rel="privacy-policy" class="dropdown-item">{t('nav_privacy')}</a></li>
+              <li><a href="https://wlap.pl/" rel="author" class="dropdown-item">{t('nav_aboutus')}</a></li>
+              <li><a href="https://cennik.wlap.pl/" rel="external" class="dropdown-item">Historia cen produktów spożywczych w marketach</a></li>
+            </ul>
           </div>
+          <div class="nav-item"><a class="nav-link" href="#" onClick={handleInstall}>{t('nav_install')}</a></div>
+          <div class="nav-item"><a class="nav-link" href="#/manage">{t('nav_manage')}</a></div>
         </div>
       </div>
     </div>
-  </>
+  </div>
+</>
 }
 
 
@@ -1453,23 +1458,19 @@ const App = () => {
     L.control.layers(null, { [t('overlay_inactive')]: inactive, [t('overlay_active')]: active }).addTo(map)
 
     document.title = t('title_app')
-    document.getElementsByTagName('meta').description.content = t('meta_description')
-    document.getElementsByTagName('meta').keywords.content = t('meta_keywords')
   }, [])
 
   const mapDiv = createElement('div', { id: "map", style: { width: "100%", height: "100%" } })
 
   return <>
-    <Navi current="map" />
-    <div class="container" style={{ height: "calc(100vh - 59px)" }}>{mapDiv}</div>
-  </>
+  <Navi current="map" />
+  <div class="container" style={{ height: "calc(100vh - 59px)" }}>{mapDiv}</div>
+</>
 }
 
 
 const container = document.getElementById('root')
-
 const root = createRoot(container)
-
 root.render(<Provider store={store}>
   <Router>
     <Routes>
