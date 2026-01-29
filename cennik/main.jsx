@@ -89,8 +89,7 @@ const Modal = (props: { item: String, storeName: String, day: String }) => {
     })
   }
 
-  return 
-(<div class="modal" id="exampleModal" tabindex="-1">
+  return (<div class="modal" id="exampleModal" tabindex="-1">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -273,8 +272,7 @@ const Navi = (props) => {
     }
   }
 
-  return 
-(<div class="navbar navbar-expand-md">
+  return (<div class="navbar navbar-expand-md">
   <div class="container">
     <div class="navbar-brand"><img src="https://raw.githubusercontent.com/wojtekl/google-play/refs/heads/main/pricey/Pricey/app/src/main/res/mipmap-mdpi/ic_launcher_round.webp" width="30px" height="30px" alt="" />{t('title_app')}</div>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#basic-navbar-nav" aria-controls="basic-navbar-nav" aria-expanded="false" aria-label="Toggle navigation">
