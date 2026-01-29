@@ -16,6 +16,9 @@ const getUrlParam = (param) => getUrlParams().get(param) ?? undefined
 const getLang = () => (getUrlParam('lang') ?? navigator.language.substring(0, 2)).toLocaleLowerCase()
 const getLocale = () => (getUrlParam('lang') ?? navigator.language.substring(3)).toLocaleLowerCase()
 
+const columns_list = ['item', 'store', 'price', 'posted']
+const columns_details = ['store', 'price', 'posted', 'coupon', 'bulk']
+
 const state = localStorage.getItem('redux')
 const initialState = !!state ? JSON.parse(state) : {
   value: [],
@@ -156,8 +159,6 @@ const List = (props) => {
   const locale = getLocale()
   const storeName = getUrlParam('store')
   const day = getUrlParam('day')
-
-  const columns_details = ['store', 'price', 'posted', 'coupon', 'bulk']
 
   const handleClick = () => {
     const searchParams = new URLSearchParams()
@@ -353,5 +354,3 @@ const App = () => {
 const container = document.getElementById('root')
 const root = createRoot(container)
 root.render(<Provider store={store}><App /></Provider>)
-
-const columns_list = ['item', 'store', 'price', 'posted']
