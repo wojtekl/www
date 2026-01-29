@@ -16,9 +16,6 @@ const getUrlParam = (param) => getUrlParams().get(param) ?? undefined
 const getLang = () => (getUrlParam('lang') ?? navigator.language.substring(0, 2)).toLocaleLowerCase()
 const getLocale = () => (getUrlParam('lang') ?? navigator.language.substring(3)).toLocaleLowerCase()
 
-const columns_list = ['item', 'store', 'price', 'posted']
-const columns_details = ['store', 'price', 'posted', 'coupon', 'bulk']
-
 const state = localStorage.getItem('redux')
 const initialState = !!state ? JSON.parse(state) : {
   value: [],
@@ -159,7 +156,10 @@ const List = (props) => {
   const storeName = getUrlParam('store')
   const day = getUrlParam('day')
 
-  const handleClick = () => {
+  const columns_details = ['store', 'price', 'posted', 'coupon', 'bulk']
+
+  const handleClick = (event) => {
+    event.preventDefault()
     const searchParams = new URLSearchParams()
     searchParams.append('lang', lang)
     searchParams.append('name', select)
@@ -226,7 +226,7 @@ const List = (props) => {
                       return <td> {row[property]} </td>
                     }
                   })}
-                  {expandable && <td><a onClick={handleClick} disabled={!enabled}><span class={`badge text-bg-${enabled ? 'primary' : 'secondary'}`}> -{'>'} </span></a></td>}
+                  {expandable && <td><a href="#" onClick={handleClick} disabled={!enabled}><span class={`badge text-bg-${enabled ? 'primary' : 'secondary'}`}> -{'>'} </span></a></td>}
                 </tr>)
               })}
             </tbody>
@@ -244,19 +244,22 @@ const Navi = (props) => {
   const { isNew, lang, setLang } = props
   const { t } = useTranslation()
   
-  const handleLang = () => {
+  const handleLang = (event) => {
+    event.preventDefaul()
     const newLang = 'pl' === lang ? 'en' : 'pl'
     store.dispatch({ type: 'lang/set', payload: newLang })
     setLang(newLang)
   }
 
-  const handleCopy = () => {
+  const handleCopy = (event) => {
+    event.preventDefault()
     const searchParams = new URLSearchParams()
     searchParams.append('selected', store.getState().value.join(','))
     window.location.href = `/?${searchParams.toString()}`
   }
 
-  const handleInstall = () => {
+  const handleInstall = (event) => {
+    event.preventDefault()
     if (installPrompt) {
       installPrompt.prompt()
     }
@@ -267,7 +270,7 @@ const Navi = (props) => {
 
   const HomeLink = () => {
     if(!getUrlParams().has('selected')) {
-      return <a class="nav-link active" aria-current="page" href="#/" onClick={handleCopy}>{t('nav_yourlist')}</a>
+      return <a class="nav-link active" aria-current="page" href="#" onClick={handleCopy}>{t('nav_yourlist')}</a>
     } else {
       return <a class="nav-link active" aria-current="page" href="/" rel="bookmark">{t('nav_home')}</a>
     }
@@ -352,3 +355,5 @@ const App = () => {
 const container = document.getElementById('root')
 const root = createRoot(container)
 root.render(<Provider store={store}><App /></Provider>)
+
+const columns_list = ['item', 'store', 'price', 'posted']
