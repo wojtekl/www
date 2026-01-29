@@ -242,6 +242,7 @@ const List = (props) => {
 /* Navi */
 const Navi = (props) => {
   const { isNew, lang, setLang } = props
+  const { t } = useTranslation()
   
   const handleLang = () => {
     const newLang = 'pl' === lang ? 'en' : 'pl'
