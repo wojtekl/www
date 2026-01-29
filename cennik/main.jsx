@@ -11,6 +11,11 @@ if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('/sw.js')
 }
 
+let installPrompt = null;
+window.addEventListener("beforeinstallprompt", (event) => {
+  installPrompt = event;
+});
+
 const getUrlParams = () => new URLSearchParams(new URL(window.location).search)
 const getUrlParam = (param) => getUrlParams().get(param) ?? undefined
 const getLang = () => (getUrlParam('lang') ?? navigator.language.substring(0, 2)).toLocaleLowerCase()
@@ -245,7 +250,7 @@ const Navi = (props) => {
   const { t } = useTranslation()
   
   const handleLang = (event) => {
-    event.preventDefaul()
+    event.preventDefault()
     const newLang = 'pl' === lang ? 'en' : 'pl'
     store.dispatch({ type: 'lang/set', payload: newLang })
     setLang(newLang)
@@ -334,7 +339,10 @@ const App = () => {
 
   const handleReplace = (source) => setSource(source)
 
-  const handleBack = () => setSource(<App />)
+  const handleBack = (event) => {
+    event.preventDefault()
+    setSource(<App />)
+  }
 
   const handleGotit = () => {
     setWarning(false)
