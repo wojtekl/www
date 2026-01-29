@@ -40,7 +40,7 @@ const selectedReducer = (state = initialState, action) => {
   }
 }
 
-const lang = getUrlParam('lang').toLocaleLowerCase() ?? initialState.lang
+const lang = (getUrlParam('lang') ?? initialState.lang).toLocaleLowerCase()
 i18n.use(initReactI18next).init({
   resources: resources,
   lng: lang,
