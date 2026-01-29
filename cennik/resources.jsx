@@ -1,4 +1,4 @@
-const resources = {
+var resources = {
   en: {
     translation: {
       "label_loading": "Loading...",
