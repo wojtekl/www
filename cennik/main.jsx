@@ -18,14 +18,12 @@ window.addEventListener("beforeinstallprompt", (event) => {
 
 const getUrlParams = () => new URLSearchParams(new URL(window.location).search)
 const getUrlParam = (param) => getUrlParams().get(param) ?? undefined
-const getLang = () => (getUrlParam('lang') ?? navigator.language.substring(0, 2)).toLocaleLowerCase()
-const getLocale = () => (getUrlParam('lang') ?? navigator.language.substring(3)).toLocaleLowerCase()
 
 const state = localStorage.getItem('redux')
 const initialState = !!state ? JSON.parse(state) : {
   value: [],
   warning: true,
-  lang: getLang()
+  lang: (getUrlParam('lang') ?? navigator.language.substring(0, 2)).toLocaleLowerCase()
 }
 const selectedReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -42,7 +40,7 @@ const selectedReducer = (state = initialState, action) => {
   }
 }
 
-const lang = getLang() ?? initialState.lang
+const lang = getUrlParam('lang').toLocaleLowerCase() ?? initialState.lang
 i18n.use(initReactI18next).init({
   resources: resources,
   lng: lang,
@@ -157,7 +155,7 @@ const List = (props) => {
   const [show, setShow] = useState(false)
   const [lang, setLang] = useState(store.getState().lang)
 
-  const locale = getLocale()
+  const locale = (navigator.language.substring(3) ?? getUrlParam('lang')).toLocaleLowerCase()
   const storeName = getUrlParam('store')
   const day = getUrlParam('day')
 
