@@ -194,7 +194,7 @@ const List = (props) => {
     <div class="row mt-3">
       {!!selected && <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="javascript:;" onClick={back}> {t('button_back')} </a></li>
+          <li class="breadcrumb-item"><a href="#" onClick={back}> {t('button_back')} </a></li>
           {selected && <li class="breadcrumb-item active" aria-current="page"> {selected} </li>}
         </ol>
       </nav>}
