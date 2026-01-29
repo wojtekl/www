@@ -249,9 +249,8 @@ const Navi = (props) => {
   
   const handleLang = (event) => {
     event.preventDefault()
-    const newLang = 'pl' === lang ? 'en' : 'pl'
-    store.dispatch({ type: 'lang/set', payload: newLang })
-    setLang(newLang)
+    store.dispatch({ type: 'lang/set', payload: 'pl' === lang ? 'en' : 'pl' })
+    window.location.href = '/'
   }
 
   const handleCopy = (event) => {
