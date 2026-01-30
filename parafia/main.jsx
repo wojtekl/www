@@ -18,8 +18,6 @@ window.addEventListener("beforeinstallprompt", (event) => {
   installPrompt = event;
 });
 
-const getUrlParams = () => new URLSearchParams((new URL(window.location)).search)
-
 const state = localStorage.getItem('redux')
 const initialState = !!state ? JSON.parse(state) : {
   value: null,
@@ -55,14 +53,6 @@ i18n.use(initReactI18next).init({
   }
 })
 store.dispatch({ type: 'lang/set', payload: lang })
-
-
-/* NumberFormatter */
-const NumberFormatter = (props: { value: Number, locale: String }) => {
-  const { value, locale } = props
-  const format = { maximumFractionDigits: 2, minimumFractionDigits: 2 }
-  return value.toLocaleString(locale, format)
-}
 
 
 /* AccordionItem */
@@ -271,7 +261,7 @@ const Visit = () => {
             <td>{e.number}</td>
             <td>{e.city}</td>
             <td><NumberFormatter value={e.donation} locale={locale} /></td>
-            <td><DateFormatter timestamp={e.created} format="date" /></td>
+            <td><DateFormatter timestamp={e.created} locale={locale} format="date" /></td>
             <td><button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#confirmModal" onClick={() => { setSelected(e['id']) }}><i class="bi bi-trash"></i></button></td>
           </tr>
           )
@@ -342,7 +332,7 @@ const Weeks = () => {
         <tbody>{weeks.map((w, i) => 
         <tr>
             <td>{i + 1}</td>
-            <td><DateFormatter timestamp={w.start} format="date" /></td>
+            <td><DateFormatter timestamp={w.start} locale={locale} format="date" /></td>
             <td>{w.month}</td>
             <td><button type="button" class="btn btn-sm btn-outline-secondary" onClick={() => { setSelectedWeek(w.start) }}><i class="bi bi-pencil-square"></i></button></td>
           </tr>
@@ -448,7 +438,7 @@ const CurrentWeek = (props) => {
           {currentWeek.map((e, i) => {
             return <tr>
               <td>{i + 1}</td>
-              <td><DateFormatter timestamp={e['scheduled']} /></td>
+              <td><DateFormatter timestamp={e['scheduled']} locale={locale} /></td>
               <td>{e['description']}</td>
               <td><NumberFormatter value={e['value']} locale={locale} /></td>
               <td>{e['notes']}</td>
@@ -629,19 +619,6 @@ const Settings = () => {
       </fieldset>
     </form>
   </>
-}
-
-
-/* DateFormatter */
-const DateFormatter = (props) => {
-  const { timestamp, format } = props
-  const { t } = useTranslation()
-  const locale = new URLSearchParams(new URL(window.location).search).get('lang') ?? navigator.language.substring(3).toLocaleLowerCase()
-  const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone
-  const formatDefault = { weekday: "short", month: "short", day: "numeric", hour: "numeric", minute: "numeric", timezone: timezone }
-  const formatDate = { weekday: "short", month: "short", day: "numeric", timezone: timezone }
-  const formatTime = { hour: "numeric", minute: "numeric", timezone: timezone }
-  return !timestamp ? t('label_nodate') : new Date(timestamp).toLocaleString(locale, 'time' === format ? formatTime : 'date' === format ? formatDate : formatDefault)
 }
 
 
@@ -1151,7 +1128,7 @@ const Reader = () => {
                   {departure.map((e, i) => 
                     <tr>
                       <td>{i + 1}</td>
-                      <td><DateFormatter timestamp={e.scheduled} /></td>
+                      <td><DateFormatter timestamp={e.scheduled} locale={locale} /></td>
                       <td>{e.description}</td>
                     </tr>
                   )}
@@ -1184,7 +1161,7 @@ const Reader = () => {
                       <td>{e.number}</td>
                       <td>{e.city}</td>
                       <td><NumberFormatter value={e.donation} locale={locale} /></td>
-                      <td><DateFormatter timestamp={e.created} format="date" /></td>
+                      <td><DateFormatter timestamp={e.created} locale={locale} format="date" /></td>
                     </tr>
                   )}
                 </tbody>
