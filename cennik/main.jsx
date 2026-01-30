@@ -129,14 +129,14 @@ const List = (props) => {
   const { list, replace, back, selected, properties, expandable } = props
   const { t } = useTranslation()
   
-  const [select, setSelect] = useState()
   const [filtered, setFiltered] = useState(list)
+  const [select, setSelect] = useState()
 
   const locale = (navigator.language.substring(3) ?? getUrlParam('lang')).toLocaleLowerCase()
+  const saved = store.getState().value
+  const detailsPage = !!selected
   const storeName = getUrlParam('store')
   const day = getUrlParam('day')
-
-  const isSelected = (id) => store.getState().value.includes(id)
 
   const handleClick = (event) => {
     event.preventDefault()
@@ -160,23 +160,23 @@ const List = (props) => {
   }
 
   const handleChange = (event) => {
-    const selectedItem = !!selected ? select : list.find(i => i.item === select).id
+    const selectedItem = detailsPage ? select : list.find(i => i.item === select).id
     store.dispatch({ type: event.target.checked ? 'selected/added' : 'selected/removed', payload: selectedItem })
   }
 
   return (<>
-  <Navi isNew={!selected} />
+  <Navi isNew={!detailsPage} />
   <div class="container">
-    {!selected && <div class="row mt-3">
+    {!detailsPage && <div class="row mt-3">
       <form class="form-inline my-2" role="search" onSubmit={handleSearch}>
         <input class="form-control mr-sm-2" type="search" name="search" placeholder={t('label_search')} aria-label="Search" onKeyUp={handleFilter} maxlength="25" />
       </form>
     </div>}
     <div class="row mt-3">
-      {!!selected && <nav aria-label="breadcrumb">
+      {detailsPage && <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="#" onClick={back}> {t('button_back')} </a></li>
-          {selected && <li class="breadcrumb-item active" aria-current="page"> {selected} </li>}
+          {detailsPage && <li class="breadcrumb-item active" aria-current="page"> {selected} </li>}
         </ol>
       </nav>}
       <div class="table-responsive small">
@@ -189,10 +189,10 @@ const List = (props) => {
             </tr>
           </thead>
           <tbody>
-            {(!selected ? filtered : list).map(row => {
+            {(!detailsPage ? filtered : list).map(row => {
               const enabled = select === row['item']
-              return (<tr onMouseOver={() => setSelect(!selected ? row[properties[0]] : row['id'])}>
-                <td><input type="checkbox" class="form-check-input" name="selected" checked={() => isSelected(row['id'])} onChange={handleChange} aria-label={t('label_select')} /></td>
+              return (<tr onMouseOver={() => setSelect(!detailsPage ? row['item'] : row['id'])}>
+                <td><input type="checkbox" class="form-check-input" name="selected" checked={() => saved.includes(row['id'])} onChange={handleChange} aria-label={t('label_select')} /></td>
                   {properties.map(property => {
                     if ('posted' === property) {
                       return <td><DateFormatter timestamp={row[property]} locale={locale} /></td>
