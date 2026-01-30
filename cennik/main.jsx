@@ -126,16 +126,17 @@ const Modal = (props: { item: String, storeName: String, day: String }) => {
 
 /* List */
 const List = (props) => {
-  const { plist, replace, back, selected, properties, expandable } = props
+  const { list, replace, back, selected, properties, expandable } = props
   const { t } = useTranslation()
   
-  //const [list, setList] = useState(plist)
   const [select, setSelect] = useState()
-  const [filtered, setFiltered] = useState(plist)
+  const [filtered, setFiltered] = useState(list)
 
   const locale = (navigator.language.substring(3) ?? getUrlParam('lang')).toLocaleLowerCase()
   const storeName = getUrlParam('store')
   const day = getUrlParam('day')
+
+  const isSelected = (id) => store.getState().value.includes(id)
 
   const handleClick = (event) => {
     event.preventDefault()
@@ -144,7 +145,7 @@ const List = (props) => {
     searchParams.append('name', select)
     axios.get(`item?${searchParams.toString()}`).then((response) => {
       const columns_details = ['store', 'price', 'posted', 'coupon', 'bulk']
-      replace(<List properties={columns_details} plist={response.data} replace={replace} back={back} selected={select} />)
+      replace(<List properties={columns_details} list={response.data} replace={replace} back={back} selected={select} />)
     })
   }
 
@@ -155,11 +156,11 @@ const List = (props) => {
 
   const handleFilter = (event) => {
     const query = event.target.value.trim().toLowerCase()
-    setFiltered(3 > query.length ? plist : plist.filter(i => i.item.toLowerCase().includes(query))) // 2
+    setFiltered(3 > query.length ? list : list.filter(i => i.item.toLowerCase().includes(query)))
   }
 
   const handleChange = (event) => {
-    const selectedItem = !!selected ? select : plist.find(i => i.item === select).id
+    const selectedItem = !!selected ? select : list.find(i => i.item === select).id
     store.dispatch({ type: event.target.checked ? 'selected/added' : 'selected/removed', payload: selectedItem })
   }
 
@@ -188,10 +189,10 @@ const List = (props) => {
             </tr>
           </thead>
           <tbody>
-            {(!selected ? filtered : plist).map(row => {
+            {(!selected ? filtered : list).map(row => {
               const enabled = select === row['item']
               return (<tr onMouseOver={() => setSelect(!selected ? row[properties[0]] : row['id'])}>
-                <td><input type="checkbox" class="form-check-input" name="selected" checked={store.getState().value.includes(row['id'])} onChange={handleChange} aria-label="Select" /></td>
+                <td><input type="checkbox" class="form-check-input" name="selected" checked={() => isSelected(row['id'])} onChange={handleChange} aria-label={t('label_select')} /></td>
                   {properties.map(property => {
                     if ('posted' === property) {
                       return <td><DateFormatter timestamp={row[property]} locale={locale} /></td>
@@ -305,7 +306,7 @@ const App = () => {
       searchParams.append('selected', selected)
     }
     axios.get(`items?${searchParams.toString()}`).then((response) => {
-      handleReplace(<List properties={columns_list} plist={response.data} expandable={true} replace={handleReplace} back={handleBack} />)
+      handleReplace(<List properties={columns_list} list={response.data} expandable={true} replace={handleReplace} back={handleBack} />)
     })
 
     document.title = t('title_app')
