@@ -162,6 +162,7 @@ const List = (props) => {
   const handleChange = (event) => {
     const selectedItem = detailsPage ? select : list.find(i => i.item === select).id
     store.dispatch({ type: event.target.checked ? 'selected/added' : 'selected/removed', payload: selectedItem })
+    setSaved(store.getState().value)
   }
 
   return (<>
