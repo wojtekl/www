@@ -141,10 +141,10 @@ const List = (props) => {
   const day = getUrlParam('day')
 
   useEffect(() => {
-    return () => {
+    //return () => {
       store.dispatch({ type: 'selected/set', payload: saved })
-    }
-  }, [])
+    //}
+  }, [saved])
   
   const handleClick = (event) => {
     event.preventDefault()
