@@ -28,6 +28,8 @@ const selectedReducer = (state = initialState, action) => {
       return { ...state, value: state.value.concat([action.payload]) }
     case 'selected/removed':
       return { ...state, value: state.value.filter(i => i != action.payload) }
+    case 'selected/set':
+      return { ...state, value: action.payload }
     case 'warning/set':
       return { ...state, warning: false }
     case 'lang/set':
@@ -137,6 +139,12 @@ const List = (props) => {
   const detailsPage = !!selected
   const storeName = getUrlParam('store')
   const day = getUrlParam('day')
+
+  useEffect(() => {
+    return () => {
+      store.dispatch({ type: 'selected/set', payload: saved })
+    }
+  }, [])
   
   const handleClick = (event) => {
     event.preventDefault()
@@ -162,7 +170,7 @@ const List = (props) => {
   const handleChange = (event) => {
     const selectedItem = detailsPage ? select : list.find(i => i.item === select).id
     setSaved(event.target.checked ? saved.concat([selectedItem]) : saved.filter(i => i != selectedItem))
-    store.dispatch({ type: event.target.checked ? 'selected/added' : 'selected/removed', payload: selectedItem })
+    //store.dispatch({ type: event.target.checked ? 'selected/added' : 'selected/removed', payload: selectedItem })
   }
 
   return (<>
