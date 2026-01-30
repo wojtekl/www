@@ -191,7 +191,7 @@ const List = (props) => {
             {(!detailsPage ? filtered : list).map(row => {
               const enabled = select === row['item']
               return (<tr onMouseOver={() => setSelect(!detailsPage ? row['item'] : row['id'])}>
-                <td><input type="checkbox" class="form-check-input" name="selected" checked={() => store.getState().value.includes(row['id'])} onChange={handleChange} aria-label={t('label_select')} /></td>
+                <td><input type="checkbox" class="form-check-input" name="selected" checked={store.getState().value.includes(row['id'])} onChange={handleChange} aria-label={t('label_select')} /></td>
                   {properties.map(property => {
                     if ('posted' === property) {
                       return <td><DateFormatter timestamp={row[property]} locale={locale} /></td>
