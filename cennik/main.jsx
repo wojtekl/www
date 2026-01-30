@@ -185,7 +185,7 @@ const List = (props) => {
             <tr>
               <th> X </th>
               { properties.map(property => <th>{String(t(`label_${property}`)).toUpperCase()}</th>) }
-              { expandable && <th> {t('label_more').toUpperCase()} </th> }
+              { !detailsPage && <th> {t('label_more').toUpperCase()} </th> }
             </tr>
           </thead>
           <tbody>
