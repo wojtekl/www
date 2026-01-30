@@ -126,7 +126,7 @@ const Modal = (props: { item: String, storeName: String, day: String }) => {
 
 /* List */
 const List = (props) => {
-  const { list, replace, back, selected, properties, expandable } = props
+  const { list, replace, back, selected, properties } = props
   const { t } = useTranslation()
   
   const [filtered, setFiltered] = useState(list)
@@ -306,7 +306,7 @@ const App = () => {
       searchParams.append('selected', selected)
     }
     axios.get(`items?${searchParams.toString()}`).then((response) => {
-      handleReplace(<List properties={columns_list} list={response.data} expandable={true} replace={handleReplace} back={handleBack} />)
+      handleReplace(<List properties={columns_list} list={response.data} replace={handleReplace} back={handleBack} />)
     })
 
     document.title = t('title_app')
