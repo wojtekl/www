@@ -16,9 +16,6 @@ window.addEventListener("beforeinstallprompt", (event) => {
   installPrompt = event;
 });
 
-const getUrlParams = () => new URLSearchParams(new URL(window.location).search)
-const getUrlParam = (param) => getUrlParams().get(param) ?? undefined
-
 const state = localStorage.getItem('redux')
 const initialState = !!state ? JSON.parse(state) : {
   value: [],
@@ -53,23 +50,6 @@ i18n.use(initReactI18next).init({
 const store = createStore(selectedReducer)
 store.subscribe(() => { localStorage.setItem('redux', JSON.stringify(store.getState())) })
 store.dispatch({ type: 'lang/set', payload: lang })
-
-
-/* DateFormatter */
-const DateFormatter = (props: { timestamp: Number, locale: String }) => {
-  const { timestamp, locale } = props
-  const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone
-  const format = { month: "short", day: "numeric", timezone: timezone }
-  return new Date(timestamp).toLocaleString(locale, format)
-}
-
-
-/* NumberFormatter */
-const NumberFormatter = (props: { value: Number, locale: String }) => {
-  const { value, locale } = props
-  const format = { maximumFractionDigits: 2, minimumFractionDigits: 2 }
-  return value.toLocaleString(locale, format)
-}
 
 
 /* Modal */
@@ -149,24 +129,21 @@ const List = (props) => {
   const { plist, replace, back, selected, properties, expandable } = props
   const { t } = useTranslation()
   
-  const [list, setList] = useState(plist)
+  //const [list, setList] = useState(plist)
   const [select, setSelect] = useState()
   const [filtered, setFiltered] = useState(plist)
-  const [show, setShow] = useState(false)
-  const [lang, setLang] = useState(store.getState().lang)
 
   const locale = (navigator.language.substring(3) ?? getUrlParam('lang')).toLocaleLowerCase()
   const storeName = getUrlParam('store')
   const day = getUrlParam('day')
 
-  const columns_details = ['store', 'price', 'posted', 'coupon', 'bulk']
-
   const handleClick = (event) => {
     event.preventDefault()
     const searchParams = new URLSearchParams()
-    searchParams.append('lang', lang)
+    searchParams.append('lang', store.getState().lang)
     searchParams.append('name', select)
     axios.get(`item?${searchParams.toString()}`).then((response) => {
+      const columns_details = ['store', 'price', 'posted', 'coupon', 'bulk']
       replace(<List properties={columns_details} plist={response.data} replace={replace} back={back} selected={select} />)
     })
   }
@@ -178,7 +155,7 @@ const List = (props) => {
 
   const handleFilter = (event) => {
     const query = event.target.value.trim().toLowerCase()
-    setFiltered(3 > query.length ? list : list.filter(i => i.item.toLowerCase().includes(query)))
+    setFiltered(3 > query.length ? plist : plist.filter(i => i.item.toLowerCase().includes(query))) // 2
   }
 
   const handleChange = (event) => {
@@ -187,7 +164,7 @@ const List = (props) => {
   }
 
   return (<>
-  <Navi isNew={!selected} lang={lang} setLang={setLang} />
+  <Navi isNew={!selected} />
   <div class="container">
     {!selected && <div class="row mt-3">
       <form class="form-inline my-2" role="search" onSubmit={handleSearch}>
@@ -244,12 +221,14 @@ const List = (props) => {
 
 /* Navi */
 const Navi = (props) => {
-  const { isNew, lang, setLang } = props
+  const { isNew } = props
   const { t } = useTranslation()
+
+  const switchLang = () => 'pl' === store.getState().lang ? 'en' : 'pl'
   
   const handleLang = (event) => {
     event.preventDefault()
-    store.dispatch({ type: 'lang/set', payload: 'pl' === lang ? 'en' : 'pl' })
+    store.dispatch({ type: 'lang/set', payload: switchLang() })
     window.location.href = '/'
   }
 
@@ -298,7 +277,7 @@ const Navi = (props) => {
           </ul>
         </div>
         <div class="nav-item"><a class="nav-link" onClick={handleInstall}>{t('nav_install')}</a></div>
-        <div class="nav-item"><a class="nav-link" href="#" onClick={handleLang}>{'pl' === lang ? 'en' : 'pl'}</a></div>
+        <div class="nav-item"><a class="nav-link" href="#" onClick={handleLang}>{switchLang()}</a></div>
       </div>
     </div>
   </div>
