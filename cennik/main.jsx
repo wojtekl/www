@@ -161,8 +161,8 @@ const List = (props) => {
 
   const handleChange = (event) => {
     const selectedItem = detailsPage ? select : list.find(i => i.item === select).id
+    setSaved(saved.concat([selectedItem]))
     store.dispatch({ type: event.target.checked ? 'selected/added' : 'selected/removed', payload: selectedItem })
-    setSaved(store.getState().value)
   }
 
   return (<>
@@ -193,7 +193,7 @@ const List = (props) => {
             {(!detailsPage ? filtered : list).map(row => {
               const enabled = select === row['item']
               return (<tr onMouseOver={() => setSelect(!detailsPage ? row['item'] : row['id'])}>
-                <td><input type="checkbox" class="form-check-input" name="selected" checked={saved.includes(row['id'])} onChange={handleChange} aria-label={t('label_select')} /></td>
+                <td><input type="checkbox" class="form-check-input" name="selected" checked={() => saved.includes(row['id'])} onChange={handleChange} aria-label={t('label_select')} /></td>
                   {properties.map(property => {
                     if ('posted' === property) {
                       return <td><DateFormatter timestamp={row[property]} locale={locale} /></td>
