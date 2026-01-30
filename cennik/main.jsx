@@ -175,7 +175,7 @@ const List = (props) => {
       {detailsPage && <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="#" onClick={back}> {t('button_back')} </a></li>
-          {detailsPage && <li class="breadcrumb-item active" aria-current="page"> {selected} </li>}
+          <li class="breadcrumb-item active" aria-current="page"> {selected} </li>
         </ol>
       </nav>}
       <div class="table-responsive small">
