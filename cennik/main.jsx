@@ -206,7 +206,7 @@ const List = (props) => {
                       return <td> {row[property]} </td>
                     }
                   })}
-                  {expandable && <td><a href="#" onClick={handleClick} disabled={!enabled}><span class={`badge text-bg-${enabled ? 'primary' : 'secondary'}`}> -{'>'} </span></a></td>}
+                  {!detailsPage && <td><a href="#" onClick={handleClick} disabled={!enabled}><span class={`badge text-bg-${enabled ? 'primary' : 'secondary'}`}> -{'>'} </span></a></td>}
                 </tr>)
               })}
             </tbody>
