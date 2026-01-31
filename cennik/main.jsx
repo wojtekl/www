@@ -143,8 +143,6 @@ const List = (props) => {
   useEffect(() => {
     store.dispatch({ type: 'selected/set', payload: saved })
   }, [saved])
-
-  const handleOver = (event) => setSelect(event.target.getAttribute('data-id'))
   
   const handleClick = (event) => {
     event.preventDefault()
@@ -168,6 +166,7 @@ const List = (props) => {
   }
 
   const handleChange = (event) => {
+    console.debug(detailsPage, select, list.find(i => i.item === select), list)
     const selectedItem = detailsPage ? select : list.find(i => i.item === select).id
     setSaved(event.target.checked ? saved.concat([selectedItem]) : saved.filter(i => i != selectedItem))
   }
@@ -199,7 +198,7 @@ const List = (props) => {
           <tbody>
             {(!detailsPage ? filtered : list).map(row => {
               const enabled = select === row['item']
-              return (<tr onMouseOver={handleOver} data-id={!detailsPage ? row['item'] : row['id']}>
+              return (<tr onMouseOver={(event) => setSelect(event.target.getAttribute('data-id'))} data-id={!detailsPage ? row['item'] : row['id']}>
                 <td><input type="checkbox" class="form-check-input" name="selected" checked={saved.includes(row['id'])} onChange={handleChange} data-id={row['id']} aria-label={t('label_select')} /></td>
                   {properties.map(property => {
                     if ('posted' === property) {
