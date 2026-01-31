@@ -145,7 +145,7 @@ const List = (props) => {
   }, [saved])
 
   const handleOver = (event) => {
-    console.debug(event.target.getAttribute('data-nazwa'))
+    console.debug(event.target, event.target.getAttribute('data-nazwa'))
     setSelect(Number(event.target.getAttribute('data-nazwa')))
   }
   
