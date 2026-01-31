@@ -144,7 +144,10 @@ const List = (props) => {
     store.dispatch({ type: 'selected/set', payload: saved })
   }, [saved])
 
-  const handleOver = (event) => setSelect(event.target.parent.getAttribute('data-id'))
+  const handleOver = (event) => {
+    console.debug(event)
+    setSelect(event.target.getAttribute('data-id'))
+  }
   
   const handleClick = (event) => {
     event.preventDefault()
