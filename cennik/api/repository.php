@@ -25,6 +25,7 @@ class Repository {
       return $query -> fetchAll();
     }
     catch(PDOException $exception) {
+        //echo $exception -> getMessage();
       return $exception -> getMessage();
     }
   }
@@ -49,8 +50,15 @@ class Repository {
   }
 
   public function getSelected($selected) {
-    $statement = $this -> sql -> prepare("SELECT `ID`, `PRODUKT`, `SKLEP`, `CENA`, `DODANO`, `COUPON`, `BULK`, (SELECT MIN(`CENA`) FROM `CENA` WHERE `PRODUKT` = `c`.`PRODUKT`) AS `LOWEST` FROM `CENA` `c` WHERE `ID` IN (:selected) ORDER BY `SKLEP`, `PRODUKT`");
-    $statement -> bindParam(":selected", $selected);
+    $inValues = explode(',', $selected);
+    $inParams = ":par1";
+    for($i = 1; $i < count($inValues); ++$i) {
+        $inParams .= ", :par" . ($i + 1);
+    }
+    $statement = $this -> sql -> prepare("SELECT `ID`, `PRODUKT`, `SKLEP`, `CENA`, `DODANO`, `COUPON`, `BULK`, (SELECT MIN(`CENA`) FROM `CENA` WHERE `PRODUKT` = `c`.`PRODUKT`) AS `LOWEST` FROM `CENA` `c` WHERE `ID` IN ($inParams) ORDER BY `SKLEP`, `PRODUKT`");
+    for($i = 0; $i < count($inValues); ++$i) {
+      $statement -> bindParam(":par" . ($i + 1), $inValues[$i]);
+    }
     return $this -> execute($statement);
   }
   
