@@ -24,7 +24,7 @@ const resources = {
       "button_back": "Back",
       "overlay_active": "Active",
       "overlay_inactive": "Inactive",
-      "url_privacy": "https://raw.githubusercontent.com/wojtekl/google-play/refs/heads/main/myparish/data/privacy-policy-en",
+      "url_privacy": "https://raw.githubusercontent.com/wojtekl/www/refs/heads/main/seo/privacy-policy-en",
       "label_missing": "Parish data missing"
     }
   },
@@ -53,7 +53,7 @@ const resources = {
       "button_back": "Powrót",
       "overlay_active": "Nadchodzące msze",
       "overlay_inactive": "Pozostałe",
-      "url_privacy": "https://raw.githubusercontent.com/wojtekl/google-play/refs/heads/main/myparish/data/privacy-policy-pl",
+      "url_privacy": "https://raw.githubusercontent.com/wojtekl/www/refs/heads/main/seo/privacy-policy-pl",
       "label_missing": "Brak danych parafii",
       "label_monday": "Poniedziałek",
       "label_tuesday": "Wtorek",
