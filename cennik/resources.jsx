@@ -31,10 +31,7 @@ const resources = {
       "button_cancel": "Cancel",
       "button_save": "Save",
       "url_privacy": "https://raw.githubusercontent.com/wojtekl/google-play/refs/heads/main/pricey/data/privacy-policy-en",
-      "url_get": "https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png",
-      "meta_description": "we compare grocery prices - see how much it was a week, month or even a year ago - get on your iPhone/Android",
-      "meta_keywords": "shops, deals, price, app, market, iphone, apple, android, samsung, application, pwa",
-      "message_warning": "Data seen in this app is for information purposes only and is not meant to be used in trade. Join us on tiktok.com/@czarna.marchewka and discover all the features. We use cookies for personalisation, read our Privacy Policy.",
+      "message_warning": "Data seen in this app is for information purposes only and is not meant to be used in trade. We use cookies for personalisation, read our Privacy Policy.",
       "button_gotit": "Got it"
     }
   },
@@ -70,10 +67,7 @@ const resources = {
       "button_cancel": "Zaniechaj",
       "button_save": "Zachowaj",
       "url_privacy": "https://raw.githubusercontent.com/wojtekl/google-play/refs/heads/main/pricey/data/privacy-policy-pl",
-      "url_get": "https://play.google.com/intl/en_us/badges/static/images/badges/pl_badge_web_generic.png",
-      "meta_description": "porównujemy ceny pomiędzy sklepami - zobacz ile produkt kosztował tydzień, miesiąc, a nawet rok temu - zainstaluj na iPhone/Android",
-      "meta_keywords": "zakupy, promocje, porównaj, cena, aplikacja, sklep, market, tydzień, miesiąc, rok, iphone, apple, android, samsung, apka, pwa",
-      "message_warning": "Dane prezentowane w aplikacji mają charakter wyłącznie informacyjny. Dołącz do nas na tiktok.com/@czarna.marchewka aby odkryć wszystkie funkcje. Pliki cookies są wykorzystywane do personalizacji, a szczegóły znajdziesz w Polityce Prywatności.",
+      "message_warning": "Dane prezentowane w aplikacji mają charakter wyłącznie informacyjny. Pliki cookies są wykorzystywane do personalizacji, a szczegóły znajdziesz w Polityce Prywatności.",
       "button_gotit": "Wchodzę"
     }
   }
