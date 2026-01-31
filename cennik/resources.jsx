@@ -30,7 +30,7 @@ const resources = {
       "help_bulk": "Price in bulk",
       "button_cancel": "Cancel",
       "button_save": "Save",
-      "url_privacy": "https://raw.githubusercontent.com/wojtekl/google-play/refs/heads/main/pricey/data/privacy-policy-en",
+      "url_privacy": "https://raw.githubusercontent.com/wojtekl/www/refs/heads/main/seo/privacy-policy-en",
       "message_warning": "Data seen in this app is for information purposes only and is not meant to be used in trade. We use cookies for personalisation, read our Privacy Policy.",
       "button_gotit": "Got it"
     }
@@ -66,7 +66,7 @@ const resources = {
       "help_bulk": "Przy zakupie większej ilości",
       "button_cancel": "Zaniechaj",
       "button_save": "Zachowaj",
-      "url_privacy": "https://raw.githubusercontent.com/wojtekl/google-play/refs/heads/main/pricey/data/privacy-policy-pl",
+      "url_privacy": "https://raw.githubusercontent.com/wojtekl/www/refs/heads/main/seo/privacy-policy-pl",
       "message_warning": "Dane prezentowane w aplikacji mają charakter wyłącznie informacyjny. Pliki cookies są wykorzystywane do personalizacji, a szczegóły znajdziesz w Polityce Prywatności.",
       "button_gotit": "Wchodzę"
     }
