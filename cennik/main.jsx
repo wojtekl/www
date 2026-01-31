@@ -63,7 +63,7 @@ const Modal = (props: { item: String, storeName: String, day: String }) => {
     event.preventDefault()
     
     const form = document.querySelector('#form_item')
-    axios.post('item', form, { headers: { 'Content-Type': 'multipart/form-data' } }).then((response) => {
+    axios.post('api/item', form, { headers: { 'Content-Type': 'multipart/form-data' } }).then((response) => {
       if (200 === response.status) {
         form.reset()
         document.querySelector('button.btn-close').click()
@@ -151,7 +151,7 @@ const List = (props) => {
     const searchParams = new URLSearchParams()
     searchParams.append('lang', store.getState().lang)
     searchParams.append('name', select)
-    axios.get(`item?${searchParams.toString()}`).then((response) => {
+    axios.get(`api/item?${searchParams.toString()}`).then((response) => {
       const columns_details = ['store', 'price', 'posted', 'coupon', 'bulk']
       replace(<List properties={columns_details} list={response.data} replace={replace} back={back} selected={select} />)
     })
@@ -313,7 +313,7 @@ const App = () => {
     if (selected) {
       searchParams.append('selected', selected)
     }
-    axios.get(`items?${searchParams.toString()}`).then((response) => {
+    axios.get(`api/items?${searchParams.toString()}`).then((response) => {
       handleReplace(<List properties={columns_list} list={response.data} replace={handleReplace} back={handleBack} />)
     })
 
