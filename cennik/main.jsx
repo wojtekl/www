@@ -142,10 +142,10 @@ const List = (props) => {
 
   useEffect(() => {
     console.debug('poczatek', saved)
-    //return () => {
+    return () => {
       console.debug('koniec', saved)
       store.dispatch({ type: 'selected/set', payload: saved })
-    //}
+    }
   }, [])
   
   const handleClick = (event) => {
