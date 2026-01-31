@@ -146,7 +146,7 @@ const List = (props) => {
       console.debug('koniec', saved)
       store.dispatch({ type: 'selected/set', payload: saved })
     //}
-  }, [saved])
+  }, [])
   
   const handleClick = (event) => {
     event.preventDefault()
