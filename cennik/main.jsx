@@ -141,7 +141,9 @@ const List = (props) => {
   const day = getUrlParam('day')
 
   useEffect(() => {
+    console.debug('poczatek', saved)
     //return () => {
+      console.debug('koniec', saved)
       store.dispatch({ type: 'selected/set', payload: saved })
     //}
   }, [saved])
@@ -170,6 +172,7 @@ const List = (props) => {
   const handleChange = (event) => {
     const selectedItem = detailsPage ? select : list.find(i => i.item === select).id
     setSaved(event.target.checked ? saved.concat([selectedItem]) : saved.filter(i => i != selectedItem))
+    console.debug('click', saved)
     //store.dispatch({ type: event.target.checked ? 'selected/added' : 'selected/removed', payload: selectedItem })
   }
 
