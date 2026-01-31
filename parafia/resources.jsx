@@ -25,9 +25,6 @@ const resources = {
       "overlay_active": "Active",
       "overlay_inactive": "Inactive",
       "url_privacy": "https://raw.githubusercontent.com/wojtekl/google-play/refs/heads/main/myparish/data/privacy-policy-en",
-      "url_get": "https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png",
-      "meta_description": "Find your church on a map, get the directions, read the bulletin, check the mass times or pray online",
-      "meta_keywords": "church, mass, map, app, catholic, parish, cemetery, live, iphone, apple, android, samsung, application, pwa",
       "label_missing": "Parish data missing"
     }
   },
@@ -57,9 +54,6 @@ const resources = {
       "overlay_active": "Nadchodzące msze",
       "overlay_inactive": "Pozostałe",
       "url_privacy": "https://raw.githubusercontent.com/wojtekl/google-play/refs/heads/main/myparish/data/privacy-policy-pl",
-      "url_get": "https://play.google.com/intl/en_us/badges/static/images/badges/pl_badge_web_generic.png",
-      "meta_description": "mapa i wyszukiwarka kościołów, witryny parafii, cmentarze, prasa i transmisje online",
-      "meta_keywords": "kościół, znajdź, msze, mapa, aplikacja, cmentarz, transmisja, katolicki, parafia, eucharystia, iphone, apple, android, samsung, apka, pwa",
       "label_missing": "Brak danych parafii",
       "label_monday": "Poniedziałek",
       "label_tuesday": "Wtorek",
