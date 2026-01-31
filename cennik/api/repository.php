@@ -7,7 +7,7 @@ class Repository {
   
   public function __construct($SQL_HOST, $SQL_DATABASE, $SQL_USER, $SQL_PASSWORD) {
     try {
-      $this -> sql = new PDO("mysql:host=$SQL_HOST;dbname=$SQL_DATABASE;charset=utf8", $SQL_USER, $SQL_PASSWORD);
+      $this -> sql = new PDO("mysql:host=$SQL_HOST;dbname=$SQL_DATABASE;", $SQL_USER, $SQL_PASSWORD);
       
       $this -> sql -> setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     } catch(PDOException $exception) {
