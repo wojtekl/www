@@ -145,8 +145,7 @@ const List = (props) => {
   }, [saved])
 
   const handleOver = (event) => {
-    console.debug(event.target, event.target.getAttribute('data-nazwa'))
-    setSelect(Number(event.target.getAttribute('data-nazwa')))
+    setSelect(event.target.parent.getAttribute('data-id')))
   }
   
   const handleClick = (event) => {
@@ -203,7 +202,7 @@ const List = (props) => {
           <tbody>
             {(!detailsPage ? filtered : list).map(row => {
               const enabled = select === row['item']
-              return (<tr onMouseOver={handleOver} data-nazwa={!detailsPage ? row['item'] : row['id']}>
+              return (<tr onMouseOver={handleOver} data-id={!detailsPage ? row['item'] : row['id']}>
                 <td><input type="checkbox" class="form-check-input" name="selected" checked={saved.includes(row['id'])} onChange={handleChange} data-id={row['id']} aria-label={t('label_select')} /></td>
                   {properties.map(property => {
                     if ('posted' === property) {
