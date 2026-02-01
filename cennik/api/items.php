@@ -1,7 +1,5 @@
 <?php
 
-  header("Access-Control-Allow-Origin: *");
-  header("Access-Control-Allow-Headers: Content-Type");
   header("Content-Type: application/json");
 
   require "./repository.php";
@@ -42,7 +40,7 @@
       $list .= "{\"item\": \"${row["PRODUKT"]}\", \"store\": \"${row["SKLEP"]}\", \"price\": ${row["CENA"]}, \"posted\": \"${row["DODANO"]}\", \"coupon\": \"${row["COUPON"]}\", \"bulk\": \"${row["BULK"]}\", \"id\": ${row["ID"]}, \"lowest\": ${row["LOWEST"]}},";
     }
     $list .= "]";
-    echo str_replace(",]", "]", $list);
+    echo(str_replace(",]", "]", $list));
   }
 
   function pot() {
