@@ -1,4 +1,4 @@
-const CACHE_NAME = "cennik-v1";
+const CACHE_NAME = 'cennik-v1';
 
 async function networkFirst(request) {
   try {
@@ -14,9 +14,9 @@ async function networkFirst(request) {
   }
 }
 
-self.addEventListener("fetch", (event) => {
+self.addEventListener('fetch', (event) => {
   const url = new URL(event.request.url);
-  if ("GET" === event.request.method) {
+  if ('GET' === event.request.method && 'https:' === url.protocol) {
     event.respondWith(networkFirst(event.request));
   }
 });
