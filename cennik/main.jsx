@@ -20,7 +20,8 @@ const state = localStorage.getItem('redux')
 const initialState = !!state ? JSON.parse(state) : {
   value: [],
   warning: true,
-  lang: (getUrlParam('lang') ?? navigator.language.substring(0, 2)).toLocaleLowerCase()
+  lang: (getUrlParam('lang') ?? navigator.language.substring(0, 2)).toLocaleLowerCase(),
+  list: []
 }
 const selectedReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -34,6 +35,8 @@ const selectedReducer = (state = initialState, action) => {
       return { ...state, warning: false }
     case 'lang/set':
       return { ...state, lang: action.payload }
+    case 'list/set':
+      return { ...state, list: action.payload }
     default:
       return state
   }
@@ -314,7 +317,9 @@ const App = () => {
       searchParams.append('selected', selected)
     }
     axios.get(`api/items?${searchParams.toString()}`).then((response) => {
-      handleReplace(<List properties={columns_list} list={response.data} replace={handleReplace} back={handleBack} />)
+      const data = 200 === response.status ? response.data : store.getState().list
+      handleReplace(<List properties={columns_list} list={data} replace={handleReplace} back={handleBack} />)
+      store.dispatch({ type: 'list/set', payload: data })
     })
 
     document.title = t('title_app')
