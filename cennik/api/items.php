@@ -26,6 +26,12 @@
     if(isset($_GET["lang"])) {
       $country = strtolower(trim($_GET["lang"]));
     }
+    
+    //
+    $address = trim($_SERVER['REMOTE_ADDR']);
+    $client = trim($_SERVER['HTTP_USER_AGENT']);
+    $repository -> createVisit($address, $client, $country); 
+    //
   
     $selected = trim($_GET["selected"]);
     $result = [];
