@@ -25,7 +25,6 @@ class Repository {
       return $query -> fetchAll();
     }
     catch(PDOException $exception) {
-        //echo $exception -> getMessage();
       return $exception -> getMessage();
     }
   }
@@ -73,6 +72,12 @@ class Repository {
     $statement = $this -> sql -> prepare("INSERT INTO `VISIT` VALUES (0, :address, :client, :country, UTC_TIMESTAMP)");
     $statement -> bindParam(":address", $address);
     $statement -> bindParam(":client", $client);
+    $statement -> bindParam(":country", $country);
+    return $this -> execute($statement);
+  }
+  
+  public function getVisit($country) {
+    $statement = $this -> sql -> prepare("SELECT `ADDRESS`, `CLIENT`, `COUNTRY`, `CREATED` FROM `VISIT` WHERE `COUNTRY` = :country ORDER BY `CREATED` DESC LIMIT 10");
     $statement -> bindParam(":country", $country);
     return $this -> execute($statement);
   }
