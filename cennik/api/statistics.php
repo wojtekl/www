@@ -27,7 +27,9 @@
 
   function get($repository, $country) {
     $result = $repository -> getVisit($country);
-    echo($result);
+    $row = $result[0];
+    $list = "{\"address\": \"${row["ADDRESS"]}\",\"client\": \"${row["CLIENT"]}\",\"country\": \"${row["COUNTRY"]}\",\"created\": \"${row["CREATED"]}\"}";
+    echo($list);
   }
   
   function post($repository, $country) {
