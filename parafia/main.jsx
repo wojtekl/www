@@ -285,6 +285,7 @@ const Weeks = () => {
   const [selectedWeek, setSelectedWeek] = useState()
 
   const months = [t('label_january'), t('label_february'), t('label_march'), t('label_april'), t('label_may'), t('label_june'), t('label_july'), t('label_august'), t('label_september'), t('label_october'), t('label_november'), t('label_december')]
+  const locale = (getUrlParams().get('lang') ?? navigator.language.substring(3)).toLocaleLowerCase()
 
   const currentYear = new Date()
   currentYear.setHours(0, 0, 0, 0)
