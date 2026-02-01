@@ -1,4 +1,4 @@
-const CACHE_NAME = "parafia-v1";
+const CACHE_NAME = 'parafia-v1';
 
 async function networkFirst(request) {
   try {
@@ -14,14 +14,14 @@ async function networkFirst(request) {
   }
 }
 
-self.addEventListener("fetch", (event) => {
+self.addEventListener('fetch', (event) => {
   const url = new URL(event.request.url);
-  if ("GET" === event.request.method && !/api/.test(url.pathname)) {
+  if ('GET' === event.request.method && 'https:' === url.protocol && !/api/.test(url.pathname)) {
     event.respondWith(networkFirst(event.request));
   }
 });
 
-self.addEventListener("activate", (event) => {
+self.addEventListener('activate', (event) => {
   const cacheWhitelist = [CACHE_NAME];
   event.waitUntil(
     caches.keys().then(cacheNames => {
