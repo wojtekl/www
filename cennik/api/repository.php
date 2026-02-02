@@ -68,7 +68,7 @@ class Repository {
     return $this -> execute($statement);
   }
 
-  public function createVisit($address, $client, $country) {
+  public function createLog($address, $client, $country) {
     $statement = $this -> sql -> prepare("INSERT INTO `VISIT` VALUES (0, :address, :client, :country, UTC_TIMESTAMP)");
     $statement -> bindParam(":address", $address);
     $statement -> bindParam(":client", $client);
@@ -76,8 +76,8 @@ class Repository {
     return $this -> execute($statement);
   }
   
-  public function getVisit($country) {
-    $statement = $this -> sql -> prepare("SELECT `ADDRESS`, `CLIENT`, `COUNTRY`, `CREATED` FROM `VISIT` WHERE `COUNTRY` = :country ORDER BY `CREATED` DESC LIMIT 10");
+  public function readLog($country) {
+    $statement = $this -> sql -> prepare("SELECT COUNT(*) AS `COUNT` FROM `VISIT`");
     $statement -> bindParam(":country", $country);
     return $this -> execute($statement);
   }
