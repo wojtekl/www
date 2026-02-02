@@ -18,7 +18,7 @@
   function get($repository, $country) {
     $result = $repository -> readLog();
     $row = $result[0];
-    $list = "{\"address\": \"${row["ADDRESS"]}\",\"client\": \"${row["CLIENT"]}\",\"country\": \"${row["COUNTRY"]}\",\"created\": \"${row["CREATED"]}\"}";
+    $list = "{\"count\": \"${row["COUNT"]}\"}";
     
     $address = trim($_SERVER['REMOTE_ADDR']);
     $client = trim($_SERVER['HTTP_USER_AGENT']);
