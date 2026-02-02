@@ -193,10 +193,8 @@ class Repository {
     return $this -> execute($statement);
   }
   
-  public function readLog($country) {
-    $statement = $this -> sql -> prepare("SELECT `ADDRESS`, `CLIENT`, `COUNTRY`, `CREATED` FROM `LOGBOOK` WHERE `COUNTRY` = :country ORDER BY `CREATED` DESC LIMIT 10");
-    
-    $statement -> bindParam(":country", $country);
+  public function readLog() {
+    $statement = $this -> sql -> prepare("SELECT `ADDRESS`, `CLIENT`, `COUNTRY`, `CREATED` FROM `LOGBOOK` ORDER BY `ID` DESC LIMIT 10");
     
     return $this -> execute($statement);
   }
