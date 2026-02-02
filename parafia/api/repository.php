@@ -194,7 +194,7 @@ class Repository {
   }
   
   public function readLog() {
-    $statement = $this -> sql -> prepare("SELECT `ADDRESS`, `CLIENT`, `COUNTRY`, `CREATED` FROM `LOGBOOK` ORDER BY `ID` DESC LIMIT 10");
+    $statement = $this -> sql -> prepare("SELECT COUNT(*) FROM `LOGBOOK` WHERE CREATED > DATE_SUB(UTC_TIMESTAMP, INTERVAL 1 DAY)");
     
     return $this -> execute($statement);
   }
