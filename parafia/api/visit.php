@@ -3,8 +3,6 @@
 
   require "./repository.php";
 
-  $address = strtolower(trim($_SERVER['REMOTE_ADDR']));
-
   switch (strtolower(trim($_SERVER["REQUEST_METHOD"]))) {
     case "get":
       get($repository);
