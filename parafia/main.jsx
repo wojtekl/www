@@ -1343,11 +1343,23 @@ const List = () => {
 /* Navi */
 const Navi = (props) => {
   const { current } = props
+
+  const [count, setCount] = useState(0)
+  
   const { t } = useTranslation()
   const navigate = useNavigate()
 
   const selected = clients.clients.find(i => i.name === store.getState().value)
 
+  useEffect(() => {
+    document.title = t('title_app')
+
+    axios.get('api/statistics').then((response) => {
+      setCount(response.data.count)
+      console.debug(response.data)
+    })
+  }, [])
+  
   const handleInstall = (event) => {
     event.preventDefault()
     if (installPrompt) {
@@ -1373,6 +1385,7 @@ const Navi = (props) => {
           <div class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">{t('nav_news')}</a>
             <ul class="dropdown-menu">
+              <li><p class="dropdown-item">{t('label_views')}{count}</p></li>
               <li><a href="https://m.niedziela.pl/" rel="external" class="dropdown-item">Niedziela</a></li>
               <li><a href="https://www.gosc.pl/mobile" rel="external" class="dropdown-item">Gość Niedzielny</a></li>
               <li><a href="https://rycerzniepokalanej.pl/" rel="external" class="dropdown-item">Rycerz Niepokalanej</a></li>
@@ -1417,12 +1430,6 @@ const App = () => {
       .bindPopup(`<p>${i.name}</p><p>${i.incoming}</p><a href="#/selected/${i.name}"> ${t('see_link')} </a>`))).addTo(map)
 
     L.control.layers(null, { [t('overlay_inactive')]: inactive, [t('overlay_active')]: active }).addTo(map)
-
-    document.title = t('title_app')
-
-    axios.get('api/statistics').then((response) => {
-      console.debug(response.data)
-    })
   }, [])
 
   const mapDiv = createElement('div', { id: "map", style: { width: "100%", height: "100%" } })
