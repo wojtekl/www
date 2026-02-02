@@ -1368,7 +1368,7 @@ const Navi = (props) => {
       <div class="collapse navbar-collapse" id="basic-navbar-nav">
         <div className="navbar-nav me-auto">
           {selected && 'selected' != current && <div class="nav-item"><a class="nav-link" href={`#/selected/${selected.name}`}>{t('nav_your')}</a></div>}
-          {'map' != current && <div class="nav-item"><a class="nav-link active" aria-current="page" href="#/">{t('nav_map')}</a></div>}
+          {'map' != current && <div class="nav-item"><a class="nav-link" aria-current="page" href="#/">{t('nav_map')}</a></div>}
           {'list' != current && <div class="nav-item"><a class="nav-link" href="#/list">{t('nav_list')}</a></div>}
           <div class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">{t('nav_news')}</a>
@@ -1382,7 +1382,7 @@ const Navi = (props) => {
               <li><a href="https://cennik.wlap.pl/" rel="external" class="dropdown-item">Historia cen produktów spożywczych w marketach</a></li>
             </ul>
           </div>
-          <div class="nav-item"><a class="nav-link" href="#" onClick={handleInstall}>{t('nav_install')}</a></div>
+          <div class="nav-item"><a class="nav-link link-danger" href="#" onClick={handleInstall}>{t('nav_install')}</a></div>
           <div class="nav-item"><a class="nav-link" href="#/manage">{t('nav_manage')}</a></div>
         </div>
       </div>
@@ -1419,6 +1419,10 @@ const App = () => {
     L.control.layers(null, { [t('overlay_inactive')]: inactive, [t('overlay_active')]: active }).addTo(map)
 
     document.title = t('title_app')
+
+    axios.get('api/statistics').then((response) => {
+      console.debug(response.data)
+    })
   }, [])
 
   const mapDiv = createElement('div', { id: "map", style: { width: "100%", height: "100%" } })
