@@ -32,7 +32,7 @@ class Repository {
   
   
   public function createScheduled($description, $scheduled, $value, $type, $notes, $address, $tenant) {
-    $statement = $this -> sql -> prepare("INSERT INTO `SCHEDULED` VALUES (0, :description, :scheduled, :value, :type, 1, :notes, :address, :tenant, UTC_TIMESTAMP);");
+    $statement = $this -> sql -> prepare("INSERT INTO `SCHEDULED` VALUES (0, :description, :scheduled, :value, :type, 1, :notes, :address, :tenant, UTC_TIMESTAMP)");
     
     $statement -> bindParam(":description", $description);
     $statement -> bindParam(":scheduled", $scheduled);
@@ -46,7 +46,7 @@ class Repository {
   }
 
   public function readScheduled($today, $tenant, $type){
-    $statement = $this -> sql -> prepare("SELECT `ID`, `DESCRIPTION`, `SCHEDULED`, `VALUE`, `BOOKED`, `NOTES`, DAYOFWEEK(`SCHEDULED`) AS `DAYOFWEEK`, DATE_FORMAT(`SCHEDULED`, '%H:%i') AS `TIME`, `TYPE` FROM `SCHEDULED` WHERE" . (null != $today ? " `SCHEDULED` > DATE_ADD(:today, INTERVAL - WEEKDAY(:today) DAY) AND `SCHEDULED` < DATE_ADD(:today, INTERVAL 7 - WEEKDAY(:today) DAY) AND" : " `SCHEDULED` IS NULL AND") . " `TENANT` = :tenant AND `TYPE` = :type ORDER BY `SCHEDULED` ASC;");
+    $statement = $this -> sql -> prepare("SELECT `ID`, `DESCRIPTION`, `SCHEDULED`, `VALUE`, `BOOKED`, `NOTES`, DAYOFWEEK(`SCHEDULED`) AS `DAYOFWEEK`, DATE_FORMAT(`SCHEDULED`, '%H:%i') AS `TIME`, `TYPE` FROM `SCHEDULED` WHERE" . (null != $today ? " `SCHEDULED` > DATE_ADD(:today, INTERVAL - WEEKDAY(:today) DAY) AND `SCHEDULED` < DATE_ADD(:today, INTERVAL 7 - WEEKDAY(:today) DAY) AND" : " `SCHEDULED` IS NULL AND") . " `TENANT` = :tenant AND `TYPE` = :type ORDER BY `SCHEDULED` ASC");
     if (null != $today) {
       $statement -> bindParam(":today", $today);
     }
@@ -57,7 +57,7 @@ class Repository {
   }
     
   public function readScheduledById($id, $tenant) {
-    $statement = $this -> sql -> prepare("SELECT `ID`, `DESCRIPTION`, `SCHEDULED`, `VALUE`, `BOOKED`, `NOTES`, `TYPE` FROM `SCHEDULED` WHERE `ID` = :id AND `TENANT` = :tenant LIMIT 1;");
+    $statement = $this -> sql -> prepare("SELECT `ID`, `DESCRIPTION`, `SCHEDULED`, `VALUE`, `BOOKED`, `NOTES`, `TYPE` FROM `SCHEDULED` WHERE `ID` = :id AND `TENANT` = :tenant LIMIT 1");
     
     $statement -> bindParam(":id", $id);
     $statement -> bindParam(":tenant", $tenant);
@@ -66,7 +66,7 @@ class Repository {
   }
 
   public function updateScheduled($description, $scheduled, $value, $type, $notes, $address, $id, $tenant) {
-    $statement = $this -> sql -> prepare("UPDATE `SCHEDULED` SET `DESCRIPTION` = :description, `SCHEDULED` = :scheduled, `VALUE` = :value, `TYPE` = :type, `BOOKED` = 1, `NOTES` = :notes, `ADDRESS` = :address, `CREATED` = UTC_TIMESTAMP WHERE `ID` = :id AND `TENANT` = :tenant;");
+    $statement = $this -> sql -> prepare("UPDATE `SCHEDULED` SET `DESCRIPTION` = :description, `SCHEDULED` = :scheduled, `VALUE` = :value, `TYPE` = :type, `BOOKED` = 1, `NOTES` = :notes, `ADDRESS` = :address, `CREATED` = UTC_TIMESTAMP WHERE `ID` = :id AND `TENANT` = :tenant");
     
     $statement -> bindParam(":description", $description);
     $statement -> bindParam(":scheduled", $scheduled);
@@ -81,7 +81,7 @@ class Repository {
   }
   
   public function deleteScheduled($id, $tenant) {
-    $statement = $this -> sql -> prepare("DELETE FROM `SCHEDULED` WHERE `ID` = :id AND `TENANT` = :tenant;");
+    $statement = $this -> sql -> prepare("DELETE FROM `SCHEDULED` WHERE `ID` = :id AND `TENANT` = :tenant");
     
     $statement -> bindParam(":id", $id);
     $statement -> bindParam(":tenant", $tenant);
@@ -99,7 +99,7 @@ class Repository {
   }
   
   public function updateHash($newHash, $address, $tenant) {
-    $statement = $this -> sql -> prepare("UPDATE `TENANT` SET `PASSWORD` = :hash, `ADDRESS` = :address WHERE `NAME` = :tenant;");
+    $statement = $this -> sql -> prepare("UPDATE `TENANT` SET `PASSWORD` = :hash, `ADDRESS` = :address WHERE `NAME` = :tenant");
     
     $statement -> bindParam(":hash", $newHash);
     $statement -> bindParam(":address", $address);
@@ -117,7 +117,7 @@ class Repository {
   }
   
   public function updateContact($description, $street, $number, $city, $postalcode, $email, $phone, $iban, $tenant) {
-    $statement = $this -> sql -> prepare("UPDATE `CONTACT` SET `DESCRIPTION` = :description, `STREET` = :street, `NUMBER` = :number, `CITY` = :city, `POSTALCODE` = :postalcode, `EMAIL` = :email, `PHONE` = :phone, `IBAN` = :iban WHERE `TENANT` = :tenant;");
+    $statement = $this -> sql -> prepare("UPDATE `CONTACT` SET `DESCRIPTION` = :description, `STREET` = :street, `NUMBER` = :number, `CITY` = :city, `POSTALCODE` = :postalcode, `EMAIL` = :email, `PHONE` = :phone, `IBAN` = :iban WHERE `TENANT` = :tenant");
     
     $statement -> bindParam(":description", $description);
     $statement -> bindParam(":street", $street);
@@ -141,7 +141,7 @@ class Repository {
   }
   
   public function updateSettings($schedule, $showVisits, $showBooking, $tenant) {
-    $statement = $this -> sql -> prepare("UPDATE `SETTINGS` SET `SCHEDULE` = :schedule, `SHOWVISITS` = :showVisits, `SHOWBOOKING` = :showBooking WHERE `TENANT` = :tenant;");
+    $statement = $this -> sql -> prepare("UPDATE `SETTINGS` SET `SCHEDULE` = :schedule, `SHOWVISITS` = :showVisits, `SHOWBOOKING` = :showBooking WHERE `TENANT` = :tenant");
     
     $statement -> bindParam(":schedule", $schedule);
     $statement -> bindParam(":showVisits", $showVisits);
@@ -153,7 +153,7 @@ class Repository {
   
   
   public function createVisit($firstname, $surname, $street, $number, $city, $donation, $tenant) {
-    $statement = $this -> sql -> prepare("INSERT INTO `VISIT` VALUES (0, :firstname, :surname, :street, :number, :city, :donation, :tenant, 1, UTC_TIMESTAMP);");
+    $statement = $this -> sql -> prepare("INSERT INTO `VISIT` VALUES (0, :firstname, :surname, :street, :number, :city, :donation, :tenant, 1, UTC_TIMESTAMP)");
     
     $statement -> bindParam(":firstname", $firstname);
     $statement -> bindParam(":surname", $surname);
@@ -167,17 +167,36 @@ class Repository {
   }
   
   public function readVisit($tenant) {
-    $statement = $this -> sql -> prepare("SELECT `ID`, `FIRSTNAME`, `SURNAME`, `STREET`, `NUMBER`, `CITY`, `VALUE`, `CREATED` FROM `VISIT` WHERE `TENANT` = :tenant AND `CREATED` > DATE_ADD(UTC_TIMESTAMP, INTERVAL -7 DAY) ORDER BY `CREATED` DESC;");
+    $statement = $this -> sql -> prepare("SELECT `ID`, `FIRSTNAME`, `SURNAME`, `STREET`, `NUMBER`, `CITY`, `VALUE`, `CREATED` FROM `VISIT` WHERE `TENANT` = :tenant AND `CREATED` > DATE_ADD(UTC_TIMESTAMP, INTERVAL -7 DAY) ORDER BY `CREATED` DESC");
+    
     $statement -> bindParam(":tenant", $tenant);
     
     return $this -> execute($statement);
   }
   
   public function deleteVisit($id, $tenant) {
-    $statement = $this -> sql -> prepare("DELETE FROM `VISIT` WHERE `ID` = :id AND `TENANT` = :tenant;");
+    $statement = $this -> sql -> prepare("DELETE FROM `VISIT` WHERE `ID` = :id AND `TENANT` = :tenant");
     
     $statement -> bindParam(":id", $id);
     $statement -> bindParam(":tenant", $tenant);
+    
+    return $this -> execute($statement);
+  }
+
+  public function createLog($address, $client, $country) {
+    $statement = $this -> sql -> prepare("INSERT INTO `LOGBOOK` VALUES (0, :address, :client, :country, UTC_TIMESTAMP)");
+    
+    $statement -> bindParam(":address", $address);
+    $statement -> bindParam(":client", $client);
+    $statement -> bindParam(":country", $country);
+    
+    return $this -> execute($statement);
+  }
+  
+  public function readLog($country) {
+    $statement = $this -> sql -> prepare("SELECT `ADDRESS`, `CLIENT`, `COUNTRY`, `CREATED` FROM `LOGBOOK` WHERE `COUNTRY` = :country ORDER BY `CREATED` DESC LIMIT 10");
+    
+    $statement -> bindParam(":country", $country);
     
     return $this -> execute($statement);
   }
