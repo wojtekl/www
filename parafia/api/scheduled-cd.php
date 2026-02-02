@@ -1,8 +1,6 @@
 <?php
   header("Content-Type: application/json");
 
-  require "./repository.php";
-
   if (!isset($_SESSION)) {
     session_start();
   }
@@ -11,7 +9,7 @@
     pot();
   }
 
-  $address = strtolower(trim($_SERVER['REMOTE_ADDR']));
+  require "./repository.php";
 
   switch (strtolower(trim($_SERVER["REQUEST_METHOD"]))) {
     case "get":
