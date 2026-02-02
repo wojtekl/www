@@ -1,6 +1,4 @@
 <?php
-  header("Access-Control-Allow-Origin: *");
-  header("Access-Control-Allow-Headers: Content-Type");
   header("Content-Type: application/json");
 
   require "./repository.php";
@@ -33,9 +31,6 @@
     $type = trim($_POST["type"]);
     $notes = trim($_POST["notes"]);
     $address= "kościół parafialny";
-    /*if (!isset($scheduled)) {
-      pot();
-    }*/
     
     $result = $repository -> createScheduled($description, $scheduled, $value, $type, $notes, $address, $tenant);
     echo($result);
@@ -51,6 +46,6 @@
   }
 
   function pot() {
-    echo(password_hash($_GET["pass"], PASSWORD_DEFAULT));
+    echo("gotcha!");
   }
 ?>
