@@ -5,7 +5,7 @@
   require "./repository.php";
 
   $httpLang = explode(",", $_SERVER["HTTP_ACCEPT_LANGUAGE"])[0];
-  $country = strtolower(trim($_GET["lang"] ?? isset($httpLang) ? substr($httpLang, strpos($httpLang, '-')) : 'pl'));
+  $country = strtolower(trim($_GET["lang"] ?? isset($httpLang) ? substr($httpLang, strpos($httpLang, '-') + 1) : 'pl'));
 
   switch (strtolower(trim($_SERVER["REQUEST_METHOD"]))) {
     case "get":
