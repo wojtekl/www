@@ -1,17 +1,10 @@
 <?php
-
   header("Content-Type: application/json");
 
-  require "./repository.php";
+  $httpLang = explode(",", $_SERVER["HTTP_ACCEPT_LANGUAGE"])[0];
+  $country = strtolower(trim($_GET["lang"] ?? isset($httpLang) ? substr($httpLang, strpos($httpLang, '-') + 1) : 'pl'));
 
-  $country = "pl";
-  $httpAcceptLanguage = explode(",", $_SERVER["HTTP_ACCEPT_LANGUAGE"]);
-  if (isset($httpAcceptLanguage[0])) {
-    $country = strtolower(substr(trim($httpAcceptLanguage[0]), 3));
-  }
-  if(isset($_GET["lang"])) {
-    $country = strtolower(trim($_GET["lang"]));
-  }
+  require "./repository.php";
 
   switch (strtolower(trim($_SERVER["REQUEST_METHOD"]))) {
     case "get":
@@ -57,5 +50,4 @@
   function pot() {
     echo("gotcha!");
   }
-
 ?>
