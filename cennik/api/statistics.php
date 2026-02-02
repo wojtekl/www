@@ -1,10 +1,10 @@
 <?php
   header("Content-Type: application/json");
 
-  require "./repository.php";
-
   $httpLang = explode(",", $_SERVER["HTTP_ACCEPT_LANGUAGE"])[0];
   $country = strtolower(trim($_GET["lang"] ?? isset($httpLang) ? substr($httpLang, strpos($httpLang, '-') + 1) : 'pl'));
+
+  require "./repository.php";
 
   switch (strtolower(trim($_SERVER["REQUEST_METHOD"]))) {
     case "get":
