@@ -11,27 +11,22 @@
     case "get":
       get($repository, $country);
       break;
-    case "post":
-      post($repository, $country);
-      break;
     default:
       pot();
   }
 
-  function get($repository) {
+  function get($repository, $country) {
     $result = $repository -> readLog();
     $row = $result[0];
     $list = "{\"address\": \"${row["ADDRESS"]}\",\"client\": \"${row["CLIENT"]}\",\"country\": \"${row["COUNTRY"]}\",\"created\": \"${row["CREATED"]}\"}";
-    echo($list);
-  }
-  
-  function post($repository, $country) {
+    
     $address = trim($_SERVER['REMOTE_ADDR']);
     $client = trim($_SERVER['HTTP_USER_AGENT']);
     if (isset($address) && isset($client)) {
       $result = $repository -> createLog($address, $client, $country);
-      echo($result);
     }
+    
+    echo($list);
   }
 
   function pot() {
