@@ -1,3 +1,4 @@
+import * as bootstrap from 'bootstrap'
 import React, { useEffect, useState, createElement } from 'react'
 import { createRoot } from 'react-dom/client'
 import { HashRouter as Router, Routes, Route, useNavigate, useParams } from 'react-router-dom'
