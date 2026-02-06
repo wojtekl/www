@@ -38,7 +38,7 @@ const Divider = () => <div style={{width: '100%', height: '3rem', backgroundColo
 
 
 /* Hero */
-const Hero = (props) => {
+/*const Hero = (props) => {
   const { image, description, urlButtonOnline, small } = props
   const navigate = useNavigate()
   const { t } = useTranslation()
@@ -55,7 +55,7 @@ const Hero = (props) => {
         </div>
       </div>
     </div>
-}
+}*/
 
 
 /* Carousel */
@@ -212,7 +212,7 @@ const Howto = () => {
 
 
 /* Card */
-const Card = (props) => {
+/*const Card = (props) => {
   const { image, description, urlButtonOnline, urlButtonGet, small } = props
   const { t } = useTranslation()
 
@@ -231,7 +231,7 @@ const Card = (props) => {
       </div>
     </div>
   </div>
-}
+}*/
 
 
 /* App */
