@@ -274,19 +274,6 @@ const App = () => {
 
     <main>
       <h1 class="visually-hidden">{t('title_home')}</h1>
-      <section class="py-5 text-center container">
-        <div class="row py-lg-5">
-          <div class="col-lg-6 col-md-8 mx-auto">
-            <h1 class="fw-light">{t('title_products')}</h1>
-            <p class="lead text-body-secondary">{t('description_products')}</p>
-            <p>
-              <a href="/howto/" class="btn btn-primary my-2" role="button" rel="external">{t('button_howto')}</a>
-              <a href="" class="btn btn-secondary my-2 d-none" role="button" rel="external">{t('')}</a>
-            </p>
-          </div>
-        </div>
-      </section>
-      <Divider />
       <div class="container px-4 py-5" id="featured">
         <h2 class="pb-2 border-bottom">{t('title_featured')}</h2>
         <div class="row g-4 py-5 row-cols-1 row-cols-lg-3">
@@ -302,6 +289,19 @@ const App = () => {
             image="https://raw.githubusercontent.com/wojtekl/google-play/refs/heads/main/pricey/Pricey/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.webp" />
         </div>
       </div>
+      <Divider />
+      <section class="py-5 text-center container">
+        <div class="row py-lg-5">
+          <div class="col-lg-6 col-md-8 mx-auto">
+            <h1 class="fw-light">{t('title_products')}</h1>
+            <p class="lead text-body-secondary">{t('description_products')}</p>
+            <p>
+              <a href="/howto/" class="btn btn-primary my-2" role="button" rel="external">{t('button_howto')}</a>
+              <a href="" class="btn btn-secondary my-2 d-none" role="button" rel="external">{t('')}</a>
+            </p>
+          </div>
+        </div>
+      </section>
     </main>
 
     <footer class="text-body-secondary py-5">
