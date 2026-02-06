@@ -24,8 +24,8 @@ const Feature = (props) => {
   const { t } = useTranslation()
   
   return <div class="feature col">
-  <div class="feature-icon d-inline-flex align-items-center justify-content-center text-bg-primary bg-gradient fs-2 mb-3">
-    <img src={image} />
+  <div class="d-inline-flex align-items-center justify-content-center text-bg-primary bg-gradient fs-2 mb-3" style={{width: '4rem', height: '4rem', borderRadius: '0.75rem'}}>
+    <img style={{width: '1em', height: '1em'}} src={image} />
   </div>
   <h3 class="fs-2 text-body-emphasis">{t(title)}</h3>
   <p>{t(paragraph)}</p>
