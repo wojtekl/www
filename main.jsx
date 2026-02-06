@@ -17,6 +17,22 @@ i18n.use(initReactI18next).init({
   }
 })
 
+/* Feature */
+const Feature = (props) => {
+  const { title, paragraph, image, url } = props
+
+  const { t } = useTranslation()
+  
+  return <div class="feature col">
+  <div class="feature-icon d-inline-flex align-items-center justify-content-center text-bg-primary bg-gradient fs-2 mb-3">
+    <img src={image} />
+  </div>
+  <h3 class="fs-2 text-body-emphasis">{t(title)}</h3>
+  <p>{t(paragraph)}</p>
+  <a href={url} class="icon-link">{t('label_link')} <i class="bi bi-chevron-right"></i></a>
+</div>}
+
+
 /* Divider */
 const Divider = () => <div style={{width: '100%', height: '3rem', backgroundColor: '#0000001a', border: 'solid rgba(0,0,0,.15)', borderWidth: '1px 0', boxShadow: 'inset 0 .5em 1.5em #0000001a,inset 0 .125em .5em #00000026'}}></div>
 
@@ -257,6 +273,7 @@ const App = () => {
     </header>
 
     <main>
+      <h1 class="visually-hidden">{t('title_home')}</h1>
       <section class="py-5 text-center container">
         <div class="row py-lg-5">
           <div class="col-lg-6 col-md-8 mx-auto">
@@ -270,20 +287,21 @@ const App = () => {
         </div>
       </section>
       <Divider />
-      <Hero
-        image="https://raw.githubusercontent.com/wojtekl/google-play/refs/heads/main/pricey/Pricey/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.webp"
-        description="description_pricey"
-        urlButtonOnline="https://cennik.wlap.pl/"
-        small="name_pricey"
-      />
-      <Divider />
-      <Hero
-        image="https://raw.githubusercontent.com/wojtekl/google-play/refs/heads/main/myparish/MojaParafia/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.webp"
-        description="description_myparish"
-        urlButtonOnline="https://parafia.wlap.pl/"
-        small="name_myparish"
-      />
-      <Divider />
+      <div class="container px-4 py-5" id="featured">
+        <h2 class="pb-2 border-bottom">{t('title_featured')}</h2>
+        <div class="row g-4 py-5 row-cols-1 row-cols-lg-3">
+          <Feature 
+            title="name_myparish" 
+            paragraph="description_myparish" 
+            url="https://parafia.wlap.pl/" 
+            image="https://raw.githubusercontent.com/wojtekl/google-play/refs/heads/main/myparish/MojaParafia/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.webp" />
+          <Feature 
+            title="name_pricey" 
+            paragraph="description_pricey" 
+            url="https://cennik.wlap.pl/" 
+            image="https://raw.githubusercontent.com/wojtekl/google-play/refs/heads/main/pricey/Pricey/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.webp" />
+        </div>
+      </div>
     </main>
 
     <footer class="text-body-secondary py-5">
