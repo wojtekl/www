@@ -1,10 +1,11 @@
 function test(title, callback) {
+  const root = document.getElementById('root')
   try {
     callback()
-    console.log(`v ${title}`)
+    root.append(`v ${title}`)
   } catch (error) {
-    console.log(`x ${title}`)
-    console.log(error)
+    root.append(`x ${title}`)
+    root.append(error)
   }
 }
 
