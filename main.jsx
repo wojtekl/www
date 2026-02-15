@@ -333,7 +333,7 @@ root.render(
     <Routes>
       <Route path="/" element={<App />} />
       <Route path="/howto" element={<Howto />} />
-      <Route path="/test" element={<RedirectSite />}
+      <Route path="/test" element={<RedirectSite />} />
     </Routes>
   </Router>
 )
