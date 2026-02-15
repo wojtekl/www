@@ -19,7 +19,7 @@ function expect(actual) {
   }
 }
 
-const testing = () => {
+const Testing = () => {
   test('number formatter', () => {
     const result = '6.9'
     const expected = '6.90'
