@@ -20,7 +20,7 @@ function expect(actual) {
 }
 
 test('number formatter', () => {
-  const result = <NumberFormatter value="6.9" locale={locale} />
+  const result = <NumberFormatter value="6.9" locale="pl" />
   const expected = '6.90'
   expect(result).toBe(expected)
 })
