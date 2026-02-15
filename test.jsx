@@ -20,8 +20,8 @@ function expect(actual) {
   }
 }
 
-test('number formatter', () => {
+test(' NumberFormatter correct decimal value ', () => {
     const result = NumberFormatter({ value: 6.9, locale: 'en'})
     const expected = '6.9'
     expect(result).toBe(expected)
-  })
+})
