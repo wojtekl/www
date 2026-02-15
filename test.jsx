@@ -19,10 +19,10 @@ function expect(actual) {
   }
 }
 
-const Testing = () => {
-  test('number formatter', () => {
+const Testing = () => {}
+
+test('number formatter', () => {
     const result = NumberFormatter({ value: 6.9, locale: 'en'})
     const expected = '6.90'
     expect(result).toBe(expected)
   })
-}
