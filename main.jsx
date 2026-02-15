@@ -317,6 +317,13 @@ const App = () => {
 }
 
 
+/* RedirectSite */
+const RedirectSite = () => {
+  window.location.href = '/test.html'
+  return <></>
+}
+
+
 const container = document.getElementById('root')
 
 const root = createRoot(container)
@@ -326,6 +333,7 @@ root.render(
     <Routes>
       <Route path="/" element={<App />} />
       <Route path="/howto" element={<Howto />} />
+      <Route path="/test" element={<RedirectSite />}
     </Routes>
   </Router>
 )
