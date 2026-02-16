@@ -59,6 +59,8 @@ store.dispatch({ type: 'lang/set', payload: lang })
 /* FormInput */
 const FormInput = (props) => {
   const { name, modalId } = props
+
+  const { t } = useTranslation()
   
   return <div class="form-group">
   <label for={`${modalId}Input${name}`}>{t(`label_${name}`)}</label>
