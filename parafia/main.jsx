@@ -221,7 +221,7 @@ const Confirmation = () => {
     const searchParams = new URLSearchParams()
     searchParams.append('tenant', tenant)
     axios.get(`api/visit?${searchParams.toString()}`).then((response) => {
-      setDonations(response.data)
+      setConfirmation(response.data)
       console.debug(response.data)
     })
   }, [])
