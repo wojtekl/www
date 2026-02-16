@@ -56,6 +56,17 @@ i18n.use(initReactI18next).init({
 store.dispatch({ type: 'lang/set', payload: lang })
 
 
+/* FormInput */
+const FormInput = (props) => {
+  const { name, modalId } = props
+  
+  return <div class="form-group">
+  <label for={`${modalId}Input${name}`}>{t(`label_${name}`)}</label>
+  <input type="text" class="form-control" id={`${modalId}Input${name}`} aria-describedby={`${modalId}Help${name}`} name={name} />
+  <small id={`${modalId}Help${name}`} class="form-text text-muted">{t(`help_${name}`)}</small>
+</div>
+}
+
 /* AccordionItem */
 const AccordionItem = (props) => {
   const { id, parent, show = false, children } = props
@@ -167,11 +178,7 @@ const VisitModal = (props) => {
         </div>
         <div class="modal-body">
           <form class="dane" id={`form_${modalId}`} onSubmit={handleSubmit} enctype="multipart/form-data">
-            <div class="form-group">
-              <label for={`${modalId}InputFirstname`}>{t('label_firstname')}</label>
-              <input type="text" class="form-control" id={`${modalId}InputFirstname`} aria-describedby={`${modalId}HelpFirstname`} name="firstname" />
-              <small id={`${modalId}HelpFirstname`} class="form-text text-muted">{t('help_firstname')}</small>
-            </div>
+            <FormInput name="firstname" modalId={modalId} />
             <div class="form-group">
               <label for={`${modalId}InputSurname`}>{t('label_surname')}</label>
               <input type="text" class="form-control" id={`${modalId}InputSurname`} aria-describedby={`${modalId}HelpSurname`} name="surname" />
