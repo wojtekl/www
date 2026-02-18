@@ -742,12 +742,6 @@ const Modal = (props) => {
             <FormInput name="notes" label={t('label_notes')} help={t('help_notes')} modalId={modalId} />
             <input type="hidden" class="form-control" id={`${modalId}InputId`} name="id" />
             <input type="hidden" class="form-control" id={`${modalId}InputType`} name="type" />
-            <div class="form-group">
-              <small id={`${modalId}HelpId`} class="form-text text-muted">{t('help_id')}</small>
-            </div>
-            <div class="form-group">
-              <small id={`${modalId}HelpType`} class="form-text text-muted">{t('help_type')}</small>
-            </div>
           </form>
         </div>
         <div class="modal-footer">
@@ -1166,12 +1160,8 @@ const Reader = () => {
                 <legend>{t('label_order')}</legend>
                 <InputText name="description" label={t('label_description')} help="" parentId="order" />
                 <InputText name="notes" label={t('label_from')} help="" parentId="order" />
-                <div class="mb-3">
-                  <input type="hidden" id="orderTenant" class="form-control" placeholder="" name="tenant" value={tenant} />
-                </div>
-                <div class="mb-3">
-                  <input type="hidden" id="orderType" class="form-control" placeholder="" name="type" value="eucharystia" />
-                </div>
+                <input type="hidden" id="orderTenant" class="form-control" name="tenant" value={tenant} />
+                <input type="hidden" id="orderType" class="form-control" name="type" value="eucharystia" />
                 <button type="submit" class="btn btn-primary" onClick={handleSubmit}>{t('label_submit')}</button>
               </fieldset>
             </form>
@@ -1240,9 +1230,7 @@ const Reader = () => {
                 <InputText name="street" label={t('label_street')} help="" parentId="book" />
                 <InputText name="number" label={t('label_number')} help="" parentId="book" />
                 <InputText name="city" label={t('label_city')} help="" parentId="city" />
-                <div class="mb-3">
-                  <input type="hidden" id="orderTenant" class="form-control" placeholder="" name="tenant" value={tenant} />
-                </div>
+                <input type="hidden" id="orderTenant" class="form-control" name="tenant" value={tenant} />
                 <button type="submit" class="btn btn-primary" onClick={handleBook}>{t('label_submit')}</button>
               </fieldset>
             </form>
