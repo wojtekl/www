@@ -47,7 +47,7 @@ store.subscribe(() => { localStorage.setItem('redux', JSON.stringify(store.getSt
 const lang = (getUrlParams().get('lang') ?? initialState.lang).toLocaleLowerCase()
 i18n.use(initReactI18next).init({
   resources: resources,
-  lang: lang,
+  lng: lang,
   fallbacking: "pl",
   interpolation: {
     escapeValue: false
@@ -740,8 +740,8 @@ const Modal = (props) => {
               <small id={`${modalId}valueHelp`} class="form-text text-muted">{t('help_value')}</small>
             </div>
             <FormInput name="notes" label={t('label_notes')} help={t('help_notes')} modalId={modalId} />
-            <input type="hidden" class="form-control" name="id" />
-            <input type="hidden" class="form-control" name="type" />
+            <input type="hidden" class="form-control" id={`${modalId}InputId`} name="id" />
+            <input type="hidden" class="form-control" id={`${modalId}InputType`} name="type" />
             <div class="form-group">
               <small id={`${modalId}HelpId`} class="form-text text-muted">{t('help_id')}</small>
             </div>
