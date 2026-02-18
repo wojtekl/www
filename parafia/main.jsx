@@ -58,14 +58,12 @@ store.dispatch({ type: 'lang/set', payload: lang })
 
 /* FormInput */
 const FormInput = (props) => {
-  const { name, modalId } = props
-
-  const { t } = useTranslation()
+  const { name, label, help, modalId } = props
   
   return <div class="form-group">
-  <label for={`${modalId}Input${name}`}>{t(`label_${name}`)}</label>
+  <label for={`${modalId}Input${name}`}>{label}</label>
   <input type="text" class="form-control" id={`${modalId}Input${name}`} aria-describedby={`${modalId}Help${name}`} name={name} />
-  <small id={`${modalId}Help${name}`} class="form-text text-muted">{t(`help_${name}`)}</small>
+  <small id={`${modalId}Help${name}`} class="form-text text-muted">{help}</small>
 </div>
 }
 
@@ -180,27 +178,11 @@ const VisitModal = (props) => {
         </div>
         <div class="modal-body">
           <form class="dane" id={`form_${modalId}`} onSubmit={handleSubmit} enctype="multipart/form-data">
-            <FormInput name="firstname" modalId={modalId} />
-            <div class="form-group">
-              <label for={`${modalId}InputSurname`}>{t('label_surname')}</label>
-              <input type="text" class="form-control" id={`${modalId}InputSurname`} aria-describedby={`${modalId}HelpSurname`} name="surname" />
-              <small id={`${modalId}HelpSurname`} class="form-text text-muted">{t('help_surname')}</small>
-            </div>
-            <div class="form-group">
-              <label for={`${modalId}InputStreet`}>{t('label_street')}</label>
-              <input type="text" class="form-control" id={`${modalId}InputStreet`} aria-describedby={`${modalId}HelpStreet`} name="street" />
-              <small id={`${modalId}HelpStreet`} class="form-text text-muted">{t('help_street')}</small>
-            </div>
-            <div class="form-group">
-              <label for={`${modalId}InputNumber`}>{t('label_number')}</label>
-              <input type="text" class="form-control" id={`${modalId}InputNumber`} aria-describedby={`${modalId}HelpNumber`} name="number" />
-              <small id={`${modalId}HelpNumber`} class="form-text text-muted">{t('help_number')}</small>
-            </div>
-            <div class="form-group">
-              <label for={`${modalId}InputCity`}>{t('label_city')}</label>
-              <input type="text" class="form-control" id={`${modalId}InputCity`} aria-describedby={`${modalId}HelpCity`} name="city" />
-              <small id={`${modalId}HelpCity`} class="form-text text-muted">{t('help_city')}</small>
-            </div>
+            <FormInput name="firstname" label={t('label_firstname')} help={t('help_firstname')} modalId={modalId} />
+            <FormInput name="surname" label={t('label_surname')} help={t('help_surname')} modalId={modalId} />
+            <FormInput name="street" label={t('label_street')} help={t('help_street')} modalId={modalId} />
+            <FormInput name="number" label={t('label_number')} help={t('help_number')} modalId={modalId} />
+            <FormInput name="city" label={t('label_city')} help={t('help_city')} modalId={modalId} />
             <div class="form-group">
               <label for={`${modalId}InputDonation`}>{t('label_donation')}</label>
               <input type="number" min="10.00" max="500" step="0.01" class="form-control" id={`${modalId}InputDonation`} aria-describedby={`${modalId}HelpDonation`} name="donation" />
@@ -749,11 +731,7 @@ const Modal = (props) => {
         </div>
         <div class="modal-body">
           <form class="dane" id={`form_${modalId}`} onSubmit={handleSubmit} enctype="multipart/form-data">
-            <div class="form-group">
-              <label for={`${modalId}InputDescription`}>{t('label_description')}</label>
-              <input type="text" class="form-control" id={`${modalId}InputDescription`} aria-describedby={`${modalId}HelpDescription`} name="description" />
-              <small id={`${modalId}HelpDescription`} class="form-text text-muted">{t('help_description')}</small>
-            </div>
+            <FormInput name="description" label={t('label_description')} help={t('help_description')} modalId={modalId} />
             <div class="form-group">
               <label for={`${modalId}InputScheduled`}>{t('label_date')}</label>
               <input type="datetime-local" class="form-control" id={`${modalId}InputScheduled`} aria-describedby={`${modalId}HelpScheduled`} name="scheduled" />
@@ -764,11 +742,7 @@ const Modal = (props) => {
               <input type="number" min="10.00" max="500" step="0.01" class="form-control" id={`${modalId}InputValue`} aria-describedby={`${modalId}valueHelp`} name="value" />
               <small id={`${modalId}valueHelp`} class="form-text text-muted">{t('help_value')}</small>
             </div>
-            <div class="form-group">
-              <label for={`${modalId}InputNotes`}>{t('label_notes')}</label>
-              <input type="text" class="form-control" id={`${modalId}InputNotes`} aria-describedby={`${modalId}HelpNotes`} name="notes" />
-              <small id={`${modalId}HelpNotes`} class="form-text text-muted">{t('help_notes')}</small>
-            </div>
+            <FormInput name="notes" label={t('label_notes')} help={t('help_notes')} modalId={modalId} />
             <div class="form-group">
               <input type="hidden" class="form-control" id={`${modalId}InputId`} aria-describedby={`${modalId}HelpId`} name="id" />
               <small id={`${modalId}HelpId`} class="form-text text-muted">{t('help_id')}</small>
