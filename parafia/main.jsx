@@ -551,11 +551,11 @@ const Dashboard = () => {
     searchParams.append('tenant', tenant)
     axios.get(`api/contact?${searchParams.toString()}`).then((response) => {
       setContact(response.data)
-      document.getElementById('contactDescription').value = response.data.description
-      document.getElementById('contactStreet').value = response.data.street
-      document.getElementById('contactNumber').value = response.data.number
-      document.getElementById('contactCity').value = response.data.city
-      document.getElementById('contactPostalcode').value = response.data.postalcode
+      document.getElementById('contactdescription').value = response.data.description
+      document.getElementById('contactstreet').value = response.data.street
+      document.getElementById('contactnumber').value = response.data.number
+      document.getElementById('contactcity').value = response.data.city
+      document.getElementById('contactpostalcode').value = response.data.postalcode
       document.getElementById('contactEmail').value = response.data.email
       document.getElementById('contactPhone').value = response.data.phone
       document.getElementById('contactIban').value = response.data.iban
