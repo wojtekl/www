@@ -47,7 +47,7 @@ store.subscribe(() => { localStorage.setItem('redux', JSON.stringify(store.getSt
 const lang = (getUrlParams().get('lang') ?? initialState.lang).toLocaleLowerCase()
 i18n.use(initReactI18next).init({
   resources: resources,
-  lng: lang,
+  lang: lang,
   fallbacking: "pl",
   interpolation: {
     escapeValue: false
@@ -66,6 +66,18 @@ const FormInput = (props) => {
   <small id={`${modalId}Help${name}`} class="form-text text-muted">{help}</small>
 </div>
 }
+
+
+/* InputText */
+const InputText = (props) => {
+  const { name, label, help, parentId } = props
+  
+  return <div class="mb-3">
+  <label for={`$parentId}${name}`} class="form-label">{label}</label>
+  <input type="text" id={`$parentId}${name}`} class="form-control" placeholder={help} name={name} />
+</div>
+}
+
 
 /* AccordionItem */
 const AccordionItem = (props) => {
@@ -577,26 +589,11 @@ const Dashboard = () => {
     <form id="form_contact" enctype="multipart/form-data">
       <fieldset disabled={disabled}>
         <legend>{t('label_contact')}</legend>
-        <div class="mb-3">
-          <label for="contactDescription" class="form-label">{t('label_description')}</label>
-          <input type="text" id="contactDescription" class="form-control" placeholder={contact?.description} name="description" />
-        </div>
-        <div class="mb-3">
-          <label for="contactStreet" class="form-label">{t('label_street')}</label>
-          <input type="text" id="contactStreet" class="form-control" placeholder={contact?.street} name="street" />
-        </div>
-        <div class="mb-3">
-          <label for="contactNumber" class="form-label">{t('label_number')}</label>
-          <input type="text" id="contactNumber" class="form-control" placeholder={contact?.number} name="number" />
-        </div>
-        <div class="mb-3">
-          <label for="contactCity" class="form-label">{t('label_city')}</label>
-          <input type="text" id="contactCity" class="form-control" placeholder={contact?.city} name="city" />
-        </div>
-        <div class="mb-3">
-          <label for="contactPostalcode" class="form-label">{t('label_postalcode')}</label>
-          <input type="text" id="contactPostalcode" class="form-control" placeholder={contact?.postalcode} name="postalcode" />
-        </div>
+        <InputText name="description" label={t('label_description')} help={contact?.description} parentId="contact" />
+        <InputText name="street" label={t('label_street')} help={contact?.street} parentId="contact" />
+        <InputText name="number" label={t('label_number')} help={contact?.number} parentId="contact" />
+        <InputText name="city" label={t('label_city')} help={contact?.city} parentId="contact" />
+        <InputText name="postalcode" label={t('label_postalcode')} help={contact?.postalcode} parentId="contact" />
         <div class="mb-3">
           <label for="contactEmail" class="form-label">{t('label_email')}</label>
           <input type="email" id="contactEmail" class="form-control" placeholder={contact?.email} name="email" />
@@ -743,12 +740,12 @@ const Modal = (props) => {
               <small id={`${modalId}valueHelp`} class="form-text text-muted">{t('help_value')}</small>
             </div>
             <FormInput name="notes" label={t('label_notes')} help={t('help_notes')} modalId={modalId} />
+            <input type="hidden" class="form-control" name="id" />
+            <input type="hidden" class="form-control" name="type" />
             <div class="form-group">
-              <input type="hidden" class="form-control" id={`${modalId}InputId`} aria-describedby={`${modalId}HelpId`} name="id" />
               <small id={`${modalId}HelpId`} class="form-text text-muted">{t('help_id')}</small>
             </div>
             <div class="form-group">
-              <input type="hidden" class="form-control" id={`${modalId}InputType`} aria-describedby={`${modalId}HelpType`} name="type" />
               <small id={`${modalId}HelpType`} class="form-text text-muted">{t('help_type')}</small>
             </div>
           </form>
@@ -1167,14 +1164,8 @@ const Reader = () => {
             <form id="form_order" enctype="multipart/form-data">
               <fieldset>
                 <legend>{t('label_order')}</legend>
-                <div class="mb-3">
-                  <label for="orderDescription" class="form-label">{t('label_description')}</label>
-                  <input type="text" id="orderDescription" class="form-control" placeholder="" name="description" />
-                </div>
-                <div class="mb-3">
-                  <label for="orderFrom" class="form-label">{t('label_from')}</label>
-                  <input type="text" id="orderFrom" class="form-control" placeholder="" name="notes" />
-                </div>
+                <InputText name="description" label={t('label_description')} help="" parentId="order" />
+                <InputText name="notes" label={t('label_from')} help="" parentId="order" />
                 <div class="mb-3">
                   <input type="hidden" id="orderTenant" class="form-control" placeholder="" name="tenant" value={tenant} />
                 </div>
@@ -1244,26 +1235,11 @@ const Reader = () => {
             <form id="form_book" enctype="multipart/form-data">
               <fieldset>
                 <legend>{t('label_book')}</legend>
-                <div class="mb-3">
-                  <label for="bookFirstname" class="form-label">{t('label_firstname')}</label>
-                  <input type="text" id="bookFirstname" class="form-control" placeholder="" name="firstname" />
-                </div>
-                <div class="mb-3">
-                  <label for="bookSurname" class="form-label">{t('label_surname')}</label>
-                  <input type="text" id="bookSurname" class="form-control" placeholder="" name="surname" />
-                </div>
-                <div class="mb-3">
-                  <label for="bookStreet" class="form-label">{t('label_street')}</label>
-                  <input type="text" id="bookStreet" class="form-control" placeholder="" name="street" />
-                </div>
-                <div class="mb-3">
-                  <label for="bookNumber" class="form-label">{t('label_number')}</label>
-                  <input type="text" id="bookNumber" class="form-control" placeholder="" name="number" />
-                </div>
-                <div class="mb-3">
-                  <label for="bookCity" class="form-label">{t('label_city')}</label>
-                  <input type="text" id="bookCity" class="form-control" placeholder="" name="city" />
-                </div>
+                <InputText name="firstname" label={t('label_firstname')} help="" parentId="book" />
+                <InputText name="surname" label={t('label_surname')} help="" parentId="book" />
+                <InputText name="street" label={t('label_street')} help="" parentId="book" />
+                <InputText name="number" label={t('label_number')} help="" parentId="book" />
+                <InputText name="city" label={t('label_city')} help="" parentId="city" />
                 <div class="mb-3">
                   <input type="hidden" id="orderTenant" class="form-control" placeholder="" name="tenant" value={tenant} />
                 </div>
