@@ -337,8 +337,8 @@ const Weeks = () => {
   const [selectedWeek, setSelectedWeek] = useState()
 
   const months = [t('label_january'), t('label_february'), t('label_march'), t('label_april'), t('label_may'), t('label_june'), t('label_july'), t('label_august'), t('label_september'), t('label_october'), t('label_november'), t('label_december')]
+  const weeks = getWeeks(months)
   const locale = (getUrlParam('lang') ?? navigator.language.substring(3)).toLocaleLowerCase()
-  const weeks = getWeeks()
 
   return selectedWeek ? <>
     <button type="button" class="btn btn-sm btn-outline-secondary" onClick={ () => { setSelectedWeek(undefined) }}>{t('label_back')}</button>
