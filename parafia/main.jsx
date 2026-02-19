@@ -12,7 +12,7 @@ import L from 'leaflet'
 
 if ('serviceWorker' in navigator) navigator.serviceWorker.register('/sw.js')
 
-let installPrompt = null;
+var installPrompt = null;
 window.addEventListener("beforeinstallprompt", event => installPrompt = event)
 
 const state = localStorage.getItem('redux')
@@ -417,7 +417,7 @@ const CurrentWeek = (props) => {
       if (!date) {
         return t('label_order')
       }
-      else if (datePart(new Date()) === date) {
+      else if (datePart() === date) {
         return t('label_current_week')
       }
       else {
@@ -712,7 +712,7 @@ const Manage = () => {
       return <Dashboard />
     }
     else if ('currentWeekLink' === selectedTab) {
-      return <CurrentWeek date={ datePart(new Date()) } type="eucharystia" />
+      return <CurrentWeek date={ datePart() } type="eucharystia" />
     }
     else if ('nextWeekLink' === selectedTab) {
       const nextWeek = new Date()
@@ -726,7 +726,7 @@ const Manage = () => {
       return <CurrentWeek type="eucharystia" />
     }
     else if ('departureLink' === selectedTab) {
-      return <CurrentWeek date={ datePart(new Date()) } type="departure" />
+      return <CurrentWeek date={ datePart() } type="departure" />
     }
     else if ('visitLink' === selectedTab) {
       return <Visit />
@@ -969,7 +969,7 @@ const Reader = () => {
     const postCurrent = {
       tenant: tenant,
       type: "eucharystia",
-      today: datePart(new Date())
+      today: datePart()
     }
     axios.post('api/scheduled-week', postCurrent, { headers: { 'Content-Type': 'multipart/form-data' }}).then(response => {
       setCurrentWeek(response.data)
@@ -978,7 +978,7 @@ const Reader = () => {
     const postDeparture = {
       tenant: tenant,
       type: "departure",
-      today: datePart(new Date())
+      today: datePart()
     }
     axios.post('api/scheduled-week', postDeparture, { headers: { 'Content-Type': 'multipart/form-data' }}).then(response => {
       setDeparture(response.data)
