@@ -1,6 +1,6 @@
 const getUrlParams = () => new URLSearchParams(new URL(window.location).search)
-const getUrlParam = (param) => getUrlParams().get(param) ?? undefined
-const datePart = (d) => d.toISOString().split('T')[0]
+const getUrlParam = (param: String) => getUrlParams().get(param) ?? undefined
+const datePart = (d = new Date()) => d.toISOString().split('T')[0]
 
 
 /* DateFormatter */
