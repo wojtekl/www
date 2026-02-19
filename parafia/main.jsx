@@ -69,7 +69,7 @@ const InputText = (props) => {
   const { name, label, help, parentId } = props
   
   return <div class="mb-3">
-  <label for={`$parentId}${name}`} class="form-label">{label}</label>
+  <label for={`${parentId}${name}`} class="form-label">{label}</label>
   <input type="text" id={`${parentId}${name}`} class="form-control" placeholder={help} name={name} />
 </div>
 }
