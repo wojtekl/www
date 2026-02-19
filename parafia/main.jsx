@@ -319,44 +319,24 @@ const Visit = () => {
       </div>
     </div>
     <h2>{t('label_visit')}</h2>
-    <div class="table-responsive small">
-      <table class="table table-stripped table-sm">
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">{t('label_firstname')}</th>
-            <th scope="col">{t('label_surname')}</th>
-            <th scope="col">{t('label_street')}</th>
-            <th scope="col">{t('label_number')}</th>
-            <th scope="col">{t('label_city')}</th>
-            <th scope="col">{t('label_donation')}</th>
-            <th scope="col">{t('label_date')}</th>
-            <th scope="col">{t('label_actions')}</th>
-          </tr>
-        </thead>
-        <tbody>{ donations.map((e, i) => 
-        <tr>
-            <td>{i + 1}</td>
-            <td>{e.firstname}</td>
-            <td>{e.surname}</td>
-            <td>{e.street}</td>
-            <td>{e.number}</td>
-            <td>{e.city}</td>
-            <td><NumberFormatter value={e.donation} locale={locale} /></td>
-            <td><DateFormatter timestamp={e.created} locale={locale} format="date" /></td>
-            <td><button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#confirmModal" onClick={() => { setSelected(e['id']) }}><i class="bi bi-trash"></i></button></td>
-          </tr>
-          )
-        }
-        </tbody>
-      </table>
-    </div>
+    <Table columns={['#', t('label_firstname'), t('label_surname'), t('label_street'), t('label_number'), t('label_city'), t('label_donation'), t('label_date'), t('label_actions')]}>
+      { donations.map((e, i) => <tr>
+        <td>{i + 1}</td>
+        <td>{e.firstname}</td>
+        <td>{e.surname}</td>
+        <td>{e.street}</td>
+        <td>{e.number}</td>
+        <td>{e.city}</td>
+        <td><NumberFormatter value={e.donation} locale={locale} /></td>
+        <td><DateFormatter timestamp={e.created} locale={locale} format="date" /></td>
+        <td><button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#confirmModal" onClick={() => { setSelected(e['id']) }}><i class="bi bi-trash"></i></button></td>
+      </tr>)}
+    </Table>
     <ConfirmModal title="label_delete" onOk={() => {
       const searchParams = new URLSearchParams()
       searchParams.append('id', selected)
-      axios.get(`api/visit-cd?${searchParams.toString()}`).then((response) => {
-        setRefresh(true)
-    })}} />
+      axios.get(`api/visit-cd?${searchParams.toString()}`).then(response => setRefresh(true))}
+    } />
   </>
 }
 
@@ -519,7 +499,7 @@ const CurrentWeek = (props) => {
         </thead>
         <tbody>
           {currentWeek.map((e, i) => {
-            return <tr>
+            <tr>
               <td>{i + 1}</td>
               <td><DateFormatter timestamp={e['scheduled']} locale={locale} /></td>
               <td>{e['description']}</td>
@@ -1091,9 +1071,7 @@ const Reader = () => {
             <div class="col-sm-4 offset-md-1 py-4">
               <h4>{t('label_contact_subtitle')}</h4>
               <ul class="list-unstyled">
-                <li>
-                  <a href={`mailto:${contact?.email}`} class="text-white">{t('label_emailus')}</a>
-                </li>
+                <li><a href={`mailto:${contact?.email}`} class="text-white">{t('label_emailus')}</a></li>
               </ul>
             </div>
           </div>
@@ -1101,9 +1079,7 @@ const Reader = () => {
       </div>
       <div class="navbar navbar-dark bg-dark shadow-sm">
         <div class="container">
-          <a class="navbar-brand d-flex align-items-center">
-            <strong>{`${t('label_tenant')}: ${contact?.description}`}</strong>
-          </a>
+          <a class="navbar-brand d-flex align-items-center"><strong>{`${t('label_tenant')}: ${contact?.description}`}</strong></a>
           <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse"
             data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent"
             aria-expanded="false" aria-label={t('label_toggle_navigation')}>
@@ -1119,26 +1095,13 @@ const Reader = () => {
         <hr class="col-3 col-md-2 mb-5"></hr>
         <div class="accordion" id="accordionExample">
           <AccordionItem id="scheduled" parent="accordionExample" show={true}>
-            <div class="table-responsive small">
-              <table class="table table-stripped table-sm">
-                <thead>
-                  <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">{t('label_day')}</th>
-                    <th scope="col">{t('label_description')}</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {dayOfWeek.map((e, i) => 
-                    <tr>
-                      <td>{i + 1}</td>
-                      <td>{e.name}</td>
-                      <td>{currentWeek.filter(f => f.dayOfWeek === e.order).map(g => <p>{`${g.time} ${g.description}`}</p>)}</td>
-                    </tr>
-                  )}
-                </tbody>
-              </table>
-            </div>
+            <Table columns={['#', t('label_day'), t('label_description')]}>
+              { dayOfWeek.map((e, i) => <tr>
+                <td>{i + 1}</td>
+                <td>{e.name}</td>
+                <td>{ currentWeek.filter(f => f.dayOfWeek === e.order).map(g => <p>{`${g.time} ${g.description}`}</p>) }</td>
+              </tr>) }
+            </Table>
           </AccordionItem>
           <AccordionItem id="announcements" parent="accordionExample"></AccordionItem>
           <AccordionItem id="order" parent="accordionExample">
@@ -1147,65 +1110,34 @@ const Reader = () => {
                 <legend>{t('label_order')}</legend>
                 <InputText name="description" label={t('label_description')} help="" parentId="order" />
                 <InputText name="notes" label={t('label_from')} help="" parentId="order" />
-                <input type="hidden" id="orderTenant" class="form-control" name="tenant" value={tenant} />
-                <input type="hidden" id="orderType" class="form-control" name="type" value="eucharystia" />
+                <input type="hidden" name="tenant" value={tenant} />
+                <input type="hidden" name="type" value="eucharystia" />
                 <button type="submit" class="btn btn-primary" onClick={handleSubmit}>{t('label_submit')}</button>
               </fieldset>
             </form>
           </AccordionItem>
           <AccordionItem id="departure" parent="accordionExample">
-            <div class="table-responsive small">
-              <table class="table table-stripped table-sm">
-                <thead>
-                  <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">{t('label_date')}</th>
-                    <th scope="col">{t('label_description')}</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {departure.map((e, i) => 
-                    <tr>
-                      <td>{i + 1}</td>
-                      <td><DateFormatter timestamp={e.scheduled} locale={locale} /></td>
-                      <td>{e.description}</td>
-                    </tr>
-                  )}
-                </tbody>
-              </table>
-            </div>
+            <Table columns={['#', t('label_date'), t('label_description')]}>
+              { departure.map((e, i) => <tr>
+                <td>{i + 1}</td>
+                <td><DateFormatter timestamp={e.scheduled} locale={locale} /></td>
+                <td>{e.description}</td>
+              </tr>) }
+            </Table>
           </AccordionItem>
           { !!settings?.showVisits && <AccordionItem id="visit" parent="accordionExample">
-            <div class="table-responsive small">
-              <table class="table table-stripped table-sm">
-                <thead>
-                  <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">{t('label_firstname')}</th>
-                    <th scope="col">{t('label_surname')}</th>
-                    <th scope="col">{t('label_street')}</th>
-                    <th scope="col">{t('label_number')}</th>
-                    <th scope="col">{t('label_city')}</th>
-                    <th scope="col">{t('label_donation')}</th>
-                    <th scope="col">{t('label_date')}</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {visit.map((e, i) => 
-                    <tr>
-                      <td>{i + 1}</td>
-                      <td>{e.firstname}</td>
-                      <td>{e.surname}</td>
-                      <td>{e.street}</td>
-                      <td>{e.number}</td>
-                      <td>{e.city}</td>
-                      <td><NumberFormatter value={e.donation} locale={locale} /></td>
-                      <td><DateFormatter timestamp={e.created} locale={locale} format="date" /></td>
-                    </tr>
-                  )}
-                </tbody>
-              </table>
-            </div>
+            <Table columns={['#', t('label_firstname'), t('label_surname'), t('label_street'), t('label_number'), t('label_city'), t('label_donation'), t('label_date')]}>
+              { visit.map((e, i) => <tr>
+                <td>{i + 1}</td>
+                <td>{e.firstname}</td>
+                <td>{e.surname}</td>
+                <td>{e.street}</td>
+                <td>{e.number}</td>
+                <td>{e.city}</td>
+                <td><NumberFormatter value={e.donation} locale={locale} /></td>
+                <td><DateFormatter timestamp={e.created} locale={locale} format="date" /></td>
+              </tr>) }
+            </Table>
           </AccordionItem>
           }
           { !!settings?.showBooking && <AccordionItem id="book" parent="accordionExample">
@@ -1217,7 +1149,7 @@ const Reader = () => {
                 <InputText name="street" label={t('label_street')} help="" parentId="book" />
                 <InputText name="number" label={t('label_number')} help="" parentId="book" />
                 <InputText name="city" label={t('label_city')} help="" parentId="city" />
-                <input type="hidden" id="orderTenant" class="form-control" name="tenant" value={tenant} />
+                <input type="hidden" name="tenant" value={tenant} />
                 <button type="submit" class="btn btn-primary" onClick={handleBook}>{t('label_submit')}</button>
               </fieldset>
             </form>
