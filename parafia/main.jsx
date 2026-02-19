@@ -44,7 +44,7 @@ const selectedReducer = (state = initialState, action) => {
 const store = createStore(selectedReducer)
 store.subscribe(() => { localStorage.setItem('redux', JSON.stringify(store.getState())) })
 
-const lang = (getUrlParams().get('lang') ?? initialState.lang).toLocaleLowerCase()
+const lang = (getUrlParam('lang') ?? initialState.lang).toLocaleLowerCase()
 i18n.use(initReactI18next).init({
   resources: resources,
   lng: lang,
@@ -172,7 +172,7 @@ const Password = () => {
   const handleSubmit = (event) => {
     event.preventDefault()
     const postData = {
-      code: new URLSearchParams(new URL(window.location).search).get('code'),
+      code: getUrlParam('code'),
       tenant: document.querySelector(`#floatingInput`).value,
       password: document.querySelector(`#floatingPassword`).value
     }
@@ -247,15 +247,14 @@ const Confirmation = () => {
   const [refresh, setRefresh] = useState()
 
   useEffect(() => {
-    const searchParams = new URLSearchParams()
-    searchParams.append('tenant', tenant)
+    const searchParams = new URLSearchParams({ tenant: tenant })
     axios.get(`api/visit?${searchParams.toString()}`).then((response) => {
       setConfirmation(response.data)
       console.debug(response.data)
     })
   }, [])
 
-  const locale = (getUrlParams().get('lang') ?? navigator.language.substring(3)).toLocaleLowerCase()
+  const locale = (getUrlParam('lang') ?? navigator.language.substring(3)).toLocaleLowerCase()
 
   return <>
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
@@ -281,8 +280,7 @@ const Confirmation = () => {
       </tr>) }
     </Table>
     <ConfirmModal title="label_delete" onOk={() => {
-      const searchParams = new URLSearchParams()
-      searchParams.append('id', selected)
+      const searchParams = new URLSearchParams({ id: selected })
       axios.get(`api/visit-cd?${searchParams.toString()}`).then((response) => {
         setRefresh(true)
     })}} />
@@ -299,15 +297,14 @@ const Visit = () => {
   const [refresh, setRefresh] = useState()
 
   useEffect(() => {
-    const searchParams = new URLSearchParams()
-    searchParams.append('tenant', tenant)
+    const searchParams = new URLSearchParams({ tenant: tenant })
     axios.get(`api/visit?${searchParams.toString()}`).then((response) => {
       setDonations(response.data)
       console.debug(response.data)
     })
   }, [])
 
-  const locale = (getUrlParams().get('lang') ?? navigator.language.substring(3)).toLocaleLowerCase()
+  const locale = (getUrlParam('lang') ?? navigator.language.substring(3)).toLocaleLowerCase()
 
   return <>
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
@@ -333,8 +330,7 @@ const Visit = () => {
       </tr>)}
     </Table>
     <ConfirmModal title="label_delete" onOk={() => {
-      const searchParams = new URLSearchParams()
-      searchParams.append('id', selected)
+      const searchParams = new URLSearchParams({ id: selected })
       axios.get(`api/visit-cd?${searchParams.toString()}`).then(response => setRefresh(true))}
     } />
   </>
@@ -347,7 +343,7 @@ const Weeks = () => {
   const [selectedWeek, setSelectedWeek] = useState()
 
   const months = [t('label_january'), t('label_february'), t('label_march'), t('label_april'), t('label_may'), t('label_june'), t('label_july'), t('label_august'), t('label_september'), t('label_october'), t('label_november'), t('label_december')]
-  const locale = (getUrlParams().get('lang') ?? navigator.language.substring(3)).toLocaleLowerCase()
+  const locale = (getUrlParam('lang') ?? navigator.language.substring(3)).toLocaleLowerCase()
 
   const currentYear = new Date()
   currentYear.setHours(0, 0, 0, 0)
@@ -455,7 +451,7 @@ const CurrentWeek = (props) => {
     }
   }
 
-  const locale = (getUrlParams().get('lang') ?? navigator.language.substring(3)).toLocaleLowerCase()
+  const locale = (getUrlParam('lang') ?? navigator.language.substring(3)).toLocaleLowerCase()
   
   return <>
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
@@ -515,8 +511,7 @@ const CurrentWeek = (props) => {
     </div>
     <Modal modalId="editScheduledModal" itemId={selected} type={type} />
     <ConfirmModal title="label_delete" onOk={() => {
-      const searchParams = new URLSearchParams()
-      searchParams.append('id', selected)
+      const searchParams = new URLSearchParams({ id: selected })
       axios.get(`api/scheduled-cd?${searchParams.toString()}`).then((response) => {
         handleRefresh()
     })}} />
@@ -533,8 +528,7 @@ const Dashboard = () => {
   const [disabled, setDisabled] = useState(true)
 
   useEffect(() => {
-    const searchParams = new URLSearchParams()
-    searchParams.append('tenant', tenant)
+    const searchParams = new URLSearchParams({ tenant: tenant })
     axios.get(`api/contact?${searchParams.toString()}`).then((response) => {
       setContact(response.data)
       document.getElementById('contactdescription').value = response.data.description
@@ -608,8 +602,7 @@ const Settings = () => {
   const [disabled, setDisabled] = useState(true)
 
   useEffect(() => {
-    const searchParams = new URLSearchParams()
-    searchParams.append('tenant', tenant)
+    const searchParams = new URLSearchParams({ tenant: tenant })
     axios.get(`api/settings?${searchParams.toString()}`).then((response) => {
       setSettings(response.data)
       document.getElementById('settingsSchedule').value = response.data.schedule
@@ -680,8 +673,7 @@ const Modal = (props) => {
       return
     }
     
-    const searchParams = new URLSearchParams()
-    searchParams.append('id', itemId)
+    const searchParams = new URLSearchParams({ id: itemId })
     axios.get(`api/scheduled?${searchParams.toString()}`).then((response) => {
       document.getElementById(`${modalId}InputId`).value = itemId
       document.getElementById(`${modalId}InputDescription`).value = response.data['description']
@@ -1003,8 +995,7 @@ const Reader = () => {
   }
 
   useEffect(() => {
-    const searchParams = new URLSearchParams()
-    searchParams.append('tenant', tenant)
+    const searchParams = new URLSearchParams({ tenant: tenant })
     axios.get(`api/contact?${searchParams.toString()}`).then((response) => {
       setContact(response.data)
       console.debug(response.data)
@@ -1036,8 +1027,7 @@ const Reader = () => {
   }, [tenant])
 
   useEffect(() => {
-    const searchParams = new URLSearchParams()
-    searchParams.append('tenant', tenant)
+    const searchParams = new URLSearchParams({ tenant: tenant })
     axios.get(`api/settings?${searchParams.toString()}`).then((response) => {
       setSettings(response.data)
       console.debug(settings?.showBooking)
@@ -1045,15 +1035,14 @@ const Reader = () => {
   }, [tenant])
 
   useEffect(() => {
-    const searchParams = new URLSearchParams()
-    searchParams.append('tenant', tenant)
+    const searchParams = new URLSearchParams({ tenant: tenant })
     axios.get(`api/visit?${searchParams.toString()}`).then((response) => {
       setVisit(response.data)
       console.debug(response.data)
     })
   }, [tenant])
 
-  const locale = (getUrlParams().get('lang') ?? navigator.language.substring(3)).toLocaleLowerCase()
+  const locale = (getUrlParam('lang') ?? navigator.language.substring(3)).toLocaleLowerCase()
 
   return <>
     <header>
