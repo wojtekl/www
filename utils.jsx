@@ -2,6 +2,30 @@ const getUrlParams = () => new URLSearchParams(new URL(window.location).search)
 const getUrlParam = (param: String) => getUrlParams().get(param) ?? undefined
 const datePart = (d = new Date()) => d.toISOString().split('T')[0]
 
+const getWeeks = () => {
+  const currentYear = new Date()
+  currentYear.setHours(0, 0, 0, 0)
+  currentYear.setMonth(0)
+  currentYear.setDate(1)
+  currentYear.setDate(currentYear.getDate() - currentYear.getDay() + 2)
+  
+  const nextYear = new Date().getFullYear() + 1
+  const weeks = new Array()
+  while(currentYear.getFullYear() < nextYear) {
+    const start = datePart(currentYear)
+    const month = months[currentYear.getMonth()]
+    currentYear.setDate(currentYear.getDate() + 6)
+    const nextMonth = months[currentYear.getMonth()]
+    weeks.push({
+      start: start,
+      month: nextMonth === month ? month : `${month}/${nextMonth}`
+    })
+    currentYear.setDate(currentYear.getDate() + 1)
+  }
+
+  return weeks
+}
+
 
 /* DateFormatter */
 const DateFormatter = (props: { timestamp: Number, locale: String, format: String }) => {
