@@ -118,7 +118,7 @@ const Table = (props) => {
   
   return <div class="table-responsive small">
   <table class="table table-stripped table-sm">
-    <thead><tr>{ columns.map((e, i) => <th scope="col">{e}</th> }</tr></thead>
+    <thead><tr>{ columns.map((e, i) => <th scope="col">{e}</th>) }</tr></thead>
     <tbody>{children}</tbody>
   </table>
 </div>
