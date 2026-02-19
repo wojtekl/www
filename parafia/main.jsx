@@ -498,8 +498,7 @@ const CurrentWeek = (props) => {
           </tr>
         </thead>
         <tbody>
-          {currentWeek.map((e, i) => {
-            <tr>
+          {currentWeek.map((e, i) => <tr>
               <td>{i + 1}</td>
               <td><DateFormatter timestamp={e['scheduled']} locale={locale} /></td>
               <td>{e['description']}</td>
@@ -510,7 +509,7 @@ const CurrentWeek = (props) => {
                 <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#confirmModal" onClick={ () => { setSelected(e['id']) } }><i class="bi bi-trash"></i></button>
               </td>
             </tr>
-          })}
+          )}
         </tbody>
       </table>
     </div>
