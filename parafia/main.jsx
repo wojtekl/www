@@ -100,11 +100,11 @@ const ModalForm = (props) => {
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label={label_close}></button>
         </div>
         <div class="modal-body">
-          <form class="dane" id={`form_${id}`} onSubmit={handleSubmit} enctype="multipart/form-data">{children}</form>
+          <form class="dane" id={`form_${id}`} enctype="multipart/form-data">{children}</form>
         </div>
         <div class="modal-footer">
           <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">{label_cancel}</button>
-          <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">{label_save}</button>
+          <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" onClick={handleSubmit}>{label_save}</button>
         </div>
       </div>
     </div>
