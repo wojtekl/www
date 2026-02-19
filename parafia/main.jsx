@@ -348,7 +348,7 @@ const Weeks = () => {
   const nextYear = new Date().getFullYear() + 1
   const weeks = new Array()
   while(currentYear.getFullYear() < nextYear) {
-    const start = currentYear.toISOString().split('T')[0]
+    const start = datePart(currentYear)
     const month = months[currentYear.getMonth()]
     currentYear.setDate(currentYear.getDate() + 6)
     const nextMonth = months[currentYear.getMonth()]
@@ -417,7 +417,7 @@ const CurrentWeek = (props) => {
       if (!date) {
         return t('label_order')
       }
-      else if ((new Date().toISOString().split('T')[0]) === date) {
+      else if (datePart(new Date()) === date) {
         return t('label_current_week')
       }
       else {
@@ -712,12 +712,12 @@ const Manage = () => {
       return <Dashboard />
     }
     else if ('currentWeekLink' === selectedTab) {
-      return <CurrentWeek date={ new Date().toISOString().split('T')[0] } type="eucharystia" />
+      return <CurrentWeek date={ datePart(new Date()) } type="eucharystia" />
     }
     else if ('nextWeekLink' === selectedTab) {
       const nextWeek = new Date()
       nextWeek.setDate(nextWeek.getDate() + 7)
-      return <CurrentWeek date={ nextWeek.toISOString().split('T')[0] } type="eucharystia" />
+      return <CurrentWeek date={ datePart(nextWeek) } type="eucharystia" />
     }
     else if ('yearLink' === selectedTab) {
       return <Weeks />
@@ -726,7 +726,7 @@ const Manage = () => {
       return <CurrentWeek type="eucharystia" />
     }
     else if ('departureLink' === selectedTab) {
-      return <CurrentWeek date={ new Date().toISOString().split('T')[0] } type="departure" />
+      return <CurrentWeek date={ datePart(new Date()) } type="departure" />
     }
     else if ('visitLink' === selectedTab) {
       return <Visit />
@@ -969,7 +969,7 @@ const Reader = () => {
     const postCurrent = {
       tenant: tenant,
       type: "eucharystia",
-      today: new Date().toISOString().split('T')[0]
+      today: datePart(new Date())
     }
     axios.post('api/scheduled-week', postCurrent, { headers: { 'Content-Type': 'multipart/form-data' }}).then(response => {
       setCurrentWeek(response.data)
@@ -978,7 +978,7 @@ const Reader = () => {
     const postDeparture = {
       tenant: tenant,
       type: "departure",
-      today: new Date().toISOString().split('T')[0]
+      today: datePart(new Date())
     }
     axios.post('api/scheduled-week', postDeparture, { headers: { 'Content-Type': 'multipart/form-data' }}).then(response => {
       setDeparture(response.data)
