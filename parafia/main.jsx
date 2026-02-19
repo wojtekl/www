@@ -10,14 +10,10 @@ import axios from 'axios'
 import L from 'leaflet'
 
 
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('/sw.js')
-}
+if ('serviceWorker' in navigator) navigator.serviceWorker.register('/sw.js')
 
 let installPrompt = null;
-window.addEventListener("beforeinstallprompt", (event) => {
-  installPrompt = event;
-});
+window.addEventListener("beforeinstallprompt", event => installPrompt = event)
 
 const state = localStorage.getItem('redux')
 const initialState = !!state ? JSON.parse(state) : {
@@ -42,7 +38,7 @@ const selectedReducer = (state = initialState, action) => {
 }
 
 const store = createStore(selectedReducer)
-store.subscribe(() => { localStorage.setItem('redux', JSON.stringify(store.getState())) })
+store.subscribe(() => localStorage.setItem('redux', JSON.stringify(store.getState())))
 
 const lang = (getUrlParam('lang') ?? initialState.lang).toLocaleLowerCase()
 i18n.use(initReactI18next).init({
@@ -86,7 +82,6 @@ const ModalForm = (props) => {
   const handleSubmit = (event) => {
     event.preventDefault()
 
-    console.debug('handleSubmit')
     onSubmit()
     
     event.stopPropagation()
@@ -176,7 +171,7 @@ const Password = () => {
       tenant: document.querySelector(`#floatingInput`).value,
       password: document.querySelector(`#floatingPassword`).value
     }
-    axios.post('api/signin-cd', postData, { headers: { 'Content-Type': 'multipart/form-data' }}).then((response) => {
+    axios.post('api/signin-cd', postData, { headers: { 'Content-Type': 'multipart/form-data' }}).then(response => {
       console.debug(response.data)
       if (response.data) {
         navigate('/signin')
@@ -217,7 +212,7 @@ const VisitModal = (props) => {
 
   const handleSubmit = () => {
     const form = document.querySelector(`#form_${modalId}`)
-    axios.post('api/visit-cd', form, { headers: { 'Content-Type': 'multipart/form-data' }}).then((response) => {
+    axios.post('api/visit-cd', form, { headers: { 'Content-Type': 'multipart/form-data' }}).then(response => {
       form.reset()
       console.debug(response.data)
     })
@@ -248,7 +243,7 @@ const Confirmation = () => {
 
   useEffect(() => {
     const searchParams = new URLSearchParams({ tenant: tenant })
-    axios.get(`api/visit?${searchParams.toString()}`).then((response) => {
+    axios.get(`api/visit?${searchParams.toString()}`).then(response => {
       setConfirmation(response.data)
       console.debug(response.data)
     })
@@ -276,14 +271,13 @@ const Confirmation = () => {
         <td>{e.city}</td>
         <td><NumberFormatter value={e.donation} locale={locale} /></td>
         <td><DateFormatter timestamp={e.created} locale={locale} format="date" /></td>
-        <td><button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#confirmModal" onClick={() => { setSelected(e['id']) }}><i class="bi bi-trash"></i></button></td>
+        <td><button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#confirmModal" onClick={() => setSelected(e['id']) }><i class="bi bi-trash"></i></button></td>
       </tr>) }
     </Table>
     <ConfirmModal title="label_delete" onOk={() => {
       const searchParams = new URLSearchParams({ id: selected })
-      axios.get(`api/visit-cd?${searchParams.toString()}`).then((response) => {
-        setRefresh(true)
-    })}} />
+      axios.get(`api/visit-cd?${searchParams.toString()}`).then(response => setRefresh(true))
+    }} />
   </>
 }
 
@@ -298,7 +292,7 @@ const Visit = () => {
 
   useEffect(() => {
     const searchParams = new URLSearchParams({ tenant: tenant })
-    axios.get(`api/visit?${searchParams.toString()}`).then((response) => {
+    axios.get(`api/visit?${searchParams.toString()}`).then(response => {
       setDonations(response.data)
       console.debug(response.data)
     })
@@ -326,7 +320,7 @@ const Visit = () => {
         <td>{e.city}</td>
         <td><NumberFormatter value={e.donation} locale={locale} /></td>
         <td><DateFormatter timestamp={e.created} locale={locale} format="date" /></td>
-        <td><button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#confirmModal" onClick={() => { setSelected(e['id']) }}><i class="bi bi-trash"></i></button></td>
+        <td><button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#confirmModal" onClick={() => setSelected(e['id']) }><i class="bi bi-trash"></i></button></td>
       </tr>)}
     </Table>
     <ConfirmModal title="label_delete" onOk={() => {
@@ -378,28 +372,14 @@ const Weeks = () => {
       </div>
     </div>
     <h2>{t('label_weeks')}</h2>
-    <div class="table-responsive small">
-      <table class="table table-stripped table-sm">
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">{t('label_begining')}</th>
-            <th scope="col">{t('label_month')}</th>
-            <th scope="col">{t('label_actions')}</th>
-          </tr>
-        </thead>
-        <tbody>{weeks.map((w, i) => 
-        <tr>
-            <td>{i + 1}</td>
-            <td><DateFormatter timestamp={w.start} locale={locale} format="date" /></td>
-            <td>{w.month}</td>
-            <td><button type="button" class="btn btn-sm btn-outline-secondary" onClick={() => { setSelectedWeek(w.start) }}><i class="bi bi-pencil-square"></i></button></td>
-          </tr>
-          )
-        }
-        </tbody>
-      </table>
-    </div>
+    <Table columns={['#', t('label_begining'), t('label_month'), t('label_actions')]}>
+      { weeks.map((w, i) => <tr>
+        <td>{i + 1}</td>
+        <td><DateFormatter timestamp={w.start} locale={locale} format="date" /></td>
+        <td>{w.month}</td>
+        <td><button type="button" class="btn btn-sm btn-outline-secondary" onClick={() => setSelectedWeek(w.start)}><i class="bi bi-pencil-square"></i></button></td>
+      </tr>) }
+    </Table>
   </>
 }
 
@@ -420,7 +400,7 @@ const CurrentWeek = (props) => {
         type: type,
         today: date
       }
-      axios.post('api/scheduled-week', postData, { headers: { 'Content-Type': 'multipart/form-data' }}).then((response) => {
+      axios.post('api/scheduled-week', postData, { headers: { 'Content-Type': 'multipart/form-data' }}).then(response => {
         setCurrentWeek(response.data)
         console.debug(response.data)
       })
@@ -430,9 +410,7 @@ const CurrentWeek = (props) => {
 
   const handleSelect = (event) => {}
 
-  const handleRefresh = () => {
-    setRefresh(true)
-  }
+  const handleRefresh = () => setRefresh(true)
 
   const getTitle = () => {
     if ('eucharystia' === type) {
@@ -481,40 +459,24 @@ const CurrentWeek = (props) => {
       </div>
     </div>
     <h2>{getTitle()}</h2>
-    <div class="table-responsive small">
-      <table class="table table-stripped table-sm">
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">{t('label_date')}</th>
-            <th scope="col">{t('label_description')}</th>
-            <th scope="col">{t('label_donation')}</th>
-            <th scope="col">{t('label_notes')}</th>
-            <th scope="col">{t('label_actions')}</th>
-          </tr>
-        </thead>
-        <tbody>
-          {currentWeek.map((e, i) => <tr>
-              <td>{i + 1}</td>
-              <td><DateFormatter timestamp={e['scheduled']} locale={locale} /></td>
-              <td>{e['description']}</td>
-              <td><NumberFormatter value={e['value']} locale={locale} /></td>
-              <td>{e['notes']}</td>
-              <td>
-                <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#editScheduledModal" onClick={ () => { setSelected(e['id']) } }><i class="bi bi-pencil-square"></i></button>
-                <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#confirmModal" onClick={ () => { setSelected(e['id']) } }><i class="bi bi-trash"></i></button>
-              </td>
-            </tr>
-          )}
-        </tbody>
-      </table>
-    </div>
+    <Table columns={['#', t('label_date'), t('label_description'), t('label_donation'), t('label_notes'), t('label_actions')]}>
+      { currentWeek.map((e, i) => <tr>
+        <td>{i + 1}</td>
+        <td><DateFormatter timestamp={e['scheduled']} locale={locale} /></td>
+        <td>{e['description']}</td>
+        <td><NumberFormatter value={e['value']} locale={locale} /></td>
+        <td>{e['notes']}</td>
+        <td>
+          <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#editScheduledModal" onClick={ () => setSelected(e['id']) }><i class="bi bi-pencil-square"></i></button>
+          <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#confirmModal" onClick={ () => setSelected(e['id']) }><i class="bi bi-trash"></i></button>
+        </td>
+      </tr>) }
+    </Table>
     <Modal modalId="editScheduledModal" itemId={selected} type={type} />
     <ConfirmModal title="label_delete" onOk={() => {
       const searchParams = new URLSearchParams({ id: selected })
-      axios.get(`api/scheduled-cd?${searchParams.toString()}`).then((response) => {
-        handleRefresh()
-    })}} />
+      axios.get(`api/scheduled-cd?${searchParams.toString()}`).then(response => handleRefresh())
+    }} />
   </>
 }
 
@@ -529,7 +491,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     const searchParams = new URLSearchParams({ tenant: tenant })
-    axios.get(`api/contact?${searchParams.toString()}`).then((response) => {
+    axios.get(`api/contact?${searchParams.toString()}`).then(response => {
       setContact(response.data)
       document.getElementById('contactdescription').value = response.data.description
       document.getElementById('contactstreet').value = response.data.street
@@ -542,15 +504,13 @@ const Dashboard = () => {
     })
   }, [tenant])
 
-  const handleDisabled = () => {
-    setDisabled(!disabled)
-  }
+  const handleDisabled = () => setDisabled(!disabled)
 
   const handleSubmit = (event) => {
     event.preventDefault()
     
     const form = document.querySelector(`#form_contact`)
-    axios.post('api/contact', form, { headers: { 'Content-Type': 'multipart/form-data' }}).then((response) => {
+    axios.post('api/contact', form, { headers: { 'Content-Type': 'multipart/form-data' }}).then(response => {
       console.debug(response.data)
     })
     
@@ -603,7 +563,7 @@ const Settings = () => {
 
   useEffect(() => {
     const searchParams = new URLSearchParams({ tenant: tenant })
-    axios.get(`api/settings?${searchParams.toString()}`).then((response) => {
+    axios.get(`api/settings?${searchParams.toString()}`).then(response => {
       setSettings(response.data)
       document.getElementById('settingsSchedule').value = response.data.schedule
       document.getElementById('settingsShowVisits').checked = 0 == response.data.showVisits ? false : true
@@ -611,9 +571,7 @@ const Settings = () => {
     })
   }, [tenant])
 
-  const handleDisabled = () => {
-    setDisabled(!disabled)
-  }
+  const handleDisabled = () => setDisabled(!disabled)
 
   const handleSubmit = (event) => {
     event.preventDefault()
@@ -624,7 +582,7 @@ const Settings = () => {
       showVisits: document.getElementById('settingsShowVisits').checked ? 1 : 0,
       showBooking: document.getElementById('settingsShowBooking').checked ? 1 : 0
     }
-    axios.post('api/settings', form, { headers: { 'Content-Type': 'multipart/form-data' }}).then((response) => {
+    axios.post('api/settings', form, { headers: { 'Content-Type': 'multipart/form-data' }}).then(response => {
       console.debug(response.data)
     })
     
@@ -674,7 +632,7 @@ const Modal = (props) => {
     }
     
     const searchParams = new URLSearchParams({ id: itemId })
-    axios.get(`api/scheduled?${searchParams.toString()}`).then((response) => {
+    axios.get(`api/scheduled?${searchParams.toString()}`).then(response => {
       document.getElementById(`${modalId}InputId`).value = itemId
       document.getElementById(`${modalId}InputDescription`).value = response.data['description']
       document.getElementById(`${modalId}InputScheduled`).value = response.data['scheduled']
@@ -687,7 +645,7 @@ const Modal = (props) => {
 
   const handleSubmit = () => {
     const form = document.querySelector(`#form_${modalId}`)
-    axios.post(!itemId ? 'api/scheduled-cd' : 'api/scheduled', form, { headers: { 'Content-Type': 'multipart/form-data' }}).then((response) => {
+    axios.post(!itemId ? 'api/scheduled-cd' : 'api/scheduled', form, { headers: { 'Content-Type': 'multipart/form-data' }}).then(response => {
       form.reset()
       console.debug(response.data)
     })
@@ -721,7 +679,7 @@ const Manage = () => {
   const [selectedTab, setSelectedTab] = useState('dashboardLink')
 
   useEffect(() => {
-    axios.get('api/signin').then((response) => {
+    axios.get('api/signin').then(response => {
       if (!response.data || response.data.length > 99 || response.data.includes(';')) {
         store.dispatch({ type: 'tenant/set', payload: undefined })
         setTenant(undefined)
@@ -736,7 +694,7 @@ const Manage = () => {
   }, [])
 
   const handleSignout = () => {
-    axios.get('api/signin-cd').then((response) => {
+    axios.get('api/signin-cd').then(response => {
       store.dispatch({ type: 'tenant/set', payload: undefined })
       setTenant(undefined)
       navigate('/signin')
@@ -744,9 +702,9 @@ const Manage = () => {
     })
   }
 
-  const handleSwitchTab = (e) => {
-    e.preventDefault()
-    setSelectedTab(e.target.id)
+  const handleSwitchTab = (event) => {
+    event.preventDefault()
+    setSelectedTab(event.target.id)
   }
 
   const DisplayTab = () => {
@@ -894,7 +852,7 @@ const Signin = () => {
   const [signinFailure, setSigninFailure] = useState(false)
 
   useEffect(() => {
-    axios.get('api/signin').then((response) => {
+    axios.get('api/signin').then(response => {
       if (response.data && !response.data.includes(';')) {
         store.dispatch({ type: 'tenant/set', payload: response.data })
         navigate('/manage')
@@ -907,7 +865,7 @@ const Signin = () => {
     event.preventDefault()
     setSigninFailure(false)
     const form = document.querySelector('#form_submit')
-    axios.post('api/signin', form).then((response) => {
+    axios.post('api/signin', form).then(response => {
       if (response.data.length > 0) {
         navigate('/manage')
       }
@@ -974,7 +932,7 @@ const Reader = () => {
     event.preventDefault()
 
     const form = document.querySelector(`#form_order`)
-    axios.post('api/scheduled-cd', form, { headers: { 'Content-Type': 'multipart/form-data' }}).then((response) => {
+    axios.post('api/scheduled-cd', form, { headers: { 'Content-Type': 'multipart/form-data' }}).then(response => {
       form.reset()
       console.debug(response.data)
     })
@@ -986,7 +944,7 @@ const Reader = () => {
     event.preventDefault()
 
     const form = document.querySelector(`#form_book`)
-    axios.post('api/visit-cd', form, { headers: { 'Content-Type': 'multipart/form-data' }}).then((response) => {
+    axios.post('api/visit-cd', form, { headers: { 'Content-Type': 'multipart/form-data' }}).then(response => {
       form.reset()
       console.debug(response.data)
     })
@@ -996,48 +954,34 @@ const Reader = () => {
 
   useEffect(() => {
     const searchParams = new URLSearchParams({ tenant: tenant })
-    axios.get(`api/contact?${searchParams.toString()}`).then((response) => {
+    axios.get(`api/contact?${searchParams.toString()}`).then(response => {
       setContact(response.data)
       console.debug(response.data)
     })
-  }, [tenant])
-
-  useEffect(() => {
-    const postData = {
+    axios.get(`api/settings?${searchParams.toString()}`).then(response => {
+      setSettings(response.data)
+      console.debug(settings?.showBooking)
+    })
+    axios.get(`api/visit?${searchParams.toString()}`).then(response => {
+      setVisit(response.data)
+      console.debug(response.data)
+    })
+    const postCurrent = {
       tenant: tenant,
       type: "eucharystia",
       today: new Date().toISOString().split('T')[0]
     }
-    axios.post('api/scheduled-week', postData, { headers: { 'Content-Type': 'multipart/form-data' }}).then((response) => {
+    axios.post('api/scheduled-week', postCurrent, { headers: { 'Content-Type': 'multipart/form-data' }}).then(response => {
       setCurrentWeek(response.data)
       console.debug(response.data)
     })
-  }, [tenant])
-
-  useEffect(() => {
-    const postData = {
+    const postDeparture = {
       tenant: tenant,
       type: "departure",
       today: new Date().toISOString().split('T')[0]
     }
-    axios.post('api/scheduled-week', postData, { headers: { 'Content-Type': 'multipart/form-data' }}).then((response) => {
+    axios.post('api/scheduled-week', postDeparture, { headers: { 'Content-Type': 'multipart/form-data' }}).then(response => {
       setDeparture(response.data)
-      console.debug(response.data)
-    })
-  }, [tenant])
-
-  useEffect(() => {
-    const searchParams = new URLSearchParams({ tenant: tenant })
-    axios.get(`api/settings?${searchParams.toString()}`).then((response) => {
-      setSettings(response.data)
-      console.debug(settings?.showBooking)
-    })
-  }, [tenant])
-
-  useEffect(() => {
-    const searchParams = new URLSearchParams({ tenant: tenant })
-    axios.get(`api/visit?${searchParams.toString()}`).then((response) => {
-      setVisit(response.data)
       console.debug(response.data)
     })
   }, [tenant])
@@ -1235,9 +1179,7 @@ const List = () => {
     setFiltered(2 < phrase.length ? preFiltered.filter(i => i.name.toLowerCase().includes(phrase)) : preFiltered)
   }
 
-  const handleClick = (name: String) => {
-    navigate(`/selected/${name}`)
-  }
+  const handleClick = (name: String) => navigate(`/selected/${name}`)
 
   const handleFilter = (event) => {
     const p = event.target.value.toLowerCase().trim()
@@ -1295,7 +1237,7 @@ const Navi = (props) => {
   useEffect(() => {
     document.title = t('title_app')
 
-    axios.get('api/statistics').then((response) => {
+    axios.get('api/statistics').then(response => {
       setCount(response.data.count)
       console.debug(response.data)
     })
