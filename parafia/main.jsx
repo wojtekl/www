@@ -79,6 +79,38 @@ const InputText = (props) => {
 }
 
 
+/* ModalForm */
+const ModalForm = (props) => {
+  const { id, title, onSubmit, label_close, label_cancel, label_save, children } = props
+  
+  const handleSubmit = (event) => {
+    event.preventDefault()
+    
+    onSubmit()
+    
+    event.stopPropagation()
+  }
+  
+  return <div class="modal fade" id={id} tabindex="-1" aria-labelledby={`title_${id}`} aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-sm">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id={`title_${id}`}>{title}</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label={label_close}></button>
+        </div>
+        <div class="modal-body">
+          <form class="dane" id={`form_${id}`} onSubmit={handleSubmit} enctype="multipart/form-data">{children}</form>
+        </div>
+        <div class="modal-footer">
+          <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">{label_cancel}</button>
+          <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">{label_save}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+}
+
+
 /* AccordionItem */
 const AccordionItem = (props) => {
   const { id, parent, show = false, children } = props
@@ -169,46 +201,26 @@ const VisitModal = (props) => {
   const { modalId } = props
   const { t } = useTranslation()
 
-  const handleSubmit = (event) => {
-    event.preventDefault()
-    
+  const handleSubmit = () => {
     const form = document.querySelector(`#form_${modalId}`)
     axios.post('api/visit-cd', form, { headers: { 'Content-Type': 'multipart/form-data' }}).then((response) => {
       form.reset()
       console.debug(response.data)
     })
-    
-    event.stopPropagation()
   }
 
-  return <div class="modal fade" id={modalId} tabindex="-1" aria-labelledby={`${modalId}Label`} aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-sm">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5" id={`${modalId}Label`}>{t('label_visit')}</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label={t('label_close')}></button>
-        </div>
-        <div class="modal-body">
-          <form class="dane" id={`form_${modalId}`} onSubmit={handleSubmit} enctype="multipart/form-data">
-            <FormInput name="firstname" label={t('label_firstname')} help={t('help_firstname')} modalId={modalId} />
-            <FormInput name="surname" label={t('label_surname')} help={t('help_surname')} modalId={modalId} />
-            <FormInput name="street" label={t('label_street')} help={t('help_street')} modalId={modalId} />
-            <FormInput name="number" label={t('label_number')} help={t('help_number')} modalId={modalId} />
-            <FormInput name="city" label={t('label_city')} help={t('help_city')} modalId={modalId} />
-            <div class="form-group">
-              <label for={`${modalId}InputDonation`}>{t('label_donation')}</label>
-              <input type="number" min="10.00" max="500" step="0.01" class="form-control" id={`${modalId}InputDonation`} aria-describedby={`${modalId}HelpDonation`} name="donation" />
-              <small id={`${modalId}HelpDonation`} class="form-text text-muted">{t('help_donation')}</small>
-            </div>
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">{t('label_cancel')}</button>
-          <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" onClick={handleSubmit}>{t('label_save')}</button>
-        </div>
-      </div>
-    </div>
+  return <ModalForm id={modalId} title={t('label_visit')} onSubmit={handleSubmit} label_close={t('label_close')} label_cancel={t('label_cancel')} label_save={t('label_save')}>
+  <FormInput name="firstname" label={t('label_firstname')} help={t('help_firstname')} modalId={modalId} />
+  <FormInput name="surname" label={t('label_surname')} help={t('help_surname')} modalId={modalId} />
+  <FormInput name="street" label={t('label_street')} help={t('help_street')} modalId={modalId} />
+  <FormInput name="number" label={t('label_number')} help={t('help_number')} modalId={modalId} />
+  <FormInput name="city" label={t('label_city')} help={t('help_city')} modalId={modalId} />
+  <div class="form-group">
+    <label for={`${modalId}InputDonation`}>{t('label_donation')}</label>
+    <input type="number" min="10.00" max="500" step="0.01" class="form-control" id={`${modalId}InputDonation`} aria-describedby={`${modalId}HelpDonation`} name="donation" />
+    <small id={`${modalId}HelpDonation`} class="form-text text-muted">{t('help_donation')}</small>
   </div>
+</ModalForm>
 }
 
 
