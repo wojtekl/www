@@ -28,22 +28,22 @@ const NumberFormatter = (props: { value: Number, locale: String }) => {
 const FormInput = (props) => {
   const { name, label, help, modalId } = props
   
-  return <div class="form-group">
+  return (<div class="form-group">
   <label for={`${modalId}Input${name}`}>{label}</label>
   <input type="text" class="form-control" id={`${modalId}Input${name}`} aria-describedby={`${modalId}Help${name}`} name={name} />
   <small id={`${modalId}Help${name}`} class="form-text text-muted">{help}</small>
 </div>
-}
+})
 
 
 /* InputText */
 const InputText = (props) => {
   const { name, label, help, parentId } = props
   
-  return <div class="mb-3">
+  return (<div class="mb-3">
   <label for={`$parentId}${name}`} class="form-label">{label}</label>
   <input type="text" id={`${parentId}${name}`} class="form-control" placeholder={help} name={name} />
-</div>
+</div>)
 }
 
 
@@ -60,7 +60,7 @@ const ModalForm = (props) => {
     event.stopPropagation()
   }
   
-  return <div class="modal fade" id={id} tabindex="-1" aria-labelledby={`title_${id}`} aria-hidden="true">
+  return (<div class="modal fade" id={id} tabindex="-1" aria-labelledby={`title_${id}`} aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-sm">
       <div class="modal-content">
         <div class="modal-header">
@@ -76,5 +76,5 @@ const ModalForm = (props) => {
         </div>
       </div>
     </div>
-  </div>
+  </div>)
 }
