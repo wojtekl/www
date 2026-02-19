@@ -85,7 +85,8 @@ const ModalForm = (props) => {
   
   const handleSubmit = (event) => {
     event.preventDefault()
-    
+
+    console.debug('handleSubmit')
     onSubmit()
     
     event.stopPropagation()
@@ -202,6 +203,7 @@ const VisitModal = (props) => {
   const { t } = useTranslation()
 
   const handleSubmit = () => {
+    console.debug('onSubmit')
     const form = document.querySelector(`#form_${modalId}`)
     axios.post('api/visit-cd', form, { headers: { 'Content-Type': 'multipart/form-data' }}).then((response) => {
       form.reset()
