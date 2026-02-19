@@ -56,6 +56,75 @@ i18n.use(initReactI18next).init({
 store.dispatch({ type: 'lang/set', payload: lang })
 
 
+/* FormInput */
+const FormInput = (props) => {
+  const { name, label, help, modalId } = props
+  
+  return <div class="form-group">
+  <label for={`${modalId}Input${name}`}>{label}</label>
+  <input type="text" class="form-control" id={`${modalId}Input${name}`} aria-describedby={`${modalId}Help${name}`} name={name} />
+  <small id={`${modalId}Help${name}`} class="form-text text-muted">{help}</small>
+</div>
+}
+
+
+/* InputText */
+const InputText = (props) => {
+  const { name, label, help, parentId } = props
+  
+  return <div class="mb-3">
+  <label for={`$parentId}${name}`} class="form-label">{label}</label>
+  <input type="text" id={`${parentId}${name}`} class="form-control" placeholder={help} name={name} />
+</div>
+}
+
+
+/* ModalForm */
+const ModalForm = (props) => {
+  const { id, title, onSubmit, label_close, label_cancel, label_save, children } = props
+  
+  const handleSubmit = (event) => {
+    event.preventDefault()
+
+    console.debug('handleSubmit')
+    onSubmit()
+    
+    event.stopPropagation()
+  }
+  
+  return <div class="modal fade" id={id} tabindex="-1" aria-labelledby={`title_${id}`} aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-sm">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id={`title_${id}`}>{title}</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label={label_close}></button>
+        </div>
+        <div class="modal-body">
+          <form class="dane" id={`form_${id}`} enctype="multipart/form-data">{children}</form>
+        </div>
+        <div class="modal-footer">
+          <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">{label_cancel}</button>
+          <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" onClick={handleSubmit}>{label_save}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+}
+
+
+/* Table */
+const Table = (props) => {
+  const { columns, children } = props
+  
+  return <div class="table-responsive small">
+  <table class="table table-stripped table-sm">
+    <thead><tr>{ columns.map((e, i) => <th scope="col">{e}</th> }</tr></thead>
+    <tbody>{children}</tbody>
+  </table>
+</div>
+}
+
+
 /* AccordionItem */
 const AccordionItem = (props) => {
   const { id, parent, show = false, children } = props
@@ -198,38 +267,19 @@ const Confirmation = () => {
       </div>
     </div>
     <h2>{t('label_confirmation')}</h2>
-    <div class="table-responsive small">
-      <table class="table table-stripped table-sm">
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">{t('label_firstname')}</th>
-            <th scope="col">{t('label_surname')}</th>
-            <th scope="col">{t('label_street')}</th>
-            <th scope="col">{t('label_number')}</th>
-            <th scope="col">{t('label_city')}</th>
-            <th scope="col">{t('label_donation')}</th>
-            <th scope="col">{t('label_date')}</th>
-            <th scope="col">{t('label_actions')}</th>
-          </tr>
-        </thead>
-        <tbody>{ confirmation.map((e, i) => 
-        <tr>
-            <td>{i + 1}</td>
-            <td>{e.firstname}</td>
-            <td>{e.surname}</td>
-            <td>{e.street}</td>
-            <td>{e.number}</td>
-            <td>{e.city}</td>
-            <td><NumberFormatter value={e.donation} locale={locale} /></td>
-            <td><DateFormatter timestamp={e.created} locale={locale} format="date" /></td>
-            <td><button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#confirmModal" onClick={() => { setSelected(e['id']) }}><i class="bi bi-trash"></i></button></td>
-          </tr>
-          )
-        }
-        </tbody>
-      </table>
-    </div>
+    <Table columns={['#', t('label_firstname'), t('label_surname'), t('label_street'), t('label_number'), t('label_city'), t('label_donation'), t('label_date'), t('label_actions')]}>
+      { confirmation.map((e, i) => <tr>
+        <td>{i + 1}</td>
+        <td>{e.firstname}</td>
+        <td>{e.surname}</td>
+        <td>{e.street}</td>
+        <td>{e.number}</td>
+        <td>{e.city}</td>
+        <td><NumberFormatter value={e.donation} locale={locale} /></td>
+        <td><DateFormatter timestamp={e.created} locale={locale} format="date" /></td>
+        <td><button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#confirmModal" onClick={() => { setSelected(e['id']) }}><i class="bi bi-trash"></i></button></td>
+      </tr>) }
+    </Table>
     <ConfirmModal title="label_delete" onOk={() => {
       const searchParams = new URLSearchParams()
       searchParams.append('id', selected)
