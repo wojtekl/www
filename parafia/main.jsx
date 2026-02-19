@@ -241,6 +241,8 @@ const Confirmation = () => {
   const [selected, setSelected] = useState()
   const [refresh, setRefresh] = useState()
 
+  const locale = (getUrlParam('lang') ?? navigator.language.substring(3)).toLocaleLowerCase()
+
   useEffect(() => {
     const searchParams = new URLSearchParams({ tenant: tenant })
     axios.get(`api/visit?${searchParams.toString()}`).then(response => {
@@ -248,8 +250,6 @@ const Confirmation = () => {
       console.debug(response.data)
     })
   }, [])
-
-  const locale = (getUrlParam('lang') ?? navigator.language.substring(3)).toLocaleLowerCase()
 
   return <>
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
@@ -290,6 +290,8 @@ const Visit = () => {
   const [selected, setSelected] = useState()
   const [refresh, setRefresh] = useState()
 
+  const locale = (getUrlParam('lang') ?? navigator.language.substring(3)).toLocaleLowerCase()
+
   useEffect(() => {
     const searchParams = new URLSearchParams({ tenant: tenant })
     axios.get(`api/visit?${searchParams.toString()}`).then(response => {
@@ -297,8 +299,6 @@ const Visit = () => {
       console.debug(response.data)
     })
   }, [])
-
-  const locale = (getUrlParam('lang') ?? navigator.language.substring(3)).toLocaleLowerCase()
 
   return <>
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
@@ -338,26 +338,7 @@ const Weeks = () => {
 
   const months = [t('label_january'), t('label_february'), t('label_march'), t('label_april'), t('label_may'), t('label_june'), t('label_july'), t('label_august'), t('label_september'), t('label_october'), t('label_november'), t('label_december')]
   const locale = (getUrlParam('lang') ?? navigator.language.substring(3)).toLocaleLowerCase()
-
-  const currentYear = new Date()
-  currentYear.setHours(0, 0, 0, 0)
-  currentYear.setMonth(0)
-  currentYear.setDate(1)
-  currentYear.setDate(currentYear.getDate() - currentYear.getDay() + 2)
-  
-  const nextYear = new Date().getFullYear() + 1
-  const weeks = new Array()
-  while(currentYear.getFullYear() < nextYear) {
-    const start = datePart(currentYear)
-    const month = months[currentYear.getMonth()]
-    currentYear.setDate(currentYear.getDate() + 6)
-    const nextMonth = months[currentYear.getMonth()]
-    weeks.push({
-      start: start,
-      month: nextMonth === month ? month : `${month}/${nextMonth}`
-    })
-    currentYear.setDate(currentYear.getDate() + 1)
-  }
+  const weeks = getWeeks()
 
   return selectedWeek ? <>
     <button type="button" class="btn btn-sm btn-outline-secondary" onClick={ () => { setSelectedWeek(undefined) }}>{t('label_back')}</button>
@@ -392,6 +373,8 @@ const CurrentWeek = (props) => {
   const [currentWeek, setCurrentWeek] = useState([])
   const [selected, setSelected] = useState()
   const [refresh, setRefresh] = useState(true)
+
+  const locale = (getUrlParam('lang') ?? navigator.language.substring(3)).toLocaleLowerCase()
 
   useEffect(() => {
     if (refresh) {
@@ -428,8 +411,6 @@ const CurrentWeek = (props) => {
       return t('label_departure')
     }
   }
-
-  const locale = (getUrlParam('lang') ?? navigator.language.substring(3)).toLocaleLowerCase()
   
   return <>
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
@@ -917,6 +898,7 @@ const Reader = () => {
   const [visit, setVisit] = useState([])
 
   const { tenant } = useParams()
+  const locale = (getUrlParam('lang') ?? navigator.language.substring(3)).toLocaleLowerCase()
 
   const dayOfWeek = [
     { order: '2', name: t('label_monday')}, 
@@ -985,8 +967,6 @@ const Reader = () => {
       console.debug(response.data)
     })
   }, [tenant])
-
-  const locale = (getUrlParam('lang') ?? navigator.language.substring(3)).toLocaleLowerCase()
 
   return <>
     <header>
