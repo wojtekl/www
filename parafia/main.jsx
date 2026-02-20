@@ -12,8 +12,8 @@ import L from 'leaflet'
 
 if ('serviceWorker' in navigator) navigator.serviceWorker.register('/sw.js')
 
-var installPrompt = null;
-window.addEventListener("beforeinstallprompt", event => installPrompt = event)
+let installPrompt = null;
+window.addEventListener('beforeinstallprompt', event => installPrompt = event)
 
 const state = localStorage.getItem('redux')
 const initialState = !!state ? JSON.parse(state) : {
@@ -336,12 +336,14 @@ const Weeks = () => {
   const { t } = useTranslation()
   const [selectedWeek, setSelectedWeek] = useState()
 
-  const months = [t('label_january'), t('label_february'), t('label_march'), t('label_april'), t('label_may'), t('label_june'), t('label_july'), t('label_august'), t('label_september'), t('label_october'), t('label_november'), t('label_december')]
+  const months = [t('label_january'), t('label_february'), t('label_march'), t('label_april'), 
+                  t('label_may'), t('label_june'), t('label_july'), t('label_august'), 
+                  t('label_september'), t('label_october'), t('label_november'), t('label_december')]
   const weeks = getWeeks(months)
   const locale = (getUrlParam('lang') ?? navigator.language.substring(3)).toLocaleLowerCase()
 
   return selectedWeek ? <>
-    <button type="button" class="btn btn-sm btn-outline-secondary" onClick={ () => { setSelectedWeek(undefined) }}>{t('label_back')}</button>
+    <button type="button" class="btn btn-sm btn-outline-secondary" onClick={ () => setSelectedWeek(undefined) }>{t('label_back')}</button>
     <CurrentWeek date={selectedWeek} type={'eucharystia'} />
   </> : <>
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
@@ -358,7 +360,7 @@ const Weeks = () => {
         <td>{i + 1}</td>
         <td><DateFormatter timestamp={w.start} locale={locale} format="date" /></td>
         <td>{w.month}</td>
-        <td><button type="button" class="btn btn-sm btn-outline-secondary" onClick={() => setSelectedWeek(w.start)}><i class="bi bi-pencil-square"></i></button></td>
+        <td><button type="button" class="btn btn-sm btn-outline-secondary" onClick={ () => setSelectedWeek(w.start) }><i class="bi bi-pencil-square"></i></button></td>
       </tr>) }
     </Table>
   </>
@@ -1196,7 +1198,10 @@ const List = () => {
       </div>
     </form>
     <div class="list-group">
-      {filtered.map(i => <a onClick={() => handleClick(i.name)} className="list-group-item list-group-item-action d-flex justify-content-between align-tems-start"><div className="ms-2 me-auto">{i.name}</div><span class={`badge text-bg-${i.live ? 'danger' : 'primary'}`}>{i.incoming}</span></a>)}
+      { filtered.map(i => <a onClick={() => handleClick(i.name)} className="list-group-item list-group-item-action d-flex justify-content-between align-tems-start">
+        <div className="ms-2 me-auto">{i.name}</div>
+        <span class={`badge text-bg-${i.live ? 'danger' : 'primary'}`}>{i.incoming}</span>
+      </a>) }
     </div>
   </div>
 </>
