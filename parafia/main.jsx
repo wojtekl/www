@@ -544,7 +544,6 @@ const Dashboard = () => {
 const Settings = () => {
   const { t } = useTranslation()
 
-  const [settings, setSettings] = useState()
   const [disabled, setDisabled] = useState(true)
 
   const tenant = store.getState().tenant
@@ -552,11 +551,7 @@ const Settings = () => {
   useEffect(() => {
     const searchParams = new URLSearchParams({ tenant: tenant })
     axios.get(`api/settings?${searchParams.toString()}`).then(response => {
-      setSettings(response.data)
       setForm(document.getElementById('form_settings'), response.data)
-      //document.getElementById('settingsSchedule').value = response.data.schedule
-      //document.getElementById('settingsShowVisits').checked = 0 == response.data.showVisits ? false : true
-      //document.getElementById('settingsShowBooking').checked = 0 == response.data.showBooking ? false : true
     })
   }, [tenant])
 
@@ -617,19 +612,12 @@ const Modal = (props) => {
   useEffect(() => {
     if (!itemId) {
       setForm(document.getElementById(`form_${modalId}`), { type: type })
-      //document.getElementById(`${modalId}InputType`).value = type
       return
     }
     
     const searchParams = new URLSearchParams({ id: itemId })
     axios.get(`api/scheduled?${searchParams.toString()}`).then(response => {
       setForm(document.getElementById(`form_${modalId}`), response.data)
-      /*document.getElementById(`${modalId}InputId`).value = itemId
-      document.getElementById(`${modalId}InputDescription`).value = response.data['description']
-      document.getElementById(`${modalId}InputScheduled`).value = response.data['scheduled']
-      document.getElementById(`${modalId}InputValue`).value = response.data['value']
-      document.getElementById(`${modalId}InputNotes`).value = response.data['notes']
-      document.getElementById(`${modalId}InputType`).value = response.data['type']*/
       console.debug(response.data)
     })
   }, [itemId])
@@ -962,13 +950,13 @@ const Reader = () => {
     })
     axios.get(`api/settings?${searchParams.toString()}`).then(response => {
       setSettings(response.data)
-      console.debug(settings?.showBooking)
+      console.debug(response.data)
     })
     axios.get(`api/visit?${searchParams.toString()}`).then(response => {
       setVisit(response.data)
       console.debug(response.data)
     })
-    /*const postWeek = (viewType: String) => {
+    const postWeek = (viewType: String) => {
       tenant: tenant,
       type: viewType,
       today: datePart()
@@ -980,7 +968,7 @@ const Reader = () => {
     axios.post('api/scheduled-week', postWeek("departure"), { headers: { 'Content-Type': 'multipart/form-data' }}).then(response => {
       setDeparture(response.data)
       console.debug(response.data)
-    })*/
+    })
   }, [tenant])
 
   return <>
