@@ -4,7 +4,10 @@ const datePart = (d = new Date()) => d.toISOString().split('T')[0]
 
 const setForm = (form, data) => {
   for (const [key, value] of Object.entries(data)) {
-    form.querySelector(`[name='${key}']`).value = value
+    const e = form.querySelector(`[name='${key}']`)
+    if (e) {
+      e.value = value
+    }
   }
 }
 
