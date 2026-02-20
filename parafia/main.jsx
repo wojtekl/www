@@ -1080,7 +1080,7 @@ const Selected = () => {
   const { name } = useParams()
   const navigate = useNavigate()
   const { t } = useTranslation()
-  //const dispatch = useDispatch()
+  const dispatch = useDispatch()
 
   const translate = 'https://translate.google.com/translate?js=n&sl=pl&tl=en&u='
 
