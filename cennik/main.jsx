@@ -97,15 +97,9 @@ const Modal = (props: { item: String, storeName: String, day: String }) => {
             <input type="number" min="0.05" max="500" step="0.01" class="form-control" id="exampleInputPrice1" aria-describedby="priceHelp" name="price" required />
             <small id="priceHelp" class="form-text text-muted">{t('help_decimal')}</small>
           </div>
-          <div class="form-group">
-            <input type="hidden" class="form-control" id="exampleHiddenId1" aria-label="identyfikator" name="identyfikator" value="web" />
-          </div>
-          <div class="form-group">
-            <input type="hidden" class="form-control" id="exampleHiddenCountry1" aria-label="country" name="country" value={store.getState().lang} />
-          </div>
-          <div class="form-group">
-            <input type="hidden" class="form-control" id="exampleHiddenDay1" aria-label="day" name="day" value={day} />
-          </div>
+          <input type="hidden" name="identyfikator" value="web" />
+          <input type="hidden" name="country" value={store.getState().lang} />
+          <input type="hidden" name="day" value={day} />
           <div class="form-group form-check">
             <input type="checkbox" class="form-check-input" id="exampleInputCoupon1" aria-describedby="couponHelp" name="coupon" />
             <label for="exampleInputCoupon1" class="form-check-label">{t('label_coupon')}</label>
@@ -193,7 +187,7 @@ const List = (props) => {
           <thead class="table-dark">
             <tr>
               <th> X </th>
-              { properties.map(property => <th>{String(t(`label_${property}`)).toUpperCase()}</th>) }
+              { properties.map(property => <th>{(t(`label_${property}`)).toUpperCase()}</th>) }
               { !detailsPage && <th> {t('label_more').toUpperCase()} </th> }
             </tr>
           </thead>
@@ -218,7 +212,7 @@ const List = (props) => {
                   }) }
                   { !detailsPage && <td><a href="#" onClick={handleClick} disabled={!enabled}><span class={`badge text-bg-${enabled ? 'primary' : 'secondary'}`}> -{'>'} </span></a></td> }
                 </tr>)
-            })}
+            }) }
           </tbody>
         </table>
         </div>
