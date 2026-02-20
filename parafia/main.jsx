@@ -241,7 +241,7 @@ const Confirmation = () => {
   const [selected, setSelected] = useState()
   const [refresh, setRefresh] = useState()
 
-  const tenant = store.getState().tenant
+  const tenant = useSelector(state => state.tenant)
   const locale = (getUrlParam('lang') ?? navigator.language.substring(3)).toLocaleLowerCase()
 
   useEffect(() => {
@@ -290,7 +290,7 @@ const Visit = () => {
   const [selected, setSelected] = useState()
   const [refresh, setRefresh] = useState()
 
-  const tenant = store.getState().tenant
+  const tenant = useSelector(state => state.tenant)
   const locale = (getUrlParam('lang') ?? navigator.language.substring(3)).toLocaleLowerCase()
 
   useEffect(() => {
@@ -377,7 +377,7 @@ const CurrentWeek = (props) => {
   const [selected, setSelected] = useState()
   const [refresh, setRefresh] = useState(true)
 
-  const tenant = store.getState().tenant
+  const tenant = useSelector(state => state.tenant)
   const locale = (getUrlParam('lang') ?? navigator.language.substring(3)).toLocaleLowerCase()
 
   useEffect(() => {
@@ -473,7 +473,7 @@ const Dashboard = () => {
   const [contact, setContact] = useState()
   const [disabled, setDisabled] = useState(true)
 
-  const tenant = store.getState().tenant
+  const tenant = useSelector(state => state.tenant)
 
   useEffect(() => {
     const searchParams = new URLSearchParams({ tenant: tenant })
@@ -539,7 +539,7 @@ const Settings = () => {
 
   const [disabled, setDisabled] = useState(true)
 
-  const tenant = store.getState().tenant
+  const tenant = useSelector(state => state.tenant)
 
   useEffect(() => {
     const searchParams = new URLSearchParams({ tenant: tenant })
