@@ -82,6 +82,7 @@ const ModalForm = (props) => {
   const handleSubmit = (event) => {
     event.preventDefault()
     onSubmit()
+    document.querySelector('button.btn-close').click()
     event.stopPropagation()
   }
   
@@ -93,11 +94,11 @@ const ModalForm = (props) => {
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label={label_close}></button>
         </div>
         <div class="modal-body">
-          <form class="dane" id={`form_${id}`} enctype="multipart/form-data">{children}</form>
+          <form class="dane" id={`form_${id}`} enctype="multipart/form-data" onSubmit={handleSubmit}>{children}</form>
         </div>
         <div class="modal-footer">
           <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">{label_cancel}</button>
-          <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" onClick={handleSubmit}>{label_save}</button>
+          <button type="submit" class="btn btn-primary">{label_save}</button>
         </div>
       </div>
     </div>
@@ -211,15 +212,11 @@ const VisitModal = (props) => {
   const { t } = useTranslation()
 
   const handleSubmit = (event) => {
-    event.preventDefault()
-    
     const form = document.getElementById(`form_${modalId}`)
     axios.post('api/visit-cd', form, { headers: { 'Content-Type': 'multipart/form-data' }}).then(response => {
       form.reset()
       console.debug(response.data)
     })
-    
-    event.stopPropagation()
   }
 
   return <ModalForm id={modalId} title={t('label_visit')} onSubmit={handleSubmit} label_close={t('label_close')} label_cancel={t('label_cancel')} label_save={t('label_save')}>
@@ -556,12 +553,12 @@ const Settings = () => {
   const handleSubmit = (event) => {
     event.preventDefault()
     
-    //const form = document.querySelector(`#form_settings`)
-    const form = {
+    const form = document.querySelector(`#form_settings`)
+    /*const form = {
       schedule: document.getElementById('settingsSchedule').value,
       showVisits: document.getElementById('settingsShowVisits').checked ? 1 : 0,
       showBooking: document.getElementById('settingsShowBooking').checked ? 1 : 0
-    }
+    }*/
     axios.post('api/settings', form, { headers: { 'Content-Type': 'multipart/form-data' }}).then(response => {
       console.debug(response.data)
     })
@@ -619,15 +616,11 @@ const Modal = (props) => {
   }, [itemId])
 
   const handleSubmit = () => {
-    event.preventDefault()
-    
     const form = document.getElementById(`form_${modalId}`)
     axios.post(!itemId ? 'api/scheduled-cd' : 'api/scheduled', form, { headers: { 'Content-Type': 'multipart/form-data' }}).then(response => {
       form.reset()
       console.debug(response.data)
     })
-
-    event.stopPropagation()
   }
 
   return <ModalForm id={modalId} title={t('label_scheduled')} onSubmit={handleSubmit} label_close={t('label_close')} label_cancel={t('label_cancel')} label_save={t('label_save')}>
