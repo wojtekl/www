@@ -8,14 +8,10 @@ import { Provider } from 'react-redux'
 import axios from 'axios'
 
 
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('/sw.js')
-}
+if ('serviceWorker' in navigator) navigator.serviceWorker.register('/sw.js')
 
 let installPrompt = null;
-window.addEventListener("beforeinstallprompt", (event) => {
-  installPrompt = event;
-});
+window.addEventListener('beforeinstallprompt', (event) => installPrompt = event);
 
 const state = localStorage.getItem('redux')
 const initialState = !!state ? JSON.parse(state) : {
@@ -54,8 +50,8 @@ i18n.use(initReactI18next).init({
 })
 
 const store = createStore(selectedReducer)
-store.subscribe(() => { localStorage.setItem('redux', JSON.stringify(store.getState())) })
-store.dispatch({ type: 'lang/set', payload: lang })
+store.subscribe(() => localStorage.setItem('redux', JSON.stringify(store.getState())))
+store.dispatch({ type: "lang/set", payload: lang })
 
 
 /* Modal */
@@ -66,13 +62,15 @@ const Modal = (props: { item: String, storeName: String, day: String }) => {
   const handleSubmit = (event) => {
     event.preventDefault()
     
-    const form = document.querySelector('#form_item')
+    const form = document.getElementById('form_item')
     axios.post('api/item', form, { headers: { 'Content-Type': 'multipart/form-data' } }).then((response) => {
       if (200 === response.status) {
         form.reset()
         document.querySelector('button.btn-close').click()
       }
     })
+
+    event.stopPropagation()
   }
 
   return (<div class="modal" id="exampleModal" tabindex="-1">
@@ -139,23 +137,22 @@ const List = (props) => {
   const [select, setSelect] = useState()
   const [saved, setSaved] = useState(store.getState().value)
 
-  const locale = (navigator.language.substring(3) ?? getUrlParam('lang')).toLocaleLowerCase()
+  const locale = (getUrlParam('lang') ?? navigator.language.substring(3)).toLocaleLowerCase()
   const detailsPage = !!selected
   const storeName = getUrlParam('store')
   const day = getUrlParam('day')
 
   useEffect(() => {
-    store.dispatch({ type: 'selected/set', payload: saved })
+    store.dispatch({ type: "selected/set", payload: saved })
   }, [saved])
 
   const handleOver = (event) => setSelect(event.currentTarget.getAttribute('data-id'))
   
   const handleClick = (event) => {
     event.preventDefault()
-    const searchParams = new URLSearchParams()
-    searchParams.append('lang', store.getState().lang)
-    searchParams.append('name', select)
-    axios.get(`api/item?${searchParams.toString()}`).then((response) => {
+    
+    const searchParams = new URLSearchParams({ lang: store.getState().lang, name: select})
+    axios.get(`api/item?${searchParams.toString()}`).then(response => {
       const columns_details = ['store', 'price', 'posted', 'coupon', 'bulk']
       replace(<List properties={columns_details} list={response.data} replace={replace} back={back} selected={select} />)
     })
@@ -163,7 +160,7 @@ const List = (props) => {
 
   const handleSearch = (event) => {
     event.preventDefault()
-    event.stopPropagating()
+    event.stopPropagation()
   }
 
   const handleFilter = (event) => {
@@ -176,21 +173,21 @@ const List = (props) => {
     setSaved(event.target.checked ? saved.concat([selectedItem]) : saved.filter(i => i != selectedItem))
   }
 
-  return (<>
+  return <>
   <Navi isNew={!detailsPage} />
   <div class="container">
-    {!detailsPage && <div class="row mt-3">
+    { !detailsPage && <div class="row mt-3">
       <form class="form-inline my-2" role="search" onSubmit={handleSearch}>
         <input class="form-control mr-sm-2" type="search" name="search" placeholder={t('label_search')} aria-label="Search" onKeyUp={handleFilter} maxlength="25" />
       </form>
-    </div>}
+    </div> }
     <div class="row mt-3">
-      {detailsPage && <nav aria-label="breadcrumb">
+      { detailsPage && <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="#" onClick={back}> {t('button_back')} </a></li>
           <li class="breadcrumb-item active" aria-current="page"> {selected} </li>
         </ol>
-      </nav>}
+      </nav> }
       <div class="table-responsive small">
         <table class="table table-stripped table-sm table-hover">
           <thead class="table-dark">
@@ -201,11 +198,11 @@ const List = (props) => {
             </tr>
           </thead>
           <tbody>
-            {(!detailsPage ? filtered : list).map(row => {
+            { (!detailsPage ? filtered : list).map(row => {
               const enabled = select === row['item']
               return (<tr onMouseOver={handleOver} data-id={!detailsPage ? row['item'] : row['id']}>
                 <td><input type="checkbox" class="form-check-input" name="selected" checked={saved.includes(row['id'])} onChange={handleChange} aria-label={t('label_select')} /></td>
-                  {properties.map(property => {
+                  { properties.map(property => {
                     if ('posted' === property) {
                       return <td><DateFormatter timestamp={row[property]} locale={locale} /></td>
                     }
@@ -218,17 +215,17 @@ const List = (props) => {
                     else {
                       return <td> {row[property]} </td>
                     }
-                  })}
-                  {!detailsPage && <td><a href="#" onClick={handleClick} disabled={!enabled}><span class={`badge text-bg-${enabled ? 'primary' : 'secondary'}`}> -{'>'} </span></a></td>}
+                  }) }
+                  { !detailsPage && <td><a href="#" onClick={handleClick} disabled={!enabled}><span class={`badge text-bg-${enabled ? 'primary' : 'secondary'}`}> -{'>'} </span></a></td> }
                 </tr>)
-              })}
-            </tbody>
-          </table>
+            })}
+          </tbody>
+        </table>
         </div>
-      </div>
-      <Modal item={selected} storeName={storeName} day={day} />
     </div>
-  </>)
+    <Modal item={selected} storeName={storeName} day={day} />
+  </div>
+</>
 }
 
 
@@ -241,25 +238,29 @@ const Navi = (props) => {
   
   const handleLang = (event) => {
     event.preventDefault()
-    store.dispatch({ type: 'lang/set', payload: switchLang() })
+    
+    store.dispatch({ type: "lang/set", payload: switchLang() })
     window.location.href = '/'
   }
 
   const handleCopy = (event) => {
     event.preventDefault()
-    const searchParams = new URLSearchParams()
-    searchParams.append('selected', store.getState().value.join(','))
+    
+    const searchParams = new URLSearchParams({ selected: store.getState().value.join(',') })
     window.location.href = `/?${searchParams.toString()}`
   }
 
   const handleInstall = (event) => {
     event.preventDefault()
+    
     if (installPrompt) {
       installPrompt.prompt()
     }
     else {
       window.location.href = 'https://wlap.pl/howto/'
     }
+    
+    event.stopPropagation()
   }
 
   const HomeLink = () => {
@@ -272,6 +273,7 @@ const Navi = (props) => {
 
   return (<div class="navbar navbar-expand-md">
   <div class="container">
+    <h1 class="visually-hidden">{t('title_app')}</h1>
     <div class="navbar-brand"><img src="https://raw.githubusercontent.com/wojtekl/google-play/refs/heads/main/pricey/Pricey/app/src/main/res/mipmap-mdpi/ic_launcher_round.webp" width="30px" height="30px" alt="" />{t('title_app')}</div>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#basic-navbar-nav" aria-controls="basic-navbar-nav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -311,8 +313,7 @@ const App = () => {
 </div>)
 
   useEffect(() => {
-    const searchParams = new URLSearchParams()
-    searchParams.append('lang', store.getState().lang)
+    const searchParams = new URLSearchParams({ lang: store.getState().lang })
     const selected = getUrlParam('selected')
     if (selected) {
       searchParams.append('selected', selected)
@@ -320,7 +321,7 @@ const App = () => {
     axios.get(`api/items?${searchParams.toString()}`).then((response) => {
       const data = 200 === response.status ? response.data : store.getState().list
       handleReplace(<List properties={columns_list} list={data} replace={handleReplace} back={handleBack} />)
-      store.dispatch({ type: 'list/set', payload: data })
+      store.dispatch({ type: "list/set", payload: data })
     })
 
     document.title = t('title_app')
@@ -337,7 +338,7 @@ const App = () => {
 
   const handleGotit = () => {
     setWarning(false)
-    store.dispatch({ type: 'warning/set' })
+    store.dispatch({ type: "warning/set" })
   }
 
   return !warning ? source : <div class="px-4 py-5 my-5 text-center">
@@ -348,7 +349,8 @@ const App = () => {
       <button type="button" class="btn btn-primary btn-lg px-4 gap-3" onClick={handleGotit}>{t('button_gotit')}</button>
     </div>
   </div>
-</div>}
+</div>
+}
 
 
 const container = document.getElementById('root')
