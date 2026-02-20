@@ -5,8 +5,14 @@ const datePart = (d = new Date()) => d.toISOString().split('T')[0]
 const setForm = (form, data) => {
   for (const [key, value] of Object.entries(data)) {
     const e = form.querySelector(`[name='${key}']`)
-    if (e) {
+    if (!e) {
+      return
+    }
+    if ('checkbox' !== e.type) {
       e.value = value
+    }
+    else {
+      e.checked = 0 === value ? false : true
     }
   }
 }
