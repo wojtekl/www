@@ -957,9 +957,11 @@ const Reader = () => {
       console.debug(response.data)
     })
     const postWeek = (viewType: String) => {
-      tenant: tenant,
-      type: viewType,
-      today: datePart()
+      return {
+        tenant: tenant,
+        type: viewType,
+        today: datePart()
+      }
     }
     axios.post('api/scheduled-week', postWeek("eucharystia"), { headers: { 'Content-Type': 'multipart/form-data' }}).then(response => {
       setCurrentWeek(response.data)
