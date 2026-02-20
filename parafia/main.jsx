@@ -1001,16 +1001,6 @@ const Reader = () => {
         <hr class="col-3 col-md-2 mb-5"></hr>
         <div class="accordion" id="accordionExample">
           <AccordionItem id="scheduled" parent="accordionExample" show={true}>
-            <Table columns={['#', t('label_day'), t('label_description')]}>
-              { dayOfWeek.map((e, i) => <tr>
-                <td>{i + 1}</td>
-                <td>{e.name}</td>
-                <td>{ currentWeek.filter(f => f.dayOfWeek === e.order).map(g => <p>{`${g.time} ${g.description}`}</p>) }</td>
-              </tr>) }
-            </Table>
-          </AccordionItem>
-          <AccordionItem id="announcements" parent="accordionExample"></AccordionItem>
-          <AccordionItem id="order" parent="accordionExample">
             <form id="form_order" enctype="multipart/form-data" onSubmit={handleSubmit}>
               <fieldset>
                 <legend>{t('label_order')}</legend>
@@ -1021,7 +1011,15 @@ const Reader = () => {
                 <button type="submit" class="btn btn-primary">{t('label_submit')}</button>
               </fieldset>
             </form>
+            <Table columns={['#', t('label_day'), t('label_description')]}>
+              { dayOfWeek.map((e, i) => <tr>
+                <td>{i + 1}</td>
+                <td>{e.name}</td>
+                <td>{ currentWeek.filter(f => f.dayOfWeek === e.order).map(g => <p>{`${g.time} ${g.description}`}</p>) }</td>
+              </tr>) }
+            </Table>
           </AccordionItem>
+          <AccordionItem id="announcements" parent="accordionExample"></AccordionItem>
           <AccordionItem id="departure" parent="accordionExample">
             <Table columns={['#', t('label_date'), t('label_description')]}>
               { departure.map((e, i) => <tr>
@@ -1032,6 +1030,18 @@ const Reader = () => {
             </Table>
           </AccordionItem>
           { !!settings?.showVisits && <AccordionItem id="visit" parent="accordionExample">
+            { !!settings?.showBooking && <form id="form_book" enctype="multipart/form-data" onSubmit={handleBook}>
+              <fieldset>
+                <legend>{t('label_book')}</legend>
+                <InputText name="firstname" label={t('label_firstname')} help="" parentId="book" />
+                <InputText name="surname" label={t('label_surname')} help="" parentId="book" />
+                <InputText name="street" label={t('label_street')} help="" parentId="book" />
+                <InputText name="number" label={t('label_number')} help="" parentId="book" />
+                <InputText name="city" label={t('label_city')} help="" parentId="city" />
+                <input type="hidden" name="tenant" value={tenant} />
+                <button type="submit" class="btn btn-primary">{t('label_submit')}</button>
+              </fieldset>
+            </form> }
             <Table columns={['#', t('label_firstname'), t('label_surname'), t('label_street'), t('label_number'), t('label_city'), t('label_donation'), t('label_date')]}>
               { visit.map((e, i) => <tr>
                 <td>{i + 1}</td>
@@ -1046,20 +1056,6 @@ const Reader = () => {
             </Table>
           </AccordionItem>
           }
-          { !!settings?.showBooking && <AccordionItem id="book" parent="accordionExample">
-            <form id="form_book" enctype="multipart/form-data" onSubmit={handleBook}>
-              <fieldset>
-                <legend>{t('label_book')}</legend>
-                <InputText name="firstname" label={t('label_firstname')} help="" parentId="book" />
-                <InputText name="surname" label={t('label_surname')} help="" parentId="book" />
-                <InputText name="street" label={t('label_street')} help="" parentId="book" />
-                <InputText name="number" label={t('label_number')} help="" parentId="book" />
-                <InputText name="city" label={t('label_city')} help="" parentId="city" />
-                <input type="hidden" name="tenant" value={tenant} />
-                <button type="submit" class="btn btn-primary">{t('label_submit')}</button>
-              </fieldset>
-            </form>
-          </AccordionItem> }
         </div>
       </div>
     </main>
