@@ -967,9 +967,9 @@ const Reader = () => {
       setVisit(response.data)
       console.debug(response.data)
     })
-    const postWeek = (view: String) => {
+    /*const postWeek = (viewType: String) => {
       tenant: tenant,
-      type: view,
+      type: viewType,
       today: datePart()
     }
     axios.post('api/scheduled-week', postWeek("eucharystia"), { headers: { 'Content-Type': 'multipart/form-data' }}).then(response => {
@@ -979,7 +979,7 @@ const Reader = () => {
     axios.post('api/scheduled-week', postWeek("departure"), { headers: { 'Content-Type': 'multipart/form-data' }}).then(response => {
       setDeparture(response.data)
       console.debug(response.data)
-    })
+    })*/
   }, [tenant])
 
   return <>
