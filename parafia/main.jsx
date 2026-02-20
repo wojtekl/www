@@ -553,7 +553,7 @@ const Settings = () => {
     const searchParams = new URLSearchParams({ tenant: tenant })
     axios.get(`api/settings?${searchParams.toString()}`).then(response => {
       setSettings(response.data)
-      setForm(document.getElementById('form_settings'), settings)
+      setForm(document.getElementById('form_settings'), response.data)
       //document.getElementById('settingsSchedule').value = response.data.schedule
       //document.getElementById('settingsShowVisits').checked = 0 == response.data.showVisits ? false : true
       //document.getElementById('settingsShowBooking').checked = 0 == response.data.showBooking ? false : true
