@@ -2,6 +2,12 @@ const getUrlParams = () => new URLSearchParams(new URL(window.location).search)
 const getUrlParam = (param: String) => getUrlParams().get(param) ?? undefined
 const datePart = (d = new Date()) => d.toISOString().split('T')[0]
 
+const setForm = (form, data) => {
+  for (const [key, value] of Object.entries(data)) {
+    form.querySelector(`[name='${key}']`).value = value
+  }
+}
+
 const getWeeks = (months) => {
   const currentYear = new Date()
   currentYear.setHours(0, 0, 0, 0)
