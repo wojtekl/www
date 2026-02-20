@@ -1,7 +1,7 @@
 const resources = {
   en: {
     translation: {
-      "title_app": "My Parish by wlap.pl",
+      "title_app": "parish management - parafia.wlap.pl",
       "see_link": "See",
       "list_schedule": "Schedule",
       "list_announcement": "Announcement",
@@ -31,7 +31,7 @@ const resources = {
   },
   pl: {
     translation: {
-      "title_app": "Kościoły",
+      "title_app": "system parafialny - parafia.wlap.pl",
       "see_link": "Strona parafii",
       "list_schedule": "Intencje",
       "list_announcement": "Ogłoszenia",
