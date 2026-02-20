@@ -168,12 +168,7 @@ const Password = () => {
   const handleSubmit = (event) => {
     event.preventDefault()
     
-    /*const postData = {
-      code: getUrlParam('code'),
-      tenant: document.getElementById('#floatingInput').value,
-      password: document.getElementById('#floatingPassword').value
-    }*/
-    const form = document.getElementById('form_submit')
+    const form = document.getElementById('form_password')
     axios.post('api/signin-cd', form, { headers: { 'Content-Type': 'multipart/form-data' }}).then(response => {
       if (response.data) {
         navigate('/signin')
@@ -187,7 +182,7 @@ const Password = () => {
   
   return <div class="d-flex align-items-center py-4 bg-body-tertiary">
     <main class="form-signin w-100 m-auto" style={{maxWidth: '330px', padding: '1rem'}}>
-      <form id="form_submit"  onSubmit={handleSubmit}>
+      <form id="form_password" enctype="multipart/form-data" onSubmit={handleSubmit}>
         <h1 class="h3 mb-3 fw-normal">{t('label_please_sign_in')}</h1>
         <div class="form-floating">
           <input type="text" class="form-control" id="floatingInput" placeholder="demo" name="tenant" />
@@ -513,7 +508,7 @@ const Dashboard = () => {
         </div>
       </div>
     </div>
-    <form id="form_contact" enctype="multipart/form-data">
+    <form id="form_contact" enctype="multipart/form-data" onSubmit={handleSubmit}>
       <fieldset disabled={disabled}>
         <legend>{t('label_contact')}</legend>
         <InputText name="description" label={t('label_description')} help={contact?.description} parentId="contact" />
@@ -533,7 +528,7 @@ const Dashboard = () => {
           <label for="contactIban" class="form-label">{t('label_iban')}</label>
           <input type="text" id="contactIban" class="form-control" maxlength="28" placeholder={contact?.iban} name="iban" />
         </div>
-        { !disabled && <button type="submit" class="btn btn-primary" onClick={handleSubmit}>{t('label_submit')}</button> }
+        { !disabled && <button type="submit" class="btn btn-primary">{t('label_submit')}</button> }
       </fieldset>
     </form>
   </>
@@ -582,7 +577,7 @@ const Settings = () => {
         </div>
       </div>
     </div>
-    <form id="form_settings" enctype="multipart/form-data">
+    <form id="form_settings" enctype="multipart/form-data" onSubmit={handleSubmit}>
       <fieldset disabled={disabled}>
         <legend>{t('label_settings')}</legend>
         <div class="mb-3">
@@ -597,7 +592,7 @@ const Settings = () => {
           <input type="checkbox" class="form-check-input" id="settingsShowBooking" name="showBooking" />
           <label class="form-check-label" for="settingsShowBooking">{t('label_show_booking')}</label>
         </div>
-        { !disabled && <button type="submit" class="btn btn-primary" onClick={handleSubmit}>{t('label_submit')}</button> }
+        { !disabled && <button type="submit" class="btn btn-primary">{t('label_submit')}</button> }
       </fieldset>
     </form>
   </>
@@ -851,7 +846,7 @@ const Signin = () => {
     event.preventDefault()
     
     setSigninFailure(false)
-    const form = document.getElementById('form_submit')
+    const form = document.getElementById('form_signin')
     axios.post('api/signin', form).then(response => {
       if (response.data.length > 0) {
         navigate('/manage')
@@ -873,7 +868,7 @@ const Signin = () => {
         <p class="mb-0">{t('label_try_footer')}</p>
       </div>
       {signinFailure && <div class="alert alert-danger" role="alert">{t('label_signin_failure')}</div>}
-      <form id="form_submit"  onSubmit={handleSubmit}>
+      <form id="form_signin" enctype="multipart/form-data" onSubmit={handleSubmit}>
         <h1 class="h3 mb-3 fw-normal">{t('label_please_sign_in')}</h1>
         <div class="form-floating">
           <input type="text" class="form-control" id="floatingInput" placeholder="demo" name="tenant" />
@@ -1022,14 +1017,14 @@ const Reader = () => {
           </AccordionItem>
           <AccordionItem id="announcements" parent="accordionExample"></AccordionItem>
           <AccordionItem id="order" parent="accordionExample">
-            <form id="form_order" enctype="multipart/form-data">
+            <form id="form_order" enctype="multipart/form-data" onSubmit={handleSubmit}>
               <fieldset>
                 <legend>{t('label_order')}</legend>
                 <InputText name="description" label={t('label_description')} help="" parentId="order" />
                 <InputText name="notes" label={t('label_from')} help="" parentId="order" />
                 <input type="hidden" name="tenant" value={tenant} />
                 <input type="hidden" name="type" value="eucharystia" />
-                <button type="submit" class="btn btn-primary" onClick={handleSubmit}>{t('label_submit')}</button>
+                <button type="submit" class="btn btn-primary">{t('label_submit')}</button>
               </fieldset>
             </form>
           </AccordionItem>
@@ -1058,7 +1053,7 @@ const Reader = () => {
           </AccordionItem>
           }
           { !!settings?.showBooking && <AccordionItem id="book" parent="accordionExample">
-            <form id="form_book" enctype="multipart/form-data">
+            <form id="form_book" enctype="multipart/form-data" onSubmit={handleBook}>
               <fieldset>
                 <legend>{t('label_book')}</legend>
                 <InputText name="firstname" label={t('label_firstname')} help="" parentId="book" />
@@ -1067,7 +1062,7 @@ const Reader = () => {
                 <InputText name="number" label={t('label_number')} help="" parentId="book" />
                 <InputText name="city" label={t('label_city')} help="" parentId="city" />
                 <input type="hidden" name="tenant" value={tenant} />
-                <button type="submit" class="btn btn-primary" onClick={handleBook}>{t('label_submit')}</button>
+                <button type="submit" class="btn btn-primary">{t('label_submit')}</button>
               </fieldset>
             </form>
           </AccordionItem> }
