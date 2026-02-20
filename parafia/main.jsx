@@ -5,7 +5,7 @@ import { HashRouter as Router, Routes, Route, useNavigate, useParams } from 'rea
 import i18n from 'i18next'
 import { initReactI18next, useTranslation } from 'react-i18next'
 import { createStore } from 'redux'
-import { Provider, useSelector } from 'react-redux'
+import { Provider, useSelector, useDispatch } from 'react-redux'
 import axios from 'axios'
 import L from 'leaflet'
 
@@ -49,6 +49,7 @@ i18n.use(initReactI18next).init({
     escapeValue: false
   }
 })
+const dispatch = useDispatch()
 store.dispatch({ type: "lang/set", payload: lang })
 
 
@@ -646,6 +647,7 @@ const Modal = (props) => {
 const Manage = () => {
   const navigate = useNavigate()
   const { t } = useTranslation()
+  const dispatch = useDispatch()
   
   const [tenant, setTenant] = useState(useSelector(state => state.tenant))
   const [selectedTab, setSelectedTab] = useState('dashboardLink')
@@ -824,6 +826,7 @@ const Manage = () => {
 const Signin = () => {
   const navigate = useNavigate()
   const { t } = useTranslation()
+  const dispatch = useDispatch()
   const [signinFailure, setSigninFailure] = useState(false)
 
   useEffect(() => {
@@ -1077,6 +1080,7 @@ const Selected = () => {
   const { name } = useParams()
   const navigate = useNavigate()
   const { t } = useTranslation()
+  const dispatch = useDispatch()
 
   const translate = 'https://translate.google.com/translate?js=n&sl=pl&tl=en&u='
 
