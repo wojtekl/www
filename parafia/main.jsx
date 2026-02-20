@@ -215,7 +215,7 @@ const VisitModal = (props) => {
   const { modalId } = props
   const { t } = useTranslation()
 
-  const handleSubmit = () => {
+  const handleSubmit = (event) => {
     event.preventDefault()
     
     const form = document.getElementById(`form_${modalId}`)
@@ -616,7 +616,8 @@ const Modal = (props) => {
 
   useEffect(() => {
     if (!itemId) {
-      document.getElementById(`${modalId}InputType`).value = type
+      setForm(document.getElementById(`form_${modalId}`), { type: type })
+      //document.getElementById(`${modalId}InputType`).value = type
       return
     }
     
