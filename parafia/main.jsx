@@ -5,7 +5,7 @@ import { HashRouter as Router, Routes, Route, useNavigate, useParams } from 'rea
 import i18n from 'i18next'
 import { initReactI18next, useTranslation } from 'react-i18next'
 import { createStore } from 'redux'
-import { Provider } from 'react-redux'
+import { Provider, useSelector } from 'react-redux'
 import axios from 'axios'
 import L from 'leaflet'
 
@@ -647,7 +647,7 @@ const Manage = () => {
   const navigate = useNavigate()
   const { t } = useTranslation()
   
-  const [tenant, setTenant] = useState(store.getState().tenant)
+  const [tenant, setTenant] = useState(useSelector(state => state.tenant))
   const [selectedTab, setSelectedTab] = useState('dashboardLink')
 
   useEffect(() => {
