@@ -482,6 +482,7 @@ const Dashboard = () => {
     const searchParams = new URLSearchParams({ tenant: tenant })
     axios.get(`api/contact?${searchParams.toString()}`).then(response => {
       setContact(response.data)
+      console.debug(response.data)
       setForm(document.getElementById('form_contact'), response.data)
     })
   }, [tenant])
