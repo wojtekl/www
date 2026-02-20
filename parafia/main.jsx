@@ -49,7 +49,7 @@ i18n.use(initReactI18next).init({
     escapeValue: false
   }
 })
-store.dispatch({ type: 'lang/set', payload: lang })
+store.dispatch({ type: "lang/set", payload: lang })
 
 
 /* FormInput */
@@ -81,9 +81,7 @@ const ModalForm = (props) => {
   
   const handleSubmit = (event) => {
     event.preventDefault()
-
     onSubmit()
-    
     event.stopPropagation()
   }
   
@@ -156,28 +154,34 @@ const ConfirmModal = (props) => {
       </div>
     </div>
   </div>
-</div>}
+</div>
+}
 
 
 /* Password */
 const Password = () => {
   const navigate = useNavigate()
   const { t } = useTranslation()
+
+  const code = getUrlParam('code')
   
   const handleSubmit = (event) => {
     event.preventDefault()
-    const postData = {
+    
+    /*const postData = {
       code: getUrlParam('code'),
-      tenant: document.querySelector(`#floatingInput`).value,
-      password: document.querySelector(`#floatingPassword`).value
-    }
-    axios.post('api/signin-cd', postData, { headers: { 'Content-Type': 'multipart/form-data' }}).then(response => {
-      console.debug(response.data)
+      tenant: document.getElementById('#floatingInput').value,
+      password: document.getElementById('#floatingPassword').value
+    }*/
+    const form = document.getElementById('form_submit')
+    axios.post('api/signin-cd', form, { headers: { 'Content-Type': 'multipart/form-data' }}).then(response => {
       if (response.data) {
         navigate('/signin')
         window.history.replaceState({}, document.title, 'https://parafia.wlap.pl/#/signin')
       }
+      console.debug(response.data)
     })
+    
     event.stopPropagation()
   }
   
@@ -193,6 +197,7 @@ const Password = () => {
           <input type="password" class="form-control" id="floatingPassword" placeholder={t('label_password')} name="password" />
           <label for="floatingPassword">{t('label_password')}</label>
         </div>
+        <input type="hidden" name="code" value={code} />
         <div class="form-check text-start my-3">
           <input class="form-check-input" type="checkbox" value="remember-me" id="checkDefault" />
           <label class="form-check-label" for="checkDefault">{t('label_remember_me')}</label>
@@ -211,11 +216,15 @@ const VisitModal = (props) => {
   const { t } = useTranslation()
 
   const handleSubmit = () => {
-    const form = document.querySelector(`#form_${modalId}`)
+    event.preventDefault()
+    
+    const form = document.getElementById(`form_${modalId}`)
     axios.post('api/visit-cd', form, { headers: { 'Content-Type': 'multipart/form-data' }}).then(response => {
       form.reset()
       console.debug(response.data)
     })
+    
+    event.stopPropagation()
   }
 
   return <ModalForm id={modalId} title={t('label_visit')} onSubmit={handleSubmit} label_close={t('label_close')} label_cancel={t('label_cancel')} label_save={t('label_save')}>
@@ -236,11 +245,11 @@ const VisitModal = (props) => {
 /* Confirmation */
 const Confirmation = () => {
   const { t } = useTranslation()
-  const [tenant, setTenant] = useState(store.getState().tenant)
   const [confirmation, setConfirmation] = useState([])
   const [selected, setSelected] = useState()
   const [refresh, setRefresh] = useState()
 
+  const tenant = store.getState().tenant
   const locale = (getUrlParam('lang') ?? navigator.language.substring(3)).toLocaleLowerCase()
 
   useEffect(() => {
@@ -249,7 +258,7 @@ const Confirmation = () => {
       setConfirmation(response.data)
       console.debug(response.data)
     })
-  }, [])
+  }, [tenant])
 
   return <>
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
@@ -285,11 +294,11 @@ const Confirmation = () => {
 /* Visit */
 const Visit = () => {
   const { t } = useTranslation()
-  const [tenant, setTenant] = useState(store.getState().tenant)
   const [donations, setDonations] = useState([])
   const [selected, setSelected] = useState()
   const [refresh, setRefresh] = useState()
 
+  const tenant = store.getState().tenant
   const locale = (getUrlParam('lang') ?? navigator.language.substring(3)).toLocaleLowerCase()
 
   useEffect(() => {
@@ -376,12 +385,13 @@ const CurrentWeek = (props) => {
   const [selected, setSelected] = useState()
   const [refresh, setRefresh] = useState(true)
 
+  const tenant = store.getState().tenant
   const locale = (getUrlParam('lang') ?? navigator.language.substring(3)).toLocaleLowerCase()
 
   useEffect(() => {
     if (refresh) {
       const postData = {
-        tenant: store.getState().tenant,
+        tenant: tenant,
         type: type,
         today: date
       }
@@ -391,7 +401,7 @@ const CurrentWeek = (props) => {
       })
       setRefresh(false)
     }
-  }, [refresh])
+  }, [tenant, refresh])
 
   const handleSelect = (event) => {}
 
@@ -415,52 +425,52 @@ const CurrentWeek = (props) => {
   }
   
   return <>
-    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-      <h1 class="h2">{t('label_statistics')}</h1>
-      <div class="btn-toolbar mb-2 mb-md-0">
-        <div class="btn-group me-2">
-          <button type="button" class="btn btn-sm btn-outline-secondary" onClick={handleRefresh}>{t('label_refresh')}</button>
-        </div>
+  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">{t('label_statistics')}</h1>
+    <div class="btn-toolbar mb-2 mb-md-0">
+      <div class="btn-group me-2">
+        <button type="button" class="btn btn-sm btn-outline-secondary" onClick={handleRefresh}>{t('label_refresh')}</button>
       </div>
     </div>
-    <div class="row">
-      <div class="col-sm-6">
-        <label for="" class="form-label">{t('label_liczba_eucharystii')}</label>
-        <input type="text" class="form-control" />
-      </div>
-      <div class="col-sm-6">
-        <label for="" class="form-label">{t('label_')}</label>
-        <input type="text" class="form-control" />
-      </div>
-      <div class="col-sm-6">
-        <label for="" class="form-label">{t('label_')}</label>
-        <input type="text" class="form-control" />
-      </div>
-      <div class="col-sm-6">
-        <label for="" class="form-label">{t('label_')}</label>
-        <input type="text" class="form-control" />
-      </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-6">
+      <label for="" class="form-label">{t('label_liczba_eucharystii')}</label>
+      <input type="text" class="form-control" />
     </div>
-    <h2>{getTitle()}</h2>
-    <Table columns={['#', t('label_date'), t('label_description'), t('label_donation'), t('label_notes'), t('label_actions')]}>
-      { currentWeek.map((e, i) => <tr>
-        <td>{i + 1}</td>
-        <td><DateFormatter timestamp={e['scheduled']} locale={locale} /></td>
-        <td>{e['description']}</td>
-        <td><NumberFormatter value={e['value']} locale={locale} /></td>
-        <td>{e['notes']}</td>
-        <td>
-          <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#editScheduledModal" onClick={ () => setSelected(e['id']) }><i class="bi bi-pencil-square"></i></button>
-          <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#confirmModal" onClick={ () => setSelected(e['id']) }><i class="bi bi-trash"></i></button>
-        </td>
-      </tr>) }
-    </Table>
-    <Modal modalId="editScheduledModal" itemId={selected} type={type} />
-    <ConfirmModal title="label_delete" onOk={() => {
-      const searchParams = new URLSearchParams({ id: selected })
-      axios.get(`api/scheduled-cd?${searchParams.toString()}`).then(response => handleRefresh())
-    }} />
-  </>
+    <div class="col-sm-6">
+      <label for="" class="form-label">{t('label_')}</label>
+      <input type="text" class="form-control" />
+    </div>
+    <div class="col-sm-6">
+      <label for="" class="form-label">{t('label_')}</label>
+      <input type="text" class="form-control" />
+    </div>
+    <div class="col-sm-6">
+      <label for="" class="form-label">{t('label_')}</label>
+      <input type="text" class="form-control" />
+    </div>
+  </div>
+  <h2>{getTitle()}</h2>
+  <Table columns={['#', t('label_date'), t('label_description'), t('label_donation'), t('label_notes'), t('label_actions')]}>
+    { currentWeek.map((e, i) => <tr>
+      <td>{i + 1}</td>
+      <td><DateFormatter timestamp={e['scheduled']} locale={locale} /></td>
+      <td>{e['description']}</td>
+      <td><NumberFormatter value={e['value']} locale={locale} /></td>
+      <td>{e['notes']}</td>
+      <td>
+        <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#editScheduledModal" onClick={ () => setSelected(e['id']) }><i class="bi bi-pencil-square"></i></button>
+        <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#confirmModal" onClick={ () => setSelected(e['id']) }><i class="bi bi-trash"></i></button>
+      </td>
+    </tr>) }
+  </Table>
+  <Modal modalId="editScheduledModal" itemId={selected} type={type} />
+  <ConfirmModal title="label_delete" onOk={() => {
+    const searchParams = new URLSearchParams({ id: selected })
+    axios.get(`api/scheduled-cd?${searchParams.toString()}`).then(response => handleRefresh())
+  }} />
+</>
 }
 
 
@@ -468,23 +478,16 @@ const CurrentWeek = (props) => {
 const Dashboard = () => {
   const { t } = useTranslation()
   
-  const [tenant, setTenant] = useState(store.getState().tenant)
   const [contact, setContact] = useState()
   const [disabled, setDisabled] = useState(true)
+
+  const tenant = store.getState().tenant
 
   useEffect(() => {
     const searchParams = new URLSearchParams({ tenant: tenant })
     axios.get(`api/contact?${searchParams.toString()}`).then(response => {
       setContact(response.data)
-      /* document.getElementById('contactdescription').value = response.data.description
-      document.getElementById('contactstreet').value = response.data.street
-      document.getElementById('contactnumber').value = response.data.number
-      document.getElementById('contactcity').value = response.data.city
-      document.getElementById('contactpostalcode').value = response.data.postalcode
-      document.getElementById('contactEmail').value = response.data.email
-      document.getElementById('contactPhone').value = response.data.phone
-      document.getElementById('contactIban').value = response.data.iban */
-      setForm(document.getElementById('form_contact'), response.data)
+      setForm(document.getElementById('form_contact'), contact)
     })
   }, [tenant])
 
@@ -493,7 +496,7 @@ const Dashboard = () => {
   const handleSubmit = (event) => {
     event.preventDefault()
     
-    const form = document.querySelector(`#form_contact`)
+    const form = document.getElementById('form_contact')
     axios.post('api/contact', form, { headers: { 'Content-Type': 'multipart/form-data' }}).then(response => {
       console.debug(response.data)
     })
@@ -541,17 +544,19 @@ const Dashboard = () => {
 const Settings = () => {
   const { t } = useTranslation()
 
-  const [tenant, setTenant] = useState(store.getState().tenant)
   const [settings, setSettings] = useState()
   const [disabled, setDisabled] = useState(true)
+
+  const tenant = store.getState().tenant
 
   useEffect(() => {
     const searchParams = new URLSearchParams({ tenant: tenant })
     axios.get(`api/settings?${searchParams.toString()}`).then(response => {
       setSettings(response.data)
-      document.getElementById('settingsSchedule').value = response.data.schedule
-      document.getElementById('settingsShowVisits').checked = 0 == response.data.showVisits ? false : true
-      document.getElementById('settingsShowBooking').checked = 0 == response.data.showBooking ? false : true
+      setForm(document.getElementById('form_settings'), settings)
+      //document.getElementById('settingsSchedule').value = response.data.schedule
+      //document.getElementById('settingsShowVisits').checked = 0 == response.data.showVisits ? false : true
+      //document.getElementById('settingsShowBooking').checked = 0 == response.data.showBooking ? false : true
     })
   }, [tenant])
 
@@ -597,7 +602,7 @@ const Settings = () => {
           <input type="checkbox" class="form-check-input" id="settingsShowBooking" name="showBooking" />
           <label class="form-check-label" for="settingsShowBooking">{t('label_show_booking')}</label>
         </div>
-        {!disabled && <button type="submit" class="btn btn-primary" onClick={handleSubmit}>{t('label_submit')}</button>}
+        { !disabled && <button type="submit" class="btn btn-primary" onClick={handleSubmit}>{t('label_submit')}</button> }
       </fieldset>
     </form>
   </>
@@ -617,22 +622,27 @@ const Modal = (props) => {
     
     const searchParams = new URLSearchParams({ id: itemId })
     axios.get(`api/scheduled?${searchParams.toString()}`).then(response => {
-      document.getElementById(`${modalId}InputId`).value = itemId
+      setForm(document.getElementById(`form_${modalId}`), response.data)
+      /*document.getElementById(`${modalId}InputId`).value = itemId
       document.getElementById(`${modalId}InputDescription`).value = response.data['description']
       document.getElementById(`${modalId}InputScheduled`).value = response.data['scheduled']
       document.getElementById(`${modalId}InputValue`).value = response.data['value']
       document.getElementById(`${modalId}InputNotes`).value = response.data['notes']
-      document.getElementById(`${modalId}InputType`).value = response.data['type']
+      document.getElementById(`${modalId}InputType`).value = response.data['type']*/
       console.debug(response.data)
     })
   }, [itemId])
 
   const handleSubmit = () => {
-    const form = document.querySelector(`#form_${modalId}`)
+    event.preventDefault()
+    
+    const form = document.getElementById(`form_${modalId}`)
     axios.post(!itemId ? 'api/scheduled-cd' : 'api/scheduled', form, { headers: { 'Content-Type': 'multipart/form-data' }}).then(response => {
       form.reset()
       console.debug(response.data)
     })
+
+    event.stopPropagation()
   }
 
   return <ModalForm id={modalId} title={t('label_scheduled')} onSubmit={handleSubmit} label_close={t('label_close')} label_cancel={t('label_cancel')} label_save={t('label_save')}>
@@ -648,8 +658,8 @@ const Modal = (props) => {
     <small id={`${modalId}valueHelp`} class="form-text text-muted">{t('help_value')}</small>
   </div>
   <FormInput name="notes" label={t('label_notes')} help={t('help_notes')} modalId={modalId} />
-  <input type="hidden" class="form-control" id={`${modalId}InputId`} name="id" />
-  <input type="hidden" class="form-control" id={`${modalId}InputType`} name="type" />
+  <input type="hidden" name="id" />
+  <input type="hidden" name="type" />
 </ModalForm>
 }
 
@@ -665,12 +675,12 @@ const Manage = () => {
   useEffect(() => {
     axios.get('api/signin').then(response => {
       if (!response.data || response.data.length > 99 || response.data.includes(';')) {
-        store.dispatch({ type: 'tenant/set', payload: undefined })
+        store.dispatch({ type: "tenant/set", payload: undefined })
         setTenant(undefined)
         navigate('/signin')
       }
       else {
-        store.dispatch({ type: 'tenant/set', payload: response.data })
+        store.dispatch({ type: "tenant/set", payload: response.data })
         setTenant(response.data)
       }
       console.debug(response.data)
@@ -678,8 +688,10 @@ const Manage = () => {
   }, [])
 
   const handleSignout = () => {
+    event.preventDefault()
+    
     axios.get('api/signin-cd').then(response => {
-      store.dispatch({ type: 'tenant/set', payload: undefined })
+      store.dispatch({ type: "tenant/set", payload: undefined })
       setTenant(undefined)
       navigate('/signin')
       console.debug(response.data)
@@ -688,6 +700,7 @@ const Manage = () => {
 
   const handleSwitchTab = (event) => {
     event.preventDefault()
+    
     setSelectedTab(event.target.id)
   }
 
@@ -838,7 +851,7 @@ const Signin = () => {
   useEffect(() => {
     axios.get('api/signin').then(response => {
       if (response.data && !response.data.includes(';')) {
-        store.dispatch({ type: 'tenant/set', payload: response.data })
+        store.dispatch({ type: "tenant/set", payload: response.data })
         navigate('/manage')
       }
       console.debug(response.data)
@@ -847,8 +860,9 @@ const Signin = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault()
+    
     setSigninFailure(false)
-    const form = document.querySelector('#form_submit')
+    const form = document.getElementById('form_submit')
     axios.post('api/signin', form).then(response => {
       if (response.data.length > 0) {
         navigate('/manage')
@@ -857,6 +871,8 @@ const Signin = () => {
         setSigninFailure(true)
       }
     })
+
+    event.stopPropagation()
   }
   
   return <div class="d-flex align-items-center py-4 bg-body-tertiary">
@@ -916,7 +932,7 @@ const Reader = () => {
   const handleSubmit = (event) => {
     event.preventDefault()
 
-    const form = document.querySelector(`#form_order`)
+    const form = document.getElementById('form_order')
     axios.post('api/scheduled-cd', form, { headers: { 'Content-Type': 'multipart/form-data' }}).then(response => {
       form.reset()
       console.debug(response.data)
@@ -928,7 +944,7 @@ const Reader = () => {
   const handleBook = (event) => {
     event.preventDefault()
 
-    const form = document.querySelector(`#form_book`)
+    const form = document.getElementById('form_book')
     axios.post('api/visit-cd', form, { headers: { 'Content-Type': 'multipart/form-data' }}).then(response => {
       form.reset()
       console.debug(response.data)
@@ -951,21 +967,16 @@ const Reader = () => {
       setVisit(response.data)
       console.debug(response.data)
     })
-    const postCurrent = {
+    const postWeek = (type: String) => {
       tenant: tenant,
-      type: "eucharystia",
+      type: type,
       today: datePart()
     }
-    axios.post('api/scheduled-week', postCurrent, { headers: { 'Content-Type': 'multipart/form-data' }}).then(response => {
+    axios.post('api/scheduled-week', postWeek("eucharystia"), { headers: { 'Content-Type': 'multipart/form-data' }}).then(response => {
       setCurrentWeek(response.data)
       console.debug(response.data)
     })
-    const postDeparture = {
-      tenant: tenant,
-      type: "departure",
-      today: datePart()
-    }
-    axios.post('api/scheduled-week', postDeparture, { headers: { 'Content-Type': 'multipart/form-data' }}).then(response => {
+    axios.post('api/scheduled-week', postWeek("departure"), { headers: { 'Content-Type': 'multipart/form-data' }}).then(response => {
       setDeparture(response.data)
       console.debug(response.data)
     })
@@ -1068,8 +1079,7 @@ const Reader = () => {
                 <button type="submit" class="btn btn-primary" onClick={handleBook}>{t('label_submit')}</button>
               </fieldset>
             </form>
-          </AccordionItem>
-          }
+          </AccordionItem> }
         </div>
       </div>
     </main>
@@ -1096,12 +1106,14 @@ const Selected = () => {
 
   const handleBack = (event) => {
     event.preventDefault()
+    
     navigate(-1)
   }
 
   const handleSelect = (event) => {
     event.preventDefault()
-    store.dispatch({ type: 'selected/added', payload: name })
+    
+    store.dispatch({ type: "selected/added", payload: name })
   }
 
   const selected = clients.clients.find(i => i.name === name)
@@ -1124,15 +1136,15 @@ const Selected = () => {
         {selected && <li class="breadcrumb-item active" aria-current="page">{selected.name}</li>}
       </ol>
     </nav>
-    {selected ? <div class="list-group">
+    { selected ? <div class="list-group">
       <a href={urls.schedule} rel="external" class="list-group-item list-group-item-action">{t('list_schedule')}</a>
       <a href={urls.announcement} rel="external" class="list-group-item list-group-item-action">{t('list_announcement')}</a>
       <a href={urls.contact} rel="external" class="list-group-item list-group-item-action">{t('list_contact')}</a>
-      {selected.other && <a href={selected.other} rel="external" class="list-group-item list-group-item-action">{t('list_other')}</a>}
-      {selected.live && <a href={selected.live} rel="external" class="list-group-item list-group-item-action">{t('list_live')}</a>}
+      { selected.other && <a href={selected.other} rel="external" class="list-group-item list-group-item-action">{t('list_other')}</a> }
+      { selected.live && <a href={selected.live} rel="external" class="list-group-item list-group-item-action">{t('list_live')}</a> }
       <a href={`https://www.openstreetmap.org/directions?from=&to=${selected.latitude}%2C${selected.longitude}`} rel="external" class="list-group-item list-group-item-action">{t('list_directions')}</a>
-      {!saved && <a href="#" onClick={handleSelect} class="list-group-item list-group-item-action">{t('list_select')}</a>}
-    </div> : <p>{t('label_missing')}</p>}
+      { !saved && <a href="#" onClick={handleSelect} class="list-group-item list-group-item-action">{t('list_select')}</a> }
+    </div> : <p>{t('label_missing')}</p> }
   </div>
 </>
 }
@@ -1145,11 +1157,11 @@ const List = () => {
   const all = getClients()
 
   const [filtered, setFiltered] = useState(all)
-  const [phrase, setPhrase] = useState('')
+  const [query, setQuery] = useState('')
   const [active, setActive] = useState(false)
   const [live, setLive] = useState(false)
 
-  const filterByCriteria = (active: Boolean, live: Boolean, phrase: String) => {
+  useEffect(() => {
     let preFiltered = all
     if (active) {
       preFiltered = preFiltered.filter(i => !!i.incoming)
@@ -1159,30 +1171,16 @@ const List = () => {
       preFiltered = preFiltered.filter(i => (true === i.live) && !!i.incoming)
       preFiltered.sort((a, b) => a.incoming.localeCompare(b.incoming))
     }
-    setFiltered(2 < phrase.length ? preFiltered.filter(i => i.name.toLowerCase().includes(phrase)) : preFiltered)
-  }
+    setFiltered(2 < query.length ? preFiltered.filter(i => i.name.toLowerCase().includes(query)) : preFiltered)
+  }, [query, active, live])
 
   const handleClick = (name: String) => navigate(`/selected/${name}`)
 
-  const handleFilter = (event) => {
-    const p = event.target.value.toLowerCase().trim()
+  const handleFilter = (event) => setQuery(event.target.value.toLowerCase().trim())
 
-    filterByCriteria(active, live, p)
+  const handleSwitchLive = (event) => setLive(!live)
 
-    setPhrase(p)
-  }
-
-  const handleSwitchLive = (event) => {
-    filterByCriteria(active, !live, phrase)
-
-    setLive(!live)
-  }
-
-  const handleSwitchActive = (event) => {
-    filterByCriteria(!active, live, phrase)
-
-    setActive(!active)
-  }
+  const handleSwitchActive = (event) => setActive(!active)
 
   return <>
   <Navi current="list" />
@@ -1212,13 +1210,11 @@ const List = () => {
 /* Navi */
 const Navi = (props) => {
   const { current } = props
-
-  const [count, setCount] = useState(0)
   
   const { t } = useTranslation()
   const navigate = useNavigate()
 
-  const selected = clients.clients.find(i => i.name === store.getState().value)
+  const [count, setCount] = useState(0)
 
   useEffect(() => {
     document.title = t('title_app')
@@ -1228,59 +1224,62 @@ const Navi = (props) => {
       console.debug(response.data)
     })
   }, [])
+
+  const selected = clients.clients.find(i => i.name === store.getState().value)
   
   const handleInstall = (event) => {
     event.preventDefault()
+    
     if (installPrompt) {
       installPrompt.prompt()
     }
     else {
       window.location.href = 'https://wlap.pl/howto/'
     }
+
+    event.stopPropagation()
   }
 
-  return <>
-  <div class="navbar navbar-expand-md">
-    <div class="container">
-      <h1 class="visually-hidden">{t('title_app')}</h1>
-      <div class="navbar-brand"><img src="https://raw.githubusercontent.com/wojtekl/google-play/refs/heads/main/myparish/MojaParafia/app/src/main/res/mipmap-mdpi/ic_launcher_round.webp" width="30px" height="30px" alt="" />{t('title_app')}</div>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#basic-navbar-nav" aria-controls="basic-navbar-nav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="basic-navbar-nav">
-        <div className="navbar-nav me-auto">
-          {selected && 'selected' != current && <div class="nav-item"><a class="nav-link" href={`#/selected/${selected.name}`}>{t('nav_your')}</a></div>}
-          {'map' != current && <div class="nav-item"><a class="nav-link" aria-current="page" href="#/">{t('nav_map')}</a></div>}
-          {'list' != current && <div class="nav-item"><a class="nav-link" href="#/list">{t('nav_list')}</a></div>}
-          <div class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">{t('nav_news')}</a>
-            <ul class="dropdown-menu">
-              <li><p class="dropdown-item">{t('label_views')}{count}</p></li>
-              <li><a href="https://m.niedziela.pl/" rel="external" class="dropdown-item">Niedziela</a></li>
-              <li><a href="https://www.gosc.pl/mobile" rel="external" class="dropdown-item">Gość Niedzielny</a></li>
-              <li><a href="https://rycerzniepokalanej.pl/" rel="external" class="dropdown-item">Rycerz Niepokalanej</a></li>
-              <li><a href="https://biblia.deon.pl/" rel="external" class="dropdown-item">Biblia Tysiąclecia</a></li>
-              <li><a href={t('url_privacy')} rel="privacy-policy" class="dropdown-item">{t('nav_privacy')}</a></li>
-              <li><a href="https://wlap.pl/" rel="author" class="dropdown-item">{t('nav_aboutus')}</a></li>
-              <li><a href="https://cennik.wlap.pl/" rel="external" class="dropdown-item">Historia cen produktów spożywczych w marketach</a></li>
-            </ul>
-          </div>
-          <div class="nav-item"><a class="nav-link link-danger" href="#" onClick={handleInstall}>{t('nav_install')}</a></div>
-          <div class="nav-item"><a class="nav-link" href="#/manage">{t('nav_manage')}</a></div>
+  return <div class="navbar navbar-expand-md">
+  <div class="container">
+    <h1 class="visually-hidden">{t('title_app')}</h1>
+    <div class="navbar-brand"><img src="https://raw.githubusercontent.com/wojtekl/google-play/refs/heads/main/myparish/MojaParafia/app/src/main/res/mipmap-mdpi/ic_launcher_round.webp" width="30px" height="30px" alt="" />{t('title_app')}</div>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#basic-navbar-nav" aria-controls="basic-navbar-nav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="basic-navbar-nav">
+      <div className="navbar-nav me-auto">
+        { selected && 'selected' != current && <div class="nav-item"><a class="nav-link" href={`#/selected/${selected.name}`}>{t('nav_your')}</a></div> }
+        { 'map' != current && <div class="nav-item"><a class="nav-link" aria-current="page" href="#/">{t('nav_map')}</a></div> }
+        { 'list' != current && <div class="nav-item"><a class="nav-link" href="#/list">{t('nav_list')}</a></div> }
+        <div class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">{t('nav_news')}</a>
+          <ul class="dropdown-menu">
+            <li><p class="dropdown-item">{t('label_views')}{count}</p></li>
+            <li><a href="https://m.niedziela.pl/" rel="external" class="dropdown-item">Niedziela</a></li>
+            <li><a href="https://www.gosc.pl/mobile" rel="external" class="dropdown-item">Gość Niedzielny</a></li>
+            <li><a href="https://rycerzniepokalanej.pl/" rel="external" class="dropdown-item">Rycerz Niepokalanej</a></li>
+            <li><a href="https://biblia.deon.pl/" rel="external" class="dropdown-item">Biblia Tysiąclecia</a></li>
+            <li><a href={t('url_privacy')} rel="privacy-policy" class="dropdown-item">{t('nav_privacy')}</a></li>
+            <li><a href="https://wlap.pl/" rel="author" class="dropdown-item">{t('nav_aboutus')}</a></li>
+            <li><a href="https://cennik.wlap.pl/" rel="external" class="dropdown-item">Historia cen produktów spożywczych w marketach</a></li>
+          </ul>
         </div>
+        <div class="nav-item"><a class="nav-link link-danger" href="#" onClick={handleInstall}>{t('nav_install')}</a></div>
+        <div class="nav-item"><a class="nav-link" href="#/manage">{t('nav_manage')}</a></div>
       </div>
     </div>
   </div>
-</>
+</div>
 }
 
 
 /* App */
 const App = () => {
   const { t } = useTranslation()
-  const [selected, setSelected] = useState(clients.clients.find(i => i.name === store.getState().value))
 
   useEffect(() => {
+    const selected = clients.clients.find(i => i.name === store.getState().value)
     const map = L.map('map').setView(selected ? [selected.latitude, selected.longitude] : [52.114503, 19.423561], 9)
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 19,
