@@ -647,7 +647,7 @@ const Modal = (props) => {
     <small id={`${modalId}valueHelp`} class="form-text text-muted">{t('help_value')}</small>
   </div>
   <FormInput name="notes" label={t('label_notes')} help={t('help_notes')} modalId={modalId} />
-  <input type="hidden" name="id" />
+  <input type="hidden" name="id" value={itemId} />
   <input type="hidden" name="type" />
 </ModalForm>
 }
