@@ -476,14 +476,15 @@ const Dashboard = () => {
     const searchParams = new URLSearchParams({ tenant: tenant })
     axios.get(`api/contact?${searchParams.toString()}`).then(response => {
       setContact(response.data)
-      document.getElementById('contactdescription').value = response.data.description
+      /* document.getElementById('contactdescription').value = response.data.description
       document.getElementById('contactstreet').value = response.data.street
       document.getElementById('contactnumber').value = response.data.number
       document.getElementById('contactcity').value = response.data.city
       document.getElementById('contactpostalcode').value = response.data.postalcode
       document.getElementById('contactEmail').value = response.data.email
       document.getElementById('contactPhone').value = response.data.phone
-      document.getElementById('contactIban').value = response.data.iban
+      document.getElementById('contactIban').value = response.data.iban */
+      setForm(document.getElementById('form_contact'), response.data)
     })
   }, [tenant])
 
