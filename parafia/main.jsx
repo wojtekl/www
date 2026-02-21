@@ -50,10 +50,10 @@ const preferencesSlice = createSlice({
   }
 })
 const { selectedAdded, selectedRemoved, langSet, tenantSet } = preferencesSlice.actions
-configureStore({ reducer: preferencesSlice.reducer })
+const store = configureStore({ reducer: preferencesSlice.reducer })
 
 //const store = createStore(selectedReducer)
-const store = store.subscribe(() => localStorage.setItem('redux', JSON.stringify(store.getState())))
+store.subscribe(() => localStorage.setItem('redux', JSON.stringify(store.getState())))
 
 const lang = (getUrlParam('lang') ?? initialState.lang).toLocaleLowerCase()
 i18n.use(initReactI18next).init({
