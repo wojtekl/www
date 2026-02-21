@@ -1,4 +1,4 @@
-import Toast, * as bootstrap from 'bootstrap'
+import * as bootstrap from 'bootstrap'
 import React, { useContext, useEffect, useState, createContext, createElement } from 'react'
 import { createRoot } from 'react-dom/client'
 import { HashRouter as Router, Routes, Route, useNavigate, useParams } from 'react-router-dom'
@@ -87,7 +87,7 @@ const ModalForm = (props) => {
     modal.hide()
 
     setMessage(t('label_saved'))
-    const notification = Toast.getOrCreateInstance(document.getElementById('notification'))
+    const notification = bootstrap.Toast.getOrCreateInstance(document.getElementById('notification'))
     notification.show()
     
     event.stopPropagation()
