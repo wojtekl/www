@@ -5,6 +5,8 @@ import { HashRouter as Router, Routes, Route, useNavigate, useParams } from 'rea
 import i18n from 'i18next'
 import { initReactI18next, useTranslation } from 'react-i18next'
 import { createStore } from 'redux'
+import { createSlice, configureStore } from '@reduxjs/toolkit'
+import type { PayloadAction } from '@reduxjs/toolkit'
 import { Provider, useSelector, useDispatch } from 'react-redux'
 import axios from 'axios'
 import L from 'leaflet'
@@ -36,6 +38,18 @@ const selectedReducer = (state = initialState, action) => {
       return state
   }
 }
+
+const preferencesSlice = createSlice({
+  name: "preferences",
+  initialState: initialState,
+  reducers: {
+    selectedAdded: (state, action: PayloadAction<String>) => state.value = action.payload,
+    selectedRemoved: state => state.value = null,
+    langSet: (state, action: PayloadAction<String>) => state.lang = action.payload,
+    tenantSet: (state, action: PayloadAction<String>) => state.tenant = action.payload
+  }
+})
+const { selectedAdded, selectedRemoved, langSet, tenantSet } = preferencesSlice.actions
 
 const store = createStore(selectedReducer)
 store.subscribe(() => localStorage.setItem('redux', JSON.stringify(store.getState())))
@@ -647,7 +661,7 @@ const Modal = (props) => {
 const Manage = () => {
   const navigate = useNavigate()
   const { t } = useTranslation()
-  //const dispatch = useDispatch()
+  const dispatch = useDispatch()
   
   const [tenant, setTenant] = useState(useSelector(state => state.tenant))
   const [selectedTab, setSelectedTab] = useState('dashboardLink')
@@ -826,7 +840,7 @@ const Manage = () => {
 const Signin = () => {
   const navigate = useNavigate()
   const { t } = useTranslation()
-  //const dispatch = useDispatch()
+  const dispatch = useDispatch()
   const [signinFailure, setSigninFailure] = useState(false)
 
   useEffect(() => {
