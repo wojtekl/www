@@ -25,7 +25,7 @@ const getForm = (form) => {
       data[e.name] = e.value
     }
     else {
-      date[e.name] = 'off' === e.checked ? 0 : 1
+      date[e.name] = !e.checked ? 0 : 1
     }
   }
   return data
