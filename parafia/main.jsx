@@ -52,24 +52,20 @@ store.dispatch(langSet(lang))
 
 
 /* FormInput */
-const FormInput = (props) => {
-  const { name, label, help, modalId } = props
-  
+const FormInput = ({ name, label, help, formId }) => {
   return <div class="form-group">
-  <label for={`${modalId}Input${name}`}>{label}</label>
-  <input type="text" class="form-control" id={`${modalId}Input${name}`} aria-describedby={`${modalId}Help${name}`} name={name} />
-  <small id={`${modalId}Help${name}`} class="form-text text-muted">{help}</small>
+  <label for={`${formId}Input${name}`}>{label}</label>
+  <input type="text" class="form-control" id={`${formId}Input${name}`} aria-describedby={`${formId}Help${name}`} name={name} />
+  <small id={`${formId}Help${name}`} class="form-text text-muted">{help}</small>
 </div>
 }
 
 
 /* InputText */
-const InputText = (props) => {
-  const { name, label, help, parentId } = props
-  
+const InputText = ({ name, label, help, formId }) => {
   return <div class="mb-3">
-  <label for={`${parentId}${name}`} class="form-label">{label}</label>
-  <input type="text" id={`${parentId}${name}`} class="form-control" placeholder={help} name={name} />
+  <label for={`${formId}${name}`} class="form-label">{label}</label>
+  <input type="text" id={`${formId}${name}`} class="form-control" placeholder={help} name={name} />
 </div>
 }
 
@@ -106,9 +102,7 @@ const ModalForm = (props) => {
 
 
 /* Table */
-const Table = (props) => {
-  const { columns, children } = props
-  
+const Table = ({ columns, children }) => {
   return <div class="table-responsive small">
   <table class="table table-stripped table-sm">
     <thead><tr>{ columns.map((e, i) => <th scope="col">{e}</th>) }</tr></thead>
@@ -119,8 +113,7 @@ const Table = (props) => {
 
 
 /* AccordionItem */
-const AccordionItem = (props) => {
-  const { id, parent, show = false, children } = props
+const AccordionItem = ({ id, parent, show = false, children }) => {
   const { t } = useTranslation()
 
   return <div class="accordion-item">
@@ -136,8 +129,7 @@ const AccordionItem = (props) => {
 
 
 /* ConfirmModal */
-const ConfirmModal = (props) => {
-  const { title, onOk } = props
+const ConfirmModal = ({ title: String, onOk }) => {
   const { t } = useTranslation()
   
   return <div class="modal" id="confirmModal" tabindex="-1">
@@ -206,8 +198,7 @@ const Password = () => {
 
 
 /* VisitModal */
-const VisitModal = (props) => {
-  const { modalId } = props
+const VisitModal = ({ modalId }) => {
   const { t } = useTranslation()
 
   const handleSubmit = (event) => {
@@ -241,7 +232,7 @@ const Confirmation = () => {
   const [refresh, setRefresh] = useState()
 
   const tenant = useSelector(state => state.tenant)
-  const locale = (getUrlParam('lang') ?? navigator.language.substring(3)).toLocaleLowerCase()
+  const { locale } = usePreferences()
 
   useEffect(() => {
     const searchParams = new URLSearchParams({ tenant: tenant })
@@ -290,7 +281,7 @@ const Visit = () => {
   const [refresh, setRefresh] = useState()
 
   const tenant = useSelector(state => state.tenant)
-  const locale = (getUrlParam('lang') ?? navigator.language.substring(3)).toLocaleLowerCase()
+  const { locale } = usePreferences()
 
   useEffect(() => {
     const searchParams = new URLSearchParams({ tenant: tenant })
@@ -368,8 +359,7 @@ const Weeks = () => {
 
 
 /* CurrentWeek */
-const CurrentWeek = (props) => {
-  const { date, type } = props
+const CurrentWeek = ({ date, type }) => {
   const { t } = useTranslation()
 
   const [currentWeek, setCurrentWeek] = useState([])
@@ -377,7 +367,7 @@ const CurrentWeek = (props) => {
   const [refresh, setRefresh] = useState(true)
 
   const tenant = useSelector(state => state.tenant)
-  const locale = (getUrlParam('lang') ?? navigator.language.substring(3)).toLocaleLowerCase()
+  const { locale } = usePreferences()
 
   useEffect(() => {
     if (refresh) {
@@ -597,8 +587,7 @@ const Settings = () => {
 
 
 /* Modal */
-const Modal = (props) => {
-  const { modalId, itemId, type } = props
+const Modal = ({ modalId, itemId, type }) => {
   const { t } = useTranslation()
 
   useEffect(() => {
@@ -896,7 +885,7 @@ const Reader = () => {
   const [visit, setVisit] = useState([])
 
   const { tenant } = useParams()
-  const { locale } = usePreferences() //(getUrlParam('lang') ?? navigator.language.substring(3)).toLocaleLowerCase()
+  const { locale } = usePreferences()
 
   const dayOfWeek = [
     { order: '2', name: t('label_monday')}, 
@@ -1186,9 +1175,7 @@ const List = () => {
 
 
 /* Navi */
-const Navi = (props) => {
-  const { current } = props
-  
+const Navi = ({ current }) => {
   const { t } = useTranslation()
   const navigate = useNavigate()
 
@@ -1289,19 +1276,19 @@ const App = () => {
 
 
 /* Preferences */
-const Preferences = createContext()
-const PreferencesProvider = ({ children }) => {
+const PreferencesContext = createContext()
+const Preferences = ({ children }) => {
   const locale = (getUrlParam('lang') ?? navigator.language.substring(3)).toLocaleLowerCase()
 
-  return <Preferences.Provider value={{ locale }}>{children}</Preferences.Provider>
+  return <PreferencesContext.Provider value={{ locale }}>{children}</PreferencesContext.Provider>
 }
-const usePreferences = () => useContext(Preferences)
+const usePreferences = () => useContext(PreferencesContext)
 
 
 const container = document.getElementById('root')
 const root = createRoot(container)
 root.render(<Provider store={store}>
-  <PreferencesProvider>
+  <Preferences>
   <Router>
     <Routes>
       <Route path="/" element={<App />} />
@@ -1313,5 +1300,5 @@ root.render(<Provider store={store}>
       <Route path=":tenant" element={<Reader />} />
     </Routes>
   </Router>
-  </PreferencesProvider>
+  </Preferences>
 </Provider>)
