@@ -405,7 +405,7 @@ const CurrentWeek = ({ date, type }) => {
     </div>
   </div>
   <form id="form_statistics" enctype="multipart/form-data">
-    <fieldset>
+    <fieldset disabled>
       <div class="row">
         <InputText name="count" label={t('label_count')} className="col-sm-6" formId="statistics" />
         <InputText name="" label={t('label_')} className="col-sm-6" formId="statistics" />
