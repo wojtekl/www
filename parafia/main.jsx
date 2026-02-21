@@ -1,5 +1,5 @@
 import * as bootstrap from 'bootstrap'
-import React, { useEffect, useState, createElement } from 'react'
+import React, { useContext, useEffect, useState, createContext, createElement } from 'react'
 import { createRoot } from 'react-dom/client'
 import { HashRouter as Router, Routes, Route, useNavigate, useParams } from 'react-router-dom'
 import i18n from 'i18next'
@@ -896,7 +896,7 @@ const Reader = () => {
   const [visit, setVisit] = useState([])
 
   const { tenant } = useParams()
-  const locale = (getUrlParam('lang') ?? navigator.language.substring(3)).toLocaleLowerCase()
+  const { locale } = useContext(Preferences)//(getUrlParam('lang') ?? navigator.language.substring(3)).toLocaleLowerCase()
 
   const dayOfWeek = [
     { order: '2', name: t('label_monday')}, 
@@ -1288,9 +1288,19 @@ const App = () => {
 }
 
 
+/* Preferences */
+const Preferences = createContext()
+const PreferencesProvider = ({ children }) => {
+  const locale = (getUrlParam('lang') ?? navigator.language.substring(3)).toLocaleLowerCase()
+
+  return <Preferences.Provider value={{ locale }}>{children}</Preferences.Provider>
+}
+
+
 const container = document.getElementById('root')
 const root = createRoot(container)
 root.render(<Provider store={store}>
+  <Preferences>
   <Router>
     <Routes>
       <Route path="/" element={<App />} />
@@ -1302,4 +1312,5 @@ root.render(<Provider store={store}>
       <Route path=":tenant" element={<Reader />} />
     </Routes>
   </Router>
+  </Preferences>
 </Provider>)
