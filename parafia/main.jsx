@@ -59,6 +59,19 @@ const InputText = ({ name, label, className, formId, help }) => <div class={clas
 </div>
 
 
+/* Toast */
+const Toast = () => {
+  const { message } = usePreferences()
+  
+  return <div class="toast align-items-center" id="messageToast" role="alert" aria-live="assertive" aria-atomic="true">
+  <div class="d-flex">
+    <div class="toast-body">{message}</div>
+    <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+  </div>
+</div>
+}
+
+
 /* ModalForm */
 const ModalForm = (props) => {
   const { id, title, onSubmit, label_close, label_cancel, label_save, children } = props
@@ -567,6 +580,7 @@ const Settings = () => {
 /* Modal */
 const Modal = ({ modalId, itemId, type }) => {
   const { t } = useTranslation()
+  const { showMessage } = usePreferences()
 
   useEffect(() => {
     if (!itemId) {
@@ -577,6 +591,7 @@ const Modal = ({ modalId, itemId, type }) => {
     const searchParams = new URLSearchParams({ id: itemId })
     axios.get(`api/scheduled?${searchParams.toString()}`).then(response => {
       setForm(document.getElementById(`form_${modalId}`), response.data)
+      showMessage(response.data)
       console.debug(response.data)
     })
   }, [itemId])
@@ -1256,9 +1271,15 @@ const App = () => {
 /* Preferences */
 const PreferencesContext = createContext()
 const Preferences = ({ children }) => {
+  const [message, setMessage] = useState()
   const locale = (getUrlParam('lang') ?? navigator.language.substring(3)).toLocaleLowerCase()
 
-  return <PreferencesContext.Provider value={{ locale }}>{children}</PreferencesContext.Provider>
+  const showMessage = (m: String) => {
+    setMessage(m)
+    bootstrap.Toast.getOrCreateInstance(document.getElementById('messageToast')).show()
+  }
+
+  return <PreferencesContext.Provider value={{ locale, message, showMessage }}>{children}</PreferencesContext.Provider>
 }
 const usePreferences = () => useContext(PreferencesContext)
 
@@ -1278,5 +1299,6 @@ root.render(<Provider store={store}>
       <Route path=":tenant" element={<Reader />} />
     </Routes>
   </Router>
+  <Toast />
   </Preferences>
 </Provider>)
