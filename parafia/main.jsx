@@ -580,7 +580,7 @@ const Settings = () => {
 /* Modal */
 const Modal = ({ modalId, itemId, type }) => {
   const { t } = useTranslation()
-  const { showMessage } = usePreferences()
+  const { setMessage, showMessage } = usePreferences()
 
   useEffect(() => {
     if (!itemId) {
@@ -598,7 +598,8 @@ const Modal = ({ modalId, itemId, type }) => {
   const handleSubmit = () => {
     const form = document.getElementById(`form_${modalId}`)
     axios.post(!itemId ? 'api/scheduled-cd' : 'api/scheduled', form, { headers: { 'Content-Type': 'multipart/form-data' }}).then(response => {
-      showMessage(t('label_saved'))
+      setMessage(t('label_saved'))
+      showMessage()
       form.reset()
       console.debug(response.data)
     })
@@ -1275,12 +1276,11 @@ const Preferences = ({ children }) => {
   const [message, setMessage] = useState()
   const locale = (getUrlParam('lang') ?? navigator.language.substring(3)).toLocaleLowerCase()
 
-  const showMessage = (m: String) => {
-    setMessage(m)
+  const showMessage = () => {
     (bootstrap.Toast.getOrCreateInstance(document.getElementById('messageToast'))).show()
   }
 
-  return <PreferencesContext.Provider value={{ locale, message, showMessage }}>{children}</PreferencesContext.Provider>
+  return <PreferencesContext.Provider value={{ locale, message, setMessage, showMessage }}>{children}</PreferencesContext.Provider>
 }
 const usePreferences = () => useContext(PreferencesContext)
 
