@@ -896,7 +896,9 @@ const Reader = () => {
   const [visit, setVisit] = useState([])
 
   const { tenant } = useParams()
-  const { locale } = useContext(Preferences)//(getUrlParam('lang') ?? navigator.language.substring(3)).toLocaleLowerCase()
+  const context = useContext(Preferences)
+  console.debug(context)
+  const locale = context.locale //(getUrlParam('lang') ?? navigator.language.substring(3)).toLocaleLowerCase()
 
   const dayOfWeek = [
     { order: '2', name: t('label_monday')}, 
@@ -1293,7 +1295,7 @@ const Preferences = createContext()
 const PreferencesProvider = ({ children }) => {
   const [locale, setLocale] = useState((getUrlParam('lang') ?? navigator.language.substring(3)).toLocaleLowerCase())
 
-  return <Preferences.Provider value={{ locale }}>{children}</Preferences.Provider>
+  return <Preferences.Provider value={{ locale, setLocale }}>{children}</Preferences.Provider>
 }
 
 
