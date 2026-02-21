@@ -80,7 +80,7 @@ const ModalForm = (props) => {
     event.preventDefault()
     console.debug('modalform submit')
     onSubmit()
-    //document.querySelector('button.btn-close').click()
+    document.querySelector('button.btn-close').click()
     event.stopPropagation()
   }
   
@@ -96,7 +96,7 @@ const ModalForm = (props) => {
         </div>
         <div class="modal-footer">
           <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">{label_cancel}</button>
-          <button type="submit" class="btn btn-primary">{label_save}</button>
+          <button type="submit" class="btn btn-primary" onClick={handleSubmit}>{label_save}</button>
         </div>
       </div>
     </div>
