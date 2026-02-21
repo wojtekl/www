@@ -73,6 +73,8 @@ const Notification = ({ message }) => {
 /* ModalForm */
 const ModalForm = (props) => {
   const { id, title, onSubmit, label_close, label_cancel, label_save, children } = props
+
+  const { setMessage } = usePreferences()
   
   const handleSubmit = (event) => {
     event.preventDefault()
@@ -82,6 +84,7 @@ const ModalForm = (props) => {
     const modal = bootstrap.Modal.getInstance(document.getElementById(id))
     modal.hide()
 
+    setMessage(t('label_save'))
     const notification = bootstrap.Toast.getOrCreateInstance(document.getElementById('notification'))
     notification.show()
     
@@ -585,7 +588,6 @@ const Settings = () => {
 /* Modal */
 const Modal = ({ modalId, itemId, type }) => {
   const { t } = useTranslation()
-  const { setMessage } = usePreferences()
 
   useEffect(() => {
     if (!itemId) {
@@ -604,7 +606,6 @@ const Modal = ({ modalId, itemId, type }) => {
     const form = document.getElementById(`form_${modalId}`)
     axios.post(!itemId ? 'api/scheduled-cd' : 'api/scheduled', form, { headers: { 'Content-Type': 'multipart/form-data' }}).then(response => {
       form.reset()
-      setMessage('label_saved')
       console.debug(response.data)
     })
   }
