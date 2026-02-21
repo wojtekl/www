@@ -1277,7 +1277,7 @@ const Preferences = ({ children }) => {
   const [message, setMessage] = useState('')
   const locale = (getUrlParam('lang') ?? navigator.language.substring(3)).toLocaleLowerCase()
 
-  return <PreferencesContext.Provider value={{ locale, message, setMessage, showMessage }}>{children}</PreferencesContext.Provider>
+  return <PreferencesContext.Provider value={{ locale, message, setMessage }}>{children}</PreferencesContext.Provider>
 }
 const usePreferences = () => useContext(PreferencesContext)
 
