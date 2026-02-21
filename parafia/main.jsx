@@ -1297,6 +1297,7 @@ const PreferencesProvider = ({ children }) => {
 
   return <Preferences.Provider value={{ locale, setLocale }}>{children}</Preferences.Provider>
 }
+const usePreferences = () => useContext(Preferences)
 
 
 const container = document.getElementById('root')
