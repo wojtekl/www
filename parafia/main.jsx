@@ -598,8 +598,8 @@ const Modal = ({ modalId, itemId, type }) => {
   const handleSubmit = () => {
     const form = document.getElementById(`form_${modalId}`)
     axios.post(!itemId ? 'api/scheduled-cd' : 'api/scheduled', form, { headers: { 'Content-Type': 'multipart/form-data' }}).then(response => {
+      showMessage(t('label_saved'))
       form.reset()
-      showMessage(response.data)
       console.debug(response.data)
     })
   }
@@ -1277,6 +1277,7 @@ const Preferences = ({ children }) => {
 
   const showMessage = (m: String) => {
     setMessage(m)
+    console.debug(m, message)
     bootstrap.Toast.getOrCreateInstance(document.getElementById('messageToast')).show()
   }
 
