@@ -1,4 +1,4 @@
-import * as bootstrap from 'bootstrap'
+import Toast, * as bootstrap from 'bootstrap'
 import React, { useContext, useEffect, useState, createContext, createElement } from 'react'
 import { createRoot } from 'react-dom/client'
 import { HashRouter as Router, Routes, Route, useNavigate, useParams } from 'react-router-dom'
@@ -59,11 +59,11 @@ const InputText = ({ name, label, className, formId, help }) => <div class={clas
 </div>
 
 
-/* Toast */
-const Toast = () => {
+/* Notification */
+const Notification = () => {
   const { message } = usePreferences()
   
-  return <div class="toast align-items-center" id="messageToast" role="alert" aria-live="assertive" aria-atomic="true">
+  return <div class="toast align-items-center" id="notification" role="alert" aria-live="assertive" aria-atomic="true">
   <div class="d-flex">
     <div class="toast-body">{message}</div>
     <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
@@ -75,14 +75,21 @@ const Toast = () => {
 /* ModalForm */
 const ModalForm = (props) => {
   const { id, title, onSubmit, label_close, label_cancel, label_save, children } = props
+
+  const { setMessage } = usePreferences()
   
   const handleSubmit = (event) => {
     event.preventDefault()
+    
     onSubmit()
+    
     const modal = bootstrap.Modal.getInstance(document.getElementById(id))
     modal.hide()
-    const toast = bootstrap.Toast.getOrCreateInstance(document.getElementById('messageToast'))
-    toast.show()
+
+    setMessage(t('label_saved'))
+    const notification = Toast.getOrCreateInstance(document.getElementById('notification'))
+    notification.show()
+    
     event.stopPropagation()
   }
   
@@ -94,11 +101,11 @@ const ModalForm = (props) => {
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label={label_close}></button>
         </div>
         <div class="modal-body">
-          <form class="dane" id={`form_${id}`} enctype="multipart/form-data">{children}</form>
+          <form class="dane" id={`form_${id}`} enctype="multipart/form-data" onSubmit={handleSubmit}>{children}</form>
         </div>
         <div class="modal-footer">
           <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">{label_cancel}</button>
-          <button type="submit" class="btn btn-primary" onClick={handleSubmit}>{label_save}</button>
+          <button type="submit" class="btn btn-primary">{label_save}</button>
         </div>
       </div>
     </div>
@@ -583,7 +590,6 @@ const Settings = () => {
 /* Modal */
 const Modal = ({ modalId, itemId, type }) => {
   const { t } = useTranslation()
-  const { setMessage } = usePreferences()
 
   useEffect(() => {
     if (!itemId) {
@@ -601,7 +607,6 @@ const Modal = ({ modalId, itemId, type }) => {
   const handleSubmit = () => {
     const form = document.getElementById(`form_${modalId}`)
     axios.post(!itemId ? 'api/scheduled-cd' : 'api/scheduled', form, { headers: { 'Content-Type': 'multipart/form-data' }}).then(response => {
-      setMessage(t('label_saved'))
       form.reset()
       console.debug(response.data)
     })
@@ -801,7 +806,7 @@ const Manage = () => {
     <Modal modalId="newScheduledModal" type="eucharystia" />
     <Modal modalId="newDepartureModal" type="departure" />
     <VisitModal modalId="newVisitModal" />
-    <Toast />
+    <Notification />
   </>
 }
 
