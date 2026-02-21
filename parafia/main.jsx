@@ -78,8 +78,9 @@ const ModalForm = (props) => {
   
   const handleSubmit = (event) => {
     event.preventDefault()
+    console.debug('modalform submit')
     onSubmit()
-    document.querySelector('button.btn-close').click()
+    //document.querySelector('button.btn-close').click()
     event.stopPropagation()
   }
   
