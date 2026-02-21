@@ -581,7 +581,7 @@ const Settings = () => {
 /* Modal */
 const Modal = ({ modalId, itemId, type }) => {
   const { t } = useTranslation()
-  const { setMessage, showMessage } = usePreferences()
+  const { setMessage } = usePreferences()
 
   useEffect(() => {
     if (!itemId) {
@@ -600,7 +600,6 @@ const Modal = ({ modalId, itemId, type }) => {
     const form = document.getElementById(`form_${modalId}`)
     axios.post(!itemId ? 'api/scheduled-cd' : 'api/scheduled', form, { headers: { 'Content-Type': 'multipart/form-data' }}).then(response => {
       setMessage(t('label_saved'))
-      showMessage()
       form.reset()
       console.debug(response.data)
     })
