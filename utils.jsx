@@ -21,7 +21,12 @@ const getForm = (form) => {
   const elements = [...form.getElementsByTagName('input'), ...form.getElementsByTagName('textarea')]
   console.debug(elements)
   for (const e of elements) {
-    data[e.name] = 'checkbox' !== e.type ? e.value : 'on' === e.checked
+    if ('checkbox' !== e.type) {
+      data[e.name] = e.value
+    }
+    else {
+      date[e.name] = 'off' === e.checked ? 0 : 1
+    }
   }
   return data
 }
