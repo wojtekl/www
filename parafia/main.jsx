@@ -798,7 +798,6 @@ const Manage = () => {
     <Modal modalId="newScheduledModal" type="eucharystia" />
     <Modal modalId="newDepartureModal" type="departure" />
     <VisitModal modalId="newVisitModal" />
-    <Toast />
   </>
 }
 
@@ -1278,7 +1277,7 @@ const Preferences = ({ children }) => {
   const showMessage = (m: String) => {
     setMessage(m)
     console.debug(m, message)
-    (bootstrap.Toast.getOrCreateInstance(document.getElementById('messageToast'))).show()
+    //(bootstrap.Toast.getOrCreateInstance(document.getElementById('messageToast'))).show()
   }
 
   return <PreferencesContext.Provider value={{ locale, message, showMessage }}>{children}</PreferencesContext.Provider>
