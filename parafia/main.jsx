@@ -43,10 +43,10 @@ const preferencesSlice = createSlice({
   name: "preferences",
   initialState: initialState,
   reducers: {
-    selectedAdded: (state, action: PayloadAction<String>) => state.value = action.payload,
-    selectedRemoved: state => state.value = null,
-    langSet: (state, action: PayloadAction<String>) => state.lang = action.payload,
-    tenantSet: (state, action: PayloadAction<String>) => state.tenant = action.payload
+    selectedAdded: (state, action: PayloadAction<String>) => state.value = { ...state.value, ...action.payload },
+    selectedRemoved: state => state.value = { ...state.value, undefined },
+    langSet: (state, action: PayloadAction<String>) => state.lang = { ...state.lang, ...action.payload },
+    tenantSet: (state, action: PayloadAction<String>) => state.tenant = { ...state.tenant, ...action.payload }
   }
 })
 const { selectedAdded, selectedRemoved, langSet, tenantSet } = preferencesSlice.actions
