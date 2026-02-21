@@ -74,11 +74,11 @@ const Toast = () => {
 
 /* ModalForm */
 const ModalForm = (props) => {
-  const { id, title, onSubmit, label_close, label_cancel, label_save, children } = props
+  const { id, title, onSave, label_close, label_cancel, label_save, children } = props
   
   const handleSubmit = (event) => {
     event.preventDefault()
-    //onSubmit()
+    onSave()
     //document.querySelector('button.btn-close').click()
     (bootstrap.Toast.getOrCreateInstance(document.getElementById('messageToast'))).show()
     event.stopPropagation()
@@ -92,7 +92,7 @@ const ModalForm = (props) => {
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label={label_close}></button>
         </div>
         <div class="modal-body">
-          <form class="dane" id={`form_${id}`} enctype="multipart/form-data" onSubmit={handleSubmit}>{children}</form>
+          <form class="dane" id={`form_${id}`} enctype="multipart/form-data">{children}</form>
         </div>
         <div class="modal-footer">
           <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">{label_cancel}</button>
@@ -212,7 +212,7 @@ const VisitModal = ({ modalId }) => {
     })
   }
 
-  return <ModalForm id={modalId} title={t('label_visit')} onSubmit={handleSubmit} label_close={t('label_close')} label_cancel={t('label_cancel')} label_save={t('label_save')}>
+  return <ModalForm id={modalId} title={t('label_visit')} onSave={handleSubmit} label_close={t('label_close')} label_cancel={t('label_cancel')} label_save={t('label_save')}>
   <InputText name="firstname" label={t('label_firstname')} formId={modalId} help={t('help_firstname')} />
   <InputText name="surname" label={t('label_surname')} formId={modalId} help={t('help_surname')} />
   <InputText name="street" label={t('label_street')} formId={modalId} help={t('help_street')} />
@@ -599,13 +599,13 @@ const Modal = ({ modalId, itemId, type }) => {
   const handleSubmit = () => {
     const form = document.getElementById(`form_${modalId}`)
     axios.post(!itemId ? 'api/scheduled-cd' : 'api/scheduled', form, { headers: { 'Content-Type': 'multipart/form-data' }}).then(response => {
-      setMessage(t('label_saved'))
       form.reset()
+      setMessage(t('label_saved'))
       console.debug(response.data)
     })
   }
 
-  return <ModalForm id={modalId} title={t('label_scheduled')} onSubmit={handleSubmit} label_close={t('label_close')} label_cancel={t('label_cancel')} label_save={t('label_save')}>
+  return <ModalForm id={modalId} title={t('label_scheduled')} onSave={handleSubmit} label_close={t('label_close')} label_cancel={t('label_cancel')} label_save={t('label_save')}>
   <InputText name="description" label={t('label_description')} formId={modalId} help={t('help_description')} />
   <div class="form-group">
     <label for={`${modalId}InputScheduled`}>{t('label_date')}</label>
