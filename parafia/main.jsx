@@ -63,7 +63,7 @@ const FormInput = ({ name, label, help, formId }) => {
 
 /* InputText */
 const InputText = ({ name, label, help, formId }) => {
-  return <div class="mb-3">
+  return <div class="form-group mb-3">
   <label for={`${formId}${name}`} class="form-label">{label}</label>
   <input type="text" id={`${formId}${name}`} class="form-control" placeholder={help} name={name} />
 </div>
@@ -129,7 +129,7 @@ const AccordionItem = ({ id, parent, show = false, children }) => {
 
 
 /* ConfirmModal */
-const ConfirmModal = ({ title: String, onOk }) => {
+const ConfirmModal = ({ title, onOk }) => {
   const { t } = useTranslation()
   
   return <div class="modal" id="confirmModal" tabindex="-1">
