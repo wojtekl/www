@@ -896,9 +896,7 @@ const Reader = () => {
   const [visit, setVisit] = useState([])
 
   const { tenant } = useParams()
-  const context = useContext(Preferences)
-  console.debug(context)
-  const locale = context.locale //(getUrlParam('lang') ?? navigator.language.substring(3)).toLocaleLowerCase()
+  const { locale } = usePreferences() //(getUrlParam('lang') ?? navigator.language.substring(3)).toLocaleLowerCase()
 
   const dayOfWeek = [
     { order: '2', name: t('label_monday')}, 
@@ -1293,9 +1291,9 @@ const App = () => {
 /* Preferences */
 const Preferences = createContext()
 const PreferencesProvider = ({ children }) => {
-  const [locale, setLocale] = useState((getUrlParam('lang') ?? navigator.language.substring(3)).toLocaleLowerCase())
+  const locale = (getUrlParam('lang') ?? navigator.language.substring(3)).toLocaleLowerCase()
 
-  return <Preferences.Provider value={{ locale, setLocale }}>{children}</Preferences.Provider>
+  return <Preferences.Provider value={{ locale }}>{children}</Preferences.Provider>
 }
 const usePreferences = () => useContext(Preferences)
 
@@ -1303,7 +1301,7 @@ const usePreferences = () => useContext(Preferences)
 const container = document.getElementById('root')
 const root = createRoot(container)
 root.render(<Provider store={store}>
-  <Preferences>
+  <PreferencesProvider>
   <Router>
     <Routes>
       <Route path="/" element={<App />} />
@@ -1315,5 +1313,5 @@ root.render(<Provider store={store}>
       <Route path=":tenant" element={<Reader />} />
     </Routes>
   </Router>
-  </Preferences>
+  </PreferencesProvider>
 </Provider>)
