@@ -525,6 +525,8 @@ const Settings = () => {
     event.preventDefault()
     
     const form = document.querySelector(`#form_settings`)
+    const data = getForm(document.getElementById('form_settings'))
+    console.debug(data)
     /*const form = {
       schedule: document.getElementById('settingsSchedule').value,
       showVisits: document.getElementById('settingsShowVisits').checked ? 1 : 0,
