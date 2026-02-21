@@ -676,7 +676,7 @@ const Manage = () => {
         navigate('/signin')
       }
       else {
-        dispatch(tenantSet(response.data))
+        dispatch(tenantSet(String(response.data)))
         //store.dispatch({ type: "tenant/set", payload: response.data })
         setTenant(response.data)
       }
@@ -850,7 +850,7 @@ const Signin = () => {
   useEffect(() => {
     axios.get('api/signin').then(response => {
       if (response.data && !response.data.includes(';')) {
-        dispatch(tenantSet(response.data))
+        dispatch(tenantSet(String(response.data)))
         //store.dispatch({ type: "tenant/set", payload: response.data })
         navigate('/manage')
       }
@@ -1112,7 +1112,7 @@ const Selected = () => {
   const handleSelect = (event) => {
     event.preventDefault()
     
-    dispatch(selectedAdded(name))
+    dispatch(selectedAdded(String(name)))
     //store.dispatch({ type: "selected/added", payload: name })
   }
 
