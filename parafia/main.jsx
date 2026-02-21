@@ -80,6 +80,7 @@ const ModalForm = (props) => {
     event.preventDefault()
     onSubmit()
     document.querySelector('button.btn-close').click()
+    (bootstrap.Toast.getOrCreateInstance(document.getElementById('messageToast'))).show()
     event.stopPropagation()
   }
   
@@ -1273,12 +1274,8 @@ const App = () => {
 /* Preferences */
 const PreferencesContext = createContext()
 const Preferences = ({ children }) => {
-  const [message, setMessage] = useState()
+  const [message, setMessage] = useState('')
   const locale = (getUrlParam('lang') ?? navigator.language.substring(3)).toLocaleLowerCase()
-
-  const showMessage = () => {
-    (bootstrap.Toast.getOrCreateInstance(document.getElementById('messageToast'))).show()
-  }
 
   return <PreferencesContext.Provider value={{ locale, message, setMessage, showMessage }}>{children}</PreferencesContext.Provider>
 }
