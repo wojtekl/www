@@ -52,7 +52,7 @@ store.dispatch(langSet(lang))
 
 
 /* FormInput */
-const FormInput = ({ name, label, help, formId }) => {
+const FormInput = ({ name: String, label: String, help: String, formId: String }) => {
   return <div class="form-group">
   <label for={`${formId}Input${name}`}>{label}</label>
   <input type="text" class="form-control" id={`${formId}Input${name}`} aria-describedby={`${formId}Help${name}`} name={name} />
@@ -62,7 +62,7 @@ const FormInput = ({ name, label, help, formId }) => {
 
 
 /* InputText */
-const InputText = ({ name, label, help, formId }) => {
+const InputText = ({ name: String, label: String, help: String, formId: String }) => {
   return <div class="mb-3">
   <label for={`${formId}${name}`} class="form-label">{label}</label>
   <input type="text" id={`${formId}${name}`} class="form-control" placeholder={help} name={name} />
