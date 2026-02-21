@@ -74,14 +74,15 @@ const Toast = () => {
 
 /* ModalForm */
 const ModalForm = (props) => {
-  const { id, title, onSave, label_close, label_cancel, label_save, children } = props
+  const { id, title, onSubmit, label_close, label_cancel, label_save, children } = props
   
   const handleSubmit = (event) => {
     event.preventDefault()
-    onSave()
-    //document.querySelector('button.btn-close').click()
-    const modall = bootstrap.Toast.getOrCreateInstance(document.getElementById('messageToast'))
-    modall.show()
+    onSubmit()
+    const modal = bootstrap.Modal.getInstance(document.getElementById(id))
+    modal.hide()
+    const toast = bootstrap.Toast.getOrCreateInstance(document.getElementById('messageToast'))
+    toast.show()
     event.stopPropagation()
   }
   
@@ -205,7 +206,7 @@ const Password = () => {
 const VisitModal = ({ modalId }) => {
   const { t } = useTranslation()
 
-  const handleSubmit = (event) => {
+  const handleSubmit = () => {
     const form = document.getElementById(`form_${modalId}`)
     axios.post('api/visit-cd', form, { headers: { 'Content-Type': 'multipart/form-data' }}).then(response => {
       form.reset()
@@ -213,7 +214,7 @@ const VisitModal = ({ modalId }) => {
     })
   }
 
-  return <ModalForm id={modalId} title={t('label_visit')} onSave={handleSubmit} label_close={t('label_close')} label_cancel={t('label_cancel')} label_save={t('label_save')}>
+  return <ModalForm id={modalId} title={t('label_visit')} onSubmit={handleSubmit} label_close={t('label_close')} label_cancel={t('label_cancel')} label_save={t('label_save')}>
   <InputText name="firstname" label={t('label_firstname')} formId={modalId} help={t('help_firstname')} />
   <InputText name="surname" label={t('label_surname')} formId={modalId} help={t('help_surname')} />
   <InputText name="street" label={t('label_street')} formId={modalId} help={t('help_street')} />
@@ -600,13 +601,13 @@ const Modal = ({ modalId, itemId, type }) => {
   const handleSubmit = () => {
     const form = document.getElementById(`form_${modalId}`)
     axios.post(!itemId ? 'api/scheduled-cd' : 'api/scheduled', form, { headers: { 'Content-Type': 'multipart/form-data' }}).then(response => {
-      form.reset()
       setMessage(t('label_saved'))
+      form.reset()
       console.debug(response.data)
     })
   }
 
-  return <ModalForm id={modalId} title={t('label_scheduled')} onSave={handleSubmit} label_close={t('label_close')} label_cancel={t('label_cancel')} label_save={t('label_save')}>
+  return <ModalForm id={modalId} title={t('label_scheduled')} onSubmit={handleSubmit} label_close={t('label_close')} label_cancel={t('label_cancel')} label_save={t('label_save')}>
   <InputText name="description" label={t('label_description')} formId={modalId} help={t('help_description')} />
   <div class="form-group">
     <label for={`${modalId}InputScheduled`}>{t('label_date')}</label>
