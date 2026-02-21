@@ -79,7 +79,7 @@ const ModalForm = (props) => {
   const handleSubmit = (event) => {
     event.preventDefault()
     onSubmit()
-    document.querySelector('button.btn-close').click()
+    //document.querySelector('button.btn-close').click()
     (bootstrap.Toast.getOrCreateInstance(document.getElementById('messageToast'))).show()
     event.stopPropagation()
   }
