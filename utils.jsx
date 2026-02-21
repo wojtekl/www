@@ -18,7 +18,7 @@ const setForm = (form, data) => {
 
 const getForm = (form) => {
   const data = {}
-  const elements = [form.getElementsByTagName('input'), form.getElementsByTagName('textarea')]
+  const elements = [...form.getElementsByTagName('input'), ...form.getElementsByTagName('textarea')]
   console.debug(elements)
   for (const e of elements) {
     data[e.name] = 'checkbox' !== e.type ? e.value : 'on' === e.checked
