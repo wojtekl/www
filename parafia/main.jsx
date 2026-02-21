@@ -51,23 +51,12 @@ i18n.use(initReactI18next).init({
 store.dispatch(langSet(lang))
 
 
-/* FormInput */
-const FormInput = ({ name, label, className, formId, help }) => {
-  return <div class={className}>
+/* InputText */
+const InputText = ({ name, label, className, formId, help }) => <div class={className}>
   <label for={`${formId}${name}`} class="form-label">{label}</label>
   <input type="text" class="form-control" id={`${formId}${name}`} aria-describedby={help ? `${formId}Help${name}` : ''} name={name} />
   { help && <div id={`${formId}Help${name}`} class="form-text">{help}</div> }
 </div>
-}
-
-
-/* InputText */
-/*const InputText = ({ name, label, help, formId }) => {
-  return <div class="mb-3">
-  <label for={`${formId}${name}`} class="form-label">{label}</label>
-  <input type="text" id={`${formId}${name}`} class="form-control" placeholder={help} name={name} />
-</div>
-}*/
 
 
 /* ModalForm */
@@ -210,11 +199,11 @@ const VisitModal = ({ modalId }) => {
   }
 
   return <ModalForm id={modalId} title={t('label_visit')} onSubmit={handleSubmit} label_close={t('label_close')} label_cancel={t('label_cancel')} label_save={t('label_save')}>
-  <FormInput name="firstname" label={t('label_firstname')} help={t('help_firstname')} formId={modalId} />
-  <FormInput name="surname" label={t('label_surname')} help={t('help_surname')} formId={modalId} />
-  <FormInput name="street" label={t('label_street')} help={t('help_street')} formId={modalId} />
-  <FormInput name="number" label={t('label_number')} help={t('help_number')} formId={modalId} />
-  <FormInput name="city" label={t('label_city')} help={t('help_city')} formId={modalId} />
+  <InputText name="firstname" label={t('label_firstname')} formId={modalId} help={t('help_firstname')} />
+  <InputText name="surname" label={t('label_surname')} formId={modalId} help={t('help_surname')} />
+  <InputText name="street" label={t('label_street')} formId={modalId} help={t('help_street')} />
+  <InputText name="number" label={t('label_number')} formId={modalId} help={t('help_number')} />
+  <InputText name="city" label={t('label_city')} formId={modalId} help={t('help_city')} />
   <div class="form-group">
     <label for={`${modalId}InputDonation`}>{t('label_donation')}</label>
     <input type="number" min="10.00" max="500" step="0.01" class="form-control" id={`${modalId}InputDonation`} aria-describedby={`${modalId}HelpDonation`} name="donation" />
@@ -378,6 +367,7 @@ const CurrentWeek = ({ date, type }) => {
       }
       axios.post('api/scheduled-week', postData, { headers: { 'Content-Type': 'multipart/form-data' }}).then(response => {
         setCurrentWeek(response.data)
+        setForm(document.getElementById('form_statistics'), { count: response.data.length})
         console.debug(response.data)
       })
       setRefresh(false)
@@ -414,24 +404,16 @@ const CurrentWeek = ({ date, type }) => {
       </div>
     </div>
   </div>
-  <div class="row">
-    <div class="col-sm-6">
-      <label for="" class="form-label">{t('label_liczba_eucharystii')}</label>
-      <input type="text" class="form-control" />
-    </div>
-    <div class="col-sm-6">
-      <label for="" class="form-label">{t('label_')}</label>
-      <input type="text" class="form-control" />
-    </div>
-    <div class="col-sm-6">
-      <label for="" class="form-label">{t('label_')}</label>
-      <input type="text" class="form-control" />
-    </div>
-    <div class="col-sm-6">
-      <label for="" class="form-label">{t('label_')}</label>
-      <input type="text" class="form-control" />
-    </div>
-  </div>
+  <form id="form_statistics" enctype="multipart/form-data">
+    <fieldset>
+      <div class="row">
+        <InputText name="count" label={t('label_count')} className="col-sm-6" formId="statistics" />
+        <InputText name="" label={t('label_')} className="col-sm-6" formId="statistics" />
+        <InputText name="" label={t('label_')} className="col-sm-6" formId="statistics" />
+        <InputText name="" label={t('label_')} className="col-sm-6" formId="statistics" />
+      </div>
+    </fieldset>
+  </form>
   <h2>{getTitle()}</h2>
   <Table columns={['#', t('label_date'), t('label_description'), t('label_donation'), t('label_notes'), t('label_actions')]}>
     { currentWeek.map((e, i) => <tr>
@@ -498,11 +480,11 @@ const Dashboard = () => {
     <form id="form_contact" enctype="multipart/form-data" onSubmit={handleSubmit}>
       <fieldset disabled={disabled}>
         <legend>{t('label_contact')}</legend>
-        <FormInput name="description" label={t('label_description')} className="mb-3" formId="contact" help={contact?.description} />
-        <FormInput name="street" label={t('label_street')} className="mb-3" formId="contact" help={contact?.street} />
-        <FormInput name="number" label={t('label_number')} className="mb-3" formId="contact" help={contact?.number} />
-        <FormInput name="city" label={t('label_city')} className="mb-3" formId="contact" help={contact?.city} />
-        <FormInput name="postalcode" label={t('label_postalcode')} className="mb-3" formId="contact" help={contact?.postalcode} />
+        <InputText name="description" label={t('label_description')} className="mb-3" formId="contact" />
+        <InputText name="street" label={t('label_street')} className="mb-3" formId="contact" />
+        <InputText name="number" label={t('label_number')} className="mb-3" formId="contact" />
+        <InputText name="city" label={t('label_city')} className="mb-3" formId="contact" />
+        <InputText name="postalcode" label={t('label_postalcode')} className="mb-3" formId="contact" />
         <div class="mb-3">
           <label for="contactEmail" class="form-label">{t('label_email')}</label>
           <input type="email" id="contactEmail" class="form-control" placeholder={contact?.email} name="email" />
@@ -612,7 +594,7 @@ const Modal = ({ modalId, itemId, type }) => {
   }
 
   return <ModalForm id={modalId} title={t('label_scheduled')} onSubmit={handleSubmit} label_close={t('label_close')} label_cancel={t('label_cancel')} label_save={t('label_save')}>
-  <FormInput name="description" label={t('label_description')} help={t('help_description')} formId={modalId} />
+  <InputText name="description" label={t('label_description')} formId={modalId} help={t('help_description')} />
   <div class="form-group">
     <label for={`${modalId}InputScheduled`}>{t('label_date')}</label>
     <input type="datetime-local" class="form-control" id={`${modalId}InputScheduled`} aria-describedby={`${modalId}HelpScheduled`} name="scheduled" />
@@ -623,7 +605,7 @@ const Modal = ({ modalId, itemId, type }) => {
     <input type="number" min="10.00" max="500" step="0.01" class="form-control" id={`${modalId}InputValue`} aria-describedby={`${modalId}valueHelp`} name="value" />
     <small id={`${modalId}valueHelp`} class="form-text text-muted">{t('help_value')}</small>
   </div>
-  <FormInput name="notes" label={t('label_notes')} help={t('help_notes')} formId={modalId} />
+  <InputText name="notes" label={t('label_notes')} formId={modalId} help={t('help_notes')} />
   <input type="hidden" name="id" value={itemId} />
   <input type="hidden" name="type" />
 </ModalForm>
@@ -994,8 +976,8 @@ const Reader = () => {
             <form id="form_order" enctype="multipart/form-data" onSubmit={handleSubmit}>
               <fieldset>
                 <legend>{t('label_order')}</legend>
-                <FormInput name="description" label={t('label_description')} className="mb-3" formId="order" />
-                <FormInput name="notes" label={t('label_from')} className="mb-3" formId="order" />
+                <InputText name="description" label={t('label_description')} className="mb-3" formId="order" />
+                <InputText name="notes" label={t('label_from')} className="mb-3" formId="order" />
                 <input type="hidden" name="tenant" value={tenant} />
                 <input type="hidden" name="type" value="eucharystia" />
                 <button type="submit" class="btn btn-primary">{t('label_submit')}</button>
@@ -1023,11 +1005,11 @@ const Reader = () => {
             { !!settings?.showBooking && <form id="form_book" enctype="multipart/form-data" onSubmit={handleBook}>
               <fieldset>
                 <legend>{t('label_book')}</legend>
-                <FormInput name="firstname" label={t('label_firstname')} className="mb-3" help="" formId="book" />
-                <FormInput name="surname" label={t('label_surname')} className="mb-3" formId="book" />
-                <FormInput name="street" label={t('label_street')} className="mb-3" formId="book" />
-                <FormInput name="number" label={t('label_number')} className="mb-3" formId="book" />
-                <FormInput name="city" label={t('label_city')} className="mb-3" formId="city" />
+                <InputText name="firstname" label={t('label_firstname')} className="mb-3" formId="book" />
+                <InputText name="surname" label={t('label_surname')} className="mb-3" formId="book" />
+                <InputText name="street" label={t('label_street')} className="mb-3" formId="book" />
+                <InputText name="number" label={t('label_number')} className="mb-3" formId="book" />
+                <InputText name="city" label={t('label_city')} className="mb-3" formId="book" />
                 <input type="hidden" name="tenant" value={tenant} />
                 <button type="submit" class="btn btn-primary">{t('label_submit')}</button>
               </fieldset>
