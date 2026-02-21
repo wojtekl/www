@@ -591,7 +591,6 @@ const Modal = ({ modalId, itemId, type }) => {
     const searchParams = new URLSearchParams({ id: itemId })
     axios.get(`api/scheduled?${searchParams.toString()}`).then(response => {
       setForm(document.getElementById(`form_${modalId}`), response.data)
-      showMessage(response.data)
       console.debug(response.data)
     })
   }, [itemId])
@@ -600,6 +599,7 @@ const Modal = ({ modalId, itemId, type }) => {
     const form = document.getElementById(`form_${modalId}`)
     axios.post(!itemId ? 'api/scheduled-cd' : 'api/scheduled', form, { headers: { 'Content-Type': 'multipart/form-data' }}).then(response => {
       form.reset()
+      showMessage(response.data)
       console.debug(response.data)
     })
   }
