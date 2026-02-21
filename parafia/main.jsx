@@ -24,21 +24,6 @@ const initialState = !!state ? JSON.parse(state) : {
   tenant: null
 }
 
-/*const selectedReducer = (state = initialState, action) => {
-  switch (action.type) {
-    case 'selected/added':
-      return { ...state, value: action.payload }
-    case 'selected/removed':
-      return { ...state, value: null }
-    case 'lang/set':
-      return { ...state, lang: action.payload }
-    case 'tenant/set':
-      return { ...state, tenant: action.payload }
-    default:
-      return state
-  }
-}*/
-
 const preferencesSlice = createSlice({
   name: "preferences",
   initialState: initialState,
@@ -52,7 +37,6 @@ const preferencesSlice = createSlice({
 const { selectedAdded, selectedRemoved, langSet, tenantSet } = preferencesSlice.actions
 const store = configureStore({ reducer: preferencesSlice.reducer })
 
-//const store = createStore(selectedReducer)
 store.subscribe(() => localStorage.setItem('redux', JSON.stringify(store.getState())))
 
 const lang = (getUrlParam('lang') ?? initialState.lang).toLocaleLowerCase()
@@ -64,8 +48,7 @@ i18n.use(initReactI18next).init({
     escapeValue: false
   }
 })
-//const dispatch = useDispatch()
-store.dispatch({ type: "lang/set", payload: lang })
+store.dispatch(langSet(lang))
 
 
 /* FormInput */
@@ -671,13 +654,11 @@ const Manage = () => {
     axios.get('api/signin').then(response => {
       if (!response.data || response.data.length > 99 || response.data.includes(';')) {
         dispatch(tenantSet(undefined))
-        //store.dispatch({ type: "tenant/set", payload: undefined })
         setTenant(undefined)
         navigate('/signin')
       }
       else {
-        dispatch(tenantSet(String(response.data)))
-        //store.dispatch({ type: "tenant/set", payload: response.data })
+        dispatch(tenantSet(response.data))
         setTenant(response.data)
       }
       console.debug(response.data)
@@ -689,7 +670,6 @@ const Manage = () => {
     
     axios.get('api/signin-cd').then(response => {
       dispatch(tenantSet(undefined))
-      //store.dispatch({ type: "tenant/set", payload: undefined })
       setTenant(undefined)
       navigate('/signin')
       console.debug(response.data)
@@ -850,8 +830,7 @@ const Signin = () => {
   useEffect(() => {
     axios.get('api/signin').then(response => {
       if (response.data && !response.data.includes(';')) {
-        dispatch(tenantSet(String(response.data)))
-        //store.dispatch({ type: "tenant/set", payload: response.data })
+        dispatch(tenantSet(response.data))
         navigate('/manage')
       }
       console.debug(response.data)
@@ -1112,8 +1091,7 @@ const Selected = () => {
   const handleSelect = (event) => {
     event.preventDefault()
     
-    dispatch(selectedAdded(String(name)))
-    //store.dispatch({ type: "selected/added", payload: name })
+    dispatch(selectedAdded(name))
   }
 
   const selected = clients.clients.find(i => i.name === name)
