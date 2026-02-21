@@ -60,9 +60,7 @@ const InputText = ({ name, label, className, formId, help }) => <div class={clas
 
 
 /* Notification */
-const Notification = () => {
-  const { message } = usePreferences()
-  
+const Notification = ({ message }) => {
   return <div class="toast align-items-center" id="notification" role="alert" aria-live="assertive" aria-atomic="true">
   <div class="d-flex">
     <div class="toast-body">{message}</div>
@@ -75,7 +73,6 @@ const Notification = () => {
 /* ModalForm */
 const ModalForm = (props) => {
   const { id, title, onSubmit, label_close, label_cancel, label_save, children } = props
-
   const { setMessage } = usePreferences()
   
   const handleSubmit = (event) => {
@@ -86,7 +83,7 @@ const ModalForm = (props) => {
     const modal = bootstrap.Modal.getInstance(document.getElementById(id))
     modal.hide()
 
-    setMessage(t('label_saved'))
+    setMessage('label_saved')
     const notification = bootstrap.Toast.getOrCreateInstance(document.getElementById('notification'))
     notification.show()
     
@@ -636,6 +633,7 @@ const Manage = () => {
   const navigate = useNavigate()
   const { t } = useTranslation()
   const dispatch = useDispatch()
+  const { message } = usePreferences()
   
   const [tenant, setTenant] = useState(useSelector(state => state.tenant))
   const [selectedTab, setSelectedTab] = useState('dashboardLink')
@@ -806,7 +804,7 @@ const Manage = () => {
     <Modal modalId="newScheduledModal" type="eucharystia" />
     <Modal modalId="newDepartureModal" type="departure" />
     <VisitModal modalId="newVisitModal" />
-    <Notification />
+    <Notification message={message} />
   </>
 }
 
@@ -1280,7 +1278,7 @@ const App = () => {
 /* Preferences */
 const PreferencesContext = createContext()
 const Preferences = ({ children }) => {
-  const [message, setMessage] = useState('')
+  const [message, setMessage] = useState()
   const locale = (getUrlParam('lang') ?? navigator.language.substring(3)).toLocaleLowerCase()
 
   return <PreferencesContext.Provider value={{ locale, message, setMessage }}>{children}</PreferencesContext.Provider>
