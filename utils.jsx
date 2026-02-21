@@ -16,6 +16,15 @@ const setForm = (form, data) => {
   }
 }
 
+const getForm = (form) => {
+  const data = {}
+  const elements = [form.getElementsByTagName('input'), form.getElementsByTagName('textarea')]
+  for (e of elements) {
+    data[e.name] = 'checkbox' !== e.type ? e.value : 'on' === e.checked
+  }
+  return data
+}
+
 const getWeeks = (months) => {
   const currentYear = new Date()
   currentYear.setHours(0, 0, 0, 0)
