@@ -1,4 +1,4 @@
-import * as bootstrap, { Toast } from 'bootstrap'
+import * as bootstrap from 'bootstrap'
 import React, { useContext, useEffect, useState, createContext, createElement } from 'react'
 import { createRoot } from 'react-dom/client'
 import { HashRouter as Router, Routes, Route, useNavigate, useParams } from 'react-router-dom'
@@ -80,7 +80,7 @@ const ModalForm = (props) => {
     event.preventDefault()
     onSave()
     //document.querySelector('button.btn-close').click()
-    const modall = Toast.getOrCreateInstance(document.getElementById('messageToast'))
+    const modall = bootstrap.Toast.getOrCreateInstance(document.getElementById('messageToast'))
     modall.show()
     event.stopPropagation()
   }
