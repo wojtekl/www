@@ -250,6 +250,7 @@ const Confirmation = () => {
       setConfirmation(response.data)
       console.debug(response.data)
     })
+    setRefresh(false)
   }, [tenant])
 
   return <>
@@ -328,7 +329,8 @@ const Visit = () => {
       setDonations(response.data)
       console.debug(response.data)
     })
-  }, [])
+    setRefresh(false)
+  }, [refresh])
 
   return <>
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
@@ -356,9 +358,9 @@ const Visit = () => {
     <ConfirmModal title="label_delete" onOk={() => {
       const searchParams = new URLSearchParams({ id: selected })
       axios.get(`api/visit-cd?${searchParams.toString()}`).then(response => {
-        setRefresh(true))
+        setRefresh(true)
         setNotification('label_saved')
-      }
+      })
     }} />
   </>
 }
@@ -429,8 +431,6 @@ const CurrentWeek = ({ date, type }) => {
 
   const handleSelect = (event) => {}
 
-  const handleRefresh = () => setRefresh(true)
-
   const getTitle = () => {
     if ('eucharystia' === type) {
       if (!date) {
@@ -483,7 +483,7 @@ const CurrentWeek = ({ date, type }) => {
   <ConfirmModal title="label_delete" onOk={() => {
     const searchParams = new URLSearchParams({ id: selected })
     axios.get(`api/scheduled-cd?${searchParams.toString()}`).then(response => {
-      handleRefresh()
+      setRefresh(true)
       setNotification('label_saved')
     })
   }} />
