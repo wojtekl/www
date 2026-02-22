@@ -57,7 +57,7 @@ const InputText = ({ name, label, className, formId, help }) => <div class={clas
 const Toast = ({ message }) => {
   const { t } = useTranslation()
   
-  return <div class="toast-container position-fixed bottom-0 end-0 p-3">
+  return <div class="toast-container text-bg-success position-fixed bottom-0 end-0 p-3">
   <div class="toast align-items-center" id="notification" role="alert" aria-live="assertive" aria-atomic="true">
     <div class="d-flex">
       <div class="toast-body">{t(message)}</div>
