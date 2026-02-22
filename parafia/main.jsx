@@ -1276,11 +1276,10 @@ const Preferences = ({ children }) => {
   const locale = (getUrlParam('lang') ?? navigator.language.substring(3)).toLocaleLowerCase()
 
   useEffect(() => {
-    if (!notification) {
-      return
+    if (notification) {
+      const t = bootstrap.Toast.getOrCreateInstance(document.getElementById('notification'))
+      t.show()
     }
-    const t = bootstrap.Toast.getOrCreateInstance(document.getElementById('notification'))
-    t.show()
   }, [notification])
 
   return <PreferencesContext.Provider value={{ locale, setNotification }}>
