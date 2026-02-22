@@ -57,10 +57,12 @@ const InputText = ({ name, label, className, formId, help }) => <div class={clas
 const Toast = ({ message }) => {
   const { t } = useTranslation()
   
-  return <div class="toast align-items-center" id="notification" role="alert" aria-live="assertive" aria-atomic="true">
-  <div class="d-flex">
-    <div class="toast-body">{t(message)}</div>
-    <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label={t('label_close')}></button>
+  return <div class="toast-container position-fixed bottom-0 end-0 p-3">
+  <div class="toast align-items-center" id="notification" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="d-flex">
+      <div class="toast-body">{t(message)}</div>
+      <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label={t('label_close')}></button>
+    </div>
   </div>
 </div>
 }
