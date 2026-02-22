@@ -59,7 +59,7 @@ const Toast = ({ message, onClose }) => {
 
   useEffect(() => {
     onClose()
-  }, [])
+  }, [message])
   
   return <div class="toast-container position-fixed bottom-0 end-0 p-3">
   <div class="toast text-bg-success align-items-center" id="notification" role="alert" aria-live="assertive" aria-atomic="true">
