@@ -453,7 +453,7 @@ const CurrentWeek = ({ date, type }) => {
     <h1 class="h2">{t('label_statistics')}</h1>
     <div class="btn-toolbar mb-2 mb-md-0">
       <div class="btn-group me-2">
-        <button type="button" class="btn btn-sm btn-outline-secondary" onClick={handleRefresh}>{t('label_refresh')}</button>
+        <button type="button" class="btn btn-sm btn-outline-secondary" onClick={() => setRefresh(true)}>{t('label_refresh')}</button>
       </div>
     </div>
   </div>
