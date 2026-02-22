@@ -78,7 +78,10 @@ const ModalForm = (props) => {
 
     const form = document.getElementById(`form_${id}`)
     onSubmit(form)
-    (bootstrap.Modal.getInstance(document.getElementById(id))).hide()
+    
+    const modal = bootstrap.Modal.getInstance(document.getElementById(id))
+    modal.hide()
+    
     setNotification('label_saved')
     
     event.stopPropagation()
