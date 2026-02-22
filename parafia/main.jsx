@@ -80,7 +80,8 @@ const ModalForm = (props) => {
   const handleSubmit = (event) => {
     event.preventDefault()
 
-    onSubmit(document.getElementById(`form_${id}`))
+    const form = document.getElementById(`form_${id}`)
+    onSubmit(form)
     (bootstrap.Modal.getInstance(document.getElementById(id))).hide()
     setNotification('label_saved')
     
