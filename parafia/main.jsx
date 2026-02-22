@@ -444,7 +444,7 @@ const CurrentWeek = ({ date, type }) => {
       </td>
     </tr>) }
   </Table>
-  <EventModal id="editScheduledModal" itemId={selected} type={type} />
+  <EventModal id="editScheduled" itemId={selected} type={type} />
   <ConfirmModal title="label_delete" onOk={() => {
     const searchParams = new URLSearchParams({ id: selected })
     axios.get(`api/scheduled-cd?${searchParams.toString()}`).then(response => handleRefresh())
@@ -795,9 +795,9 @@ const Manage = () => {
         </main>
       </div>
     </div>
-    <EventModal id="newScheduledModal" type="eucharystia" />
-    <EventModal id="newDepartureModal" type="departure" />
-    <VisitModal id="newVisitModal" />
+    <EventModal id="newScheduled" type="eucharystia" />
+    <EventModal id="newDeparture" type="departure" />
+    <VisitModal id="newVisit" />
   </>
 }
 
@@ -1276,7 +1276,9 @@ const Preferences = ({ children }) => {
   const locale = (getUrlParam('lang') ?? navigator.language.substring(3)).toLocaleLowerCase()
 
   useEffect(() => {
-    console.debug('show toast')
+    if (!notification) {
+      return
+    }
     const t = bootstrap.Toast.getOrCreateInstance(document.getElementById('notification'))
     t.show()
   }, [notification])
