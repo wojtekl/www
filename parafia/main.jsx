@@ -54,8 +54,12 @@ const InputText = ({ name, label, className, formId, help }) => <div class={clas
 
 
 /* Toast */
-const Toast = ({ message }) => {
+const Toast = ({ message, onClose }) => {
   const { t } = useTranslation()
+
+  useEffect(() => {
+    onClose()
+  }, [])
   
   return <div class="toast-container position-fixed bottom-0 end-0 p-3">
   <div class="toast text-bg-success align-items-center" id="notification" role="alert" aria-live="assertive" aria-atomic="true">
@@ -1287,7 +1291,7 @@ const Preferences = ({ children }) => {
 
   return <PreferencesContext.Provider value={{ locale, setNotification }}>
   {children}
-  <Toast message={notification} />
+  <Toast message={notification} onClose={() => setNotification('')} />
 </PreferencesContext.Provider>
 }
 const usePreferences = () => useContext(PreferencesContext)
