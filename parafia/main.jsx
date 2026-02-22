@@ -12,9 +12,6 @@ import axios from 'axios'
 import L from 'leaflet'
 
 
-let installPrompt = null;
-window.addEventListener('beforeinstallprompt', event => installPrompt = event)
-
 const state = localStorage.getItem('redux')
 const initialState = !!state ? JSON.parse(state) : {
   value: null,
@@ -46,14 +43,13 @@ i18n.use(initReactI18next).init({
     escapeValue: false
   }
 })
-//store.dispatch(langSet(lang))
 
 
 /* InputText */
 const InputText = ({ name, label, className, formId, help }) => <div class={className}>
-  <label for={`${formId}${name}`} class="form-label">{label}</label>
-  <input type="text" class="form-control" id={`${formId}${name}`} aria-describedby={help ? `${formId}Help${name}` : ''} name={name} />
-  { help && <div id={`${formId}Help${name}`} class="form-text">{help}</div> }
+  <label for={`input_${formId}${name}`} class="form-label">{label}</label>
+  <input type="text" class="form-control" id={`input_${formId}${name}`} aria-describedby={help ? `help_${formId}${name}` : ''} name={name} />
+  { help && <div id={`help_${formId}${name}`} class="form-text">{help}</div> }
 </div>
 
 
@@ -254,7 +250,7 @@ const Confirmation = () => {
 
 
 /* VisitModal */
-const VisitModal = ({ modalId }) => {
+const VisitModal = ({ id }) => {
   const { t } = useTranslation()
 
   const handleSubmit = (form) => {
@@ -264,16 +260,16 @@ const VisitModal = ({ modalId }) => {
     })
   }
 
-  return <ModalForm id={modalId} title="label_visit" onSubmit={handleSubmit}>
-  <InputText name="firstname" label={t('label_firstname')} formId={modalId} help={t('help_firstname')} />
-  <InputText name="surname" label={t('label_surname')} formId={modalId} help={t('help_surname')} />
-  <InputText name="street" label={t('label_street')} formId={modalId} help={t('help_street')} />
-  <InputText name="number" label={t('label_number')} formId={modalId} help={t('help_number')} />
-  <InputText name="city" label={t('label_city')} formId={modalId} help={t('help_city')} />
-  <div class="form-group">
-    <label for={`${modalId}InputDonation`}>{t('label_donation')}</label>
-    <input type="number" min="10.00" max="500" step="0.01" class="form-control" id={`${modalId}InputDonation`} aria-describedby={`${modalId}HelpDonation`} name="donation" />
-    <small id={`${modalId}HelpDonation`} class="form-text text-muted">{t('help_donation')}</small>
+  return <ModalForm id={id} title="label_visit" onSubmit={handleSubmit}>
+  <InputText name="firstname" label={t('label_firstname')} formId={id} help={t('help_firstname')} />
+  <InputText name="surname" label={t('label_surname')} formId={id} help={t('help_surname')} />
+  <InputText name="street" label={t('label_street')} formId={id} help={t('help_street')} />
+  <InputText name="number" label={t('label_number')} formId={id} help={t('help_number')} />
+  <InputText name="city" label={t('label_city')} formId={id} help={t('help_city')} />
+  <div>
+    <label for={`input_${id}donation`}>{t('label_donation')}</label>
+    <input type="number" min="10.00" max="500" step="0.01" class="form-control" id={`input_${id}donation`} aria-describedby={`help_${id}donation`} name="donation" />
+    <div id={`help_${id}donation`} class="form-text">{t('help_donation')}</div>
   </div>
 </ModalForm>
 }
@@ -503,16 +499,16 @@ const Dashboard = () => {
         <InputText name="city" label={t('label_city')} className="mb-3" formId="contact" />
         <InputText name="postalcode" label={t('label_postalcode')} className="mb-3" formId="contact" />
         <div class="mb-3">
-          <label for="contactEmail" class="form-label">{t('label_email')}</label>
-          <input type="email" id="contactEmail" class="form-control" placeholder={contact?.email} name="email" />
+          <label for="input_contactemail" class="form-label">{t('label_email')}</label>
+          <input type="email" id="input_contactemail" class="form-control" name="email" />
         </div>
         <div class="mb-3">
-          <label for="contactPhone" class="form-label">{t('label_phone')}</label>
-          <input type="tel" id="contactPhone" class="form-control" placeholder={contact?.phone} name="phone" />
+          <label for="input_contactphone" class="form-label">{t('label_phone')}</label>
+          <input type="tel" id="input_contactphone" class="form-control" name="phone" />
         </div>
         <div class="mb-3">
-          <label for="contactIban" class="form-label">{t('label_iban')}</label>
-          <input type="text" id="contactIban" class="form-control" maxlength="28" placeholder={contact?.iban} name="iban" />
+          <label for="input_contactiban" class="form-label">{t('label_iban')}</label>
+          <input type="text" id="input_contactiban" class="form-control" maxlength="28" name="iban" />
         </div>
         { !disabled && <button type="submit" class="btn btn-primary">{t('label_submit')}</button> }
       </fieldset>
@@ -563,16 +559,16 @@ const Settings = () => {
       <fieldset disabled={disabled}>
         <legend>{t('label_settings')}</legend>
         <div class="mb-3">
-          <label for="settingsSchedule" class="form-label">{t('label_schedule')}</label>
-          <textarea id="settingsSchedule" class="form-control" rows="4" name="schedule" />
+          <label for="textarea_settingsschedule" class="form-label">{t('label_schedule')}</label>
+          <textarea id="textarea_settingsschedule" class="form-control" rows="4" name="schedule" />
         </div>
         <div class="mb-3 form-check">
-          <input type="checkbox" class="form-check-input" id="settingsShowVisits" name="showVisits" />
-          <label class="form-check-label" for="settingsShowVisits">{t('label_show_visit')}</label>
+          <input type="checkbox" class="form-check-input" id="checkbox_settingsshowVisits" name="showVisits" />
+          <label class="form-check-label" for="checkbox_settingsshowVisits">{t('label_show_visit')}</label>
         </div>
         <div class="mb-3 form-check">
-          <input type="checkbox" class="form-check-input" id="settingsShowBooking" name="showBooking" />
-          <label class="form-check-label" for="settingsShowBooking">{t('label_show_booking')}</label>
+          <input type="checkbox" class="form-check-input" id="checkbox_settingsshowBooking" name="showBooking" />
+          <label class="form-check-label" for="checkbox_settingsshowBooking">{t('label_show_booking')}</label>
         </div>
         { !disabled && <button type="submit" class="btn btn-primary">{t('label_submit')}</button> }
       </fieldset>
@@ -582,18 +578,18 @@ const Settings = () => {
 
 
 /* EventModal */
-const EventModal = ({ modalId, itemId, type }) => {
+const EventModal = ({ id, itemId, type }) => {
   const { t } = useTranslation()
 
   useEffect(() => {
     if (!itemId) {
-      setForm(document.getElementById(`form_${modalId}`), { type: type })
+      setForm(document.getElementById(`form_${id}`), { type: type })
       return
     }
     
     const searchParams = new URLSearchParams({ id: itemId })
     axios.get(`api/scheduled?${searchParams.toString()}`).then(response => {
-      setForm(document.getElementById(`form_${modalId}`), response.data)
+      setForm(document.getElementById(`form_${id}`), response.data)
       console.debug(response.data)
     })
   }, [itemId])
@@ -605,19 +601,19 @@ const EventModal = ({ modalId, itemId, type }) => {
     })
   }
 
-  return <ModalForm id={modalId} title="label_scheduled" onSubmit={handleSubmit}>
-  <InputText name="description" label={t('label_description')} formId={modalId} help={t('help_description')} />
-  <div class="form-group">
-    <label for={`${modalId}InputScheduled`}>{t('label_date')}</label>
-    <input type="datetime-local" class="form-control" id={`${modalId}InputScheduled`} aria-describedby={`${modalId}HelpScheduled`} name="scheduled" />
-    <small id={`${modalId}HelpScheduled`} class="form-text text-muted">{t('help_scheduled')}</small>
+  return <ModalForm id={id} title="label_scheduled" onSubmit={handleSubmit}>
+  <InputText name="description" label={t('label_description')} formId={id} help={t('help_description')} />
+  <div class="">
+    <label for={`date_${id}scheduled`}>{t('label_date')}</label>
+    <input type="datetime-local" class="form-control" id={`date_${id}scheduled`} aria-describedby={`help_${modalId}scheduled`} name="scheduled" />
+    <div id={`help_${id}scheduled`} class="form-text">{t('help_scheduled')}</div>
   </div>
-  <div class="form-group">
-    <label for={`${modalId}InputValue`}>{t('label_donation')}</label>
-    <input type="number" min="10.00" max="500" step="0.01" class="form-control" id={`${modalId}InputValue`} aria-describedby={`${modalId}valueHelp`} name="value" />
-    <small id={`${modalId}valueHelp`} class="form-text text-muted">{t('help_value')}</small>
+  <div class="">
+    <label for={`number_${id}value`}>{t('label_donation')}</label>
+    <input type="number" min="10.00" max="500" step="0.01" class="form-control" id={`number_${id}value`} aria-describedby={`help_${id}value`} name="value" />
+    <div id={`help_${id}value`} class="form-text">{t('help_value')}</div>
   </div>
-  <InputText name="notes" label={t('label_notes')} formId={modalId} help={t('help_notes')} />
+  <InputText name="notes" label={t('label_notes')} formId={id} help={t('help_notes')} />
   <input type="hidden" name="id" value={itemId} />
   <input type="hidden" name="type" />
 </ModalForm>
@@ -796,9 +792,9 @@ const Manage = () => {
         </main>
       </div>
     </div>
-    <EventModal modalId="newScheduledModal" type="eucharystia" />
-    <EventModal modalId="newDepartureModal" type="departure" />
-    <VisitModal modalId="newVisitModal" />
+    <EventModal id="newScheduledModal" type="eucharystia" />
+    <EventModal id="newDepartureModal" type="departure" />
+    <VisitModal id="newVisitModal" />
   </>
 }
 
@@ -1174,9 +1170,12 @@ const Navi = ({ current }) => {
   const navigate = useNavigate()
 
   const [count, setCount] = useState(0)
+  
+  let installPrompt = null;
 
   useEffect(() => {
     document.title = t('title_app')
+    window.addEventListener('beforeinstallprompt', event => installPrompt = event)
 
     axios.get('api/statistics').then(response => {
       setCount(response.data.count)
