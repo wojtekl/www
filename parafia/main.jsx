@@ -67,11 +67,9 @@ const Toast = ({ message, onClose }) => {
   }, [])
 
   useEffect(() => {
-    if (!message) {
-      return
+    if (message) {
+      toast.show()
     }
-    
-    toast.show()
   }, [message])
   
   return <div class="toast-container position-fixed bottom-0 end-0 p-3">
