@@ -441,7 +441,7 @@ const CurrentWeek = ({ date, type }) => {
       </td>
     </tr>) }
   </Table>
-  <EventModal modalId="editScheduledModal" itemId={selected} type={type} />
+  <EventModal id="editScheduledModal" itemId={selected} type={type} />
   <ConfirmModal title="label_delete" onOk={() => {
     const searchParams = new URLSearchParams({ id: selected })
     axios.get(`api/scheduled-cd?${searchParams.toString()}`).then(response => handleRefresh())
@@ -605,7 +605,7 @@ const EventModal = ({ id, itemId, type }) => {
   <InputText name="description" label={t('label_description')} formId={id} help={t('help_description')} />
   <div class="">
     <label for={`date_${id}scheduled`}>{t('label_date')}</label>
-    <input type="datetime-local" class="form-control" id={`date_${id}scheduled`} aria-describedby={`help_${modalId}scheduled`} name="scheduled" />
+    <input type="datetime-local" class="form-control" id={`date_${id}scheduled`} aria-describedby={`help_${id}scheduled`} name="scheduled" />
     <div id={`help_${id}scheduled`} class="form-text">{t('help_scheduled')}</div>
   </div>
   <div class="">
