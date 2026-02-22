@@ -57,8 +57,8 @@ const InputText = ({ name, label, className, formId, help }) => <div class={clas
 const Toast = ({ message }) => {
   const { t } = useTranslation()
   
-  return <div class="toast-container text-bg-success position-fixed bottom-0 end-0 p-3">
-  <div class="toast align-items-center" id="notification" role="alert" aria-live="assertive" aria-atomic="true">
+  return <div class="toast-container position-fixed bottom-0 end-0 p-3">
+  <div class="toast text-bg-success align-items-center" id="notification" role="alert" aria-live="assertive" aria-atomic="true">
     <div class="d-flex">
       <div class="toast-body">{t(message)}</div>
       <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label={t('label_close')}></button>
@@ -260,7 +260,7 @@ const VisitModal = ({ id }) => {
 
   const handleSubmit = (form) => {
     axios.post('api/visit-cd', form, { headers: { 'Content-Type': 'multipart/form-data' }}).then(response => {
-      form.reset()
+      //form.reset()
       console.debug(response.data)
     })
   }
@@ -601,7 +601,7 @@ const EventModal = ({ id, itemId, type }) => {
 
   const handleSubmit = (form) => {
     axios.post(!itemId ? 'api/scheduled-cd' : 'api/scheduled', form, { headers: { 'Content-Type': 'multipart/form-data' }}).then(response => {
-      form.reset()
+      //form.reset()
       console.debug(response.data)
     })
   }
