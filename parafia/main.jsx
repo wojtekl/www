@@ -53,6 +53,16 @@ const InputText = ({ name, label, className, formId, help }) => <div class={clas
 </div>
 
 
+/* Form */
+const Form = ({ id, disabled=false, legend, onSubmit, children }) => <form id={id} enctype="multipart/form-data" onSubmit={onSubmit}>
+  <fieldset disabled={disabled}>
+    { legend && <legend>{t(legend)}</legend> }
+    {children}
+    { onSubmit && !disabled && <button type="submit" class="btn btn-primary">{t('label_submit')}</button> }
+  </fieldset>
+</form>
+
+
 /* Toast */
 const Toast = ({ message, onClose }) => {
   const { t } = useTranslation()
@@ -437,16 +447,14 @@ const CurrentWeek = ({ date, type }) => {
       </div>
     </div>
   </div>
-  <form id="form_statistics" enctype="multipart/form-data">
-    <fieldset disabled>
-      <div class="row">
-        <InputText name="count" label={t('label_count')} className="col-sm-6" formId="statistics" />
-        <InputText name="" label={t('label_')} className="col-sm-6" formId="statistics" />
-        <InputText name="" label={t('label_')} className="col-sm-6" formId="statistics" />
-        <InputText name="" label={t('label_')} className="col-sm-6" formId="statistics" />
-      </div>
-    </fieldset>
-  </form>
+  <Form id="form_statistics" disabled={true}>
+    <div class="row">
+      <InputText name="count" label={t('label_count')} className="col-sm-6" formId="statistics" />
+      <InputText name="" label={t('label_')} className="col-sm-6" formId="statistics" />
+      <InputText name="" label={t('label_')} className="col-sm-6" formId="statistics" />
+      <InputText name="" label={t('label_')} className="col-sm-6" formId="statistics" />
+    </div>
+  </Form>
   <h2>{getTitle()}</h2>
   <Table columns={['#', t('label_date'), t('label_description'), t('label_donation'), t('label_notes'), t('label_actions')]}>
     { currentWeek.map((e, i) => <tr>
@@ -510,29 +518,25 @@ const Dashboard = () => {
         </div>
       </div>
     </div>
-    <form id="form_contact" enctype="multipart/form-data" onSubmit={handleSubmit}>
-      <fieldset disabled={disabled}>
-        <legend>{t('label_contact')}</legend>
-        <InputText name="description" label={t('label_description')} className="mb-3" formId="contact" />
-        <InputText name="street" label={t('label_street')} className="mb-3" formId="contact" />
-        <InputText name="number" label={t('label_number')} className="mb-3" formId="contact" />
-        <InputText name="city" label={t('label_city')} className="mb-3" formId="contact" />
-        <InputText name="postalcode" label={t('label_postalcode')} className="mb-3" formId="contact" />
-        <div class="mb-3">
-          <label for="input_contactemail" class="form-label">{t('label_email')}</label>
-          <input type="email" id="input_contactemail" class="form-control" name="email" />
-        </div>
-        <div class="mb-3">
-          <label for="input_contactphone" class="form-label">{t('label_phone')}</label>
-          <input type="tel" id="input_contactphone" class="form-control" name="phone" />
-        </div>
-        <div class="mb-3">
-          <label for="input_contactiban" class="form-label">{t('label_iban')}</label>
-          <input type="text" id="input_contactiban" class="form-control" maxlength="28" name="iban" />
-        </div>
-        { !disabled && <button type="submit" class="btn btn-primary">{t('label_submit')}</button> }
-      </fieldset>
-    </form>
+    <Form id="form_contact" legend="label_contact" disabled={disabled} onSubmit={handleSubmit}>
+      <InputText name="description" label={t('label_description')} className="mb-3" formId="contact" />
+      <InputText name="street" label={t('label_street')} className="mb-3" formId="contact" />
+      <InputText name="number" label={t('label_number')} className="mb-3" formId="contact" />
+      <InputText name="city" label={t('label_city')} className="mb-3" formId="contact" />
+      <InputText name="postalcode" label={t('label_postalcode')} className="mb-3" formId="contact" />
+      <div class="mb-3">
+        <label for="input_contactemail" class="form-label">{t('label_email')}</label>
+        <input type="email" id="input_contactemail" class="form-control" name="email" />
+      </div>
+      <div class="mb-3">
+        <label for="input_contactphone" class="form-label">{t('label_phone')}</label>
+        <input type="tel" id="input_contactphone" class="form-control" name="phone" />
+      </div>
+      <div class="mb-3">
+        <label for="input_contactiban" class="form-label">{t('label_iban')}</label>
+        <input type="text" id="input_contactiban" class="form-control" maxlength="28" name="iban" />
+      </div>
+    </Form>
   </>
 }
 
@@ -575,24 +579,21 @@ const Settings = () => {
         </div>
       </div>
     </div>
-    <form id="form_settings" enctype="multipart/form-data" onSubmit={handleSubmit}>
-      <fieldset disabled={disabled}>
-        <legend>{t('label_settings')}</legend>
-        <div class="mb-3">
-          <label for="textarea_settingsschedule" class="form-label">{t('label_schedule')}</label>
-          <textarea id="textarea_settingsschedule" class="form-control" rows="4" name="schedule" />
-        </div>
-        <div class="mb-3 form-check">
-          <input type="checkbox" class="form-check-input" id="checkbox_settingsshowVisits" name="showVisits" />
-          <label class="form-check-label" for="checkbox_settingsshowVisits">{t('label_show_visit')}</label>
-        </div>
-        <div class="mb-3 form-check">
-          <input type="checkbox" class="form-check-input" id="checkbox_settingsshowBooking" name="showBooking" />
-          <label class="form-check-label" for="checkbox_settingsshowBooking">{t('label_show_booking')}</label>
-        </div>
-        { !disabled && <button type="submit" class="btn btn-primary">{t('label_submit')}</button> }
-      </fieldset>
-    </form>
+    <Form id="form_settings" legend="label_settings" disabled={disabled} onSubmit={handleSubmit}>
+      <div class="mb-3">
+        <label for="textarea_settingsschedule" class="form-label">{t('label_schedule')}</label>
+        <textarea id="textarea_settingsschedule" class="form-control" rows="4" name="schedule" />
+      </div>
+      <div class="mb-3 form-check">
+        <input type="checkbox" class="form-check-input" id="checkbox_settingsshowVisits" name="showVisits" />
+        <label class="form-check-label" for="checkbox_settingsshowVisits">{t('label_show_visit')}</label>
+      </div>
+      <div class="mb-3 form-check">
+        <input type="checkbox" class="form-check-input" id="checkbox_settingsshowBooking" name="showBooking" />
+        <label class="form-check-label" for="checkbox_settingsshowBooking">{t('label_show_booking')}</label>
+      </div>
+      { !disabled && <button type="submit" class="btn btn-primary">{t('label_submit')}</button> }
+    </Form>
   </>
 }
 
@@ -1010,16 +1011,12 @@ const Reader = () => {
             </Table>
           </AccordionItem>
           <AccordionItem id="order" parent="accordionExample">
-            <form id="form_order" enctype="multipart/form-data" onSubmit={handleSubmit}>
-              <fieldset>
-                <legend>{t('label_order')}</legend>
-                <InputText name="description" label={t('label_description')} className="mb-3" formId="order" />
-                <InputText name="notes" label={t('label_from')} className="mb-3" formId="order" />
-                <input type="hidden" name="tenant" value={tenant} />
-                <input type="hidden" name="type" value="eucharystia" />
-                <button type="submit" class="btn btn-primary">{t('label_submit')}</button>
-              </fieldset>
-            </form>
+            <Form id="form_order" legend="label_order" onSubmit={handleSubmit}>
+              <InputText name="description" label={t('label_description')} className="mb-3" formId="order" />
+              <InputText name="notes" label={t('label_from')} className="mb-3" formId="order" />
+              <input type="hidden" name="tenant" value={tenant} />
+              <input type="hidden" name="type" value="eucharystia" />
+            </Form>
           </AccordionItem>
           <AccordionItem id="announcements" parent="accordionExample"></AccordionItem>
           <AccordionItem id="departure" parent="accordionExample">
@@ -1046,18 +1043,14 @@ const Reader = () => {
             </Table>
           </AccordionItem> }
           { !!settings?.showBooking && <AccordionItem id="book" parent="accordionExample">
-            <form id="form_book" enctype="multipart/form-data" onSubmit={handleBook}>
-              <fieldset>
-                <legend>{t('label_book')}</legend>
-                <InputText name="firstname" label={t('label_firstname')} className="mb-3" formId="book" />
-                <InputText name="surname" label={t('label_surname')} className="mb-3" formId="book" />
-                <InputText name="street" label={t('label_street')} className="mb-3" formId="book" />
-                <InputText name="number" label={t('label_number')} className="mb-3" formId="book" />
-                <InputText name="city" label={t('label_city')} className="mb-3" formId="book" />
-                <input type="hidden" name="tenant" value={tenant} />
-                <button type="submit" class="btn btn-primary">{t('label_submit')}</button>
-              </fieldset>
-            </form>
+            <Form id="form_book" legend="label_book" enctype="multipart/form-data" onSubmit={handleBook}>
+              <InputText name="firstname" label={t('label_firstname')} className="mb-3" formId="book" />
+              <InputText name="surname" label={t('label_surname')} className="mb-3" formId="book" />
+              <InputText name="street" label={t('label_street')} className="mb-3" formId="book" />
+              <InputText name="number" label={t('label_number')} className="mb-3" formId="book" />
+              <InputText name="city" label={t('label_city')} className="mb-3" formId="book" />
+              <input type="hidden" name="tenant" value={tenant} />
+            </Form>
           </AccordionItem> }
         </div>
       </div>
