@@ -1,4 +1,4 @@
-import * as bootstrap from 'bootstrap'
+import * as bootstrap, { Toast } from 'bootstrap'
 import React, { useContext, useEffect, useState, createContext, createElement } from 'react'
 import { createRoot } from 'react-dom/client'
 import { HashRouter as Router, Routes, Route, useNavigate, useParams } from 'react-router-dom'
@@ -61,10 +61,12 @@ const InputText = ({ name, label, className, formId, help }) => <div class={clas
 
 /* Notification */
 const Notification = ({ message }) => {
+  const { t } = useTranslation()
+  
   return <div class="toast align-items-center" id="notification" role="alert" aria-live="assertive" aria-atomic="true">
   <div class="d-flex">
-    <div class="toast-body">{message}</div>
-    <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+    <div class="toast-body">{t(message)}</div>
+    <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label={t('label_close')}></button>
   </div>
 </div>
 }
@@ -72,20 +74,17 @@ const Notification = ({ message }) => {
 
 /* ModalForm */
 const ModalForm = (props) => {
-  const { id, title, onSubmit, label_close, label_cancel, label_save, children } = props
+  const { id, title, onSubmit, children } = props
 
+  const { t } = useTranslate()
   const { setMessage } = usePreferences()
   
   const handleSubmit = (event) => {
     event.preventDefault()
 
-    const form = document.getElementById(`form_${id}`)
-    onSubmit(form)
-    
-    const modal = bootstrap.Modal.getInstance(document.getElementById(id))
-    modal.hide()
-
-    setMessage('label_message')
+    onSubmit(document.getElementById(`form_${id}`))
+    (bootstrap.Modal.getInstance(document.getElementById(id))).hide()
+    setMessage('label_saved')
     
     event.stopPropagation()
   }
@@ -94,19 +93,41 @@ const ModalForm = (props) => {
     <div class="modal-dialog modal-dialog-centered modal-sm">
       <div class="modal-content">
         <div class="modal-header">
-          <h1 class="modal-title fs-5" id={`title_${id}`}>{title}</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label={label_close}></button>
+          <h1 class="modal-title fs-5" id={`title_${id}`}>{t('title')}</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label={t('label_close')}></button>
         </div>
         <div class="modal-body">
           <form id={`form_${id}`} enctype="multipart/form-data">{children}</form>
         </div>
         <div class="modal-footer">
-          <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">{label_cancel}</button>
-          <button type="submit" class="btn btn-primary" onClick={handleSubmit}>{label_save}</button>
+          <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">{t('label_cancel')}</button>
+          <button type="submit" class="btn btn-primary" onClick={handleSubmit}>{t('label_save')}</button>
         </div>
       </div>
     </div>
   </div>
+}
+
+
+/* ConfirmModal */
+const ConfirmModal = ({ title, onOk }) => {
+  const { t } = useTranslation()
+  
+  return <div class="modal" id="confirmModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">{t('label_title_confirm')}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label={t('label_close')}></button>
+      </div>
+      <div class="modal-body"><p>{t(title)}</p></div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{t('label_cancel')}</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onClick={onOk}>{t('label_ok')}</button>
+      </div>
+    </div>
+  </div>
+</div>
 }
 
 
@@ -135,28 +156,6 @@ const AccordionItem = ({ id, parent, show = false, children }) => {
     </div>
   </div>
 </div>}
-
-
-/* ConfirmModal */
-const ConfirmModal = ({ title, onOk }) => {
-  const { t } = useTranslation()
-  
-  return <div class="modal" id="confirmModal" tabindex="-1">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">{t('label_title_confirm')}</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label={t('label_close')}></button>
-      </div>
-      <div class="modal-body"><p>{t(title)}</p></div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{t('label_cancel')}</button>
-        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onClick={onOk}>{t('label_ok')}</button>
-      </div>
-    </div>
-  </div>
-</div>
-}
 
 
 /* Password */
@@ -206,32 +205,6 @@ const Password = () => {
 }
 
 
-/* VisitModal */
-const VisitModal = ({ modalId }) => {
-  const { t } = useTranslation()
-
-  const handleSubmit = (form) => {
-    axios.post('api/visit-cd', form, { headers: { 'Content-Type': 'multipart/form-data' }}).then(response => {
-      form.reset()
-      console.debug(response.data)
-    })
-  }
-
-  return <ModalForm id={modalId} title={t('label_visit')} onSubmit={handleSubmit} label_close={t('label_close')} label_cancel={t('label_cancel')} label_save={t('label_save')}>
-  <InputText name="firstname" label={t('label_firstname')} formId={modalId} help={t('help_firstname')} />
-  <InputText name="surname" label={t('label_surname')} formId={modalId} help={t('help_surname')} />
-  <InputText name="street" label={t('label_street')} formId={modalId} help={t('help_street')} />
-  <InputText name="number" label={t('label_number')} formId={modalId} help={t('help_number')} />
-  <InputText name="city" label={t('label_city')} formId={modalId} help={t('help_city')} />
-  <div class="form-group">
-    <label for={`${modalId}InputDonation`}>{t('label_donation')}</label>
-    <input type="number" min="10.00" max="500" step="0.01" class="form-control" id={`${modalId}InputDonation`} aria-describedby={`${modalId}HelpDonation`} name="donation" />
-    <small id={`${modalId}HelpDonation`} class="form-text text-muted">{t('help_donation')}</small>
-  </div>
-</ModalForm>
-}
-
-
 /* Confirmation */
 const Confirmation = () => {
   const { t } = useTranslation()
@@ -278,6 +251,32 @@ const Confirmation = () => {
       axios.get(`api/visit-cd?${searchParams.toString()}`).then(response => setRefresh(true))
     }} />
   </>
+}
+
+
+/* VisitModal */
+const VisitModal = ({ modalId }) => {
+  const { t } = useTranslation()
+
+  const handleSubmit = (form) => {
+    axios.post('api/visit-cd', form, { headers: { 'Content-Type': 'multipart/form-data' }}).then(response => {
+      form.reset()
+      console.debug(response.data)
+    })
+  }
+
+  return <ModalForm id={modalId} title="label_visit" onSubmit={handleSubmit}>
+  <InputText name="firstname" label={t('label_firstname')} formId={modalId} help={t('help_firstname')} />
+  <InputText name="surname" label={t('label_surname')} formId={modalId} help={t('help_surname')} />
+  <InputText name="street" label={t('label_street')} formId={modalId} help={t('help_street')} />
+  <InputText name="number" label={t('label_number')} formId={modalId} help={t('help_number')} />
+  <InputText name="city" label={t('label_city')} formId={modalId} help={t('help_city')} />
+  <div class="form-group">
+    <label for={`${modalId}InputDonation`}>{t('label_donation')}</label>
+    <input type="number" min="10.00" max="500" step="0.01" class="form-control" id={`${modalId}InputDonation`} aria-describedby={`${modalId}HelpDonation`} name="donation" />
+    <small id={`${modalId}HelpDonation`} class="form-text text-muted">{t('help_donation')}</small>
+  </div>
+</ModalForm>
 }
 
 
@@ -583,8 +582,8 @@ const Settings = () => {
 }
 
 
-/* Modal */
-const Modal = ({ modalId, itemId, type }) => {
+/* EventModal */
+const EventModal = ({ modalId, itemId, type }) => {
   const { t } = useTranslation()
 
   useEffect(() => {
@@ -607,7 +606,7 @@ const Modal = ({ modalId, itemId, type }) => {
     })
   }
 
-  return <ModalForm id={modalId} title={t('label_scheduled')} onSubmit={handleSubmit} label_close={t('label_close')} label_cancel={t('label_cancel')} label_save={t('label_save')}>
+  return <ModalForm id={modalId} title="label_scheduled" onSubmit={handleSubmit}>
   <InputText name="description" label={t('label_description')} formId={modalId} help={t('help_description')} />
   <div class="form-group">
     <label for={`${modalId}InputScheduled`}>{t('label_date')}</label>
@@ -1274,17 +1273,17 @@ const App = () => {
 /* Preferences */
 const PreferencesContext = createContext()
 const Preferences = ({ children }) => {
-  const [message, setMessage] = useState()
+  const [notification, setNotification] = useState()
   const locale = (getUrlParam('lang') ?? navigator.language.substring(3)).toLocaleLowerCase()
 
   useEffect(() => {
-    const notification = bootstrap.Toast.getOrCreateInstance(document.getElementById('notification'))
-    notification.show()
-  }, [message])
+    const toast = bootstrap.Toast.getOrCreateInstance(document.getElementById('notification'))
+    toast.show()
+  }, [notification])
 
-  return <PreferencesContext.Provider value={{ locale, setMessage }}>
+  return <PreferencesContext.Provider value={{ locale, setNotification }}>
   {children}
-  <Notification message={message} />
+  <Notification message={notification} />
 </PreferencesContext.Provider>
 }
 const usePreferences = () => useContext(PreferencesContext)
