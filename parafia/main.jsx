@@ -1,4 +1,4 @@
-import * as bootstrap, { Toast } from 'bootstrap'
+import * as bootstrap from 'bootstrap'
 import React, { useContext, useEffect, useState, createContext, createElement } from 'react'
 import { createRoot } from 'react-dom/client'
 import { HashRouter as Router, Routes, Route, useNavigate, useParams } from 'react-router-dom'
@@ -59,8 +59,8 @@ const InputText = ({ name, label, className, formId, help }) => <div class={clas
 </div>
 
 
-/* Notification */
-const Notification = ({ message }) => {
+/* Toast */
+const Toast = ({ message }) => {
   const { t } = useTranslation()
   
   return <div class="toast align-items-center" id="notification" role="alert" aria-live="assertive" aria-atomic="true">
@@ -77,14 +77,14 @@ const ModalForm = (props) => {
   const { id, title, onSubmit, children } = props
 
   const { t } = useTranslate()
-  const { setMessage } = usePreferences()
+  const { setNotification } = usePreferences()
   
   const handleSubmit = (event) => {
     event.preventDefault()
 
     onSubmit(document.getElementById(`form_${id}`))
     (bootstrap.Modal.getInstance(document.getElementById(id))).hide()
-    setMessage('label_saved')
+    setNotification('label_saved')
     
     event.stopPropagation()
   }
@@ -1274,16 +1274,16 @@ const App = () => {
 const PreferencesContext = createContext()
 const Preferences = ({ children }) => {
   const [notification, setNotification] = useState()
+  
   const locale = (getUrlParam('lang') ?? navigator.language.substring(3)).toLocaleLowerCase()
 
   useEffect(() => {
-    const toast = bootstrap.Toast.getOrCreateInstance(document.getElementById('notification'))
-    toast.show()
+    (bootstrap.Toast.getOrCreateInstance(document.getElementById('notification'))).show()
   }, [notification])
 
   return <PreferencesContext.Provider value={{ locale, setNotification }}>
   {children}
-  <Notification message={notification} />
+  <Toast message={notification} />
 </PreferencesContext.Provider>
 }
 const usePreferences = () => useContext(PreferencesContext)
