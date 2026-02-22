@@ -57,8 +57,21 @@ const InputText = ({ name, label, className, formId, help }) => <div class={clas
 const Toast = ({ message, onClose }) => {
   const { t } = useTranslation()
 
+  const [toast, setToast] = useState()
+
   useEffect(() => {
-    onClose()
+    const toastElement = document.getElementById('notification')
+    toastElement.addEventListener('hidden.bs.toast', onClose)
+
+    setToast(bootstrap.Toast.getOrCreateInstance(toastElement))
+  }, [])
+
+  useEffect(() => {
+    if (!message) {
+      return
+    }
+    
+    toast.show()
   }, [message])
   
   return <div class="toast-container position-fixed bottom-0 end-0 p-3">
@@ -1280,14 +1293,6 @@ const Preferences = ({ children }) => {
   const [notification, setNotification] = useState('')
   
   const locale = (getUrlParam('lang') ?? navigator.language.substring(3)).toLocaleLowerCase()
-
-  useEffect(() => {
-    if (!notification) {
-      return
-    }
-    const t = bootstrap.Toast.getOrCreateInstance(document.getElementById('notification'))
-    t.show()
-  }, [notification])
 
   return <PreferencesContext.Provider value={{ locale, setNotification }}>
   {children}
