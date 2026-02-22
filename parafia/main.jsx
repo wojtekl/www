@@ -594,7 +594,6 @@ const Settings = () => {
         <input type="checkbox" class="form-check-input" id="checkbox_settingsshowBooking" name="showBooking" />
         <label class="form-check-label" for="checkbox_settingsshowBooking">{t('label_show_booking')}</label>
       </div>
-      { !disabled && <button type="submit" class="btn btn-primary">{t('label_submit')}</button> }
     </Form>
   </>
 }
