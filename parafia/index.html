@@ -5,6 +5,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="referrer" content="strict-origin">
+  
+  <script type="text/javascript">
+    var installPrompt = null;
+    window.addEventListener('beforeinstallprompt', event => { installPrompt = event });
+    
+    if ('serviceWorker' in navigator) navigator.serviceWorker.register('/sw.js');
+  </script>
 
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
     integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" rel="stylesheet" crossorigin>
@@ -72,7 +79,6 @@
   <script src="https://raw.githubusercontent.com/wojtekl/www/main/parafia/main.jsx" 
     data-presets="react,typescript" data-type="module" type="text/babel"></script>
   
-  <script type="text/javascript">if ('serviceWorker' in navigator) navigator.serviceWorker.register('/sw.js')</script>
   <noscript>system parafialny wymaga włączenia JavaScript</noscript>
 </body>
 
