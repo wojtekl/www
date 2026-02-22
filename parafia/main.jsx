@@ -12,8 +12,6 @@ import axios from 'axios'
 import L from 'leaflet'
 
 
-if ('serviceWorker' in navigator) navigator.serviceWorker.register('/sw.js')
-
 let installPrompt = null;
 window.addEventListener('beforeinstallprompt', event => installPrompt = event)
 
@@ -76,7 +74,7 @@ const Toast = ({ message }) => {
 const ModalForm = (props) => {
   const { id, title, onSubmit, children } = props
 
-  const { t } = useTranslate()
+  const { t } = useTranslation()
   const { setNotification } = usePreferences()
   
   const handleSubmit = (event) => {
