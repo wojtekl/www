@@ -1001,16 +1001,18 @@ const Reader = () => {
         <hr class="col-3 col-md-2 mb-5"></hr>
         <div class="accordion" id="accordionExample">
           <AccordionItem id="scheduled" parent="accordionExample" show={true}>
-            <form id="form_order" enctype="multipart/form-data" onSubmit={handleSubmit}>
-              <fieldset>
-                <legend>{t('label_order')}</legend>
-                <InputText name="description" label={t('label_description')} className="mb-3" formId="order" />
-                <InputText name="notes" label={t('label_from')} className="mb-3" formId="order" />
-                <input type="hidden" name="tenant" value={tenant} />
-                <input type="hidden" name="type" value="eucharystia" />
-                <button type="submit" class="btn btn-primary">{t('label_submit')}</button>
-              </fieldset>
-            </form>
+            <AccordionItem id="order" parent="scheduled">
+              <form id="form_order" enctype="multipart/form-data" onSubmit={handleSubmit}>
+                <fieldset>
+                  <legend>{t('label_order')}</legend>
+                  <InputText name="description" label={t('label_description')} className="mb-3" formId="order" />
+                  <InputText name="notes" label={t('label_from')} className="mb-3" formId="order" />
+                  <input type="hidden" name="tenant" value={tenant} />
+                  <input type="hidden" name="type" value="eucharystia" />
+                  <button type="submit" class="btn btn-primary">{t('label_submit')}</button>
+                </fieldset>
+              </form>
+            </AccordionItem>
             <Table columns={['#', t('label_day'), t('label_description')]}>
               { dayOfWeek.map((e, i) => <tr>
                 <td>{i + 1}</td>
@@ -1030,18 +1032,20 @@ const Reader = () => {
             </Table>
           </AccordionItem>
           { !!settings?.showVisits && <AccordionItem id="visit" parent="accordionExample">
-            { !!settings?.showBooking && <form id="form_book" enctype="multipart/form-data" onSubmit={handleBook}>
-              <fieldset>
-                <legend>{t('label_book')}</legend>
-                <InputText name="firstname" label={t('label_firstname')} className="mb-3" formId="book" />
-                <InputText name="surname" label={t('label_surname')} className="mb-3" formId="book" />
-                <InputText name="street" label={t('label_street')} className="mb-3" formId="book" />
-                <InputText name="number" label={t('label_number')} className="mb-3" formId="book" />
-                <InputText name="city" label={t('label_city')} className="mb-3" formId="book" />
-                <input type="hidden" name="tenant" value={tenant} />
-                <button type="submit" class="btn btn-primary">{t('label_submit')}</button>
-              </fieldset>
-            </form> }
+            { !!settings?.showBooking && <AccordionItem id="book" parent="visit">
+              <form id="form_book" enctype="multipart/form-data" onSubmit={handleBook}>
+                <fieldset>
+                  <legend>{t('label_book')}</legend>
+                  <InputText name="firstname" label={t('label_firstname')} className="mb-3" formId="book" />
+                  <InputText name="surname" label={t('label_surname')} className="mb-3" formId="book" />
+                  <InputText name="street" label={t('label_street')} className="mb-3" formId="book" />
+                  <InputText name="number" label={t('label_number')} className="mb-3" formId="book" />
+                  <InputText name="city" label={t('label_city')} className="mb-3" formId="book" />
+                  <input type="hidden" name="tenant" value={tenant} />
+                  <button type="submit" class="btn btn-primary">{t('label_submit')}</button>
+                </fieldset>
+              </form>
+            </AccordionItem> }
             <Table columns={['#', t('label_firstname'), t('label_surname'), t('label_street'), t('label_number'), t('label_city'), t('label_donation'), t('label_date')]}>
               { visit.map((e, i) => <tr>
                 <td>{i + 1}</td>
