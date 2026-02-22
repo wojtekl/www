@@ -567,7 +567,7 @@ const Settings = () => {
     
     const form = getForm(document.getElementById('form_settings'))
     console.debug(form)
-    axios.post('api/settings', form, { headers: { 'Content-Type': 'multipart/form-data' }}).then(response => setNotification(response.data))
+    axios.post('api/settings', form, { headers: { 'Content-Type': 'multipart/form-data' }}).then(response => setNotification('label_saved'))
     
     event.stopPropagation()
   }
