@@ -490,6 +490,7 @@ const Dashboard = () => {
   const [disabled, setDisabled] = useState(true)
 
   const tenant = useSelector(state => state.tenant)
+  const { setNotification } = usePreferences()
 
   useEffect(() => {
     const searchParams = new URLSearchParams({ tenant: tenant })
@@ -506,9 +507,7 @@ const Dashboard = () => {
     event.preventDefault()
     
     const form = document.getElementById('form_contact')
-    axios.post('api/contact', form, { headers: { 'Content-Type': 'multipart/form-data' }}).then(response => {
-      console.debug(response.data)
-    })
+    axios.post('api/contact', form, { headers: { 'Content-Type': 'multipart/form-data' }}).then(response => setNotification(response.data))
     
     event.stopPropagation()
   }
@@ -552,6 +551,7 @@ const Settings = () => {
   const [disabled, setDisabled] = useState(true)
 
   const tenant = useSelector(state => state.tenant)
+  const { setNotification } = usePreferences()
 
   useEffect(() => {
     const searchParams = new URLSearchParams({ tenant: tenant })
@@ -567,9 +567,7 @@ const Settings = () => {
     
     const form = getForm(document.getElementById('form_settings'))
     console.debug(form)
-    axios.post('api/settings', form, { headers: { 'Content-Type': 'multipart/form-data' }}).then(response => {
-      console.debug(response.data)
-    })
+    axios.post('api/settings', form, { headers: { 'Content-Type': 'multipart/form-data' }}).then(response => setNotification(response.data))
     
     event.stopPropagation()
   }
@@ -900,7 +898,7 @@ const Reader = () => {
   const [visit, setVisit] = useState([])
 
   const { tenant } = useParams()
-  const { locale } = usePreferences()
+  const { locale, setNotification } = usePreferences()
 
   const dayOfWeek = [
     { order: '2', name: t('label_monday')}, 
@@ -918,7 +916,7 @@ const Reader = () => {
     const form = document.getElementById('form_order')
     axios.post('api/scheduled-cd', form, { headers: { 'Content-Type': 'multipart/form-data' }}).then(response => {
       form.reset()
-      console.debug(response.data)
+      setNotification(response.data)
     })
     
     event.stopPropagation()
@@ -930,7 +928,7 @@ const Reader = () => {
     const form = document.getElementById('form_book')
     axios.post('api/visit-cd', form, { headers: { 'Content-Type': 'multipart/form-data' }}).then(response => {
       form.reset()
-      console.debug(response.data)
+      setNotification(response.data)
     })
     
     event.stopPropagation()
