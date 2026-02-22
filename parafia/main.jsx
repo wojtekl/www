@@ -108,7 +108,7 @@ const ModalForm = (props) => {
     <div class="modal-dialog modal-dialog-centered modal-sm">
       <div class="modal-content">
         <div class="modal-header">
-          <h1 class="modal-title fs-5" id={`title_${id}`}>{t('title')}</h1>
+          <h1 class="modal-title fs-5" id={`title_${id}`}>{t(title)}</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label={t('label_close')}></button>
         </div>
         <div class="modal-body">
@@ -1001,18 +1001,6 @@ const Reader = () => {
         <hr class="col-3 col-md-2 mb-5"></hr>
         <div class="accordion" id="accordionExample">
           <AccordionItem id="scheduled" parent="accordionExample" show={true}>
-            <AccordionItem id="order" parent="scheduled">
-              <form id="form_order" enctype="multipart/form-data" onSubmit={handleSubmit}>
-                <fieldset>
-                  <legend>{t('label_order')}</legend>
-                  <InputText name="description" label={t('label_description')} className="mb-3" formId="order" />
-                  <InputText name="notes" label={t('label_from')} className="mb-3" formId="order" />
-                  <input type="hidden" name="tenant" value={tenant} />
-                  <input type="hidden" name="type" value="eucharystia" />
-                  <button type="submit" class="btn btn-primary">{t('label_submit')}</button>
-                </fieldset>
-              </form>
-            </AccordionItem>
             <Table columns={['#', t('label_day'), t('label_description')]}>
               { dayOfWeek.map((e, i) => <tr>
                 <td>{i + 1}</td>
@@ -1020,6 +1008,18 @@ const Reader = () => {
                 <td>{ currentWeek.filter(f => f.dayOfWeek === e.order).map(g => <p>{`${g.time} ${g.description}`}</p>) }</td>
               </tr>) }
             </Table>
+          </AccordionItem>
+          <AccordionItem id="order" parent="accordionExample">
+            <form id="form_order" enctype="multipart/form-data" onSubmit={handleSubmit}>
+              <fieldset>
+                <legend>{t('label_order')}</legend>
+                <InputText name="description" label={t('label_description')} className="mb-3" formId="order" />
+                <InputText name="notes" label={t('label_from')} className="mb-3" formId="order" />
+                <input type="hidden" name="tenant" value={tenant} />
+                <input type="hidden" name="type" value="eucharystia" />
+                <button type="submit" class="btn btn-primary">{t('label_submit')}</button>
+              </fieldset>
+            </form>
           </AccordionItem>
           <AccordionItem id="announcements" parent="accordionExample"></AccordionItem>
           <AccordionItem id="departure" parent="accordionExample">
@@ -1032,20 +1032,6 @@ const Reader = () => {
             </Table>
           </AccordionItem>
           { !!settings?.showVisits && <AccordionItem id="visit" parent="accordionExample">
-            { !!settings?.showBooking && <AccordionItem id="book" parent="visit">
-              <form id="form_book" enctype="multipart/form-data" onSubmit={handleBook}>
-                <fieldset>
-                  <legend>{t('label_book')}</legend>
-                  <InputText name="firstname" label={t('label_firstname')} className="mb-3" formId="book" />
-                  <InputText name="surname" label={t('label_surname')} className="mb-3" formId="book" />
-                  <InputText name="street" label={t('label_street')} className="mb-3" formId="book" />
-                  <InputText name="number" label={t('label_number')} className="mb-3" formId="book" />
-                  <InputText name="city" label={t('label_city')} className="mb-3" formId="book" />
-                  <input type="hidden" name="tenant" value={tenant} />
-                  <button type="submit" class="btn btn-primary">{t('label_submit')}</button>
-                </fieldset>
-              </form>
-            </AccordionItem> }
             <Table columns={['#', t('label_firstname'), t('label_surname'), t('label_street'), t('label_number'), t('label_city'), t('label_donation'), t('label_date')]}>
               { visit.map((e, i) => <tr>
                 <td>{i + 1}</td>
@@ -1058,8 +1044,21 @@ const Reader = () => {
                 <td><DateFormatter timestamp={e.created} locale={locale} format="date" /></td>
               </tr>) }
             </Table>
-          </AccordionItem>
-          }
+          </AccordionItem> }
+          { !!settings?.showBooking && <AccordionItem id="book" parent="accordionExample">
+            <form id="form_book" enctype="multipart/form-data" onSubmit={handleBook}>
+              <fieldset>
+                <legend>{t('label_book')}</legend>
+                <InputText name="firstname" label={t('label_firstname')} className="mb-3" formId="book" />
+                <InputText name="surname" label={t('label_surname')} className="mb-3" formId="book" />
+                <InputText name="street" label={t('label_street')} className="mb-3" formId="book" />
+                <InputText name="number" label={t('label_number')} className="mb-3" formId="book" />
+                <InputText name="city" label={t('label_city')} className="mb-3" formId="book" />
+                <input type="hidden" name="tenant" value={tenant} />
+                <button type="submit" class="btn btn-primary">{t('label_submit')}</button>
+              </fieldset>
+            </form>
+          </AccordionItem> }
         </div>
       </div>
     </main>
