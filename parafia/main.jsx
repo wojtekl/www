@@ -78,15 +78,14 @@ const ModalForm = (props) => {
   
   const handleSubmit = (event) => {
     event.preventDefault()
-    
-    onSubmit()
+
+    const form = document.getElementById(`form_${id}`)
+    onSubmit(form)
     
     const modal = bootstrap.Modal.getInstance(document.getElementById(id))
     modal.hide()
 
-    setMessage(t('label_save'))
-    const notification = bootstrap.Toast.getOrCreateInstance(document.getElementById('notification'))
-    notification.show()
+    setMessage('label_message')
     
     event.stopPropagation()
   }
@@ -211,8 +210,7 @@ const Password = () => {
 const VisitModal = ({ modalId }) => {
   const { t } = useTranslation()
 
-  const handleSubmit = () => {
-    const form = document.getElementById(`form_${modalId}`)
+  const handleSubmit = (form) => {
     axios.post('api/visit-cd', form, { headers: { 'Content-Type': 'multipart/form-data' }}).then(response => {
       form.reset()
       console.debug(response.data)
@@ -602,8 +600,7 @@ const Modal = ({ modalId, itemId, type }) => {
     })
   }, [itemId])
 
-  const handleSubmit = () => {
-    const form = document.getElementById(`form_${modalId}`)
+  const handleSubmit = (form) => {
     axios.post(!itemId ? 'api/scheduled-cd' : 'api/scheduled', form, { headers: { 'Content-Type': 'multipart/form-data' }}).then(response => {
       form.reset()
       console.debug(response.data)
@@ -634,7 +631,6 @@ const Manage = () => {
   const navigate = useNavigate()
   const { t } = useTranslation()
   const dispatch = useDispatch()
-  const { message } = usePreferences()
   
   const [tenant, setTenant] = useState(useSelector(state => state.tenant))
   const [selectedTab, setSelectedTab] = useState('dashboardLink')
@@ -805,7 +801,6 @@ const Manage = () => {
     <Modal modalId="newScheduledModal" type="eucharystia" />
     <Modal modalId="newDepartureModal" type="departure" />
     <VisitModal modalId="newVisitModal" />
-    <Notification message={message} />
   </>
 }
 
@@ -1282,7 +1277,15 @@ const Preferences = ({ children }) => {
   const [message, setMessage] = useState()
   const locale = (getUrlParam('lang') ?? navigator.language.substring(3)).toLocaleLowerCase()
 
-  return <PreferencesContext.Provider value={{ locale, message, setMessage }}>{children}</PreferencesContext.Provider>
+  useEffect(() => {
+    const notification = bootstrap.Toast.getOrCreateInstance(document.getElementById('notification'))
+    notification.show()
+  }, [message])
+
+  return <PreferencesContext.Provider value={{ locale, setMessage }}>
+  {children}
+  <Notification message={message} />
+</PreferencesContext.Provider>
 }
 const usePreferences = () => useContext(PreferencesContext)
 
