@@ -444,7 +444,7 @@ const CurrentWeek = ({ date, type }) => {
       </td>
     </tr>) }
   </Table>
-  <Modal modalId="editScheduledModal" itemId={selected} type={type} />
+  <EventModal modalId="editScheduledModal" itemId={selected} type={type} />
   <ConfirmModal title="label_delete" onOk={() => {
     const searchParams = new URLSearchParams({ id: selected })
     axios.get(`api/scheduled-cd?${searchParams.toString()}`).then(response => handleRefresh())
