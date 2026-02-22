@@ -54,13 +54,17 @@ const InputText = ({ name, label, className, formId, help }) => <div class={clas
 
 
 /* Form */
-const Form = ({ id, disabled=false, legend, onSubmit, children }) => <form id={id} enctype="multipart/form-data" onSubmit={onSubmit}>
+const Form = ({ id, disabled=false, legend, onSubmit, children }) => {
+  const { t } = useTranslation()
+  
+  return <form id={id} enctype="multipart/form-data" onSubmit={onSubmit}>
   <fieldset disabled={disabled}>
     { legend && <legend>{t(legend)}</legend> }
     {children}
     { onSubmit && !disabled && <button type="submit" class="btn btn-primary">{t('label_submit')}</button> }
   </fieldset>
 </form>
+}
 
 
 /* Toast */
