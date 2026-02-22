@@ -242,7 +242,7 @@ const Confirmation = () => {
   const [refresh, setRefresh] = useState()
 
   const tenant = useSelector(state => state.tenant)
-  const { locale } = usePreferences()
+  const { locale, setNotification } = usePreferences()
 
   useEffect(() => {
     const searchParams = new URLSearchParams({ tenant: tenant })
@@ -277,7 +277,10 @@ const Confirmation = () => {
     </Table>
     <ConfirmModal title="label_delete" onOk={() => {
       const searchParams = new URLSearchParams({ id: selected })
-      axios.get(`api/visit-cd?${searchParams.toString()}`).then(response => setRefresh(true))
+      axios.get(`api/visit-cd?${searchParams.toString()}`).then(response => {
+        setRefresh(true)
+        setNotification('label_saved')
+      })
     }} />
   </>
 }
@@ -317,7 +320,7 @@ const Visit = () => {
   const [refresh, setRefresh] = useState()
 
   const tenant = useSelector(state => state.tenant)
-  const { locale } = usePreferences()
+  const { locale, setNotification } = usePreferences()
 
   useEffect(() => {
     const searchParams = new URLSearchParams({ tenant: tenant })
@@ -352,8 +355,11 @@ const Visit = () => {
     </Table>
     <ConfirmModal title="label_delete" onOk={() => {
       const searchParams = new URLSearchParams({ id: selected })
-      axios.get(`api/visit-cd?${searchParams.toString()}`).then(response => setRefresh(true))}
-    } />
+      axios.get(`api/visit-cd?${searchParams.toString()}`).then(response => {
+        setRefresh(true))
+        setNotification('label_saved')
+      }
+    }} />
   </>
 }
 
@@ -403,7 +409,7 @@ const CurrentWeek = ({ date, type }) => {
   const [refresh, setRefresh] = useState(true)
 
   const tenant = useSelector(state => state.tenant)
-  const { locale } = usePreferences()
+  const { locale, setNotification } = usePreferences()
 
   useEffect(() => {
     if (refresh) {
@@ -476,7 +482,10 @@ const CurrentWeek = ({ date, type }) => {
   <EventModal id="editScheduledModal" itemId={selected} type={type} />
   <ConfirmModal title="label_delete" onOk={() => {
     const searchParams = new URLSearchParams({ id: selected })
-    axios.get(`api/scheduled-cd?${searchParams.toString()}`).then(response => handleRefresh())
+    axios.get(`api/scheduled-cd?${searchParams.toString()}`).then(response => {
+      handleRefresh()
+      setNotification('label_saved')
+    })
   }} />
 </>
 }
