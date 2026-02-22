@@ -1173,12 +1173,9 @@ const Navi = ({ current }) => {
   const navigate = useNavigate()
 
   const [count, setCount] = useState(0)
-  
-  let installPrompt = null;
 
   useEffect(() => {
     document.title = t('title_app')
-    window.addEventListener('beforeinstallprompt', event => installPrompt = event)
 
     axios.get('api/statistics').then(response => {
       setCount(response.data.count)
@@ -1274,13 +1271,14 @@ const App = () => {
 /* Preferences */
 const PreferencesContext = createContext()
 const Preferences = ({ children }) => {
-  const [notification, setNotification] = useState()
+  const [notification, setNotification] = useState('')
   
   const locale = (getUrlParam('lang') ?? navigator.language.substring(3)).toLocaleLowerCase()
 
   useEffect(() => {
-    const toast = bootstrap.Toast.getOrCreateInstance(document.getElementById('notification'))
-    toast.show()
+    console.debug('show toast')
+    const t = bootstrap.Toast.getOrCreateInstance(document.getElementById('notification'))
+    t.show()
   }, [notification])
 
   return <PreferencesContext.Provider value={{ locale, setNotification }}>
