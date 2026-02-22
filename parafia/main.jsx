@@ -18,9 +18,10 @@ window.addEventListener('beforeinstallprompt', event => installPrompt = event)
 const state = localStorage.getItem('redux')
 const initialState = !!state ? JSON.parse(state) : {
   value: null,
-  lang: navigator.language.substring(0, 2).toLocaleLowerCase(),
+  lang: (getUrlParam('lang') ?? navigator.language.substring(0, 2)).toLocaleLowerCase(),
   tenant: null
 }
+initialState.lang = (getUrlParam('lang') ?? initialState.lang).toLocaleLowerCase()
 
 const preferencesSlice = createSlice({
   name: "preferences",
@@ -33,20 +34,19 @@ const preferencesSlice = createSlice({
   }
 })
 const { selectedAdded, selectedRemoved, langSet, tenantSet } = preferencesSlice.actions
-const store = configureStore({ reducer: preferencesSlice.reducer })
 
+const store = configureStore({ reducer: preferencesSlice.reducer })
 store.subscribe(() => localStorage.setItem('redux', JSON.stringify(store.getState())))
 
-const lang = (getUrlParam('lang') ?? initialState.lang).toLocaleLowerCase()
 i18n.use(initReactI18next).init({
   resources: resources,
-  lng: lang,
+  lng: initialState.lang,
   fallbacking: "pl",
   interpolation: {
     escapeValue: false
   }
 })
-store.dispatch(langSet(lang))
+//store.dispatch(langSet(lang))
 
 
 /* InputText */
