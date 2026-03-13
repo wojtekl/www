@@ -1,0 +1,1302 @@
+import * as bootstrap from 'bootstrap'
+import React, { useContext, useEffect, useState, createContext, createElement } from 'react'
+import { createRoot } from 'react-dom/client'
+import { HashRouter as Router, Routes, Route, useNavigate, useParams } from 'react-router-dom'
+import i18n from 'i18next'
+import { initReactI18next, useTranslation } from 'react-i18next'
+import { createStore } from 'redux'
+import { createSlice, configureStore } from '@reduxjs/toolkit'
+import type { PayloadAction } from '@reduxjs/toolkit'
+import { Provider, useSelector, useDispatch } from 'react-redux'
+import axios from 'axios'
+
+
+const state = localStorage.getItem('redux')
+const initialState = !!state ? JSON.parse(state) : {
+  value: null,
+  lang: (getUrlParam('lang') ?? navigator.language.substring(0, 2)).toLocaleLowerCase(),
+  tenant: null
+}
+initialState.lang = (getUrlParam('lang') ?? initialState.lang).toLocaleLowerCase()
+
+const preferencesSlice = createSlice({
+  name: "preferences",
+  initialState: initialState,
+  reducers: {
+    selectedAdded: (state, action: PayloadAction<String>) => { state.value = action.payload },
+    selectedRemoved: state => { state.value = undefined },
+    langSet: (state, action: PayloadAction<String>) => { state.lang = action.payload },
+    tenantSet: (state, action: PayloadAction<String>) => { state.tenant = action.payload }
+  }
+})
+const { selectedAdded, selectedRemoved, langSet, tenantSet } = preferencesSlice.actions
+
+const store = configureStore({ reducer: preferencesSlice.reducer })
+store.subscribe(() => localStorage.setItem('redux', JSON.stringify(store.getState())))
+
+i18n.use(initReactI18next).init({
+  resources: resources,
+  lng: initialState.lang,
+  fallbacking: "pl",
+  interpolation: {
+    escapeValue: false
+  }
+})
+
+
+/* InputText */
+const InputText = ({ name, label, className, formId, help }) => <div class={className}>
+  <label for={`input_${formId}${name}`} class="form-label">{label}</label>
+  <input type="text" class="form-control" id={`input_${formId}${name}`} aria-describedby={help ? `help_${formId}${name}` : ''} name={name} />
+  { help && <div id={`help_${formId}${name}`} class="form-text">{help}</div> }
+</div>
+
+
+/* Form */
+const Form = ({ id, disabled=false, legend, onSubmit, children }) => {
+  const { t } = useTranslation()
+  
+  return <form id={id} enctype="multipart/form-data" onSubmit={onSubmit}>
+  <fieldset disabled={disabled}>
+    { legend && <legend>{t(legend)}</legend> }
+    {children}
+    { onSubmit && !disabled && <button type="submit" class="btn btn-primary">{t('label_submit')}</button> }
+  </fieldset>
+</form>
+}
+
+
+/* Toast */
+const Toast = ({ message, onClose }) => {
+  const { t } = useTranslation()
+
+  const [toast, setToast] = useState()
+
+  useEffect(() => {
+    const toastElement = document.getElementById('notification')
+    toastElement.addEventListener('hidden.bs.toast', onClose)
+
+    setToast(bootstrap.Toast.getOrCreateInstance(toastElement))
+  }, [])
+
+  useEffect(() => {
+    if (message) {
+      toast.show()
+    }
+  }, [message])
+  
+  return <div class="toast-container position-fixed bottom-0 end-0 p-3">
+  <div class="toast text-bg-success align-items-center" id="notification" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="d-flex">
+      <div class="toast-body">{t(message)}</div>
+      <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label={t('label_close')}></button>
+    </div>
+  </div>
+</div>
+}
+
+
+/* ModalForm */
+const ModalForm = (props) => {
+  const { id, title, onSubmit, children } = props
+
+  const { t } = useTranslation()
+  const { setNotification } = usePreferences()
+  
+  const handleSubmit = (event) => {
+    event.preventDefault()
+
+    const form = document.getElementById(`form_${id}`)
+    onSubmit(form)
+    
+    const modal = bootstrap.Modal.getInstance(document.getElementById(id))
+    modal.hide()
+    
+    setNotification('label_saved')
+    
+    event.stopPropagation()
+  }
+  
+  return <div class="modal fade" id={id} tabindex="-1" aria-labelledby={`title_${id}`} aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-sm">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id={`title_${id}`}>{t(title)}</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label={t('label_close')}></button>
+        </div>
+        <div class="modal-body">
+          <form id={`form_${id}`} enctype="multipart/form-data">{children}</form>
+        </div>
+        <div class="modal-footer">
+          <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">{t('label_cancel')}</button>
+          <button type="submit" class="btn btn-primary" onClick={handleSubmit}>{t('label_save')}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+}
+
+
+/* ConfirmModal */
+const ConfirmModal = ({ title, onOk }) => {
+  const { t } = useTranslation()
+  
+  return <div class="modal" id="confirmModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">{t('label_title_confirm')}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label={t('label_close')}></button>
+      </div>
+      <div class="modal-body"><p>{t(title)}</p></div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{t('label_cancel')}</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onClick={onOk}>{t('label_ok')}</button>
+      </div>
+    </div>
+  </div>
+</div>
+}
+
+
+/* Table */
+const Table = ({ columns, children }) => {
+  return <div class="table-responsive small">
+  <table class="table table-stripped table-sm">
+    <thead><tr>{ columns.map((e, i) => <th scope="col">{e}</th>) }</tr></thead>
+    <tbody>{children}</tbody>
+  </table>
+</div>
+}
+
+
+/* AccordionItem */
+const AccordionItem = ({ id, parent, show = false, children }) => {
+  const { t } = useTranslation()
+
+  return <div class="accordion-item">
+  <h2 class="accordion-header">
+    <button class={`accordion-button ${!show ? 'collapsed' : ''}`} type="button" data-bs-toggle="collapse" data-bs-target={`#collapse${id}`} aria-expanded="true" aria-controlls={`collapse${id}`}>{t(`label_${id}`)}</button>
+  </h2>
+  <div id={`collapse${id}`} class={`accordion-collapse collapse ${!!show ? 'show' : ''}`} data-bs-parent={`#${parent}`}>
+    <div class="accordion-body">
+      <div class="row">{children}</div>
+    </div>
+  </div>
+</div>}
+
+
+/* Password */
+const Password = () => {
+  const navigate = useNavigate()
+  const { t } = useTranslation()
+
+  const code = getUrlParam('code')
+  
+  const handleSubmit = (event) => {
+    event.preventDefault()
+    
+    const form = document.getElementById('form_password')
+    axios.post('api/signin-cd', form, { headers: { 'Content-Type': 'multipart/form-data' }}).then(response => {
+      if (response.data) {
+        navigate('/signin')
+        window.history.replaceState({}, document.title, 'https://parafia.wlap.pl/#/signin')
+      }
+      console.debug(response.data)
+    })
+    
+    event.stopPropagation()
+  }
+  
+  return <div class="d-flex align-items-center py-4 bg-body-tertiary">
+    <main class="form-signin w-100 m-auto" style={{maxWidth: '330px', padding: '1rem'}}>
+      <form id="form_password" enctype="multipart/form-data" onSubmit={handleSubmit}>
+        <h1 class="h3 mb-3 fw-normal">{t('label_please_sign_in')}</h1>
+        <div class="form-floating">
+          <input type="text" class="form-control" id="floatingInput" placeholder="demo" name="tenant" />
+          <label for="floatingInput">{t('label_tenant')}</label>
+        </div>
+        <div class="form-floating">
+          <input type="password" class="form-control" id="floatingPassword" placeholder={t('label_password')} name="password" />
+          <label for="floatingPassword">{t('label_password')}</label>
+        </div>
+        <input type="hidden" name="code" value={code} />
+        <div class="form-check text-start my-3">
+          <input class="form-check-input" type="checkbox" value="remember-me" id="checkDefault" />
+          <label class="form-check-label" for="checkDefault">{t('label_remember_me')}</label>
+        </div>
+        <button class="btn btn-primary w-100 py-2" type="submit">{t('label_sign_in')}</button>
+        <p class="mt-5 mb-3 text-body-secondary">{t('label_copyright')}</p>
+      </form>
+    </main>
+  </div>
+}
+
+
+/* Confirmation */
+const Confirmation = () => {
+  const { t } = useTranslation()
+  const [confirmation, setConfirmation] = useState([])
+  const [selected, setSelected] = useState()
+  const [refresh, setRefresh] = useState()
+
+  const tenant = useSelector(state => state.tenant)
+  const { locale, setNotification } = usePreferences()
+
+  useEffect(() => {
+    const searchParams = new URLSearchParams({ tenant: tenant })
+    axios.get(`api/visit?${searchParams.toString()}`).then(response => {
+      setConfirmation(response.data)
+      console.debug(response.data)
+    })
+    setRefresh(false)
+  }, [tenant])
+
+  return <>
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+      <h1 class="h2">{t('label_statistics')}</h1>
+      <div class="btn-toolbar mb-2 mb-md-0">
+        <div class="btn-group me-2">
+          <button type="button" class="btn btn-sm btn-outline-secondary">{t('label_refresh')}</button>
+        </div>
+      </div>
+    </div>
+    <h2>{t('label_confirmation')}</h2>
+    <Table columns={['#', t('label_firstname'), t('label_surname'), t('label_street'), t('label_number'), t('label_city'), t('label_donation'), t('label_date'), t('label_actions')]}>
+      { confirmation.map((e, i) => <tr>
+        <td>{i + 1}</td>
+        <td>{e.firstname}</td>
+        <td>{e.surname}</td>
+        <td>{e.street}</td>
+        <td>{e.number}</td>
+        <td>{e.city}</td>
+        <td><NumberFormatter value={e.donation} locale={locale} /></td>
+        <td><DateFormatter timestamp={e.created} locale={locale} format="date" /></td>
+        <td><button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#confirmModal" onClick={() => setSelected(e['id']) }><i class="bi bi-trash"></i></button></td>
+      </tr>) }
+    </Table>
+    <ConfirmModal title="label_delete" onOk={() => {
+      const searchParams = new URLSearchParams({ id: selected })
+      axios.get(`api/visit-cd?${searchParams.toString()}`).then(response => {
+        setRefresh(true)
+        setNotification('label_saved')
+      })
+    }} />
+  </>
+}
+
+
+/* VisitModal */
+const VisitModal = ({ id }) => {
+  const { t } = useTranslation()
+
+  const handleSubmit = (form) => {
+    axios.post('api/visit-cd', form, { headers: { 'Content-Type': 'multipart/form-data' }}).then(response => {
+      //form.reset()
+      console.debug(response.data)
+    })
+  }
+
+  return <ModalForm id={id} title="label_visit" onSubmit={handleSubmit}>
+  <InputText name="firstname" label={t('label_firstname')} formId={id} help={t('help_firstname')} />
+  <InputText name="surname" label={t('label_surname')} formId={id} help={t('help_surname')} />
+  <InputText name="street" label={t('label_street')} formId={id} help={t('help_street')} />
+  <InputText name="number" label={t('label_number')} formId={id} help={t('help_number')} />
+  <InputText name="city" label={t('label_city')} formId={id} help={t('help_city')} />
+  <div>
+    <label for={`input_${id}donation`}>{t('label_donation')}</label>
+    <input type="number" min="10.00" max="500" step="0.01" class="form-control" id={`input_${id}donation`} aria-describedby={`help_${id}donation`} name="donation" />
+    <div id={`help_${id}donation`} class="form-text">{t('help_donation')}</div>
+  </div>
+</ModalForm>
+}
+
+
+/* Visit */
+const Visit = () => {
+  const { t } = useTranslation()
+  const [donations, setDonations] = useState([])
+  const [selected, setSelected] = useState()
+  const [refresh, setRefresh] = useState()
+
+  const tenant = useSelector(state => state.tenant)
+  const { locale, setNotification } = usePreferences()
+
+  useEffect(() => {
+    const searchParams = new URLSearchParams({ tenant: tenant })
+    axios.get(`api/visit?${searchParams.toString()}`).then(response => {
+      setDonations(response.data)
+      console.debug(response.data)
+    })
+    setRefresh(false)
+  }, [refresh])
+
+  return <>
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+      <h1 class="h2">{t('label_statistics')}</h1>
+      <div class="btn-toolbar mb-2 mb-md-0">
+        <div class="btn-group me-2">
+          <button type="button" class="btn btn-sm btn-outline-secondary">{t('label_refresh')}</button>
+        </div>
+      </div>
+    </div>
+    <h2>{t('label_visit')}</h2>
+    <Table columns={['#', t('label_firstname'), t('label_surname'), t('label_street'), t('label_number'), t('label_city'), t('label_donation'), t('label_date'), t('label_actions')]}>
+      { donations.map((e, i) => <tr>
+        <td>{i + 1}</td>
+        <td>{e.firstname}</td>
+        <td>{e.surname}</td>
+        <td>{e.street}</td>
+        <td>{e.number}</td>
+        <td>{e.city}</td>
+        <td><NumberFormatter value={e.donation} locale={locale} /></td>
+        <td><DateFormatter timestamp={e.created} locale={locale} format="date" /></td>
+        <td><button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#confirmModal" onClick={() => setSelected(e['id']) }><i class="bi bi-trash"></i></button></td>
+      </tr>)}
+    </Table>
+    <ConfirmModal title="label_delete" onOk={() => {
+      const searchParams = new URLSearchParams({ id: selected })
+      axios.get(`api/visit-cd?${searchParams.toString()}`).then(response => {
+        setRefresh(true)
+        setNotification('label_saved')
+      })
+    }} />
+  </>
+}
+
+
+/* Weeks */
+const Weeks = () => {
+  const { t } = useTranslation()
+  const [selectedWeek, setSelectedWeek] = useState()
+
+  const months = [t('label_january'), t('label_february'), t('label_march'), t('label_april'), 
+                  t('label_may'), t('label_june'), t('label_july'), t('label_august'), 
+                  t('label_september'), t('label_october'), t('label_november'), t('label_december')]
+  const weeks = getWeeks(months)
+  const { locale } = usePreferences()
+
+  return selectedWeek ? <>
+    <button type="button" class="btn btn-sm btn-outline-secondary" onClick={ () => setSelectedWeek(undefined) }>{t('label_back')}</button>
+    <CurrentWeek date={selectedWeek} type={'eucharystia'} />
+  </> : <>
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+      <h1 class="h2">{t('label_statistics')}</h1>
+      <div class="btn-toolbar mb-2 mb-md-0">
+        <div class="btn-group me-2">
+          <button type="button" class="btn btn-sm btn-outline-secondary">{t('label_refresh')}</button>
+        </div>
+      </div>
+    </div>
+    <h2>{t('label_weeks')}</h2>
+    <Table columns={['#', t('label_begining'), t('label_month'), t('label_actions')]}>
+      { weeks.map((w, i) => <tr>
+        <td>{i + 1}</td>
+        <td><DateFormatter timestamp={w.start} locale={locale} format="date" /></td>
+        <td>{w.month}</td>
+        <td><button type="button" class="btn btn-sm btn-outline-secondary" onClick={ () => setSelectedWeek(w.start) }><i class="bi bi-pencil-square"></i></button></td>
+      </tr>) }
+    </Table>
+  </>
+}
+
+
+/* CurrentWeek */
+const CurrentWeek = ({ date, type }) => {
+  const { t } = useTranslation()
+
+  const [currentWeek, setCurrentWeek] = useState([])
+  const [selected, setSelected] = useState()
+  const [refresh, setRefresh] = useState(true)
+
+  const tenant = useSelector(state => state.tenant)
+  const { locale, setNotification } = usePreferences()
+
+  useEffect(() => {
+    if (refresh) {
+      const postData = {
+        tenant: tenant,
+        type: type,
+        today: date
+      }
+      axios.post('api/scheduled-week', postData, { headers: { 'Content-Type': 'multipart/form-data' }}).then(response => {
+        setCurrentWeek(response.data)
+        setForm(document.getElementById('form_statistics'), { count: response.data.length})
+        console.debug(response.data)
+      })
+      setRefresh(false)
+    }
+  }, [tenant, refresh])
+
+  const handleSelect = (event) => {}
+
+  const getTitle = () => {
+    if ('eucharystia' === type) {
+      if (!date) {
+        return t('label_order')
+      }
+      else if (datePart() === date) {
+        return t('label_current_week')
+      }
+      else {
+        return t('label_next_week')
+      }
+    }
+    else if ('departure' === type) {
+      return t('label_departure')
+    }
+  }
+  
+  return <>
+  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">{t('label_statistics')}</h1>
+    <div class="btn-toolbar mb-2 mb-md-0">
+      <div class="btn-group me-2">
+        <button type="button" class="btn btn-sm btn-outline-secondary" onClick={() => setRefresh(true)}>{t('label_refresh')}</button>
+      </div>
+    </div>
+  </div>
+  <Form id="form_statistics" disabled={true}>
+    <div class="row">
+      <InputText name="count" label={t('label_count')} className="col-sm-6" formId="statistics" />
+      <InputText name="" label={t('label_')} className="col-sm-6" formId="statistics" />
+      <InputText name="" label={t('label_')} className="col-sm-6" formId="statistics" />
+      <InputText name="" label={t('label_')} className="col-sm-6" formId="statistics" />
+    </div>
+  </Form>
+  <h2>{getTitle()}</h2>
+  <Table columns={['#', t('label_date'), t('label_description'), t('label_donation'), t('label_notes'), t('label_actions')]}>
+    { currentWeek.map((e, i) => <tr>
+      <td>{i + 1}</td>
+      <td><DateFormatter timestamp={e['scheduled']} locale={locale} /></td>
+      <td>{e['description']}</td>
+      <td><NumberFormatter value={e['value']} locale={locale} /></td>
+      <td>{e['notes']}</td>
+      <td>
+        <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#editScheduledModal" onClick={ () => setSelected(e['id']) }><i class="bi bi-pencil-square"></i></button>
+        <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#confirmModal" onClick={ () => setSelected(e['id']) }><i class="bi bi-trash"></i></button>
+      </td>
+    </tr>) }
+  </Table>
+  <EventModal id="editScheduledModal" itemId={selected} type={type} />
+  <ConfirmModal title="label_delete" onOk={() => {
+    const searchParams = new URLSearchParams({ id: selected })
+    axios.get(`api/scheduled-cd?${searchParams.toString()}`).then(response => {
+      setRefresh(true)
+      setNotification('label_saved')
+    })
+  }} />
+</>
+}
+
+
+/* Dashboard */
+const Dashboard = () => {
+  const { t } = useTranslation()
+  
+  const [contact, setContact] = useState()
+  const [disabled, setDisabled] = useState(true)
+
+  const tenant = useSelector(state => state.tenant)
+  const { setNotification } = usePreferences()
+
+  useEffect(() => {
+    const searchParams = new URLSearchParams({ tenant: tenant })
+    axios.get(`api/contact?${searchParams.toString()}`).then(response => {
+      setContact(response.data)
+      console.debug(response.data)
+      setForm(document.getElementById('form_contact'), response.data)
+    })
+  }, [tenant])
+
+  const handleDisabled = () => setDisabled(!disabled)
+
+  const handleSubmit = (event) => {
+    event.preventDefault()
+    
+    const form = document.getElementById('form_contact')
+    axios.post('api/contact', form, { headers: { 'Content-Type': 'multipart/form-data' }}).then(response => setNotification(response.data))
+    
+    event.stopPropagation()
+  }
+  
+  return <>
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+      <h1 class="h2">{t('label_dashboard')}</h1>
+      <div class="btn-toolbar mb-2 mb-md-0">
+        <div class="btn-group me-2">
+          <button type="button" class="btn btn-sm btn-outline-secondary" onClick={handleDisabled}>{ disabled ? <i class="bi bi-unlock"></i> : <i class="bi bi-lock"></i> }</button>
+        </div>
+      </div>
+    </div>
+    <Form id="form_contact" legend="label_contact" disabled={disabled} onSubmit={handleSubmit}>
+      <InputText name="description" label={t('label_description')} className="mb-3" formId="contact" />
+      <InputText name="street" label={t('label_street')} className="mb-3" formId="contact" />
+      <InputText name="number" label={t('label_number')} className="mb-3" formId="contact" />
+      <InputText name="city" label={t('label_city')} className="mb-3" formId="contact" />
+      <InputText name="postalcode" label={t('label_postalcode')} className="mb-3" formId="contact" />
+      <div class="mb-3">
+        <label for="input_contactemail" class="form-label">{t('label_email')}</label>
+        <input type="email" id="input_contactemail" class="form-control" name="email" />
+      </div>
+      <div class="mb-3">
+        <label for="input_contactphone" class="form-label">{t('label_phone')}</label>
+        <input type="tel" id="input_contactphone" class="form-control" name="phone" />
+      </div>
+      <div class="mb-3">
+        <label for="input_contactiban" class="form-label">{t('label_iban')}</label>
+        <input type="text" id="input_contactiban" class="form-control" maxlength="28" name="iban" />
+      </div>
+    </Form>
+  </>
+}
+
+
+/* Settings */
+const Settings = () => {
+  const { t } = useTranslation()
+
+  const [disabled, setDisabled] = useState(true)
+
+  const tenant = useSelector(state => state.tenant)
+  const { setNotification } = usePreferences()
+
+  useEffect(() => {
+    const searchParams = new URLSearchParams({ tenant: tenant })
+    axios.get(`api/settings?${searchParams.toString()}`).then(response => {
+      setForm(document.getElementById('form_settings'), response.data)
+    })
+  }, [tenant])
+
+  const handleDisabled = () => setDisabled(!disabled)
+
+  const handleSubmit = (event) => {
+    event.preventDefault()
+    
+    const form = getForm(document.getElementById('form_settings'))
+    console.debug(form)
+    axios.post('api/settings', form, { headers: { 'Content-Type': 'multipart/form-data' }}).then(response => setNotification('label_saved'))
+    
+    event.stopPropagation()
+  }
+
+  return <>
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+      <h1 class="h2">{t('label_settings')}</h1>
+      <div class="btn-toolbar mb-2 mb-md-0">
+        <div class="btn-group me-2">
+          <button type="button" class="btn btn-sm btn-outline-secondary" onClick={handleDisabled}>{ disabled ? <i class="bi bi-unlock"></i> : <i class="bi bi-lock"></i> }</button>
+        </div>
+      </div>
+    </div>
+    <Form id="form_settings" legend="label_settings" disabled={disabled} onSubmit={handleSubmit}>
+      <div class="mb-3">
+        <label for="textarea_settingsschedule" class="form-label">{t('label_schedule')}</label>
+        <textarea id="textarea_settingsschedule" class="form-control" rows="4" name="schedule" />
+      </div>
+      <div class="mb-3 form-check">
+        <input type="checkbox" class="form-check-input" id="checkbox_settingsshowVisits" name="showVisits" />
+        <label class="form-check-label" for="checkbox_settingsshowVisits">{t('label_show_visit')}</label>
+      </div>
+      <div class="mb-3 form-check">
+        <input type="checkbox" class="form-check-input" id="checkbox_settingsshowBooking" name="showBooking" />
+        <label class="form-check-label" for="checkbox_settingsshowBooking">{t('label_show_booking')}</label>
+      </div>
+    </Form>
+  </>
+}
+
+
+/* EventModal */
+const EventModal = ({ id, itemId, type }) => {
+  const { t } = useTranslation()
+
+  useEffect(() => {
+    if (!itemId) {
+      setForm(document.getElementById(`form_${id}`), { type: type })
+      return
+    }
+    
+    const searchParams = new URLSearchParams({ id: itemId })
+    axios.get(`api/scheduled?${searchParams.toString()}`).then(response => {
+      setForm(document.getElementById(`form_${id}`), response.data)
+      console.debug(response.data)
+    })
+  }, [itemId])
+
+  const handleSubmit = (form) => {
+    axios.post(!itemId ? 'api/scheduled-cd' : 'api/scheduled', form, { headers: { 'Content-Type': 'multipart/form-data' }}).then(response => {
+      //form.reset()
+      console.debug(response.data)
+    })
+  }
+
+  return <ModalForm id={id} title="label_scheduled" onSubmit={handleSubmit}>
+  <InputText name="description" label={t('label_description')} formId={id} help={t('help_description')} />
+  <div class="">
+    <label for={`date_${id}scheduled`}>{t('label_date')}</label>
+    <input type="datetime-local" class="form-control" id={`date_${id}scheduled`} aria-describedby={`help_${id}scheduled`} name="scheduled" />
+    <div id={`help_${id}scheduled`} class="form-text">{t('help_scheduled')}</div>
+  </div>
+  <div class="">
+    <label for={`number_${id}value`}>{t('label_donation')}</label>
+    <input type="number" min="10.00" max="500" step="0.01" class="form-control" id={`number_${id}value`} aria-describedby={`help_${id}value`} name="value" />
+    <div id={`help_${id}value`} class="form-text">{t('help_value')}</div>
+  </div>
+  <InputText name="notes" label={t('label_notes')} formId={id} help={t('help_notes')} />
+  <input type="hidden" name="id" value={itemId} />
+  <input type="hidden" name="type" />
+</ModalForm>
+}
+
+
+/* Manage */
+const Manage = () => {
+  const navigate = useNavigate()
+  const { t } = useTranslation()
+  const dispatch = useDispatch()
+  
+  const [tenant, setTenant] = useState(useSelector(state => state.tenant))
+  const [selectedTab, setSelectedTab] = useState('dashboardLink')
+
+  useEffect(() => {
+    axios.get('api/signin').then(response => {
+      if (!response.data || response.data.length > 99 || response.data.includes(';')) {
+        dispatch(tenantSet(undefined))
+        setTenant(undefined)
+        navigate('/signin')
+      }
+      else {
+        dispatch(tenantSet(response.data))
+        setTenant(response.data)
+      }
+      console.debug(response.data)
+    })
+  }, [])
+
+  const handleSignout = () => {
+    event.preventDefault()
+    
+    axios.get('api/signin-cd').then(response => {
+      dispatch(tenantSet(undefined))
+      setTenant(undefined)
+      navigate('/signin')
+      console.debug(response.data)
+    })
+  }
+
+  const handleSwitchTab = (event) => {
+    event.preventDefault()
+    
+    setSelectedTab(event.target.id)
+  }
+
+  const DisplayTab = () => {
+    if ('dashboardLink' === selectedTab) {
+      return <Dashboard />
+    }
+    else if ('currentWeekLink' === selectedTab) {
+      return <CurrentWeek date={ datePart() } type="eucharystia" />
+    }
+    else if ('nextWeekLink' === selectedTab) {
+      const nextWeek = new Date()
+      nextWeek.setDate(nextWeek.getDate() + 7)
+      return <CurrentWeek date={ datePart(nextWeek) } type="eucharystia" />
+    }
+    else if ('yearLink' === selectedTab) {
+      return <Weeks />
+    }
+    else if ('orderLink' === selectedTab) {
+      return <CurrentWeek type="eucharystia" />
+    }
+    else if ('departureLink' === selectedTab) {
+      return <CurrentWeek date={ datePart() } type="departure" />
+    }
+    else if ('visitLink' === selectedTab) {
+      return <Visit />
+    }
+    else if ('confirmationLink' === selectedTab) {
+      return <Confirmation />
+    }
+    else if ('settingsLink' === selectedTab) {
+      return <Settings />
+    }
+    return <></>
+  }
+  
+  return !tenant ? <></> : <>
+    <header class="navbar sticky-top bg-dark flex-md-nowrap p-0 shadow" data-bs-theme="dark">
+      <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6 text-white" href={`https://parafia.wlap.pl/#/${tenant}`}>{`${t('label_tenant')}: ${tenant}`}</a>
+      <ul class="navbar-nav flex-row d-md-none">
+        <li class="nav-item text-nowrap">
+          <button class="nav-link px-3 text-white" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label={t('label_toggle_navigation')}>
+            <i class="bi bi-list"></i>
+          </button>
+        </li>
+      </ul>
+    </header>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="sidebar border border-right col-md-3 col-lg-2 p-0 bg-body-tertiary">
+          <div class="offcanvas-md offcanvas-end bg-body-tertiary" tabindex="-1" id="sidebarMenu" aria-labelledby="sidebarMenuLabel">
+            <div class="offcanvas-header">
+              <h5 class="offcanvas-title" id="sidebarMenuLabel">{`${t('label_tenant')}: ${tenant}`}</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#sidebarMenu" aria-label={t('label_close')}></button>
+            </div>
+            <div class="offcanvas-body d-md-flex flex-column p-0 pt-lg-3 overflow-y-auto">
+              <ul class="nav flex-column">
+                <li class="nav-item">
+                  <a class="nav-link d-flex align-items-center gap-2 active" aria-current="page" href="#" onClick={handleSwitchTab} id="dashboardLink"><i class="bi bi-house-fill"></i> {t('label_dashboard')} </a>
+                </li>
+              </ul>
+              <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-body-secondary text-uppercase">
+                <span>{t('label_scheduled_event')}</span>
+                <a class="link-secondary" href="#" aria-label={t('label_add_scheduled')} data-bs-toggle="modal" data-bs-target="#newScheduledModal">
+                  <i class="bi bi-plus-circle"></i>
+                </a>
+              </h6>
+              <ul class="nav flex-column mb-auto">
+                <li class="nav-item">
+                  <a class="nav-link d-flex align-items-center gap-2" href="#" id="currentWeekLink" onClick={handleSwitchTab}><i class="bi bi-file-earmark-text"></i> {t('label_current_week')} </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link d-flex align-items-center gap-2" href="#" id="nextWeekLink" onClick={handleSwitchTab}><i class="bi bi-file-earmark-text"></i> {t('label_next_week')} </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link d-flex align-items-center gap-2" href="#" id="yearLink" onClick={handleSwitchTab}><i class="bi bi-file-earmark-text"></i> {t('label_year')} </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link d-flex align-items-center gap-2" href="#" id="orderLink" onClick={handleSwitchTab}><i class="bi bi-file-earmark-text"></i> {t('label_order')} </a>
+                </li>
+              </ul>
+              <hr class="my-3" />
+              <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-body-secondary text-uppercase">
+                <span>{t('label_visit')}</span>
+                <a class="link-secondary" href="#" aria-label={t('label_add_visit')} data-bs-toggle="modal" data-bs-target="#newVisitModal">
+                  <i class="bi bi-plus-circle"></i>
+                </a>
+              </h6>
+              <ul class="nav flex-column mb-auto">
+                <li class="nav-item">
+                  <a class="nav-link d-flex align-items-center gap-2" href="#" id="visitLink" onClick={handleSwitchTab}><i class="bi bi-file-earmark-text"></i> {t('label_visit')} </a>
+                </li>
+              </ul>
+              <hr class="my-3" />
+              <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-body-secondary text-uppercase">
+                <span>{t('label_departure')}</span>
+                <a class="link-secondary" href="#" aria-label={t('label_add_departure')} data-bs-toggle="modal" data-bs-target="#newDepartureModal">
+                  <i class="bi bi-plus-circle"></i>
+                </a>
+              </h6>
+              <ul class="nav flex-column mb-auto">
+                <li class="nav-item">
+                  <a class="nav-link d-flex align-items-center gap-2" href="#" id="departureLink" onClick={handleSwitchTab}><i class="bi bi-file-earmark-text"></i> {t('label_departure')} </a>
+                </li>
+              </ul>
+              <hr class="my-3" />
+              <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-body-secondary text-uppercase">
+                <span>{t('label_confirmation')}</span>
+                <a class="link-secondary" href="#" aria-label={t('label_add_confirmation')} data-bs-toggle="modal" data-bs-target="#newConfirmationModal">
+                  <i class="bi bi-plus-circle"></i>
+                </a>
+              </h6>
+              <ul class="nav flex-column mb-auto">
+                <li class="nav-item">
+                  <a class="nav-link d-flex align-items-center gap-2" href="#" id="confirmationLink" onClick={handleSwitchTab}><i class="bi bi-file-earmark-text"></i> {t('label_confirmation')} </a>
+                </li>
+              </ul>
+              <hr class="my-3" />
+              <ul class="nav flex-column mb-auto">
+                <li class="nav-item">
+                  <a class="nav-link d-flex align-items-center gap-2" href="#" id="settingsLink" onClick={handleSwitchTab}><i class="bi bi-gear-wide-connected"></i> {t('label_settings')} </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link d-flex align-items-center gap-2" href="#" id="signoutLink" onClick={handleSignout}><i class="bi bi-door-closed"></i> {t('label_signout')} </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+          <DisplayTab />
+        </main>
+      </div>
+    </div>
+    <EventModal id="newScheduledModal" type="eucharystia" />
+    <EventModal id="newDepartureModal" type="departure" />
+    <VisitModal id="newVisitModal" />
+  </>
+}
+
+
+/* Signin */
+const Signin = () => {
+  const navigate = useNavigate()
+  const { t } = useTranslation()
+  const dispatch = useDispatch()
+  const [signinFailure, setSigninFailure] = useState(false)
+
+  useEffect(() => {
+    axios.get('api/signin').then(response => {
+      if (response.data && !response.data.includes(';')) {
+        dispatch(tenantSet(response.data))
+        navigate('/manage')
+      }
+      console.debug(response.data)
+    })
+  }, [])
+
+  const handleSubmit = (event) => {
+    event.preventDefault()
+    
+    setSigninFailure(false)
+    const form = document.getElementById('form_signin')
+    axios.post('api/signin', form).then(response => {
+      if (response.data.length > 0) {
+        navigate('/manage')
+      }
+      else {
+        setSigninFailure(true)
+      }
+    })
+
+    event.stopPropagation()
+  }
+  
+  return <div class="d-flex align-items-center py-4 bg-body-tertiary">
+    <main class="form-signin w-100 m-auto" style={{maxWidth: '330px', padding: '1rem'}}>
+      <div class="alert alert-info" role="alert">
+        <h4 class="alert-heading">{t('label_try_title')}</h4>
+        <p>{t('label_try_description')}</p>
+        <hr />
+        <p class="mb-0">{t('label_try_footer')}</p>
+      </div>
+      {signinFailure && <div class="alert alert-danger" role="alert">{t('label_signin_failure')}</div>}
+      <form id="form_signin" enctype="multipart/form-data" onSubmit={handleSubmit}>
+        <h1 class="h3 mb-3 fw-normal">{t('label_please_sign_in')}</h1>
+        <div class="form-floating">
+          <input type="text" class="form-control" id="floatingInput" placeholder="demo" name="tenant" />
+          <label for="floatingInput">{t('label_tenant')}</label>
+        </div>
+        <div class="form-floating">
+          <input type="password" class="form-control" id="floatingPassword" placeholder={t('label_password')} name="password" />
+          <label for="floatingPassword">{t('label_password')}</label>
+        </div>
+        <div class="form-check text-start my-3">
+          <input class="form-check-input" type="checkbox" value="remember-me" id="checkDefault" />
+          <label class="form-check-label" for="checkDefault">{t('label_remember_me')}</label>
+        </div>
+        <button class="btn btn-primary w-100 py-2" type="submit">{t('label_sign_in')}</button>
+        <p class="mt-5 mb-3 text-body-secondary">{t('label_copyright')}</p>
+      </form>
+    </main>
+  </div>
+}
+
+
+/* Reader */
+const Reader = () => {
+  const { t } = useTranslation()
+  
+  const [currentWeek, setCurrentWeek] = useState([])
+  const [contact, setContact] = useState()
+  const [departure, setDeparture] = useState([])
+  const [settings, setSettings] = useState()
+  const [visit, setVisit] = useState([])
+
+  const { tenant } = useParams()
+  const { locale, setNotification } = usePreferences()
+
+  const dayOfWeek = [
+    { order: '2', name: t('label_monday')}, 
+    { order: '3', name: t('label_tuesday')}, 
+    { order: '4', name: t('label_wednesday')}, 
+    { order: '5', name: t('label_thursday')}, 
+    { order: '6', name: t('label_friday')}, 
+    { order: '7', name: t('label_saturday')}, 
+    { order: '1', name: t('label_sunday')}
+  ]
+
+  const handleSubmit = (event) => {
+    event.preventDefault()
+
+    const form = document.getElementById('form_order')
+    axios.post('api/scheduled-cd', form, { headers: { 'Content-Type': 'multipart/form-data' }}).then(response => {
+      form.reset()
+      setNotification(response.data)
+    })
+    
+    event.stopPropagation()
+  }
+
+  const handleBook = (event) => {
+    event.preventDefault()
+
+    const form = document.getElementById('form_book')
+    axios.post('api/visit-cd', form, { headers: { 'Content-Type': 'multipart/form-data' }}).then(response => {
+      form.reset()
+      setNotification(response.data)
+    })
+    
+    event.stopPropagation()
+  }
+
+  useEffect(() => {
+    const searchParams = new URLSearchParams({ tenant: tenant })
+    axios.get(`api/contact?${searchParams.toString()}`).then(response => {
+      setContact(response.data)
+      console.debug(response.data)
+    })
+    axios.get(`api/settings?${searchParams.toString()}`).then(response => {
+      setSettings(response.data)
+      console.debug(response.data)
+    })
+    axios.get(`api/visit?${searchParams.toString()}`).then(response => {
+      setVisit(response.data)
+      console.debug(response.data)
+    })
+    const postWeek = (viewType: String) => {
+      return {
+        tenant: tenant,
+        type: viewType,
+        today: datePart()
+      }
+    }
+    axios.post('api/scheduled-week', postWeek("eucharystia"), { headers: { 'Content-Type': 'multipart/form-data' }}).then(response => {
+      setCurrentWeek(response.data)
+      console.debug(response.data)
+    })
+    axios.post('api/scheduled-week', postWeek("departure"), { headers: { 'Content-Type': 'multipart/form-data' }}).then(response => {
+      setDeparture(response.data)
+      console.debug(response.data)
+    })
+  }, [tenant])
+
+  return <>
+    <header>
+      <div class=" text-bg-dark collapse" id="navbarToggleExternalContent" data-bs-theme="dark">
+        <div class="container">
+          <div class="row">
+            <div class="col-sm-8 col-md-7 py-4">
+              <h4>{t('label_contact_title')}</h4>
+              <p class="text-body-secondary">{`${contact?.street} ${contact?.number}`}</p>
+              <p class="text-body-secondary">{`${contact?.city} ${contact?.postalcode}`}</p>
+              <p class="text-body-secondary">{`${t('label_phone')}: ${contact?.phone}`}</p>
+              <p class="text-body-secondary">{`${t('label_iban')}: ${contact?.iban}`}</p>
+            </div>
+            <div class="col-sm-4 offset-md-1 py-4">
+              <h4>{t('label_contact_subtitle')}</h4>
+              <ul class="list-unstyled">
+                <li><a href={`mailto:${contact?.email}`} class="text-white">{t('label_emailus')}</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="navbar navbar-dark bg-dark shadow-sm">
+        <div class="container">
+          <a class="navbar-brand d-flex align-items-center"><strong>{`${t('label_tenant')}: ${contact?.description}`}</strong></a>
+          <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse"
+            data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent"
+            aria-expanded="false" aria-label={t('label_toggle_navigation')}>
+            <span class="navbar-toggler-icon"></span>
+          </button>
+        </div>
+      </div>
+    </header>
+    <main>
+      <div class="container">
+        <h1 class="text-body-emphasis">{t('label_reader_header')}</h1>
+        <p class="fs-5 col-md-8 mb-5">{`${t('label_reader_description')}:${settings?.schedule}`}</p>
+        <hr class="col-3 col-md-2 mb-5"></hr>
+        <div class="accordion" id="accordionExample">
+          <AccordionItem id="scheduled" parent="accordionExample" show={true}>
+            <Table columns={['#', t('label_day'), t('label_description')]}>
+              { dayOfWeek.map((e, i) => <tr>
+                <td>{i + 1}</td>
+                <td>{e.name}</td>
+                <td>{ currentWeek.filter(f => f.dayOfWeek === e.order).map(g => <p>{`${g.time} ${g.description}`}</p>) }</td>
+              </tr>) }
+            </Table>
+          </AccordionItem>
+          <AccordionItem id="order" parent="accordionExample">
+            <Form id="form_order" legend="label_order" onSubmit={handleSubmit}>
+              <InputText name="description" label={t('label_description')} className="mb-3" formId="order" />
+              <InputText name="notes" label={t('label_from')} className="mb-3" formId="order" />
+              <input type="hidden" name="tenant" value={tenant} />
+              <input type="hidden" name="type" value="eucharystia" />
+            </Form>
+          </AccordionItem>
+          <AccordionItem id="announcements" parent="accordionExample"></AccordionItem>
+          <AccordionItem id="departure" parent="accordionExample">
+            <Table columns={['#', t('label_date'), t('label_description')]}>
+              { departure.map((e, i) => <tr>
+                <td>{i + 1}</td>
+                <td><DateFormatter timestamp={e.scheduled} locale={locale} /></td>
+                <td>{e.description}</td>
+              </tr>) }
+            </Table>
+          </AccordionItem>
+          { !!settings?.showVisits && <AccordionItem id="visit" parent="accordionExample">
+            <Table columns={['#', t('label_firstname'), t('label_surname'), t('label_street'), t('label_number'), t('label_city'), t('label_donation'), t('label_date')]}>
+              { visit.map((e, i) => <tr>
+                <td>{i + 1}</td>
+                <td>{e.firstname}</td>
+                <td>{e.surname}</td>
+                <td>{e.street}</td>
+                <td>{e.number}</td>
+                <td>{e.city}</td>
+                <td><NumberFormatter value={e.donation} locale={locale} /></td>
+                <td><DateFormatter timestamp={e.created} locale={locale} format="date" /></td>
+              </tr>) }
+            </Table>
+          </AccordionItem> }
+          { !!settings?.showBooking && <AccordionItem id="book" parent="accordionExample">
+            <Form id="form_book" legend="label_book" enctype="multipart/form-data" onSubmit={handleBook}>
+              <InputText name="firstname" label={t('label_firstname')} className="mb-3" formId="book" />
+              <InputText name="surname" label={t('label_surname')} className="mb-3" formId="book" />
+              <InputText name="street" label={t('label_street')} className="mb-3" formId="book" />
+              <InputText name="number" label={t('label_number')} className="mb-3" formId="book" />
+              <InputText name="city" label={t('label_city')} className="mb-3" formId="book" />
+              <input type="hidden" name="tenant" value={tenant} />
+            </Form>
+          </AccordionItem> }
+        </div>
+      </div>
+    </main>
+    <footer class="text-body-secondary py-5">
+      <div class="container">
+        <p class="float-end mb-1">
+          <a href={`#/${tenant}`}>{t('label_backtotop')}</a>
+        </p>
+        <p class="mb-1">{t('label_copyright')}</p>
+        <p class="mb-0"><a href="/">{t('label_home')}</a></p>
+      </div>
+    </footer>
+  </>
+}
+
+
+/* Selected */
+const Selected = () => {
+  const { name } = useParams()
+  const navigate = useNavigate()
+  const { t } = useTranslation()
+  const dispatch = useDispatch()
+
+  const translate = 'https://translate.google.com/translate?js=n&sl=pl&tl=en&u='
+
+  const handleBack = (event) => {
+    event.preventDefault()
+    
+    navigate(-1)
+  }
+
+  const handleSelect = (event) => {
+    event.preventDefault()
+    
+    dispatch(selectedAdded(name))
+  }
+
+  const selected = clients.clients.find(i => i.name === name)
+
+  const urls = 'pl' === store.getState().lang ? selected : {
+    ...selected,
+    schedule: `${translate}${selected.schedule}`,
+    announcement: `${translate}${selected.announcement}`,
+    contact: `${translate}${selected.contact}`
+  }
+
+  const saved = name === store.getState().value
+
+  return <>
+  <Navi current="selected" />
+  <div class="container">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="#" onClick={handleBack}> {t('button_back')} </a></li>
+        {selected && <li class="breadcrumb-item active" aria-current="page">{selected.name}</li>}
+      </ol>
+    </nav>
+    { selected ? <div class="list-group">
+      <a href={urls.schedule} rel="external" class="list-group-item list-group-item-action">{t('list_schedule')}</a>
+      <a href={urls.announcement} rel="external" class="list-group-item list-group-item-action">{t('list_announcement')}</a>
+      <a href={urls.contact} rel="external" class="list-group-item list-group-item-action">{t('list_contact')}</a>
+      { selected.other && <a href={selected.other} rel="external" class="list-group-item list-group-item-action">{t('list_other')}</a> }
+      { selected.live && <a href={selected.live} rel="external" class="list-group-item list-group-item-action">{t('list_live')}</a> }
+      <a href={`https://www.openstreetmap.org/directions?from=&to=${selected.latitude}%2C${selected.longitude}`} rel="external" class="list-group-item list-group-item-action">{t('list_directions')}</a>
+      { !saved && <a href="#" onClick={handleSelect} class="list-group-item list-group-item-action">{t('list_select')}</a> }
+    </div> : <p>{t('label_missing')}</p> }
+  </div>
+</>
+}
+
+
+/* List */
+const List = () => {
+  const navigate = useNavigate()
+  const { t } = useTranslation()
+  const all = getClients()
+
+  const [filtered, setFiltered] = useState(all)
+  const [query, setQuery] = useState('')
+  const [active, setActive] = useState(false)
+  const [live, setLive] = useState(false)
+
+  useEffect(() => {
+    let preFiltered = all
+    if (active) {
+      preFiltered = preFiltered.filter(i => !!i.incoming)
+      preFiltered.sort((a, b) => a.incoming.localeCompare(b.incoming))
+    }
+    if (live) {
+      preFiltered = preFiltered.filter(i => (true === i.live) && !!i.incoming)
+      preFiltered.sort((a, b) => a.incoming.localeCompare(b.incoming))
+    }
+    setFiltered(2 < query.length ? preFiltered.filter(i => i.name.toLowerCase().includes(query)) : preFiltered)
+  }, [query, active, live])
+
+  const handleClick = (name: String) => navigate(`/selected/${name}`)
+
+  const handleFilter = (event) => setQuery(event.target.value.toLowerCase().trim())
+
+  const handleSwitchLive = (event) => setLive(!live)
+
+  const handleSwitchActive = (event) => setActive(!active)
+
+  return <>
+  <Navi current="list" />
+  <div class="container">
+    <form class="form-inline my-2">
+      <input class="form-control mr-sm-2" type="search" name="search" placeholder={t('label_search')} aria-label="Search" onKeyUp={handleFilter} />
+      <div class="form-check form-switch">
+        <input type="checkbox" class="form-check-input" id="switchLive" onChange={handleSwitchLive} />
+        <label class="form-check-label" for="switchLive">{t('label_live')}</label>
+      </div>
+      <div class="form-check form-switch">
+        <input type="checkbox" class="form-check-input" id="switchActive" onChange={handleSwitchActive} />
+        <label class="form-check-label" for="switchActive">{t('label_active')}</label>
+      </div>
+    </form>
+    <div class="list-group">
+      { filtered.map(i => <a onClick={() => handleClick(i.name)} className="list-group-item list-group-item-action d-flex justify-content-between align-tems-start">
+        <div className="ms-2 me-auto">{i.name}</div>
+        <span class={`badge text-bg-${i.live ? 'danger' : 'primary'}`}>{i.incoming}</span>
+      </a>) }
+    </div>
+  </div>
+</>
+}
+
+
+/* Navi */
+const Navi = ({ current }) => {
+  const { t } = useTranslation()
+  const navigate = useNavigate()
+
+  const [count, setCount] = useState(0)
+
+  useEffect(() => {
+    document.title = t('title_app')
+
+    axios.get('api/statistics').then(response => {
+      setCount(response.data.count)
+      console.debug(response.data)
+    })
+  }, [])
+
+  const selected = clients.clients.find(i => i.name === store.getState().value)
+  
+  const handleInstall = (event) => {
+    event.preventDefault()
+    
+    if (installPrompt) {
+      installPrompt.prompt()
+    }
+    else {
+      window.location.href = 'https://wlap.pl/howto/'
+    }
+
+    event.stopPropagation()
+  }
+
+  return <div class="navbar navbar-expand-md">
+  <div class="container">
+    <h1 class="visually-hidden">{t('title_app')}</h1>
+    <div class="navbar-brand"><img src="https://raw.githubusercontent.com/wojtekl/google-play/refs/heads/main/myparish/MojaParafia/app/src/main/res/mipmap-mdpi/ic_launcher_round.webp" width="30px" height="30px" alt="" />{t('title_app')}</div>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#basic-navbar-nav" aria-controls="basic-navbar-nav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="basic-navbar-nav">
+      <div className="navbar-nav me-auto">
+        { selected && 'selected' != current && <div class="nav-item"><a class="nav-link" href={`#/selected/${selected.name}`}>{t('nav_your')}</a></div> }
+        { 'map' != current && <div class="nav-item"><a class="nav-link" aria-current="page" href="#/">{t('nav_map')}</a></div> }
+        { 'list' != current && <div class="nav-item"><a class="nav-link" href="#/list">{t('nav_list')}</a></div> }
+        <div class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">{t('nav_news')}</a>
+          <ul class="dropdown-menu">
+            <li><p class="dropdown-item">{t('label_views')}{count}</p></li>
+            <li><a href="https://m.niedziela.pl/" rel="external" class="dropdown-item">Niedziela</a></li>
+            <li><a href="https://www.gosc.pl/mobile" rel="external" class="dropdown-item">Gość Niedzielny</a></li>
+            <li><a href="https://rycerzniepokalanej.pl/" rel="external" class="dropdown-item">Rycerz Niepokalanej</a></li>
+            <li><a href="https://biblia.deon.pl/" rel="external" class="dropdown-item">Biblia Tysiąclecia</a></li>
+            <li><a href={t('url_privacy')} rel="privacy-policy" class="dropdown-item">{t('nav_privacy')}</a></li>
+            <li><a href="https://wlap.pl/" rel="author" class="dropdown-item">{t('nav_aboutus')}</a></li>
+            <li><a href="https://cennik.wlap.pl/" rel="external" class="dropdown-item">Historia cen produktów spożywczych w marketach</a></li>
+          </ul>
+        </div>
+        <div class="nav-item"><a class="nav-link link-danger" href="#" onClick={handleInstall}>{t('nav_install')}</a></div>
+        <div class="nav-item"><a class="nav-link" href="#/manage">{t('nav_manage')}</a></div>
+      </div>
+    </div>
+  </div>
+</div>
+}
+
+
+/* App */
+const App = () => {
+  const { t } = useTranslation()
+
+  useEffect(() => {
+  }, [])
+
+  return <>
+  <Navi current="map" />
+  <div class="container"></div>
+</>
+}
+
+
+/* Preferences */
+const PreferencesContext = createContext()
+const Preferences = ({ children }) => {
+  const [notification, setNotification] = useState('')
+  
+  const locale = (getUrlParam('lang') ?? navigator.language.substring(3)).toLocaleLowerCase()
+
+  return <PreferencesContext.Provider value={{ locale, setNotification }}>
+  {children}
+  <Toast message={notification} onClose={() => setNotification('')} />
+</PreferencesContext.Provider>
+}
+const usePreferences = () => useContext(PreferencesContext)
+
+
+const container = document.getElementById('root')
+const root = createRoot(container)
+root.render(<Provider store={store}>
+  <Preferences>
+  <Router>
+    <Routes>
+      <Route path="/" element={<App />} />
+      <Route path="selected/:name" element={<Selected />} />
+      <Route path="list" element={<List />} />
+      <Route path="manage" element={<Manage />} />
+      <Route path="signin" element={<Signin />} />
+      <Route path="password" element={<Password />} />
+      <Route path=":tenant" element={<Reader />} />
+    </Routes>
+  </Router>
+  </Preferences>
+</Provider>)
