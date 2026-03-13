@@ -1098,8 +1098,6 @@ const Selected = () => {
     dispatch(selectedAdded(name))
   }
 
-  const selected = clients.clients.find(i => i.name === name)
-
   const urls = 'pl' === store.getState().lang ? selected : {
     ...selected,
     schedule: `${translate}${selected.schedule}`,
