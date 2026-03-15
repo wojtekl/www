@@ -660,7 +660,7 @@ const Manage = () => {
   const [selectedTab, setSelectedTab] = useState('dashboardLink')
 
   useEffect(() => {
-    axios.get('api/signin').then(response => {
+    axios.get('parafia.wlap.pl/api/signin').then(response => {
       if (!response.data || response.data.length > 99 || response.data.includes(';')) {
         dispatch(tenantSet(undefined))
         setTenant(undefined)
@@ -677,7 +677,7 @@ const Manage = () => {
   const handleSignout = () => {
     event.preventDefault()
     
-    axios.get('api/signin-cd').then(response => {
+    axios.get('parafia.wlap.pl/api/signin-cd').then(response => {
       dispatch(tenantSet(undefined))
       setTenant(undefined)
       navigate('/signin')
@@ -837,7 +837,7 @@ const Signin = () => {
   const [signinFailure, setSigninFailure] = useState(false)
 
   useEffect(() => {
-    axios.get('api/signin').then(response => {
+    axios.get('parafia.wlap.pl/api/signin').then(response => {
       if (response.data && !response.data.includes(';')) {
         dispatch(tenantSet(response.data))
         navigate('/manage')
@@ -851,7 +851,7 @@ const Signin = () => {
     
     setSigninFailure(false)
     const form = document.getElementById('form_signin')
-    axios.post('api/signin', form).then(response => {
+    axios.post('parafia.wlap.pl/api/signin', form).then(response => {
       if (response.data.length > 0) {
         navigate('/manage')
       }
