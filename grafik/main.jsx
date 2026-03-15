@@ -200,7 +200,7 @@ const Password = () => {
     axios.post('api/signin-cd', form, { headers: { 'Content-Type': 'multipart/form-data' }}).then(response => {
       if (response.data) {
         navigate('/signin')
-        window.history.replaceState({}, document.title, 'https://parafia.wlap.pl/#/signin')
+        window.history.replaceState({}, document.title, 'https://grafik.wlap.pl/#/signin')
       }
       console.debug(response.data)
     })
@@ -660,7 +660,7 @@ const Manage = () => {
   const [selectedTab, setSelectedTab] = useState('dashboardLink')
 
   useEffect(() => {
-    axios.get('https://parafia.wlap.pl/api/signin').then(response => {
+    axios.get('/api/signin').then(response => {
       if (!response.data || response.data.length > 99 || response.data.includes(';')) {
         dispatch(tenantSet(undefined))
         setTenant(undefined)
@@ -677,7 +677,7 @@ const Manage = () => {
   const handleSignout = () => {
     event.preventDefault()
     
-    axios.get('https://parafia.wlap.pl/api/signin-cd').then(response => {
+    axios.get('/api/signin-cd').then(response => {
       dispatch(tenantSet(undefined))
       setTenant(undefined)
       navigate('/signin')
@@ -726,7 +726,7 @@ const Manage = () => {
   
   return !tenant ? <></> : <>
     <header class="navbar sticky-top bg-dark flex-md-nowrap p-0 shadow" data-bs-theme="dark">
-      <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6 text-white" href={`https://parafia.wlap.pl/#/${tenant}`}>{`${t('label_tenant')}: ${tenant}`}</a>
+      <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6 text-white" href={`https://grafik.wlap.pl/#/${tenant}`}>{`${t('label_tenant')}: ${tenant}`}</a>
       <ul class="navbar-nav flex-row d-md-none">
         <li class="nav-item text-nowrap">
           <button class="nav-link px-3 text-white" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label={t('label_toggle_navigation')}>
@@ -837,7 +837,7 @@ const Signin = () => {
   const [signinFailure, setSigninFailure] = useState(false)
 
   useEffect(() => {
-    axios.get('https://parafia.wlap.pl/api/signin').then(response => {
+    axios.get('/api/signin').then(response => {
       if (response.data && !response.data.includes(';')) {
         dispatch(tenantSet(response.data))
         navigate('/manage')
@@ -851,7 +851,7 @@ const Signin = () => {
     
     setSigninFailure(false)
     const form = document.getElementById('form_signin')
-    axios.post('https://parafia.wlap.pl/api/signin', form).then(response => {
+    axios.post('/api/signin', form).then(response => {
       if (response.data.length > 0) {
         navigate('/manage')
       }
