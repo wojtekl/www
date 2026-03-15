@@ -840,7 +840,7 @@ const Signin = () => {
     axios.get('/api/signin').then(response => {
       if (response.data && !response.data.includes(';')) {
         dispatch(tenantSet(response.data))
-        navigate('/manage')
+        navigate('/')
       }
       console.debug(response.data)
     })
@@ -853,7 +853,7 @@ const Signin = () => {
     const form = document.getElementById('form_signin')
     axios.post('/api/signin', form).then(response => {
       if (response.data.length > 0) {
-        navigate('/manage')
+        navigate('/')
       }
       else {
         setSigninFailure(true)
