@@ -1015,7 +1015,7 @@ const Reader = () => {
               { dayOfWeek.map((e, i) => <tr>
                 <td>{i + 1}</td>
                 <td>{e.name}</td>
-                <td>{ currentWeek.filter(f => f.dayOfWeek === e.order).map(g => <p>{`${g.time} ${g.description}`}</p>) }</td>
+                <td>{ !currentWeek ? '' : currentWeek.filter(f => f.dayOfWeek === e.order).map(g => <p>{`${g.time} ${g.description}`}</p>) }</td>
               </tr>) }
             </Table>
           </AccordionItem>
