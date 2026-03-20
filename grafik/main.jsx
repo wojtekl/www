@@ -286,85 +286,6 @@ const Confirmation = () => {
 }
 
 
-/* VisitModal */
-const VisitModal = ({ id }) => {
-  const { t } = useTranslation()
-
-  const handleSubmit = (form) => {
-    axios.post('api/visit-cd', form, { headers: { 'Content-Type': 'multipart/form-data' }}).then(response => {
-      //form.reset()
-      console.debug(response.data)
-    })
-  }
-
-  return <ModalForm id={id} title="label_visit" onSubmit={handleSubmit}>
-  <InputText name="firstname" label={t('label_firstname')} formId={id} help={t('help_firstname')} />
-  <InputText name="surname" label={t('label_surname')} formId={id} help={t('help_surname')} />
-  <InputText name="street" label={t('label_street')} formId={id} help={t('help_street')} />
-  <InputText name="number" label={t('label_number')} formId={id} help={t('help_number')} />
-  <InputText name="city" label={t('label_city')} formId={id} help={t('help_city')} />
-  <div>
-    <label for={`input_${id}donation`}>{t('label_donation')}</label>
-    <input type="number" min="10.00" max="500" step="0.01" class="form-control" id={`input_${id}donation`} aria-describedby={`help_${id}donation`} name="donation" />
-    <div id={`help_${id}donation`} class="form-text">{t('help_donation')}</div>
-  </div>
-</ModalForm>
-}
-
-
-/* Visit */
-const Visit = () => {
-  const { t } = useTranslation()
-  const [donations, setDonations] = useState([])
-  const [selected, setSelected] = useState()
-  const [refresh, setRefresh] = useState()
-
-  const tenant = useSelector(state => state.tenant)
-  const { locale, setNotification } = usePreferences()
-
-  useEffect(() => {
-    const searchParams = new URLSearchParams({ tenant: tenant })
-    axios.get(`api/visit?${searchParams.toString()}`).then(response => {
-      setDonations(response.data)
-      console.debug(response.data)
-    })
-    setRefresh(false)
-  }, [refresh])
-
-  return <>
-    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-      <h1 class="h2">{t('label_statistics')}</h1>
-      <div class="btn-toolbar mb-2 mb-md-0">
-        <div class="btn-group me-2">
-          <button type="button" class="btn btn-sm btn-outline-secondary">{t('label_refresh')}</button>
-        </div>
-      </div>
-    </div>
-    <h2>{t('label_visit')}</h2>
-    <Table columns={['#', t('label_firstname'), t('label_surname'), t('label_street'), t('label_number'), t('label_city'), t('label_donation'), t('label_date'), t('label_actions')]}>
-      { donations.map((e, i) => <tr>
-        <td>{i + 1}</td>
-        <td>{e.firstname}</td>
-        <td>{e.surname}</td>
-        <td>{e.street}</td>
-        <td>{e.number}</td>
-        <td>{e.city}</td>
-        <td><NumberFormatter value={e.donation} locale={locale} /></td>
-        <td><DateFormatter timestamp={e.created} locale={locale} format="date" /></td>
-        <td><button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#confirmModal" onClick={() => setSelected(e['id']) }><i class="bi bi-trash"></i></button></td>
-      </tr>)}
-    </Table>
-    <ConfirmModal title="label_delete" onOk={() => {
-      const searchParams = new URLSearchParams({ id: selected })
-      axios.get(`api/visit-cd?${searchParams.toString()}`).then(response => {
-        setRefresh(true)
-        setNotification('label_saved')
-      })
-    }} />
-  </>
-}
-
-
 /* Weeks */
 const Weeks = () => {
   const { t } = useTranslation()
@@ -712,12 +633,6 @@ const Manage = () => {
     else if ('departureLink' === selectedTab) {
       return <CurrentWeek date={ datePart() } type="departure" />
     }
-    else if ('visitLink' === selectedTab) {
-      return <Visit />
-    }
-    else if ('confirmationLink' === selectedTab) {
-      return <Confirmation />
-    }
     else if ('settingsLink' === selectedTab) {
       return <Settings />
     }
@@ -770,42 +685,6 @@ const Manage = () => {
                 </li>
               </ul>
               <hr class="my-3" />
-              <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-body-secondary text-uppercase">
-                <span>{t('label_visit')}</span>
-                <a class="link-secondary" href="#" aria-label={t('label_add_visit')} data-bs-toggle="modal" data-bs-target="#newVisitModal">
-                  <i class="bi bi-plus-circle"></i>
-                </a>
-              </h6>
-              <ul class="nav flex-column mb-auto">
-                <li class="nav-item">
-                  <a class="nav-link d-flex align-items-center gap-2" href="#" id="visitLink" onClick={handleSwitchTab}><i class="bi bi-file-earmark-text"></i> {t('label_visit')} </a>
-                </li>
-              </ul>
-              <hr class="my-3" />
-              <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-body-secondary text-uppercase">
-                <span>{t('label_departure')}</span>
-                <a class="link-secondary" href="#" aria-label={t('label_add_departure')} data-bs-toggle="modal" data-bs-target="#newDepartureModal">
-                  <i class="bi bi-plus-circle"></i>
-                </a>
-              </h6>
-              <ul class="nav flex-column mb-auto">
-                <li class="nav-item">
-                  <a class="nav-link d-flex align-items-center gap-2" href="#" id="departureLink" onClick={handleSwitchTab}><i class="bi bi-file-earmark-text"></i> {t('label_departure')} </a>
-                </li>
-              </ul>
-              <hr class="my-3" />
-              <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-body-secondary text-uppercase">
-                <span>{t('label_confirmation')}</span>
-                <a class="link-secondary" href="#" aria-label={t('label_add_confirmation')} data-bs-toggle="modal" data-bs-target="#newConfirmationModal">
-                  <i class="bi bi-plus-circle"></i>
-                </a>
-              </h6>
-              <ul class="nav flex-column mb-auto">
-                <li class="nav-item">
-                  <a class="nav-link d-flex align-items-center gap-2" href="#" id="confirmationLink" onClick={handleSwitchTab}><i class="bi bi-file-earmark-text"></i> {t('label_confirmation')} </a>
-                </li>
-              </ul>
-              <hr class="my-3" />
               <ul class="nav flex-column mb-auto">
                 <li class="nav-item">
                   <a class="nav-link d-flex align-items-center gap-2" href="#" id="settingsLink" onClick={handleSwitchTab}><i class="bi bi-gear-wide-connected"></i> {t('label_settings')} </a>
@@ -823,8 +702,6 @@ const Manage = () => {
       </div>
     </div>
     <EventModal id="newScheduledModal" type="eucharystia" />
-    <EventModal id="newDepartureModal" type="departure" />
-    <VisitModal id="newVisitModal" />
   </>
 }
 
