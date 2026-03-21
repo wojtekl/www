@@ -890,10 +890,13 @@ const Reader = () => {
           <AccordionItem id="event" parent="accordionExample" show={true}>
             <div class="row">
               { dayOfWeek.map((e, i) => 
-    <div class="col-sm-2">{e.name}</div>
-              { !currentWeek ? <div class="col-sm-12">puste</div> : currentWeek.filter(f => f.dayOfWeek === e.order).map(g => 
-                <div class={`col-sm-${g.period/2}`}>{`${g.time} ${g.description}`}</div>
-                ) }) }
+              <>
+                <div class="col-sm-2">{e.name}</div>
+                { !currentWeek ? <div class="col-sm-12">puste</div> : currentWeek.filter(f => f.dayOfWeek === e.order).map(g => 
+                  <div class={`col-sm-${g.period/2}`}>{`${g.time} ${g.description}`}</div>
+                ) }
+              </>
+              }
             </div>
           </AccordionItem>
           { !!settings?.showBooking && <AccordionItem id="book" parent="accordionExample">
