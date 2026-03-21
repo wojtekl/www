@@ -896,7 +896,7 @@ const Reader = () => {
                   <div class={`col-sm-${g.period/2}`}>{`${g.time} ${g.description}`}</div>
                 ) }
               </>
-              }
+              )}
             </div>
           </AccordionItem>
           { !!settings?.showBooking && <AccordionItem id="book" parent="accordionExample">
