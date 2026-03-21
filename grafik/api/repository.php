@@ -198,6 +198,40 @@ class Repository {
     
     return $this -> execute($statement);
   }
+  
+  public function createAssignement($eventId, $clientId) {
+    $statement = $this -> sql -> prepare("INSERT INTO `ASSIGNMENT` VALUES (0, :eventId, :clientId, 0, '', '', '', UTC_TIMESTAMP)");
+    
+    $statement -> bindParam(":eventId", $eventId);
+    $statement -> bindParam(":clientId", $clientId);
+    
+    return $this -> execute($statement);
+  }
+    
+  public function readAssignementByEventId($eventId) {
+    $statement = $this -> sql -> prepare("SELECT `ID`, `EVENT_ID`, `CLIENT_ID`, `ACCEPTED` FROM `ASSIGNEMENT` WHERE `EVENT_ID` = :eventId");
+    
+    $statement -> bindParam(":eventId", $eventId);
+    
+    return $this -> execute($statement);
+  }
+    
+  public function updateAssignement($id, $accepted) {
+    $statement = $this -> sql -> prepare("UPDATE `ASSIGNEMENT` SET `ACCEPTED` = :accepted WHERE `ID` = :id");
+    
+    $statement -> bindParam(":id", $id);
+    $statement -> bindParam(":accepted", $accepted);
+    
+    return $this -> execute($statement);
+  }
+  
+  public function deleteAssignement($id) {
+    $statement = $this -> sql -> prepare("DELETE FROM `ASSIGNEMENT` WHERE `ID` = :id");
+    
+    $statement -> bindParam(":id", $id);
+    
+    return $this -> execute($statement);
+  }
 }
 
 $repository = new Repository($SQL_HOST, $SQL_DATABASE, $SQL_USER, $SQL_PASSWORD);
