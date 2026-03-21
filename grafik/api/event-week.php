@@ -25,7 +25,7 @@
       $a_result = $repository -> readAssignementByEventId($e["ID"]);
       $assignement = "[";
       foreach ($a_result as $a) {
-        $assignement .= "{\"clientId\": ${a["CLIENT_ID"]},\"name\": ${a["NAME"]}}";
+        $assignement .= "{\"clientId\": ${a["CLIENT_ID"]},\"name\": \"${a["DISPLAYNAME"]}\"}";
       }
       $assignement .= "]";
       $assignement = (str_replace(",]", "]", $assignement));
