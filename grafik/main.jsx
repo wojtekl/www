@@ -777,9 +777,7 @@ const Reader = () => {
   
   const [currentWeek, setCurrentWeek] = useState([])
   const [contact, setContact] = useState()
-  const [departure, setDeparture] = useState([])
   const [settings, setSettings] = useState()
-  const [visit, setVisit] = useState([])
 
   const { tenant } = useParams()
   const { locale, setNotification } = usePreferences()
@@ -828,10 +826,6 @@ const Reader = () => {
       setSettings(response.data)
       console.debug(response.data)
     })
-    axios.get(`api/visit?${searchParams.toString()}`).then(response => {
-      setVisit(response.data)
-      console.debug(response.data)
-    })
     const postWeek = (viewType: String) => {
       return {
         tenant: tenant,
@@ -841,10 +835,6 @@ const Reader = () => {
     }
     axios.post('api/event-week', postWeek("eucharystia"), { headers: { 'Content-Type': 'multipart/form-data' }}).then(response => {
       setCurrentWeek(response.data)
-      console.debug(response.data)
-    })
-    axios.post('api/event-week', postWeek("departure"), { headers: { 'Content-Type': 'multipart/form-data' }}).then(response => {
-      setDeparture(response.data)
       console.debug(response.data)
     })
   }, [tenant])
@@ -889,13 +879,16 @@ const Reader = () => {
         <div class="accordion" id="accordionExample">
           <AccordionItem id="event" parent="accordionExample" show={true}>
             <div class="row">
-              { dayOfWeek.map((e, i) => 
-              <>
+              { dayOfWeek.map((e, i) => {
+              const currentDay = currentWeek.filter(f => f.dayOfWeek === e.order)
+              return <>
                 <div class="col-sm-2">{e.name}</div>
-                { !currentWeek ? <div class="col-sm-12">puste</div> : currentWeek.filter(f => f.dayOfWeek === e.order).map(g => 
+                { !currentDay ? <div class="col-sm-12">puste</div> : currentDay.map(g => 
                   <div class={`col-sm-${g.period/2}`}>{`${g.time} ${g.description}`}</div>
                 ) }
+                <div class="w-100"></div>
               </>
+              }
               )}
             </div>
           </AccordionItem>
