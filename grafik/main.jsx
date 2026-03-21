@@ -391,7 +391,7 @@ const CurrentWeek = ({ date, type }) => {
       <td>{i + 1}</td>
       <td><DateFormatter timestamp={e['starting']} locale={locale} /></td>
       <td>{e['description']}</td>
-      <td><NumberFormatter value={e['value']} locale={locale} /></td>
+      <td><NumberFormatter value={e['period']} locale={locale} /></td>
       <td>{e['notes']}</td>
       <td>
         <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#editEventModal" onClick={ () => setSelected(e['id']) }><i class="bi bi-pencil-square"></i></button>
@@ -560,9 +560,9 @@ const EventModal = ({ id, itemId, type }) => {
     <div id={`help_${id}starting`} class="form-text">{t('help_starting')}</div>
   </div>
   <div class="">
-    <label for={`number_${id}value`}>{t('label_period')}</label>
-    <input type="number" min="10.00" max="500" step="0.01" class="form-control" id={`number_${id}value`} aria-describedby={`help_${id}value`} name="value" />
-    <div id={`help_${id}value`} class="form-text">{t('help_value')}</div>
+    <label for={`number_${id}period`}>{t('label_period')}</label>
+    <input type="number" min="10.00" max="500" step="0.01" class="form-control" id={`number_${id}period`} aria-describedby={`help_${id}period`} name="period" />
+    <div id={`help_${id}period`} class="form-text">{t('help_period')}</div>
   </div>
   <InputText name="notes" label={t('label_notes')} formId={id} help={t('help_notes')} />
   <input type="hidden" name="id" value={itemId} />
