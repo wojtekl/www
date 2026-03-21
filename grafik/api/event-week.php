@@ -22,7 +22,15 @@
     $result = $repository -> readEvent($today, $tenant, $type);
     $toList = "[";
     foreach ($result as $e) {
-      $toList .= "{\"id\": \"${e["ID"]}\", \"description\": \"${e["DESCRIPTION"]}\", \"starting\": \"${e["STARTING"]}\", \"period\": \"${e["PERIOD"]}\", \"notes\": \"${e["NOTES"]}\", \"dayOfWeek\": \"${e["DAYOFWEEK"]}\", \"time\": \"${e["TIME"]}\", \"type\": \"${e["TYPE"]}\"},";
+      $a_result = $repository -> readAssignementByEventId($e["ID"]);
+      $assignement = "[";
+      foreach ($a_result as $a) {
+        $assignement .= "{\"clientId\": ${a["CLIENT_ID"]},\"name\": ${a["NAME"]}}";
+      }
+      $assignement .= "]";
+      $assignement = (str_replace(",]", "]", $assignement));
+        
+      $toList .= "{\"id\": \"${e["ID"]}\", \"description\": \"${e["DESCRIPTION"]}\", \"starting\": \"${e["STARTING"]}\", \"period\": \"${e["PERIOD"]}\", \"notes\": \"${e["NOTES"]}\", \"dayOfWeek\": \"${e["DAYOFWEEK"]}\", \"time\": \"${e["TIME"]}\", \"type\": \"${e["TYPE"]}\", \"assignement\": ${assignement}},";
     }
     $toList .= "]";
     echo(str_replace(",]", "]", $toList));
