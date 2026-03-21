@@ -28,24 +28,24 @@
       pot();
     }
     
-    $e = ($repository -> readScheduledById($id, $tenant))[0];
-    $toJson = "{\"description\": \"${e["DESCRIPTION"]}\", \"scheduled\": \"${e["SCHEDULED"]}\", \"value\": \"${e["VALUE"]}\", \"notes\": \"${e["NOTES"]}\", \"type\": \"${e["TYPE"]}\"}";
+    $e = ($repository -> readEventById($id, $tenant))[0];
+    $toJson = "{\"description\": \"${e["DESCRIPTION"]}\", \"starting\": \"${e["STARTING"]}\", \"period\": \"${e["PERIOD"]}\", \"notes\": \"${e["NOTES"]}\", \"type\": \"${e["TYPE"]}\"}";
     echo($toJson);
   }
 
   function post($repository, $tenant) {
     $description = trim($_POST["description"]);
-    $scheduled = trim($_POST["scheduled"]);
-    $value = trim($_POST["value"]);
+    $starting = trim($_POST["starting"]);
+    $period = trim($_POST["period"]);
     $type = trim($_POST["type"]);
     $notes = trim($_POST["notes"]);
-    $address = "kościół parafialny";
+    $address = "";
     $id = trim($_POST["id"]);
-    if (!isset($id) || !isset($scheduled)) {
+    if (!isset($id) || !isset($starting)) {
       pot();
     }
 
-    $result = $repository -> updateScheduled($description, $scheduled, $value, $type, $notes, $address, $id, $tenant);
+    $result = $repository -> updateEvent($description, $starting, $period, $type, $notes, $address, $id, $tenant);
     echo($result[0]);
   }
 
