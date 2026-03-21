@@ -883,7 +883,7 @@ const Reader = () => {
               const currentDay = currentWeek.filter(f => f.dayOfWeek === e.order)
               return <>
                 <div class="col-sm-1 bg-info-subtle">{e.short}</div>
-                { currentDay.length < 1 ? <div class="col-sm-11"> --- </div> : currentDay.map(g => 
+                { currentDay.length < 1 ? <div class="col-sm-11">  - - -  </div> : currentDay.map(g => 
                   <div class={`bg-warning-subtle border border-secondary col-sm-${g.period/2}`}>{`${g.time}`} - <DateFormatter timestamp={new Date(new Date(g.starting).getTime() + g.period * 60 * 60 * 1000)} locale={locale} format="time" /></div>
                 ) }
                 <div class="w-100"></div>
