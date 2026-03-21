@@ -884,7 +884,7 @@ const Reader = () => {
               return <>
                 <div class="col-lg-1 bg-info-subtle">{e.short}</div>
                 { currentDay.length < 1 ? <div class="col-lg-11">  - - -  </div> : currentDay.map(g => 
-                  <div class={`bg-warning-subtle border border-secondary col-lg-${Math.round(g.period/3)}`}>{`${g.time}`} - <DateFormatter timestamp={new Date(new Date(g.starting).getTime() + g.period * 60 * 60 * 1000)} locale={locale} format="time" />{g.description}</div>
+                  <div class={`bg-warning-subtle border border-secondary col-lg-${Math.round(g.period/3)}`}>{`${g.time}`} - <DateFormatter timestamp={new Date(new Date(g.starting).getTime() + g.period * 60 * 60 * 1000)} locale={locale} format="time" /> {g.description} </div>
                 ) }
                 <div class="w-100"></div>
               </>
