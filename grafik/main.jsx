@@ -443,7 +443,7 @@ const Dashboard = () => {
   
   return <>
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-      <h1 class="h2">{t('label_dashboard')}</h1>
+      <h1 class="h2">{t('label_contact')}</h1>
       <div class="btn-toolbar mb-2 mb-md-0">
         <div class="btn-group me-2">
           <button type="button" class="btn btn-sm btn-outline-secondary" onClick={handleDisabled}>{ disabled ? <i class="bi bi-unlock"></i> : <i class="bi bi-lock"></i> }</button>
@@ -661,7 +661,7 @@ const Manage = () => {
             <div class="offcanvas-body d-md-flex flex-column p-0 pt-lg-3 overflow-y-auto">
               <ul class="nav flex-column">
                 <li class="nav-item">
-                  <a class="nav-link d-flex align-items-center gap-2 active" aria-current="page" href="#" onClick={handleSwitchTab} id="dashboardLink"><i class="bi bi-house-fill"></i> {t('label_dashboard')} </a>
+                  <a class="nav-link d-flex align-items-center gap-2 active" aria-current="page" href="#" onClick={handleSwitchTab} id="dashboardLink"><i class="bi bi-house-fill"></i> {t('label_contact')} </a>
                 </li>
               </ul>
               <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-body-secondary text-uppercase">
