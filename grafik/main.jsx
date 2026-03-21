@@ -262,7 +262,7 @@ const Confirmation = () => {
       </div>
     </div>
     <h2>{t('label_confirmation')}</h2>
-    <Table columns={['#', t('label_firstname'), t('label_surname'), t('label_street'), t('label_number'), t('label_city'), t('label_donation'), t('label_date'), t('label_actions')]}>
+    <Table columns={['#', t('label_firstname'), t('label_surname'), t('label_street'), t('label_number'), t('label_city'), t('label_period'), t('label_date'), t('label_actions')]}>
       { confirmation.map((e, i) => <tr>
         <td>{i + 1}</td>
         <td>{e.firstname}</td>
@@ -270,7 +270,7 @@ const Confirmation = () => {
         <td>{e.street}</td>
         <td>{e.number}</td>
         <td>{e.city}</td>
-        <td><NumberFormatter value={e.donation} locale={locale} /></td>
+        <td><NumberFormatter value={e.period} locale={locale} /></td>
         <td><DateFormatter timestamp={e.created} locale={locale} format="date" /></td>
         <td><button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#confirmModal" onClick={() => setSelected(e['id']) }><i class="bi bi-trash"></i></button></td>
       </tr>) }
@@ -386,7 +386,7 @@ const CurrentWeek = ({ date, type }) => {
     </div>
   </Form>
   <h2>{getTitle()}</h2>
-  <Table columns={['#', t('label_date'), t('label_description'), t('label_donation'), t('label_notes'), t('label_actions')]}>
+  <Table columns={['#', t('label_date'), t('label_description'), t('label_period'), t('label_notes'), t('label_actions')]}>
     { currentWeek.map((e, i) => <tr>
       <td>{i + 1}</td>
       <td><DateFormatter timestamp={e['starting']} locale={locale} /></td>
@@ -560,7 +560,7 @@ const EventModal = ({ id, itemId, type }) => {
     <div id={`help_${id}starting`} class="form-text">{t('help_starting')}</div>
   </div>
   <div class="">
-    <label for={`number_${id}value`}>{t('label_donation')}</label>
+    <label for={`number_${id}value`}>{t('label_period')}</label>
     <input type="number" min="10.00" max="500" step="0.01" class="form-control" id={`number_${id}value`} aria-describedby={`help_${id}value`} name="value" />
     <div id={`help_${id}value`} class="form-text">{t('help_value')}</div>
   </div>
@@ -915,7 +915,7 @@ const Reader = () => {
             </Table>
           </AccordionItem>
           { !!settings?.showVisits && <AccordionItem id="visit" parent="accordionExample">
-            <Table columns={['#', t('label_firstname'), t('label_surname'), t('label_street'), t('label_number'), t('label_city'), t('label_donation'), t('label_date')]}>
+            <Table columns={['#', t('label_firstname'), t('label_surname'), t('label_street'), t('label_number'), t('label_city'), t('label_period'), t('label_date')]}>
               { visit.map((e, i) => <tr>
                 <td>{i + 1}</td>
                 <td>{e.firstname}</td>
@@ -923,7 +923,7 @@ const Reader = () => {
                 <td>{e.street}</td>
                 <td>{e.number}</td>
                 <td>{e.city}</td>
-                <td><NumberFormatter value={e.donation} locale={locale} /></td>
+                <td><NumberFormatter value={e.period} locale={locale} /></td>
                 <td><DateFormatter timestamp={e.created} locale={locale} format="date" /></td>
               </tr>) }
             </Table>
