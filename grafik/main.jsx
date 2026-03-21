@@ -884,7 +884,7 @@ const Reader = () => {
               return <>
                 <div class="col-sm-2">{e.name}</div>
                 { !currentDay ? <div class="col-sm-12">puste</div> : currentDay.map(g => 
-                  <div class={`col-sm-${g.period/2}`}>{`${g.time} ${g.description}`}</div>
+                  <div class={`bg-warning-subtle col-sm-${g.period/2}`}>{`${g.time} ${g.description}`}</div>
                 ) }
                 <div class="w-100"></div>
               </>
