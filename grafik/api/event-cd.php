@@ -24,13 +24,13 @@
 
   function put($repository, $tenant) {
     $description = trim($_POST["description"]);
-    $scheduled = isset($_POST["scheduled"]) ? trim($_POST["scheduled"]) : null;
-    $value = isset($_POST["value"]) ? trim($_POST["value"]) : 0;
+    $starting = isset($_POST["starting"]) ? trim($_POST["starting"]) : null;
+    $period = isset($_POST["period"]) ? trim($_POST["period"]) : 0;
     $type = trim($_POST["type"]);
     $notes = trim($_POST["notes"]);
-    $address= "kościół parafialny";
+    $address= "";
     
-    $result = $repository -> createScheduled($description, $scheduled, $value, $type, $notes, $address, $tenant);
+    $result = $repository -> createEvent($description, $starting, $period, $type, $notes, $address, $tenant);
     echo($result);
   }
 
@@ -40,7 +40,7 @@
       pot();
     }
       
-    $repository -> deleteScheduled($id, $tenant);
+    $repository -> deleteEvent($id, $tenant);
   }
 
   function pot() {
