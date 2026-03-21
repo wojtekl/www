@@ -209,7 +209,7 @@ class Repository {
   }
     
   public function readAssignementByEventId($eventId) {
-    $statement = $this -> sql -> prepare("SELECT `a`.`ID`, `a`.`EVENT_ID`, `a`.`CLIENT_ID`, `a`.`ACCEPTED`, `c`.`NAME` FROM `ASSIGNMENT` `a` LEFT JOIN `CLIENT` `c` ON `c`.`ID` = `a`.`CLIENT_ID` WHERE `EVENT_ID` = :eventId");
+    $statement = $this -> sql -> prepare("SELECT `a`.`ID`, `a`.`EVENT_ID`, `a`.`CLIENT_ID`, `a`.`ACCEPTED`, `c`.`DISPLAYNAME` FROM `ASSIGNMENT` `a` LEFT JOIN `CLIENT` `c` ON `c`.`ID` = `a`.`CLIENT_ID` WHERE `EVENT_ID` = :eventId");
     
     $statement -> bindParam(":eventId", $eventId);
     
