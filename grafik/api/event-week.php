@@ -19,10 +19,10 @@
       pot();
     }
 
-    $result = $repository -> readScheduled($today, $tenant, $type);
+    $result = $repository -> readEvent($today, $tenant, $type);
     $toList = "[";
     foreach ($result as $e) {
-      $toList .= "{\"id\": \"${e["ID"]}\", \"description\": \"${e["DESCRIPTION"]}\", \"scheduled\": \"${e["SCHEDULED"]}\", \"value\": \"${e["VALUE"]}\", \"notes\": \"${e["NOTES"]}\", \"dayOfWeek\": \"${e["DAYOFWEEK"]}\", \"time\": \"${e["TIME"]}\", \"type\": \"${e["TYPE"]}\"},";
+      $toList .= "{\"id\": \"${e["ID"]}\", \"description\": \"${e["DESCRIPTION"]}\", \"starting\": \"${e["STARTING"]}\", \"period\": \"${e["PERIOD"]}\", \"notes\": \"${e["NOTES"]}\", \"dayOfWeek\": \"${e["DAYOFWEEK"]}\", \"time\": \"${e["TIME"]}\", \"type\": \"${e["TYPE"]}\"},";
     }
     $toList .= "]";
     echo(str_replace(",]", "]", $toList));
