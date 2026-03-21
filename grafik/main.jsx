@@ -778,6 +778,7 @@ const Reader = () => {
   const [currentWeek, setCurrentWeek] = useState([])
   const [contact, setContact] = useState()
   const [settings, setSettings] = useState()
+  const [selected, setSelected] = useState()
 
   const { tenant } = useParams()
   const { locale, setNotification } = usePreferences()
@@ -884,7 +885,7 @@ const Reader = () => {
               return <>
                 <div class="col-lg-1 bg-info-subtle">{e.short}</div>
                 { currentDay.length < 1 ? <div class="col-lg-11">  - - -  </div> : currentDay.map(g => 
-                  <div class={`bg-warning-subtle border border-secondary col-lg-${Math.round(g.period/3)}`}>{`${g.time}`} - <DateFormatter timestamp={new Date(new Date(g.starting).getTime() + g.period * 60 * 60 * 1000)} locale={locale} format="time" /> {g.description} <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#signEventModal" onClick={ () => alert(e['id']) }><i class="bi bi-pencil-square"></i></button></div>
+                  <div class={`bg-warning-subtle border border-secondary col-lg-${Math.round(g.period/3)}`}>{`${g.time}`} - <DateFormatter timestamp={new Date(new Date(g.starting).getTime() + g.period * 60 * 60 * 1000)} locale={locale} format="time" /> {g.description} <a href="#" class="btn btn-sm" data-bs-toggle="modal" data-bs-target="#signEventModal" onClick={ () => setSelected(g.id) }><i class="bi bi-pencil-square"></i></button></div>
                 ) }
                 <div class="w-100"></div>
               </>
@@ -914,7 +915,7 @@ const Reader = () => {
         <p class="mb-0"><a href="/">{t('label_home')}</a></p>
       </div>
     </footer>
-    <EventModal id="signEventModal" itemId={0} type="eucharystia" />
+    <EventModal id="signEventModal" itemId={selected} type="eucharystia" />
   </>
 }
 
