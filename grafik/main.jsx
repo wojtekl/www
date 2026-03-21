@@ -392,7 +392,7 @@ const CurrentWeek = ({ date, type }) => {
       <td><DateFormatter timestamp={e['starting']} locale={locale} /></td>
       <td>{e['description']}</td>
       <td><NumberFormatter value={e['period']} locale={locale} /></td>
-      <td>{e['notes']}</td>
+      <td>{e['notes']}{e.assignement.map(a => <a href="#"> {a.name} </a>)}</td>
       <td>
         <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#editEventModal" onClick={ () => setSelected(e['id']) }><i class="bi bi-pencil-square"></i></button>
         <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#confirmModal" onClick={ () => setSelected(e['id']) }><i class="bi bi-trash"></i></button>
