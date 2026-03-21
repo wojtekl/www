@@ -31,12 +31,12 @@ class Repository {
   }
   
   
-  public function createScheduled($description, $scheduled, $value, $type, $notes, $address, $tenant) {
-    $statement = $this -> sql -> prepare("INSERT INTO `SCHEDULED` VALUES (0, :description, :scheduled, :value, :type, 1, :notes, :address, :tenant, UTC_TIMESTAMP)");
+  public function createEvent($description, $starting, $period, $type, $notes, $address, $tenant) {
+    $statement = $this -> sql -> prepare("INSERT INTO `SCHEDULED` VALUES (0, :description, :starting, :period, :type, 1, :notes, :address, :tenant, UTC_TIMESTAMP)");
     
     $statement -> bindParam(":description", $description);
-    $statement -> bindParam(":scheduled", $scheduled);
-    $statement -> bindParam(":value", $value);
+    $statement -> bindParam(":starting", $starting);
+    $statement -> bindParam(":period", $period);
     $statement -> bindParam(":type", $type);
     $statement -> bindParam(":notes", $notes);
     $statement -> bindParam(":address", $address);
@@ -45,8 +45,8 @@ class Repository {
     return $this -> execute($statement);
   }
 
-  public function readScheduled($today, $tenant, $type){
-    $statement = $this -> sql -> prepare("SELECT `ID`, `DESCRIPTION`, `SCHEDULED`, `VALUE`, `BOOKED`, `NOTES`, DAYOFWEEK(`SCHEDULED`) AS `DAYOFWEEK`, DATE_FORMAT(`SCHEDULED`, '%H:%i') AS `TIME`, `TYPE` FROM `SCHEDULED` WHERE" . (null != $today ? " `SCHEDULED` > DATE_ADD(:today, INTERVAL - WEEKDAY(:today) DAY) AND `SCHEDULED` < DATE_ADD(:today, INTERVAL 7 - WEEKDAY(:today) DAY) AND" : " `SCHEDULED` IS NULL AND") . " `TENANT` = :tenant AND `TYPE` = :type ORDER BY `SCHEDULED` ASC");
+  public function readEvent($today, $tenant, $type){
+    $statement = $this -> sql -> prepare("SELECT `ID`, `DESCRIPTION`, `STARTING`, `PERIOD`, `CONFIRMED`, `NOTES`, DAYOFWEEK(`STARTING`) AS `DAYOFWEEK`, DATE_FORMAT(`STARTING`, '%H:%i') AS `TIME`, `TYPE` FROM `EVENT` WHERE" . (null != $today ? " `STARTING` > DATE_ADD(:today, INTERVAL - WEEKDAY(:today) DAY) AND `STARTING` < DATE_ADD(:today, INTERVAL 7 - WEEKDAY(:today) DAY) AND" : " `STARTING` IS NULL AND") . " `TENANT` = :tenant AND `TYPE` = :type ORDER BY `STARTING` ASC");
     if (null != $today) {
       $statement -> bindParam(":today", $today);
     }
@@ -56,8 +56,8 @@ class Repository {
     return $this -> execute($statement);
   }
     
-  public function readScheduledById($id, $tenant) {
-    $statement = $this -> sql -> prepare("SELECT `ID`, `DESCRIPTION`, `SCHEDULED`, `VALUE`, `BOOKED`, `NOTES`, `TYPE` FROM `SCHEDULED` WHERE `ID` = :id AND `TENANT` = :tenant LIMIT 1");
+  public function readEventById($id, $tenant) {
+    $statement = $this -> sql -> prepare("SELECT `ID`, `DESCRIPTION`, `STARTING`, `PERIOD`, `CONFIRMED`, `NOTES`, `TYPE` FROM `EVENT` WHERE `ID` = :id AND `TENANT` = :tenant LIMIT 1");
     
     $statement -> bindParam(":id", $id);
     $statement -> bindParam(":tenant", $tenant);
@@ -65,12 +65,12 @@ class Repository {
     return $this -> execute($statement);
   }
 
-  public function updateScheduled($description, $scheduled, $value, $type, $notes, $address, $id, $tenant) {
-    $statement = $this -> sql -> prepare("UPDATE `SCHEDULED` SET `DESCRIPTION` = :description, `SCHEDULED` = :scheduled, `VALUE` = :value, `TYPE` = :type, `BOOKED` = 1, `NOTES` = :notes, `ADDRESS` = :address, `CREATED` = UTC_TIMESTAMP WHERE `ID` = :id AND `TENANT` = :tenant");
+  public function updateEvent($description, $starting, $period, $type, $notes, $address, $id, $tenant) {
+    $statement = $this -> sql -> prepare("UPDATE `EVENT` SET `DESCRIPTION` = :description, `STARTING` = :starting, `PERIOD` = :period, `TYPE` = :type, `CONFIRMED` = 1, `NOTES` = :notes, `ADDRESS` = :address, `CREATED` = UTC_TIMESTAMP WHERE `ID` = :id AND `TENANT` = :tenant");
     
     $statement -> bindParam(":description", $description);
-    $statement -> bindParam(":scheduled", $scheduled);
-    $statement -> bindParam(":value", $value);
+    $statement -> bindParam(":starting", $starting);
+    $statement -> bindParam(":period", $period);
     $statement -> bindParam(":type", $type);
     $statement -> bindParam(":notes", $notes);
     $statement -> bindParam(":address", $address);
@@ -80,8 +80,8 @@ class Repository {
     return $this -> execute($statement);
   }
   
-  public function deleteScheduled($id, $tenant) {
-    $statement = $this -> sql -> prepare("DELETE FROM `SCHEDULED` WHERE `ID` = :id AND `TENANT` = :tenant");
+  public function deleteEvent($id, $tenant) {
+    $statement = $this -> sql -> prepare("DELETE FROM `EVENT` WHERE `ID` = :id AND `TENANT` = :tenant");
     
     $statement -> bindParam(":id", $id);
     $statement -> bindParam(":tenant", $tenant);
