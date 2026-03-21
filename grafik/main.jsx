@@ -882,9 +882,9 @@ const Reader = () => {
               { dayOfWeek.map((e, i) => {
               const currentDay = currentWeek.filter(f => f.dayOfWeek === e.order)
               return <>
-                <div class="col-sm-2">{e.name}</div>
+                <div class="col-sm-1 bg-info-subtle">{e.name}</div>
                 { !currentDay ? <div class="col-sm-12">puste</div> : currentDay.map(g => 
-                  <div class={`bg-warning-subtle col-sm-${g.period/2}`}>{`${g.time} ${g.description}`}</div>
+                  <div class={`bg-warning-subtle border border-secondary col-sm-${g.period/2}`}>{`${g.time} - ${new Date(g.starting + g.period * 60 * 60 * 1000)}`}</div>
                 ) }
                 <div class="w-100"></div>
               </>
