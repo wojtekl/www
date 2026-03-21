@@ -197,7 +197,7 @@ const Password = () => {
     event.preventDefault()
     
     const form = document.getElementById('form_password')
-    axios.post('api/signin-cd', form, { headers: { 'Content-Type': 'multipart/form-data' }}).then(response => {
+    axios.post('api/event-cd', form, { headers: { 'Content-Type': 'multipart/form-data' }}).then(response => {
       if (response.data) {
         navigate('/signin')
         window.history.replaceState({}, document.title, 'https://grafik.wlap.pl/#/signin')
@@ -340,7 +340,7 @@ const CurrentWeek = ({ date, type }) => {
         type: type,
         today: date
       }
-      axios.post('api/scheduled-week', postData, { headers: { 'Content-Type': 'multipart/form-data' }}).then(response => {
+      axios.post('api/event-week', postData, { headers: { 'Content-Type': 'multipart/form-data' }}).then(response => {
         setCurrentWeek(response.data)
         setForm(document.getElementById('form_statistics'), { count: response.data.length})
         console.debug(response.data)
@@ -389,20 +389,20 @@ const CurrentWeek = ({ date, type }) => {
   <Table columns={['#', t('label_date'), t('label_description'), t('label_donation'), t('label_notes'), t('label_actions')]}>
     { currentWeek.map((e, i) => <tr>
       <td>{i + 1}</td>
-      <td><DateFormatter timestamp={e['scheduled']} locale={locale} /></td>
+      <td><DateFormatter timestamp={e['starting']} locale={locale} /></td>
       <td>{e['description']}</td>
       <td><NumberFormatter value={e['value']} locale={locale} /></td>
       <td>{e['notes']}</td>
       <td>
-        <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#editScheduledModal" onClick={ () => setSelected(e['id']) }><i class="bi bi-pencil-square"></i></button>
+        <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#editEventModal" onClick={ () => setSelected(e['id']) }><i class="bi bi-pencil-square"></i></button>
         <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#confirmModal" onClick={ () => setSelected(e['id']) }><i class="bi bi-trash"></i></button>
       </td>
     </tr>) }
   </Table>
-  <EventModal id="editScheduledModal" itemId={selected} type={type} />
+  <EventModal id="editEventModal" itemId={selected} type={type} />
   <ConfirmModal title="label_delete" onOk={() => {
     const searchParams = new URLSearchParams({ id: selected })
-    axios.get(`api/scheduled-cd?${searchParams.toString()}`).then(response => {
+    axios.get(`api/event-cd?${searchParams.toString()}`).then(response => {
       setRefresh(true)
       setNotification('label_saved')
     })
@@ -539,25 +539,25 @@ const EventModal = ({ id, itemId, type }) => {
     }
     
     const searchParams = new URLSearchParams({ id: itemId })
-    axios.get(`api/scheduled?${searchParams.toString()}`).then(response => {
+    axios.get(`api/event?${searchParams.toString()}`).then(response => {
       setForm(document.getElementById(`form_${id}`), response.data)
       console.debug(response.data)
     })
   }, [itemId])
 
   const handleSubmit = (form) => {
-    axios.post(!itemId ? 'api/scheduled-cd' : 'api/scheduled', form, { headers: { 'Content-Type': 'multipart/form-data' }}).then(response => {
+    axios.post(!itemId ? 'api/event-cd' : 'api/event', form, { headers: { 'Content-Type': 'multipart/form-data' }}).then(response => {
       //form.reset()
       console.debug(response.data)
     })
   }
 
-  return <ModalForm id={id} title="label_scheduled" onSubmit={handleSubmit}>
+  return <ModalForm id={id} title="label_event" onSubmit={handleSubmit}>
   <InputText name="description" label={t('label_description')} formId={id} help={t('help_description')} />
   <div class="">
-    <label for={`date_${id}scheduled`}>{t('label_date')}</label>
-    <input type="datetime-local" class="form-control" id={`date_${id}scheduled`} aria-describedby={`help_${id}scheduled`} name="scheduled" />
-    <div id={`help_${id}scheduled`} class="form-text">{t('help_scheduled')}</div>
+    <label for={`date_${id}starting`}>{t('label_date')}</label>
+    <input type="datetime-local" class="form-control" id={`date_${id}starting`} aria-describedby={`help_${id}starting`} name="starting" />
+    <div id={`help_${id}starting`} class="form-text">{t('help_starting')}</div>
   </div>
   <div class="">
     <label for={`number_${id}value`}>{t('label_donation')}</label>
@@ -665,8 +665,8 @@ const Manage = () => {
                 </li>
               </ul>
               <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-body-secondary text-uppercase">
-                <span>{t('label_scheduled_event')}</span>
-                <a class="link-secondary" href="#" aria-label={t('label_add_scheduled')} data-bs-toggle="modal" data-bs-target="#newScheduledModal">
+                <span>{t('label_event')}</span>
+                <a class="link-secondary" href="#" aria-label={t('label_add_event')} data-bs-toggle="modal" data-bs-target="#newEventModal">
                   <i class="bi bi-plus-circle"></i>
                 </a>
               </h6>
@@ -701,7 +701,7 @@ const Manage = () => {
         </main>
       </div>
     </div>
-    <EventModal id="newScheduledModal" type="eucharystia" />
+    <EventModal id="newEventModal" type="eucharystia" />
   </>
 }
 
@@ -798,7 +798,7 @@ const Reader = () => {
     event.preventDefault()
 
     const form = document.getElementById('form_order')
-    axios.post('api/scheduled-cd', form, { headers: { 'Content-Type': 'multipart/form-data' }}).then(response => {
+    axios.post('api/event-cd', form, { headers: { 'Content-Type': 'multipart/form-data' }}).then(response => {
       form.reset()
       setNotification(response.data)
     })
@@ -839,11 +839,11 @@ const Reader = () => {
         today: datePart()
       }
     }
-    axios.post('api/scheduled-week', postWeek("eucharystia"), { headers: { 'Content-Type': 'multipart/form-data' }}).then(response => {
+    axios.post('api/event-week', postWeek("eucharystia"), { headers: { 'Content-Type': 'multipart/form-data' }}).then(response => {
       setCurrentWeek(response.data)
       console.debug(response.data)
     })
-    axios.post('api/scheduled-week', postWeek("departure"), { headers: { 'Content-Type': 'multipart/form-data' }}).then(response => {
+    axios.post('api/event-week', postWeek("departure"), { headers: { 'Content-Type': 'multipart/form-data' }}).then(response => {
       setDeparture(response.data)
       console.debug(response.data)
     })
@@ -887,7 +887,7 @@ const Reader = () => {
         <p class="fs-5 col-md-8 mb-5">{`${t('label_reader_description')}:${settings?.schedule}`}</p>
         <hr class="col-3 col-md-2 mb-5"></hr>
         <div class="accordion" id="accordionExample">
-          <AccordionItem id="scheduled" parent="accordionExample" show={true}>
+          <AccordionItem id="event" parent="accordionExample" show={true}>
             <Table columns={['#', t('label_day'), t('label_description')]}>
               { dayOfWeek.map((e, i) => <tr>
                 <td>{i + 1}</td>
@@ -909,7 +909,7 @@ const Reader = () => {
             <Table columns={['#', t('label_date'), t('label_description')]}>
               { departure.map((e, i) => <tr>
                 <td>{i + 1}</td>
-                <td><DateFormatter timestamp={e.scheduled} locale={locale} /></td>
+                <td><DateFormatter timestamp={e.starting} locale={locale} /></td>
                 <td>{e.description}</td>
               </tr>) }
             </Table>
