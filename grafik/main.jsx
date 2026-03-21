@@ -783,13 +783,13 @@ const Reader = () => {
   const { locale, setNotification } = usePreferences()
 
   const dayOfWeek = [
-    { order: '2', name: t('label_monday')}, 
-    { order: '3', name: t('label_tuesday')}, 
-    { order: '4', name: t('label_wednesday')}, 
-    { order: '5', name: t('label_thursday')}, 
-    { order: '6', name: t('label_friday')}, 
-    { order: '7', name: t('label_saturday')}, 
-    { order: '1', name: t('label_sunday')}
+    { order: '2', name: t('label_monday'), short: 'pn'}, 
+    { order: '3', name: t('label_tuesday'), short: 'wt'}, 
+    { order: '4', name: t('label_wednesday'), short: 'śr'}, 
+    { order: '5', name: t('label_thursday'), short: 'czw'}, 
+    { order: '6', name: t('label_friday'), short: 'pt'}, 
+    { order: '7', name: t('label_saturday'), short: 'sb'}, 
+    { order: '1', name: t('label_sunday'), short: 'nd'}
   ]
 
   const handleSubmit = (event) => {
@@ -882,8 +882,8 @@ const Reader = () => {
               { dayOfWeek.map((e, i) => {
               const currentDay = currentWeek.filter(f => f.dayOfWeek === e.order)
               return <>
-                <div class="col-sm-1 bg-info-subtle">{e.name}</div>
-                { !currentDay ? <div class="col-sm-12">puste</div> : currentDay.map(g => 
+                <div class="col-sm-1 bg-info-subtle">{e.short}</div>
+                { currentDay.length < 1 ? <div class="col-sm-12">puste</div> : currentDay.map(g => 
                   <div class={`bg-warning-subtle border border-secondary col-sm-${g.period/2}`}>{`${g.time}`} - <DateFormatter timestamp={new Date(new Date(g.starting).getTime() + g.period * 60 * 60 * 1000)} locale={locale} format="time" /></div>
                 ) }
                 <div class="w-100"></div>
