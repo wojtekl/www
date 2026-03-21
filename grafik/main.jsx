@@ -888,46 +888,14 @@ const Reader = () => {
         <hr class="col-3 col-md-2 mb-5"></hr>
         <div class="accordion" id="accordionExample">
           <AccordionItem id="event" parent="accordionExample" show={true}>
-            <Table columns={['#', t('label_day'), t('label_description')]}>
-              { dayOfWeek.map((e, i) => <tr>
-                <td>{i + 1}</td>
-                <td>{e.name}</td>
-                <td>{ !currentWeek ? '' : currentWeek.filter(f => f.dayOfWeek === e.order).map(g => <p>{`${g.time} ${g.description}`}</p>) }</td>
-              </tr>) }
-            </Table>
+            <div class="row">
+              { dayOfWeek.map((e, i) => 
+    <div class="col-sm-2">{e.name}</div>
+              { !currentWeek ? <div class="col-sm-12">puste</div> : currentWeek.filter(f => f.dayOfWeek === e.order).map(g => 
+                <div class={`col-sm-${g.period/2}`}>{`${g.time} ${g.description}`}</div>
+                ) }) }
+            </div>
           </AccordionItem>
-          <AccordionItem id="order" parent="accordionExample">
-            <Form id="form_order" legend="label_order" onSubmit={handleSubmit}>
-              <InputText name="description" label={t('label_description')} className="mb-3" formId="order" />
-              <InputText name="notes" label={t('label_from')} className="mb-3" formId="order" />
-              <input type="hidden" name="tenant" value={tenant} />
-              <input type="hidden" name="type" value="eucharystia" />
-            </Form>
-          </AccordionItem>
-          <AccordionItem id="announcements" parent="accordionExample"></AccordionItem>
-          <AccordionItem id="departure" parent="accordionExample">
-            <Table columns={['#', t('label_date'), t('label_description')]}>
-              { departure.map((e, i) => <tr>
-                <td>{i + 1}</td>
-                <td><DateFormatter timestamp={e.starting} locale={locale} /></td>
-                <td>{e.description}</td>
-              </tr>) }
-            </Table>
-          </AccordionItem>
-          { !!settings?.showVisits && <AccordionItem id="visit" parent="accordionExample">
-            <Table columns={['#', t('label_firstname'), t('label_surname'), t('label_street'), t('label_number'), t('label_city'), t('label_period'), t('label_date')]}>
-              { visit.map((e, i) => <tr>
-                <td>{i + 1}</td>
-                <td>{e.firstname}</td>
-                <td>{e.surname}</td>
-                <td>{e.street}</td>
-                <td>{e.number}</td>
-                <td>{e.city}</td>
-                <td><NumberFormatter value={e.period} locale={locale} /></td>
-                <td><DateFormatter timestamp={e.created} locale={locale} format="date" /></td>
-              </tr>) }
-            </Table>
-          </AccordionItem> }
           { !!settings?.showBooking && <AccordionItem id="book" parent="accordionExample">
             <Form id="form_book" legend="label_book" enctype="multipart/form-data" onSubmit={handleBook}>
               <InputText name="firstname" label={t('label_firstname')} className="mb-3" formId="book" />
