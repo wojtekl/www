@@ -744,9 +744,9 @@ const Signin = () => {
     const searchParams = new URLSearchParams({ name: document.getElementById('clientInput').value })
     axios.get(`api/client?${searchParams.toString()}`).then(response => {
       if (response.data) {
-        navigate(`/${t}`)
         const t = document.getElementById('tenantInput').value
         dispatch(tenantSet(t))
+        navigate(`/${t}`)
       }
       else {
         setSigninFailure(true)
