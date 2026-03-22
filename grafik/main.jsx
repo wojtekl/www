@@ -565,6 +565,10 @@ const EventModal = ({ id, itemId, type }) => {
     <div id={`help_${id}period`} class="form-text">{t('help_period')}</div>
   </div>
   <InputText name="notes" label={t('label_notes')} formId={id} help={t('help_notes')} />
+  <div class="form-check">
+    <input type="checkbox" class="form-check-input" id={`text_${id}confirmed`} name="confirmed" />
+    <label class="form-check-label" for={`text_${id}confirmed`}>{t('label_confirmed')}</label>
+  </div>
   <input type="hidden" name="id" value={itemId} />
   <input type="hidden" name="type" />
 </ModalForm>
