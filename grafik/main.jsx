@@ -736,7 +736,9 @@ const Signin = () => {
         setSigninFailure(true)
       }
     })*/
-    navigate(`/#/${document.getElementById('tenantInput').value}`)
+    const tenant = document.getElementById('tenantInput').value
+    console.debug('tenant' , tenant)
+    navigate(`/#/${tenant}`)
 
     event.stopPropagation()
   }
