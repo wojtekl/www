@@ -392,7 +392,7 @@ const CurrentWeek = ({ date, type }) => {
       <td><DateFormatter timestamp={e['starting']} locale={locale} /></td>
       <td>{e['description']}</td>
       <td><NumberFormatter value={e['period']} locale={locale} /></td>
-      <td>{e['notes']}{e.assignment.map(a => <a href="#"> {a.name} </a>)}</td>
+      <td>{e['notes']}{e.assignment.map(a => <a href="#" class={`text-${a.accepted ? 'success' : 'warning'}`}> {a.displayName} </a>)}</td>
       <td>
         <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#editEventModal" onClick={ () => setSelected(e['id']) }><i class="bi bi-pencil-square"></i></button>
         <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#deleteEventModal" onClick={ () => setSelected(e['id']) }><i class="bi bi-trash"></i></button>
@@ -963,7 +963,7 @@ const Reader = () => {
               return <>
                 <div class="col-lg-1 bg-info-subtle">{e.short}</div>
                 { currentDay.length < 1 ? <div class="col-lg-11">  - - -  </div> : currentDay.map(g => 
-                  <div class={`bg-warning-subtle border border-secondary col-lg-${Math.round(g.period/3)}`}>{`${g.time}`} - <DateFormatter timestamp={new Date(new Date(g.starting).getTime() + g.period * 60 * 60 * 1000)} locale={locale} format="time" /> {g.description} <a href="#" class="btn btn-sm" data-bs-toggle="modal" data-bs-target="#deleteAssignmentModal" onClick={ () => setSelected(g.id) }><i class="bi bi-pencil-square"></i></a></div>
+                  <div class={`bg-${g.confirmed ? 'secondary' : 'warning' }-subtle border border-secondary col-lg-${Math.round(g.period/3)}`}>{`${g.time}`} - <DateFormatter timestamp={new Date(new Date(g.starting).getTime() + g.period * 60 * 60 * 1000)} locale={locale} format="time" /> {g.description} <a href="#" class="btn btn-sm" data-bs-toggle="modal" data-bs-target="#deleteAssignmentModal" onClick={ () => setSelected(g.id) }><i class="bi bi-pencil-square"></i></a></div>
                 ) }
                 <div class="w-100"></div>
               </>
