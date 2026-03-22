@@ -893,6 +893,9 @@ const Reader = () => {
   }
 
   useEffect(() => {
+    if (!client) {
+      navigate('/signin')
+    }
     const searchParams = new URLSearchParams({ tenant: tenant })
     axios.get(`api/contact?${searchParams.toString()}`).then(response => {
       setContact(response.data)
