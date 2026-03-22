@@ -32,7 +32,7 @@ class Repository {
   
   
   public function createEvent($description, $starting, $period, $type, $notes, $address, $tenant) {
-    $statement = $this -> sql -> prepare("INSERT INTO `EVENT` VALUES (0, :description, :starting, :period, :type, 1, :notes, :address, :tenant, UTC_TIMESTAMP)");
+    $statement = $this -> sql -> prepare("INSERT INTO `EVENT` VALUES (0, :description, :starting, :period, :type, 0, :notes, :address, :tenant, UTC_TIMESTAMP)");
     
     $statement -> bindParam(":description", $description);
     $statement -> bindParam(":starting", $starting);
