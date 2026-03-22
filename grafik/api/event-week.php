@@ -22,7 +22,7 @@
     $result = $repository -> readEvent($today, $tenant, $type);
     $toList = "[";
     foreach ($result as $e) {
-      $a_result = $repository -> readAssignementByEventId($e["ID"]);
+      $a_result = $repository -> readAssignmentByEventId($e["ID"]);
       $assignement = "[";
       foreach ($a_result as $a) {
         $assignement .= "{\"clientId\": ${a["CLIENT_ID"]},\"name\": \"${a["DISPLAYNAME"]}\"}";
