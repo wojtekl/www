@@ -741,19 +741,18 @@ const Signin = () => {
     event.preventDefault()
     
     setSigninFailure(false)
-    const form = document.getElementById('form_client')
-    /*axios.post('api/signin', form).then(response => {
+    const searchParams = new URLSearchParams({ name: document.getElementById('client').value })
+    axios.get(`api/client?${searchParams.toString()}`).then(response => {
       if (response.data.length > 0) {
-        navigate('/')
+        navigate(`/${t}`)
+        const t = document.getElementById('tenantInput').value
+        dispatch(tenantSet(t))
       }
       else {
         setSigninFailure(true)
       }
-    })*/
-    const t = document.getElementById('tenantInput').value
-    dispatch(tenantSet(t))
-    navigate(`/${t}`)
-
+    })
+    
     event.stopPropagation()
   }
 
@@ -914,7 +913,11 @@ const Reader = () => {
       setCurrentWeek(response.data)
       console.debug(response.data)
     })
-    setClient({ id: 1 })
+    const searchParams = new URLSearchParams({ name: client.name })
+    axios.get(`api/client?${searchParams.toString()}`).then(response => {
+      setClient(response.data)
+      console.debug(response.data)
+    })
   }, [tenant])
 
   return <>
