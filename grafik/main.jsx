@@ -723,11 +723,29 @@ const Signin = () => {
     })
   }, [])
 
-  const handleSubmit = (event) => {
+  const handleClientSubmit = (event) => {
     event.preventDefault()
     
     setSigninFailure(false)
-    const form = document.getElementById('form_signin')
+    const form = document.getElementById('form_client')
+    /*axios.post('api/signin', form).then(response => {
+      if (response.data.length > 0) {
+        navigate('/')
+      }
+      else {
+        setSigninFailure(true)
+      }
+    })*/
+    navigate(`/#/${document.getElementById('tenantInput').value}`)
+
+    event.stopPropagation()
+  }
+
+  const handleTenantSubmit = (event) => {
+    event.preventDefault()
+    
+    setSigninFailure(false)
+    const form = document.getElementById('form_tenant')
     axios.post('api/signin', form).then(response => {
       if (response.data.length > 0) {
         navigate('/')
@@ -748,6 +766,7 @@ const Signin = () => {
         <hr />
         <p class="mb-0">{t('label_try_footer')}</p>
       </div>
+      <h1 class="h3 mb-3 fw-normal">{t('label_please_sign_in')}</h1>
       {signinFailure && <div class="alert alert-danger" role="alert">{t('label_signin_failure')}</div>}
       <ul class="nav nav-tabs" id="signinTab" role="tablist">
         <li class="nav-item" role="presentation">
@@ -758,10 +777,25 @@ const Signin = () => {
         </li>
       </ul>
       <div class="tab-content" id="tabContent">
-        <div class="tab-pane fade show active" id="client-tab-pane" role="tabpanel" aria-labelledby="client-tab" tabindex="0"></div>
+        <div class="tab-pane fade show active" id="client-tab-pane" role="tabpanel" aria-labelledby="client-tab" tabindex="0">
+          <form id="form_client" enctype="multipart/form-data" onSubmit={handleClientSubmit}>
+            <div class="form-floating">
+              <input type="text" class="form-control" id="tenantInput" placeholder="" name="tenant" />
+              <label for="tenantInput">{t('label_tenant')}</label>
+            </div>
+            <div class="form-floating">
+              <input type="password" class="form-control" id="tenantPassword" placeholder={t('label_tenant_password')} name="tenant_password" />
+              <label for="tenantPassword">{t('label_tenant_password')}</label>
+            </div>
+            <div class="form-floating">
+              <input type="text" class="form-control" id="clientInput" placeholder="" name="client" />
+              <label for="clientInput">{t('label_client')}</label>
+            </div>
+            <button class="btn btn-primary w-100 py-2" type="submit">{t('label_sign_in')}</button>
+          </form>
+        </div>
         <div class="tab-pane fade" id="tenant-tab-pane" role="tabpanel" aria-labelledby="tenant-tab" tabindex="0">
-          <form id="form_signin" enctype="multipart/form-data" onSubmit={handleSubmit}>
-            <h1 class="h3 mb-3 fw-normal">{t('label_please_sign_in')}</h1>
+          <form id="form_tenant" enctype="multipart/form-data" onSubmit={handleTenantSubmit}>
             <div class="form-floating">
               <input type="text" class="form-control" id="floatingInput" placeholder="demo" name="tenant" />
               <label for="floatingInput">{t('label_tenant')}</label>
@@ -770,15 +804,15 @@ const Signin = () => {
               <input type="password" class="form-control" id="floatingPassword" placeholder={t('label_password')} name="password" />
               <label for="floatingPassword">{t('label_password')}</label>
             </div>
-           <div class="form-check text-start my-3">
+            <div class="form-check text-start my-3">
               <input class="form-check-input" type="checkbox" value="remember-me" id="checkDefault" />
-             <label class="form-check-label" for="checkDefault">{t('label_remember_me')}</label>
-           </div>
-           <button class="btn btn-primary w-100 py-2" type="submit">{t('label_sign_in')}</button>
-            <p class="mt-5 mb-3 text-body-secondary">{t('label_copyright')}</p>
-         </form>
+              <label class="form-check-label" for="checkDefault">{t('label_remember_me')}</label>
+            </div>
+            <button class="btn btn-primary w-100 py-2" type="submit">{t('label_sign_in')}</button>
+          </form>
         </div>
       </div>
+      <p class="mt-5 mb-3 text-body-secondary">{t('label_copyright')}</p>
     </main>
   </div>
 }
