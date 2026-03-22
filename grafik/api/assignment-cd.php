@@ -22,7 +22,7 @@
     $eventId = trim($_POST["eventId"]);
     $clientId = trim($_POST["clientId"]);
     
-    $result = $repository -> createAssignement($eventId, $clientId);
+    $result = $repository -> createAssignment($eventId, $clientId);
     echo($result);
   }
   function delete($repository) {
@@ -31,7 +31,7 @@
       pot();
     }
       
-    $repository -> deleteAssignement($id);
+    $repository -> deleteAssignment($id);
   }
 
   function pot() {
