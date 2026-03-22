@@ -743,7 +743,7 @@ const Signin = () => {
     setSigninFailure(false)
     const searchParams = new URLSearchParams({ name: document.getElementById('clientInput').value })
     axios.get(`api/client?${searchParams.toString()}`).then(response => {
-      if (response.data.length > 0) {
+      if (response.data && !response.data.includes(';')) {
         navigate(`/${t}`)
         const t = document.getElementById('tenantInput').value
         dispatch(tenantSet(t))
