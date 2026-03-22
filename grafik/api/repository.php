@@ -206,7 +206,9 @@ class Repository {
     $statement -> bindParam(":name", $name);
     $statement -> bindParam(":displayName", $displayName);
     
-    return $this -> execute($statement);
+    $this -> execute($statement);
+      
+    return $this -> sql -> lastInsertId();
   }
     
   public function readClientByName($name) {
