@@ -138,10 +138,10 @@ const ModalForm = (props) => {
 
 
 /* ConfirmModal */
-const ConfirmModal = ({ title, onOk }) => {
+const ConfirmModal = ({ id, title, onOk }) => {
   const { t } = useTranslation()
   
-  return <div class="modal" id="confirmModal" tabindex="-1">
+  return <div class="modal" id={id} tabindex="-1">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -272,10 +272,10 @@ const Confirmation = () => {
         <td>{e.city}</td>
         <td><NumberFormatter value={e.period} locale={locale} /></td>
         <td><DateFormatter timestamp={e.created} locale={locale} format="date" /></td>
-        <td><button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#confirmModal" onClick={() => setSelected(e['id']) }><i class="bi bi-trash"></i></button></td>
+        <td><button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#deleteVisitModal" onClick={() => setSelected(e['id']) }><i class="bi bi-trash"></i></button></td>
       </tr>) }
     </Table>
-    <ConfirmModal title="label_delete" onOk={() => {
+    <ConfirmModal id="deleteVisitModal" title="label_delete" onOk={() => {
       const searchParams = new URLSearchParams({ id: selected })
       axios.get(`api/visit-cd?${searchParams.toString()}`).then(response => {
         setRefresh(true)
@@ -392,15 +392,15 @@ const CurrentWeek = ({ date, type }) => {
       <td><DateFormatter timestamp={e['starting']} locale={locale} /></td>
       <td>{e['description']}</td>
       <td><NumberFormatter value={e['period']} locale={locale} /></td>
-      <td>{e['notes']}{e.assignement.map(a => <a href="#"> {a.name} </a>)}</td>
+      <td>{e['notes']}{e.assignment.map(a => <a href="#"> {a.name} </a>)}</td>
       <td>
         <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#editEventModal" onClick={ () => setSelected(e['id']) }><i class="bi bi-pencil-square"></i></button>
-        <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#confirmModal" onClick={ () => setSelected(e['id']) }><i class="bi bi-trash"></i></button>
+        <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#deleteEventModal" onClick={ () => setSelected(e['id']) }><i class="bi bi-trash"></i></button>
       </td>
     </tr>) }
   </Table>
   <EventModal id="editEventModal" itemId={selected} type={type} />
-  <ConfirmModal title="label_delete" onOk={() => {
+  <ConfirmModal id="deleteEventModal" title="label_delete" onOk={() => {
     const searchParams = new URLSearchParams({ id: selected })
     axios.get(`api/event-cd?${searchParams.toString()}`).then(response => {
       setRefresh(true)
@@ -885,7 +885,7 @@ const Reader = () => {
               return <>
                 <div class="col-lg-1 bg-info-subtle">{e.short}</div>
                 { currentDay.length < 1 ? <div class="col-lg-11">  - - -  </div> : currentDay.map(g => 
-                  <div class={`bg-warning-subtle border border-secondary col-lg-${Math.round(g.period/3)}`}>{`${g.time}`} - <DateFormatter timestamp={new Date(new Date(g.starting).getTime() + g.period * 60 * 60 * 1000)} locale={locale} format="time" /> {g.description} <a href="#" class="btn btn-sm" data-bs-toggle="modal" data-bs-target="#confirmModal" onClick={ () => setSelected(g.id) }><i class="bi bi-pencil-square"></i></a></div>
+                  <div class={`bg-warning-subtle border border-secondary col-lg-${Math.round(g.period/3)}`}>{`${g.time}`} - <DateFormatter timestamp={new Date(new Date(g.starting).getTime() + g.period * 60 * 60 * 1000)} locale={locale} format="time" /> {g.description} <a href="#" class="btn btn-sm" data-bs-toggle="modal" data-bs-target="#deleteAssignmentModal" onClick={ () => setSelected(g.id) }><i class="bi bi-pencil-square"></i></a></div>
                 ) }
                 <div class="w-100"></div>
               </>
@@ -915,12 +915,12 @@ const Reader = () => {
         <p class="mb-0"><a href="/">{t('label_home')}</a></p>
       </div>
     </footer>
-    <ConfirmModal title="label_add_event" onOk={() => {
+    <ConfirmModal id="deleteAssignmentModal" title="label_add_event" onOk={() => {
       const postData = {
         eventId: selected,
         clientId: '101'
       }
-      axios.post('api/assignement-cd', postData, { headers: { 'Content-Type': 'multipart/form-data' }}).then(response => {
+      axios.post('api/assignment-cd', postData, { headers: { 'Content-Type': 'multipart/form-data' }}).then(response => {
         console.debug(response.data)
         setNotification('label_saved')
       })
