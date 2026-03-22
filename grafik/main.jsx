@@ -967,7 +967,7 @@ const Reader = () => {
               return <>
                 <div class="col-lg-1 bg-info-subtle">{e.short}</div>
                 { currentDay.length < 1 ? <div class="col-lg-11">  - - -  </div> : currentDay.map(g => 
-                  <div class={`bg-${g.confirmed ? 'secondary' : 'warning' }-subtle border border-secondary col-lg-${Math.round(g.period/3)}`}>{`${g.time}`} - <DateFormatter timestamp={new Date(new Date(g.starting).getTime() + g.period * 60 * 60 * 1000)} locale={locale} format="time" /> {g.description} <a href="#" class="btn btn-sm" data-bs-toggle="modal" data-bs-target="#deleteAssignmentModal" onClick={ () => setSelected(g.id) }><i class="bi bi-pencil-square"></i></a></div>
+                  <div class={`bg-${g.confirmed ? 'secondary' : 'warning' }-subtle border border-secondary col-lg-${Math.round(g.period/3)}`}>{`${g.time}`} - <DateFormatter timestamp={new Date(new Date(g.starting).getTime() + g.period * 60 * 60 * 1000)} locale={locale} format="time" /> {g.description} { !g.confirmed && <a href="#" class="btn btn-sm" data-bs-toggle="modal" data-bs-target="#deleteAssignmentModal" onClick={ () => setSelected(g.id) }><i class="bi bi-pencil-square"></i></a> }</div>
                 ) }
                 <div class="w-100"></div>
               </>
