@@ -748,24 +748,37 @@ const Signin = () => {
         <hr />
         <p class="mb-0">{t('label_try_footer')}</p>
       </div>
-      {signinFailure && <div class="alert alert-danger" role="alert">{t('label_signin_failure')}</div>}
-      <form id="form_signin" enctype="multipart/form-data" onSubmit={handleSubmit}>
-        <h1 class="h3 mb-3 fw-normal">{t('label_please_sign_in')}</h1>
-        <div class="form-floating">
-          <input type="text" class="form-control" id="floatingInput" placeholder="demo" name="tenant" />
-          <label for="floatingInput">{t('label_tenant')}</label>
+      <ul class="nav nav-tabs" id="signinTab" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button class="nav-link active" id="clientTab" data-bs-toggle="tab" data-bs-target="#client-tab-pane" type="button" role="tab" aria-controls="client-tab-pane" aria-selected="true">{t('label_client')}</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="tenantTab" data-bs-toggle="tab" data-bs-target="#tenant-tab-pane" type="button" role="tab" aria-controls="tenant-tab-pane" aria-selected="false">{t('label_tenant')}</button>
+        </li>
+      </ul>
+      <div class="tab-content" id="tabContent">
+        <div class="tab-pane fade show active" id="client-tab-pane" role="tabpanel" aria-labelledby="client-tab" tabindex="0"></div>
+        <div class="tab-pane fade" id="tenant-tab-pane" role="tabpanel" aria-labelledby="tenant-tab" tabindex="0">
+          {signinFailure && <div class="alert alert-danger" role="alert">{t('label_signin_failure')}</div>}
+          <form id="form_signin" enctype="multipart/form-data" onSubmit={handleSubmit}>
+            <h1 class="h3 mb-3 fw-normal">{t('label_please_sign_in')}</h1>
+            <div class="form-floating">
+              <input type="text" class="form-control" id="floatingInput" placeholder="demo" name="tenant" />
+              <label for="floatingInput">{t('label_tenant')}</label>
+            </div>
+            <div class="form-floating">
+              <input type="password" class="form-control" id="floatingPassword" placeholder={t('label_password')} name="password" />
+              <label for="floatingPassword">{t('label_password')}</label>
+            </div>
+           <div class="form-check text-start my-3">
+              <input class="form-check-input" type="checkbox" value="remember-me" id="checkDefault" />
+             <label class="form-check-label" for="checkDefault">{t('label_remember_me')}</label>
+           </div>
+           <button class="btn btn-primary w-100 py-2" type="submit">{t('label_sign_in')}</button>
+            <p class="mt-5 mb-3 text-body-secondary">{t('label_copyright')}</p>
+         </form>
         </div>
-        <div class="form-floating">
-          <input type="password" class="form-control" id="floatingPassword" placeholder={t('label_password')} name="password" />
-          <label for="floatingPassword">{t('label_password')}</label>
-        </div>
-        <div class="form-check text-start my-3">
-          <input class="form-check-input" type="checkbox" value="remember-me" id="checkDefault" />
-          <label class="form-check-label" for="checkDefault">{t('label_remember_me')}</label>
-        </div>
-        <button class="btn btn-primary w-100 py-2" type="submit">{t('label_sign_in')}</button>
-        <p class="mt-5 mb-3 text-body-secondary">{t('label_copyright')}</p>
-      </form>
+      </div>
     </main>
   </div>
 }
