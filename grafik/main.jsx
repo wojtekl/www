@@ -913,8 +913,8 @@ const Reader = () => {
       setCurrentWeek(response.data)
       console.debug(response.data)
     })
-    const searchParams = new URLSearchParams({ name: client.name })
-    axios.get(`api/client?${searchParams.toString()}`).then(response => {
+    const clientParams = new URLSearchParams({ name: client.name })
+    axios.get(`api/client?${clientParams.toString()}`).then(response => {
       setClient(response.data)
       console.debug(response.data)
     })
