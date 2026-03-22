@@ -65,14 +65,15 @@ class Repository {
     return $this -> execute($statement);
   }
 
-  public function updateEvent($description, $starting, $period, $type, $notes, $address, $id, $tenant) {
-    $statement = $this -> sql -> prepare("UPDATE `EVENT` SET `DESCRIPTION` = :description, `STARTING` = :starting, `PERIOD` = :period, `TYPE` = :type, `CONFIRMED` = 1, `NOTES` = :notes, `ADDRESS` = :address, `CREATED` = UTC_TIMESTAMP WHERE `ID` = :id AND `TENANT` = :tenant");
+  public function updateEvent($description, $starting, $period, $type, $notes, $confirmed, $address, $id, $tenant) {
+    $statement = $this -> sql -> prepare("UPDATE `EVENT` SET `DESCRIPTION` = :description, `STARTING` = :starting, `PERIOD` = :period, `TYPE` = :type, `CONFIRMED` = 1, `NOTES` = :notes, `CONFIRMED` = :confirmed, `ADDRESS` = :address, `CREATED` = UTC_TIMESTAMP WHERE `ID` = :id AND `TENANT` = :tenant");
     
     $statement -> bindParam(":description", $description);
     $statement -> bindParam(":starting", $starting);
     $statement -> bindParam(":period", $period);
     $statement -> bindParam(":type", $type);
     $statement -> bindParam(":notes", $notes);
+    $statement -> bindParam(":confirmed", $confirmed);
     $statement -> bindParam(":address", $address);
     $statement -> bindParam(":id", $id);
     $statement -> bindParam(":tenant", $tenant);
