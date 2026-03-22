@@ -834,11 +834,13 @@ const Signin = () => {
 const Reader = () => {
   const { t } = useTranslation()
   const dispatch = useDispatch()
+  const navigate = useNavigate()
   
   const [currentWeek, setCurrentWeek] = useState([])
   const [contact, setContact] = useState()
   const [settings, setSettings] = useState()
   const [selected, setSelected] = useState()
+  const [client, setClient] = useState()
 
   const { tenant } = useParams()
   const { locale, setNotification } = usePreferences()
@@ -881,6 +883,8 @@ const Reader = () => {
     event.preventDefault()
 
     dispatch(tenantSet(undefined))
+    setClient(undefined)
+    navigate('/signin')
     
     event.stopPropagation()
   }
@@ -906,6 +910,7 @@ const Reader = () => {
       setCurrentWeek(response.data)
       console.debug(response.data)
     })
+    setClient({ id: 1 })
   }, [tenant])
 
   return <>
@@ -991,7 +996,7 @@ const Reader = () => {
     <ConfirmModal id="deleteAssignmentModal" title="label_add_event" onOk={() => {
       const postData = {
         eventId: selected,
-        clientId: '101'
+        clientId: client.id
       }
       axios.post('api/assignment-cd', postData, { headers: { 'Content-Type': 'multipart/form-data' }}).then(response => {
         console.debug(response.data)
