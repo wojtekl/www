@@ -23,14 +23,14 @@
     $toList = "[";
     foreach ($result as $e) {
       $a_result = $repository -> readAssignmentByEventId($e["ID"]);
-      $assignement = "[";
+      $assignment = "[";
       foreach ($a_result as $a) {
-        $assignement .= "{\"clientId\": ${a["CLIENT_ID"]},\"name\": \"${a["DISPLAYNAME"]}\"}";
+        $assignment .= "{\"clientId\": ${a["CLIENT_ID"]},\"name\": \"${a["DISPLAYNAME"]}\"}";
       }
-      $assignement .= "]";
-      $assignement = (str_replace(",]", "]", $assignement));
+      $assignment .= "]";
+      $assignment = (str_replace(",]", "]", $assignment));
         
-      $toList .= "{\"id\": \"${e["ID"]}\", \"description\": \"${e["DESCRIPTION"]}\", \"starting\": \"${e["STARTING"]}\", \"period\": \"${e["PERIOD"]}\", \"notes\": \"${e["NOTES"]}\", \"dayOfWeek\": \"${e["DAYOFWEEK"]}\", \"time\": \"${e["TIME"]}\", \"type\": \"${e["TYPE"]}\", \"assignement\": ${assignement}},";
+      $toList .= "{\"id\": \"${e["ID"]}\", \"description\": \"${e["DESCRIPTION"]}\", \"starting\": \"${e["STARTING"]}\", \"period\": \"${e["PERIOD"]}\", \"notes\": \"${e["NOTES"]}\", \"dayOfWeek\": \"${e["DAYOFWEEK"]}\", \"time\": \"${e["TIME"]}\", \"type\": \"${e["TYPE"]}\", \"assignment\": ${assignment}},";
     }
     $toList .= "]";
     echo(str_replace(",]", "]", $toList));
