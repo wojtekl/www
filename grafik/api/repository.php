@@ -199,7 +199,7 @@ class Repository {
     return $this -> execute($statement);
   }
   
-  public function createAssignement($eventId, $clientId) {
+  public function createAssignment($eventId, $clientId) {
     $statement = $this -> sql -> prepare("INSERT INTO `ASSIGNMENT` VALUES (0, :eventId, :clientId, 0, '', '', '', UTC_TIMESTAMP)");
     
     $statement -> bindParam(":eventId", $eventId);
@@ -208,7 +208,7 @@ class Repository {
     return $this -> execute($statement);
   }
     
-  public function readAssignementByEventId($eventId) {
+  public function readAssignmentByEventId($eventId) {
     $statement = $this -> sql -> prepare("SELECT `a`.`ID`, `a`.`EVENT_ID`, `a`.`CLIENT_ID`, `a`.`ACCEPTED`, `c`.`DISPLAYNAME` FROM `ASSIGNMENT` `a` LEFT JOIN `CLIENT` `c` ON `c`.`ID` = `a`.`CLIENT_ID` WHERE `EVENT_ID` = :eventId");
     
     $statement -> bindParam(":eventId", $eventId);
@@ -216,7 +216,7 @@ class Repository {
     return $this -> execute($statement);
   }
     
-  public function updateAssignement($id, $accepted) {
+  public function updateAssignment($id, $accepted) {
     $statement = $this -> sql -> prepare("UPDATE `ASSIGNMENT` SET `ACCEPTED` = :accepted WHERE `ID` = :id");
     
     $statement -> bindParam(":id", $id);
@@ -225,7 +225,7 @@ class Repository {
     return $this -> execute($statement);
   }
   
-  public function deleteAssignement($id) {
+  public function deleteAssignment($id) {
     $statement = $this -> sql -> prepare("DELETE FROM `ASSIGNMENT` WHERE `ID` = :id");
     
     $statement -> bindParam(":id", $id);
