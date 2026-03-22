@@ -57,7 +57,7 @@ class Repository {
   }
     
   public function readEventById($id, $tenant) {
-    $statement = $this -> sql -> prepare("SELECT `ID`, `DESCRIPTION`, `STARTING`, `PERIOD`, `CONFIRMED`, `NOTES`, `TYPE` FROM `EVENT` WHERE `ID` = :id AND `TENANT` = :tenant LIMIT 1");
+    $statement = $this -> sql -> prepare("SELECT `ID`, `DESCRIPTION`, `STARTING`, `PERIOD`, `NOTES`, `CONFIRMED`, `TYPE` FROM `EVENT` WHERE `ID` = :id AND `TENANT` = :tenant LIMIT 1");
     
     $statement -> bindParam(":id", $id);
     $statement -> bindParam(":tenant", $tenant);
@@ -196,6 +196,23 @@ class Repository {
   
   public function readLog() {
     $statement = $this -> sql -> prepare("SELECT COUNT(*) AS `COUNT` FROM `LOGBOOK` WHERE CREATED > DATE_SUB(UTC_TIMESTAMP, INTERVAL 1 DAY)");
+    
+    return $this -> execute($statement);
+  }
+    
+  public function createClient($name, $displayName) {
+    $statement = $this -> sql -> prepare("INSERT INTO `CLIENT` VALUES (0, :name, :displayName, '', 1, DATE_ADD(UTC_TIMESTAMP, INTERVAL 1 YEAR), UTC_TIMESTAMP, '')");
+    
+    $statement -> bindParam(":name", $name);
+    $statement -> bindParam(":displayName", $displayName);
+    
+    return $this -> execute($statement);
+  }
+    
+  public function readClientByName($name) {
+    $statement = $this -> sql -> prepare("SELECT `ID`, `NAME`, `DISPLAYNAME` FROM `CLIENT` WHERE `NAME` = :name LIMIT 1");
+    
+    $statement -> bindParam(":name", $name);
     
     return $this -> execute($statement);
   }
