@@ -911,11 +911,6 @@ const Reader = () => {
   return <>
     <header>
       <div class=" text-bg-dark collapse" id="navbarToggleExternalContent" data-bs-theme="dark">
-        <ul class="navbar-nav">
-          <li class="nav-item">
-            <a class="nav-link d-flex align-items-center gap-2" href="#" id="signoutLink" onClick={handleSignout}><i class="bi bi-door-closed"></i> {t('label_signout')} </a>
-          </li>
-        </ul>
         <div class="container">
           <div class="row">
             <div class="col-sm-8 col-md-7 py-4">
@@ -942,6 +937,11 @@ const Reader = () => {
             aria-expanded="false" aria-label={t('label_toggle_navigation')}>
             <span class="navbar-toggler-icon"></span>
           </button>
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link d-flex align-items-center gap-2" href="#" id="signoutLink" onClick={handleSignout}><i class="bi bi-door-closed"></i> {t('label_signout')} </a>
+            </li>
+          </ul>
         </div>
       </div>
     </header>
