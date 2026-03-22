@@ -21,6 +21,7 @@ const resources = {
       "label_try_footer": "Wprowadź 'demo' jako klienta i 'demo' jako hasło poniżej i kliknij 'Zaloguj'",
       "label_please_sign_in": "Zaloguj się",
       "label_password": "Hasło",
+      "label_tenant_password": "Hasło grupy",
       "label_remember_me": "Zapamiętaj",
       "label_sign_in": "Zaloguj",
       "label_signin_failure": "Niepoprawne hasło lub nazwa klienta!",
