@@ -833,6 +833,7 @@ const Signin = () => {
 /* Reader */
 const Reader = () => {
   const { t } = useTranslation()
+  const dispatch = useDispatch()
   
   const [currentWeek, setCurrentWeek] = useState([])
   const [contact, setContact] = useState()
@@ -872,6 +873,14 @@ const Reader = () => {
       form.reset()
       setNotification(response.data)
     })
+    
+    event.stopPropagation()
+  }
+
+  const handleSignout = (event) => {
+    event.preventDefault()
+
+    dispatch(tenantSet(undefined))
     
     event.stopPropagation()
   }
@@ -923,6 +932,7 @@ const Reader = () => {
       <div class="navbar navbar-dark bg-dark shadow-sm">
         <div class="container">
           <a class="navbar-brand d-flex align-items-center"><strong>{`${t('label_tenant')}: ${contact?.description}`}</strong></a>
+          <a class="nav-link d-flex align-items-center gap-2" href="#" id="signoutLink" onClick={handleSignout}><i class="bi bi-door-closed"></i> {t('label_signout')} </a>
           <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse"
             data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent"
             aria-expanded="false" aria-label={t('label_toggle_navigation')}>
