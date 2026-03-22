@@ -738,7 +738,7 @@ const Signin = () => {
     })*/
     const tenant = document.getElementById('tenantInput').value
     console.debug('tenant' , tenant)
-    navigate(`/#/${tenant}`)
+    navigate(`#/${tenant}`)
 
     event.stopPropagation()
   }
