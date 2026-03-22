@@ -583,9 +583,13 @@ const Manage = () => {
   useEffect(() => {
     axios.get('api/signin').then(response => {
       if (!response.data || response.data.length > 99 || response.data.includes(';')) {
-        dispatch(tenantSet(undefined))
-        setTenant(undefined)
-        navigate('/signin')
+        //dispatch(tenantSet(undefined))
+        //setTenant(undefined)
+        if (!tenant) {
+          navigate('/signin')
+        } else {
+          navigate(`/${tenant}`)
+        }
       }
       else {
         dispatch(tenantSet(response.data))
@@ -711,6 +715,8 @@ const Signin = () => {
   const navigate = useNavigate()
   const { t } = useTranslation()
   const dispatch = useDispatch()
+  
+  const [tenant, setTenant] = useState(useSelector(state => state.tenant))
   const [signinFailure, setSigninFailure] = useState(false)
 
   useEffect(() => {
@@ -718,6 +724,10 @@ const Signin = () => {
       if (response.data && !response.data.includes(';')) {
         dispatch(tenantSet(response.data))
         navigate('/')
+      } else {
+        if (tenant) {
+          navigate(`/${tenant}`)
+        }
       }
       console.debug(response.data)
     })
@@ -736,9 +746,9 @@ const Signin = () => {
         setSigninFailure(true)
       }
     })*/
-    const tenant = document.getElementById('tenantInput').value
-    console.debug('tenant' , tenant)
-    navigate(`#/${tenant}`)
+    const t = document.getElementById('tenantInput').value
+    dispatch(tenantSet(t))
+    navigate(`/${t}`)
 
     event.stopPropagation()
   }
