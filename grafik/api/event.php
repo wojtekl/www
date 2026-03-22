@@ -27,8 +27,10 @@
     if (!isset($id)) {
       pot();
     }
+      
     
     $e = ($repository -> readEventById($id, $tenant))[0];
+    
     $toJson = "{\"description\": \"${e["DESCRIPTION"]}\", \"starting\": \"${e["STARTING"]}\", \"period\": \"${e["PERIOD"]}\", \"notes\": \"${e["NOTES"]}\", \"confirmed\": ${e["CONFIRMED"]}, \"type\": \"${e["TYPE"]}\"}";
     echo($toJson);
   }
@@ -39,7 +41,7 @@
     $period = trim($_POST["period"]);
     $type = trim($_POST["type"]);
     $notes = trim($_POST["notes"]);
-    $confirmed = trim($_POST["confirmed"]) ? 1 : 0
+    $confirmed = trim($_POST["confirmed"]) ? 1 : 0;
     $address = "";
     $id = trim($_POST["id"]);
     if (!isset($id) || !isset($starting)) {
