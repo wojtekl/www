@@ -932,16 +932,16 @@ const Reader = () => {
       <div class="navbar navbar-dark bg-dark shadow-sm">
         <div class="container">
           <a class="navbar-brand d-flex align-items-center"><strong>{`${t('label_tenant')}: ${contact?.description}`}</strong></a>
-          <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse"
-            data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent"
-            aria-expanded="false" aria-label={t('label_toggle_navigation')}>
-            <span class="navbar-toggler-icon"></span>
-          </button>
           <ul class="navbar-nav">
             <li class="nav-item">
               <a class="nav-link d-flex align-items-center gap-2" href="#" id="signoutLink" onClick={handleSignout}><i class="bi bi-door-closed"></i> {t('label_signout')} </a>
             </li>
           </ul>
+          <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse"
+            data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent"
+            aria-expanded="false" aria-label={t('label_toggle_navigation')}>
+            <span class="navbar-toggler-icon"></span>
+          </button>
         </div>
       </div>
     </header>
