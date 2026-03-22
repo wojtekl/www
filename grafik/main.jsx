@@ -742,12 +742,13 @@ const Signin = () => {
   
   return <div class="d-flex align-items-center py-4 bg-body-tertiary">
     <main class="form-signin w-100 m-auto" style={{maxWidth: '330px', padding: '1rem'}}>
-      <div class="alert alert-info" role="alert">
+      <div class="alert alert-info visually-hidden" role="alert">
         <h4 class="alert-heading">{t('label_try_title')}</h4>
         <p>{t('label_try_description')}</p>
         <hr />
         <p class="mb-0">{t('label_try_footer')}</p>
       </div>
+      {signinFailure && <div class="alert alert-danger" role="alert">{t('label_signin_failure')}</div>}
       <ul class="nav nav-tabs" id="signinTab" role="tablist">
         <li class="nav-item" role="presentation">
           <button class="nav-link active" id="clientTab" data-bs-toggle="tab" data-bs-target="#client-tab-pane" type="button" role="tab" aria-controls="client-tab-pane" aria-selected="true">{t('label_client')}</button>
@@ -759,7 +760,6 @@ const Signin = () => {
       <div class="tab-content" id="tabContent">
         <div class="tab-pane fade show active" id="client-tab-pane" role="tabpanel" aria-labelledby="client-tab" tabindex="0"></div>
         <div class="tab-pane fade" id="tenant-tab-pane" role="tabpanel" aria-labelledby="tenant-tab" tabindex="0">
-          {signinFailure && <div class="alert alert-danger" role="alert">{t('label_signin_failure')}</div>}
           <form id="form_signin" enctype="multipart/form-data" onSubmit={handleSubmit}>
             <h1 class="h3 mb-3 fw-normal">{t('label_please_sign_in')}</h1>
             <div class="form-floating">
