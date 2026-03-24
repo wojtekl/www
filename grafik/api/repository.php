@@ -162,10 +162,9 @@ class Repository {
   }
   
   public function updateGroupPassword($newHash, $address, $tenant) {
-    $statement = $this -> sql -> prepare("UPDATE `SETTINGS` SET `GROUPPASSWORD` = :hash, `ADDRESS` = :address WHERE `TENANT` = :tenant");
+    $statement = $this -> sql -> prepare("UPDATE `SETTINGS` SET `GROUPPASSWORD` = :hash WHERE `TENANT` = :tenant");
     
     $statement -> bindParam(":hash", $newHash);
-    $statement -> bindParam(":address", $address);
     $statement -> bindParam(":tenant", $tenant);
     
     return $this -> execute($statement);
