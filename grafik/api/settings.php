@@ -42,6 +42,12 @@
     if (!isset($tenant) || !isset($schedule) || !isset($showVisits) || !isset($showBooking)) {
       pot();
     }
+    
+    $groupPassword = trim($_POST["groupPassword"]);
+    if (isset($groupPassword)) {
+      $newHash = password_hash($groupPassword, PASSWORD_DEFAULT);
+      $repository -> updateGroupPassword($newHash, '', $tenant);
+    }
 
     $result = $repository -> updateSettings($schedule, $showVisits, $showBooking, $tenant);
     echo(!!$result);
