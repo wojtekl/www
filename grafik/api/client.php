@@ -21,8 +21,15 @@
   function get($repository) {
 
     $name = trim($_GET["name"]);
+    $tenant = trim($_GET["tenant"]);
     if (!isset($name)) {
       pot();
+    }
+    
+    $hash = ($repository -> readGroupPassword($tenant))[0]["GROUPPASSWORD"];
+    if (password_verify($password, $hash)) {
+      pot();
+      return;
     }
     
     $result = $repository -> readClientByName($name);
