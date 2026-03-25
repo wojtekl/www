@@ -728,14 +728,16 @@ const Signin = () => {
   const [signinFailure, setSigninFailure] = useState(false)
 
   useEffect(() => {
+    axios.get('api/client').then(response => {
+      if (response.data && !response.data.includes(';')) {
+        navigate(`/${reponse.data.tenant}`)
+      }
+      console.debug(response.data)
+    })
     axios.get('api/signin').then(response => {
       if (response.data && !response.data.includes(';')) {
         dispatch(tenantSet(response.data))
         navigate('/')
-      } else {
-        if (tenant) {
-          navigate(`/${tenant}`)
-        }
       }
       console.debug(response.data)
     })
@@ -745,12 +747,10 @@ const Signin = () => {
     event.preventDefault()
     
     setSigninFailure(false)
-    const searchParams = new URLSearchParams({ name: document.getElementById('clientInput').value })
-    axios.get(`api/client?${searchParams.toString()}`).then(response => {
+    const form = document.getElementById('form_client')
+    axios.post(api/client', form).then(response => {
       if (response.data) {
-        const t = document.getElementById('tenantInput').value
-        dispatch(tenantSet(t))
-        navigate(`/${t}`)
+        navigate(`/${response.data.tenant}`)
       }
       else {
         setSigninFailure(true)
@@ -803,7 +803,7 @@ const Signin = () => {
               <label for="tenantInput">{t('label_tenant')}</label>
             </div>
             <div class="form-floating">
-              <input type="password" class="form-control" id="tenantPassword" placeholder={t('label_tenant_password')} name="tenant_password" />
+              <input type="password" class="form-control" id="tenantPassword" placeholder={t('label_tenant_password')} name="groupPassword" />
               <label for="tenantPassword">{t('label_tenant_password')}</label>
             </div>
             <div class="form-floating">
@@ -840,17 +840,16 @@ const Signin = () => {
 /* Reader */
 const Reader = () => {
   const { t } = useTranslation()
-  const dispatch = useDispatch()
   const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const { locale, setNotification } = usePreferences()
+  const { tenant } = useParams()
   
   const [currentWeek, setCurrentWeek] = useState([])
   const [contact, setContact] = useState()
   const [settings, setSettings] = useState()
-  const [selected, setSelected] = useState()
   const [client, setClient] = useState()
-
-  const { tenant } = useParams()
-  const { locale, setNotification } = usePreferences()
+  const [selected, setSelected] = useState()
 
   const dayOfWeek = [
     { order: '2', name: t('label_monday'), short: 'pn'}, 
@@ -862,44 +861,32 @@ const Reader = () => {
     { order: '1', name: t('label_sunday'), short: 'nd'}
   ]
 
-  const handleSubmit = (event) => {
-    event.preventDefault()
-
-    const form = document.getElementById('form_order')
-    axios.post('api/event-cd', form, { headers: { 'Content-Type': 'multipart/form-data' }}).then(response => {
-      form.reset()
-      setNotification(response.data)
-    })
-    
-    event.stopPropagation()
-  }
-
-  const handleBook = (event) => {
-    event.preventDefault()
-
-    const form = document.getElementById('form_book')
-    axios.post('api/visit-cd', form, { headers: { 'Content-Type': 'multipart/form-data' }}).then(response => {
-      form.reset()
-      setNotification(response.data)
-    })
-    
-    event.stopPropagation()
-  }
-
   const handleSignout = (event) => {
     event.preventDefault()
 
-    dispatch(tenantSet(undefined))
-    setClient(undefined)
-    navigate('/signin')
+    axios.get('api/client-cd').then(response => {
+      navigate('/signin')
+      console.debug(response.data)
+    })
     
     event.stopPropagation()
   }
 
   useEffect(() => {
-    if (!client) {
+    axios.get('api/client').then(response => {
+      console.debug(response.data)
+      if (response.data) {
+        setClient(response.data)
+      } else {
+        navigate('/signin')
+      }
+    })
+  }, [])
+
+  useEffect(() => {
+    /*if (!client) {
       navigate('/signin')
-    }
+    }*/
     const searchParams = new URLSearchParams({ tenant: tenant })
     axios.get(`api/contact?${searchParams.toString()}`).then(response => {
       setContact(response.data)
@@ -909,20 +896,13 @@ const Reader = () => {
       setSettings(response.data)
       console.debug(response.data)
     })
-    const postWeek = (viewType: String) => {
-      return {
-        tenant: tenant,
-        type: viewType,
-        today: datePart()
-      }
+    const postData = {
+      tenant: tenant,
+      type: "eucharystia",
+      today: datePart()
     }
-    axios.post('api/event-week', postWeek("eucharystia"), { headers: { 'Content-Type': 'multipart/form-data' }}).then(response => {
+    axios.post('api/event-week', postData, { headers: { 'Content-Type': 'multipart/form-data' }}).then(response => {
       setCurrentWeek(response.data)
-      console.debug(response.data)
-    })
-    const clientParams = new URLSearchParams({ name: client.name })
-    axios.get(`api/client?${clientParams.toString()}`).then(response => {
-      setClient(response.data)
       console.debug(response.data)
     })
   }, [tenant])
@@ -976,8 +956,8 @@ const Reader = () => {
               const currentDay = currentWeek.filter(f => f.dayOfWeek === e.order)
               return <>
                 <div class="col-lg-1 bg-info-subtle">{e.short}</div>
-                { currentDay.length < 1 ? <div class="col-lg-11">  - - -  </div> : currentDay.map(g => 
-                  <div class={`bg-${g.confirmed ? 'secondary' : 'warning' }-subtle border border-secondary col-lg-${Math.round(g.period/3)}`}>{`${g.time}`} - <DateFormatter timestamp={new Date(new Date(g.starting).getTime() + g.period * 60 * 60 * 1000)} locale={locale} format="time" /> {g.description} { !g.confirmed && <a href="#" class="btn btn-sm" data-bs-toggle="modal" data-bs-target="#deleteAssignmentModal" onClick={ () => setSelected(g.id) }><i class="bi bi-pencil-square"></i></a> }</div>
+                { 1 > currentDay.length ? <div class="col-lg-11">  - - -  </div> : currentDay.map(g => 
+                  <div class={`bg-${g.confirmed ? 'secondary' : 'warning' }-subtle border border-secondary col-lg-${Math.round(g.period/3)}`}>{`${g.time}`} - <DateFormatter timestamp={new Date(new Date(g.starting).getTime() + g.period * 60 * 60 * 1000)} locale={locale} format="time" /> {g.description} { !g.confirmed && <a href="#" class="btn btn-sm" data-bs-toggle="modal" data-bs-target="#createAssignmentModal" onClick={ () => setSelected(g.id) }><i class="bi bi-pencil-square"></i></a> }</div>
                 ) }
                 <div class="w-100"></div>
               </>
@@ -985,16 +965,6 @@ const Reader = () => {
               )}
             </div>
           </AccordionItem>
-          { !!settings?.showBooking && <AccordionItem id="book" parent="accordionExample">
-            <Form id="form_book" legend="label_book" enctype="multipart/form-data" onSubmit={handleBook}>
-              <InputText name="firstname" label={t('label_firstname')} className="mb-3" formId="book" />
-              <InputText name="surname" label={t('label_surname')} className="mb-3" formId="book" />
-              <InputText name="street" label={t('label_street')} className="mb-3" formId="book" />
-              <InputText name="number" label={t('label_number')} className="mb-3" formId="book" />
-              <InputText name="city" label={t('label_city')} className="mb-3" formId="book" />
-              <input type="hidden" name="tenant" value={tenant} />
-            </Form>
-          </AccordionItem> }
         </div>
       </div>
     </main>
@@ -1007,17 +977,16 @@ const Reader = () => {
         <p class="mb-0"><a href="/">{t('label_home')}</a></p>
       </div>
     </footer>
-    <ConfirmModal id="deleteAssignmentModal" title="label_add_event" onOk={() => {
+    <ConfirmModal id="createAssignmentModal" title="label_add_event" onOk={() => {
       const postData = {
         eventId: selected,
-        clientId: client.id
+        clientId: client.clientId
       }
       axios.post('api/assignment-cd', postData, { headers: { 'Content-Type': 'multipart/form-data' }}).then(response => {
         console.debug(response.data)
         setNotification('label_saved')
       })
     }} />
-    <EventModal id="signEventModal" itemId={selected} type="eucharystia" />
   </>
 }
 
