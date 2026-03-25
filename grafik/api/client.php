@@ -20,7 +20,7 @@
 
   function get($repository) {
     if (isset($_SESSION["clientId"]) && isset($_SESSION["tenant"])) {
-      $toJson = "{\"clientId\": \"${_SESSION["clientId"]}\", \"tenant\": \"${_SESSION["tenant"]}\"}";
+      $toJson = "{\"clientId\": ${_SESSION["clientId"]}, \"tenant\": \"${_SESSION["tenant"]}\"}";
       echo($toJson);
     }
     else {
@@ -49,7 +49,7 @@
     $clientId = 0 < count($result) ? $result[0]["ID"] : $repository -> createClient($client, $client);
     $_SESSION["clientId"] = $clientId;
     $_SESSION["tenant"] = $tenant;
-    $toJson = "{\"clientId\": \"${clientId}\", \"tenant\": \"${tenant}\"}";
+    $toJson = "{\"clientId\": ${clientId}, \"tenant\": \"${tenant}\"}";
     echo($toJson);
   }
 
