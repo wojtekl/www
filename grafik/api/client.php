@@ -19,10 +19,8 @@
   }
 
   function get($repository) {
-    $clientId = trim($_SESSION["clientId"]);
-    $tenant = trim($_SESSION["tenant"]);
-    if (isset($clientId) && isset($tenant)) {
-      $toJson = "{\"clientId\": \"${clientId}\", \"tenant\": \"${tenant}\"}";
+    if (isset($_SESSION["clientId"]) && isset($_SESSION["tenant"])) {
+      $toJson = "{\"clientId\": \"${_SESSION["clientId"]}\", \"tenant\": \"${_SESSION["tenant"]}\"}";
       echo($toJson);
     }
     else {
@@ -40,7 +38,7 @@
       pot();
     }
     
-    $hash = ($repository -> readGroupPassword($tenant))[0]["GROUPPASSWORD"];
+    $hash = (($repository -> readGroupPassword($tenant))[0])["GROUPPASSWORD"];
     if (password_verify($groupPassword, $hash)) {
       session_destroy();
       pot();
