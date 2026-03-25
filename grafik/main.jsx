@@ -953,16 +953,28 @@ const Reader = () => {
           <AccordionItem id="event" parent="accordionExample" show={true}>
             <div class="row">
               { dayOfWeek.map((e, i) => {
-              const currentDay = currentWeek.filter(f => f.dayOfWeek === e.order)
+                const currentDay = currentWeek.filter(f => f.dayOfWeek === e.order)
               return <>
                 <div class="col-lg-1 bg-info-subtle">{e.short}</div>
-                { 1 > currentDay.length ? <div class="col-lg-11">  - - -  </div> : currentDay.map(g => 
-                  <div class={`bg-${g.confirmed ? 'secondary' : 'warning' }-subtle border border-secondary col-lg-${Math.round(g.period/3)}`}>{`${g.time}`} - <DateFormatter timestamp={new Date(new Date(g.starting).getTime() + g.period * 60 * 60 * 1000)} locale={locale} format="time" /> {g.description} { !g.confirmed && <a href="#" class="btn btn-sm" data-bs-toggle="modal" data-bs-target="#createAssignmentModal" onClick={ () => setSelected(g.id) }><i class="bi bi-pencil-square"></i></a> }</div>
-                ) }
+                { 1 > currentDay.length ? <div class="col-lg-11">  - - -  </div> : currentDay.map(g => {
+                  const endTime = new Date(new Date(g.starting).getTime() + g.period * 60 * 60 * 1000)
+                  const isAssigned = g.assignment.find(a => a.id === client.clientId)
+                  return <div class={`bg-${g.confirmed ? 'secondary' : 'warning' }-subtle border border-secondary col-lg-${Math.round(g.period/3)}`}>
+                  {`${g.time}`} - <DateFormatter timestamp={endTime} locale={locale} format="time" /> {g.description} 
+                    !g.confirmed && <a 
+                      href="#" 
+                      class="btn btn-sm" 
+                      data-bs-toggle="modal" 
+                      data-bs-target={!isAssigned ? "#createAssignmentModal" : "#deleteAssignmentModal"} 
+                      onClick={ () => setSelected(g.id) }
+                    >
+                      <i class={!isAssigned ? "bi bi-pencil-square" : "bi bi-trash"}></i>
+                    </a>
+                  </div>
+                }) }
                 <div class="w-100"></div>
               </>
-              }
-              )}
+              }) }
             </div>
           </AccordionItem>
         </div>
@@ -977,12 +989,22 @@ const Reader = () => {
         <p class="mb-0"><a href="/">{t('label_home')}</a></p>
       </div>
     </footer>
-    <ConfirmModal id="createAssignmentModal" title="label_add_event" onOk={() => {
+    <ConfirmModal id="createAssignmentModal" title="label_create_assignment" onOk={() => {
       const postData = {
         eventId: selected,
         clientId: client.clientId
       }
       axios.post('api/assignment-cd', postData, { headers: { 'Content-Type': 'multipart/form-data' }}).then(response => {
+        console.debug(response.data)
+        setNotification('label_saved')
+      })
+    }} />
+    <ConfirmModal id="deleteAssignmentModal" title="label_delete_assignment" onOk={() => {
+      const postData = {
+        eventId: selected,
+        clientId: client.clientId
+      }
+      axios.get('api/assignment-cd', postData, { headers: { 'Content-Type': 'multipart/form-data' }}).then(response => {
         console.debug(response.data)
         setNotification('label_saved')
       })
