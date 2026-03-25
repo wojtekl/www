@@ -39,7 +39,7 @@
     }
     
     $hash = (($repository -> readGroupPassword($tenant))[0])["GROUPPASSWORD"];
-    if (password_verify($groupPassword, $hash)) {
+    if (!password_verify($groupPassword, $hash)) {
       session_destroy();
       pot();
       return;
