@@ -845,7 +845,7 @@ const Reader = () => {
   const { locale, setNotification } = usePreferences()
   const { tenant } = useParams()
   
-  const [currentWeek, setCurrentWeek] = useState([])
+  const [currentWeek, setCurrentWeek] = useState()
   const [contact, setContact] = useState()
   const [settings, setSettings] = useState()
   const [client, setClient] = useState()
@@ -953,7 +953,7 @@ const Reader = () => {
           <AccordionItem id="event" parent="accordionExample" show={true}>
             <div class="row">
               { dayOfWeek.map((e, i) => {
-                const currentDay = currentWeek.filter(f => f.dayOfWeek === e.order)
+                const currentDay = currentWeek ? currentWeek.filter(f => f.dayOfWeek === e.order) : []
               return <>
                 <div class="col-lg-1 bg-info-subtle">{e.short}</div>
                 { 1 > currentDay.length ? <div class="col-lg-11">  - - -  </div> : currentDay.map(g => {
