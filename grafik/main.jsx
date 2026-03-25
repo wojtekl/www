@@ -905,7 +905,7 @@ const Reader = () => {
       setCurrentWeek(response.data)
       console.debug(response.data)
     })
-  }, [tenant])
+  }, [tenant, client])
 
   return <>
     <header>
