@@ -845,7 +845,7 @@ const Reader = () => {
   const { locale, setNotification } = usePreferences()
   const { tenant } = useParams()
   
-  const [currentWeek, setCurrentWeek] = useState()
+  const [currentWeek, setCurrentWeek] = useState([])
   const [contact, setContact] = useState()
   const [settings, setSettings] = useState()
   const [client, setClient] = useState()
@@ -953,7 +953,7 @@ const Reader = () => {
           <AccordionItem id="event" parent="accordionExample" show={true}>
             <div class="row">
               { dayOfWeek.map((e, i) => {
-                const currentDay = !currentWeek ? [] : currentWeek.filter(f => f.dayOfWeek === e.order)
+                const currentDay = currentWeek.filter(f => f.dayOfWeek === e.order)
               return <>
                 <div class="col-lg-1 bg-info-subtle">{e.short}</div>
                 { 1 > currentDay.length ? <div class="col-lg-11">  - - -  </div> : currentDay.map(g => {
@@ -961,7 +961,7 @@ const Reader = () => {
                   const isAssigned = g.assignment.find(a => a.id === client.clientId)
                   return <div class={`bg-${g.confirmed ? 'secondary' : 'warning' }-subtle border border-secondary col-lg-${Math.round(g.period/3)}`}>
                   {`${g.time}`} - <DateFormatter timestamp={endTime} locale={locale} format="time" /> {g.description} 
-                    !g.confirmed && <a 
+                    { !g.confirmed && <a 
                       href="#" 
                       class="btn btn-sm" 
                       data-bs-toggle="modal" 
@@ -969,7 +969,7 @@ const Reader = () => {
                       onClick={ () => setSelected(g.id) }
                     >
                       <i class={!isAssigned ? "bi bi-pencil-square" : "bi bi-trash"}></i>
-                    </a>
+                    </a> }
                   </div>
                 }) }
                 <div class="w-100"></div>
