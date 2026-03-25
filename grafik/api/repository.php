@@ -263,10 +263,11 @@ class Repository {
     return $this -> execute($statement);
   }
   
-  public function deleteAssignment($id) {
-    $statement = $this -> sql -> prepare("DELETE FROM `ASSIGNMENT` WHERE `ID` = :id");
+  public function deleteAssignment($eventId, $clientId) {
+    $statement = $this -> sql -> prepare("DELETE FROM `ASSIGNMENT` WHERE `EVENT_ID` = :eventId AND `CLIENT_ID` = :clientId");
     
-    $statement -> bindParam(":id", $id);
+    $statement -> bindParam(":eventId", $eventId);
+    $statement -> bindParam(":clientId", $clientId);
     
     return $this -> execute($statement);
   }
