@@ -25,13 +25,15 @@
     $result = $repository -> createAssignment($eventId, $clientId);
     echo($result);
   }
+
   function delete($repository) {
-    $id = trim($_GET["id"]);
-    if (!isset($id)) {
+    $eventId = trim($_GET["eventId"]);
+    $clientId = trim($_GET["clientId"]);
+    if (!isset($eventId) || !isset($clientId)) {
       pot();
     }
       
-    $repository -> deleteAssignment($id);
+    $repository -> deleteAssignment($eventId, $clientId);
   }
 
   function pot() {
