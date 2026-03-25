@@ -154,7 +154,7 @@ class Repository {
   
   
   public function readGroupPassword($tenant) {
-    $statement = $this -> sql -> prepare("SELECT `PASSWORD` FROM `SETTINGS` WHERE `TENANT` = :tenant");
+    $statement = $this -> sql -> prepare("SELECT `GROUPPASSWORD` FROM `SETTINGS` WHERE `TENANT` = :tenant");
     
     $statement -> bindParam(":tenant", $tenant);
     
