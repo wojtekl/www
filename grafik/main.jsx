@@ -958,8 +958,7 @@ const Reader = () => {
                 <div class="col-lg-1 bg-info-subtle">{e.short}</div>
                 { 1 > currentDay.length ? <div class="col-lg-11">  - - -  </div> : currentDay.map(g => {
                   const endTime = new Date(new Date(g.starting).getTime() + g.period * 60 * 60 * 1000)
-                  const isAssigned = g.assignment.find(a => a.id === client.clientId)
-                  console.debug(isAssigned, !isAssigned)
+                  const isAssigned = g.assignment.find(a => a.clientId === client.clientId)
                   return <div class={`bg-${g.confirmed ? 'secondary' : 'warning' }-subtle border border-secondary col-lg-${Math.round(g.period/3)}`}>
                   {`${g.time}`} - <DateFormatter timestamp={endTime} locale={locale} format="time" /> {g.description} 
                     { !g.confirmed && <a 
