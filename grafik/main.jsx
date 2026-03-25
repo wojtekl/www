@@ -959,16 +959,17 @@ const Reader = () => {
                 { 1 > currentDay.length ? <div class="col-lg-11">  - - -  </div> : currentDay.map(g => {
                   const endTime = new Date(new Date(g.starting).getTime() + g.period * 60 * 60 * 1000)
                   const isAssigned = g.assignment.find(a => a.id === client.clientId)
+                  console.debug(isAssigned, !isAssigned)
                   return <div class={`bg-${g.confirmed ? 'secondary' : 'warning' }-subtle border border-secondary col-lg-${Math.round(g.period/3)}`}>
                   {`${g.time}`} - <DateFormatter timestamp={endTime} locale={locale} format="time" /> {g.description} 
                     { !g.confirmed && <a 
                       href="#" 
                       class="btn btn-sm" 
                       data-bs-toggle="modal" 
-                      data-bs-target={!isAssigned ? "#createAssignmentModal" : "#deleteAssignmentModal"} 
+                      data-bs-target={!isAssigned ? '#createAssignmentModal' : '#deleteAssignmentModal'} 
                       onClick={ () => setSelected(g.id) }
                     >
-                      <i class={!isAssigned ? "bi bi-pencil-square" : "bi bi-trash"}></i>
+                      <i class={!isAssigned ? 'bi bi-pencil-square' : 'bi bi-trash'}></i>
                     </a> }
                   </div>
                 }) }
