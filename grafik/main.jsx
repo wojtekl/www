@@ -748,7 +748,7 @@ const Signin = () => {
     
     setSigninFailure(false)
     const form = document.getElementById('form_client')
-    axios.post(api/client', form).then(response => {
+    axios.post('api/client', form).then(response => {
       if (response.data) {
         navigate(`/${response.data.tenant}`)
       }
