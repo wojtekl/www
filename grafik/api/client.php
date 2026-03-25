@@ -19,47 +19,40 @@
   }
 
   function get($repository) {
-
-    $name = trim($_GET["name"]);
-    $tenant = trim($_GET["tenant"]);
-    if (!isset($name)) {
-      pot();
-    }
-    
-    $hash = ($repository -> readGroupPassword($tenant))[0]["GROUPPASSWORD"];
-    if (password_verify($password, $hash)) {
-      pot();
-      return;
-    }
-    
-    $result = $repository -> readClientByName($name);
-    if (0 < count($result)) {
-      $e = ($result)[0];
-      $toJson = "{\"id\": \"${e["ID"]}\", \"name\": \"${e["NAME"]}\", \"displayName\": \"${e["DISPLAYNAME"]}\"}";
+    $clientId = trim($_SESSION["clientId"]);
+    $tenant = trim($_SESSION["tenant"]);
+    if (isset($clientId) && isset($tenant)) {
+      $toJson = "{\"clientId\": \"${clientId}\", \"tenant\": \"${tenant}\"}";
       echo($toJson);
-    } else {
-      $id = $repository -> createClient($name, $name);
-      $toJson = "{\"id\": \"${id}\", \"name\": \"${name}\", \"displayName\": \"${name}\"}";
-      echo($toJson);
+    }
+    else {
+      //http_response_code(403);
+      echo("");
     }
   }
 
   function post($repository) {
-    $description = trim($_POST["description"]);
-    $street = trim($_POST["street"]);
-    $number = trim($_POST["number"]);
-    $city = trim($_POST["city"]);
-    $postalcode = trim($_POST["postalcode"]);
-    $email = trim($_POST["email"]);
-    $phone = trim($_POST["phone"]);
-    $iban = trim($_POST["iban"]);
-    $tenant = $_SESSION["tenant"];
-    if (!isset($tenant) || !isset($description) || !isset($street) || !isset($number) || !isset($city) || !isset($postalcode) || !isset($email) || !isset($phone) || !isset($iban)) {
+    $client = trim($_POST["client"]);
+    $tenant = trim($_POST["tenant"]);
+    $groupPassword = trim($_POST["groupPassword"]);
+    
+    if (!isset($client) || !isset($tenant) || !isset($groupPassword)) {
       pot();
     }
-
-    $result = $repository -> updateContact($description, $street, $number, $city, $postalcode, $email, $phone, $iban, $tenant);
-    echo($result[0]);
+    
+    $hash = ($repository -> readGroupPassword($tenant))[0]["GROUPPASSWORD"];
+    if (password_verify($groupPassword, $hash)) {
+      session_destroy();
+      pot();
+      return;
+    }
+    
+    $result = $repository -> readClientByName($client);
+    $clientId = 0 < count($result) ? $result[0]["ID"] : $repository -> createClient($client, $client);
+    $_SESSION["clientId"] = $clientId;
+    $_SESSION["tenant"] = $tenant;
+    $toJson = "{\"clientId\": \"${clientId}\", \"tenant\": \"${tenant}\"}";
+    echo($toJson);
   }
 
   function pot() {
