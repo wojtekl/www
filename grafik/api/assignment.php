@@ -28,7 +28,7 @@
     $result = $repository -> readAssignmentByEventId($eventId);
     $toJson = "[";
     foreach ($result as $a) {
-      $toJson .= "{\"clientId\": ${a["CLIENT_ID"]},\"displayName\": \"${a["DISPLAYNAME"]}\",\"accepted\": ${a["ACCEPTED"]}},";
+      $toJson .= "{\"id\": ${a["ID"]},\"clientId\": ${a["CLIENT_ID"]},\"displayName\": \"${a["DISPLAYNAME"]}\",\"accepted\": ${a["ACCEPTED"]}},";
     }
     $toJson .= "]";
     $toJson = (str_replace(",]", "]", $toJson));
