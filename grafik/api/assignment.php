@@ -39,11 +39,10 @@
   function post($repository) {
     $assignment = $_POST["assignment"];
     
-    $result = "";
     foreach($assignment as $id => $accepted) {
-      $result .= $repository -> updateAssignment($id, $accepted);
+      $repository -> updateAssignment($id, $accepted);
     }
-    echo($result);
+    echo('ok');
   }
 
   function pot() {
