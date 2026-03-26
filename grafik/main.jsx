@@ -958,7 +958,7 @@ const Reader = () => {
                       data-bs-target={!isAssigned ? '#createAssignmentModal' : '#deleteAssignmentModal'} 
                       onClick={ () => setSelected(g.id) }
                     >
-                      <i class={!isAssigned ? 'bi bi-person-add' : 'bi bi-person-dash'}></i>
+                      <i class={!isAssigned ? 'bi bi-hand-thumbs-up' : 'bi bi-hand-thumbs-down'}></i>
                     </a> }
                   </div>
                 }) }
