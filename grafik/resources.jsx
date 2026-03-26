@@ -45,6 +45,8 @@ const resources = {
       "label_notes": "Notatki",
       "label_confirmed": "Zatwierdzone",
       "label_accepted": "Zaakceptowane",
+      "label_create_assignment": "Zapisz się",
+      "label_delete_assignment": "Wycofaj się",
       "label_settings": "Ustawienia",
       "label_show_booking": "Wyświetlaj zapisy",
       "label_firstname": "Imię",
