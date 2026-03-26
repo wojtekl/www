@@ -953,7 +953,7 @@ const Reader = () => {
                   const isAssigned = g.assignment.find(a => a.clientId === client.clientId)
                   return <div class={`bg-${g.confirmed ? 'secondary' : 'warning' }-subtle border border-secondary col-lg-${Math.round(g.period/3)}`}>
                   {`${g.time}`} - <DateFormatter timestamp={endTime} locale={locale} format="time" /> {g.description} 
-                    { g.confirmed ? g.assignment.filter(a => a.accepted).map(a => a.displayName) : <a 
+                    { g.confirmed ? g.assignment.filter(a => a.accepted).map(a => <div>{a.displayName}</div>) : <a 
                       href="#" 
                       class="btn btn-sm" 
                       data-bs-toggle="modal" 
