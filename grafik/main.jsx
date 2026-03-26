@@ -249,6 +249,7 @@ const AssignModal = ({ id, eventId }) => {
     axios.get(`api/assignment?${searchParams.toString()}`).then(response => {
       setAssignment(response.data)
       setForm(document.getElementById(`form_${id}`), response.data.reduce((j, p) => ({ ...j, [`accepted-${p.clientId}`]: p.accepted }), {}))
+      console.debug('form', response.data.reduce((j, p) => ({ ...j, [`accepted-${p.clientId}`]: p.accepted }), {}))
       console.debug(response.data)
     })
   }, [eventId])
