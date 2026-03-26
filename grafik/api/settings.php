@@ -44,7 +44,7 @@
     }
     
     $groupPassword = trim($_POST["groupPassword"]);
-    if (isset($groupPassword)) {
+    if (!empty($groupPassword)) {
       $newHash = password_hash($groupPassword, PASSWORD_DEFAULT);
       $repository -> updateGroupPassword($newHash, '', $tenant);
     }
