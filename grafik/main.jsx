@@ -245,8 +245,8 @@ const AssignModal = ({ id, eventId }) => {
       return
     }
     
-    const searchParams = new URLSearchParams({ id: eventId })
-    axios.get(`api/event?${searchParams.toString()}`).then(response => {
+    const searchParams = new URLSearchParams({ eventId: eventId })
+    axios.get(`api/assignment?${searchParams.toString()}`).then(response => {
       setForm(document.getElementById(`form_${id}`), response.data)
       setAssignment(response.data.assignment)
       console.debug(response.data)
