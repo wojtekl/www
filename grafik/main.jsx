@@ -262,6 +262,7 @@ const AssignModal = ({ id, eventId }) => {
   const handleSubmit = (form) => {
     axios.post('api/assignment', { assignment: getForm(form) }, { headers: { 'Content-Type': 'multipart/form-data' }}).then(response => {
       //form.reset()
+      setNotification('label_saved')
       console.debug(response.data)
     })
   }
@@ -549,6 +550,7 @@ const EventModal = ({ id, itemId, type, onSuccess }) => {
     axios.post(!itemId ? 'api/event-cd' : 'api/event', form, { headers: { 'Content-Type': 'multipart/form-data' }}).then(response => {
       //form.reset()
       onSuccess()
+      setNotification('label_saved')
       console.debug(response.data)
     })
   }
@@ -838,6 +840,7 @@ const Reader = () => {
   const [settings, setSettings] = useState()
   const [client, setClient] = useState()
   const [selected, setSelected] = useState()
+  const [refresh, setRefresh] = useState(true)
 
   const dayOfWeek = [
     { order: '2', name: t('label_monday'), short: 'pn'}, 
@@ -872,7 +875,7 @@ const Reader = () => {
   }, [])
 
   useEffect(() => {
-    if (!client) {
+    if (!client || !refresh) {
       return
     }
     const searchParams = new URLSearchParams({ tenant: tenant })
@@ -893,7 +896,8 @@ const Reader = () => {
       setCurrentWeek(response.data)
       console.debug(response.data)
     })
-  }, [tenant, client])
+    setRefresh(false)
+  }, [tenant, client, refresh])
 
   return <>
     <header>
@@ -981,6 +985,7 @@ const Reader = () => {
       axios.post('api/assignment-cd', postData, { headers: { 'Content-Type': 'multipart/form-data' }}).then(response => {
         console.debug(response.data)
         setNotification('label_saved')
+        setRefresh(true)
       })
     }} />
     <ConfirmModal id="deleteAssignmentModal" title="label_delete_assignment" onOk={() => {
@@ -991,6 +996,7 @@ const Reader = () => {
       axios.get(`api/assignment-cd?${searchParams.toString()}`).then(response => {
         console.debug(response.data)
         setNotification('label_saved')
+        setRefresh(true)
       })
     }} />
   </>
