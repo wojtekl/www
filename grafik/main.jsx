@@ -241,7 +241,7 @@ const AssignModal = ({ id, eventId }) => {
 
   useEffect(() => {
     if (!eventId) {
-      setForm(document.getElementById(`form_${id}`), { type: type })
+      setForm(document.getElementById(`form_${id}`))
       return
     }
     
