@@ -241,15 +241,14 @@ const AssignModal = ({ id, eventId }) => {
 
   useEffect(() => {
     if (!eventId) {
-      //setForm(document.getElementById(`form_${id}`), { eventId: eventId })
+      setForm(document.getElementById(`form_${id}`), { eventId: eventId })
       return
     }
     
     const searchParams = new URLSearchParams({ eventId: eventId })
     axios.get(`api/assignment?${searchParams.toString()}`).then(response => {
-      setForm(document.getElementById(`form_${id}`), {})
-      console.debug(response.data.reduce((j, p) => ({ ...j, [`accepted-${p.clientId}`]: p.accepted }), {}))
       setAssignment(response.data)
+      setForm(document.getElementById(`form_${id}`), response.data.reduce((j, p) => ({ ...j, [`accepted-${p.clientId}`]: p.accepted }), {}))
       console.debug(response.data)
     })
   }, [eventId])
