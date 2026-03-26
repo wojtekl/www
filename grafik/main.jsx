@@ -256,7 +256,7 @@ const AssignModal = ({ id, eventId }) => {
       return
     }
     
-    setForm(document.getElementById(`form_${id}`), assignment.reduce((j, p) => ({ ...j, [`accepted-${p.clientId}`]: p.accepted }), {}))
+    //setForm(document.getElementById(`form_${id}`), assignment.reduce((j, p) => ({ ...j, [`accepted-${p.clientId}`]: p.accepted }), {}))
     console.debug('form', assignment.reduce((j, p) => ({ ...j, [`accepted-${p.clientId}`]: p.accepted }), {}))
   }, [assignment])
 
@@ -269,7 +269,7 @@ const AssignModal = ({ id, eventId }) => {
 
   return <ModalForm id={id} title="label_assign" onSubmit={handleSubmit}>
   { assignment.map(a => <div class="form-check">
-    <input type="checkbox" class="form-check-input" id={`text_${a.clientId}accepted`} name={`accepted-${a.clientId}`} />
+    <input type="checkbox" class="form-check-input" id={`text_${a.clientId}accepted`} defaultChecked={a.accepted} name={`accepted-${a.clientId}`} />
     <label class="form-check-label" for={`text_${a.clientId}accepted`}>{a.displayName}</label>
   </div>) }
   <input type="hidden" name="eventId" value={eventId} />
