@@ -950,7 +950,7 @@ const Reader = () => {
                   const endTime = new Date(new Date(g.starting).getTime() + g.period * 60 * 60 * 1000)
                   const isAssigned = g.assignment.find(a => a.clientId === client.clientId)
                   return <div class={`bg-${g.confirmed ? 'secondary' : 'warning' }-subtle border border-secondary col-lg-${Math.round(g.period/3)}`}>
-                  {`${g.time}`} - <DateFormatter timestamp={endTime} locale={locale} format="time" /> {g.description} 
+                  {isAssigned && <i class="bi bi-check-lg"></i>}{`${g.time}`} - <DateFormatter timestamp={endTime} locale={locale} format="time" /> {g.description} 
                     { g.confirmed ? g.assignment.filter(a => a.accepted).map(a => <div>{a.displayName}</div>) : <a 
                       href="#" 
                       class="btn btn-sm" 
@@ -958,7 +958,7 @@ const Reader = () => {
                       data-bs-target={!isAssigned ? '#createAssignmentModal' : '#deleteAssignmentModal'} 
                       onClick={ () => setSelected(g.id) }
                     >
-                      <i class={!isAssigned ? 'bi bi-person-raised-hand' : 'bi bi-person-walking'}></i>
+                      <i class={!isAssigned ? 'bi bi-person-add' : 'bi bi-person-dash'}></i>
                     </a> }
                   </div>
                 }) }
