@@ -233,56 +233,40 @@ const Password = () => {
 }
 
 
-/* Confirmation */
-const Confirmation = () => {
+/* AssignModal */
+const AssignModal = ({ id, eventId }) => {
   const { t } = useTranslation()
-  const [confirmation, setConfirmation] = useState([])
-  const [selected, setSelected] = useState()
-  const [refresh, setRefresh] = useState()
 
-  const tenant = useSelector(state => state.tenant)
-  const { locale, setNotification } = usePreferences()
+  const [assignment, setAssignment] = useState()
 
   useEffect(() => {
-    const searchParams = new URLSearchParams({ tenant: tenant })
-    axios.get(`api/visit?${searchParams.toString()}`).then(response => {
-      setConfirmation(response.data)
+    if (!eventId) {
+      setForm(document.getElementById(`form_${id}`), { type: type })
+      return
+    }
+    
+    const searchParams = new URLSearchParams({ id: eventId })
+    axios.get(`api/event?${searchParams.toString()}`).then(response => {
+      //setForm(document.getElementById(`form_${id}`), response.data)
+      setAssignment(response.data.assignment)
       console.debug(response.data)
     })
-    setRefresh(false)
-  }, [tenant])
+  }, [eventId])
 
-  return <>
-    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-      <h1 class="h2">{t('label_statistics')}</h1>
-      <div class="btn-toolbar mb-2 mb-md-0">
-        <div class="btn-group me-2">
-          <button type="button" class="btn btn-sm btn-outline-secondary">{t('label_refresh')}</button>
-        </div>
-      </div>
-    </div>
-    <h2>{t('label_confirmation')}</h2>
-    <Table columns={['#', t('label_firstname'), t('label_surname'), t('label_street'), t('label_number'), t('label_city'), t('label_period'), t('label_date'), t('label_actions')]}>
-      { confirmation.map((e, i) => <tr>
-        <td>{i + 1}</td>
-        <td>{e.firstname}</td>
-        <td>{e.surname}</td>
-        <td>{e.street}</td>
-        <td>{e.number}</td>
-        <td>{e.city}</td>
-        <td><NumberFormatter value={e.period} locale={locale} /></td>
-        <td><DateFormatter timestamp={e.created} locale={locale} format="date" /></td>
-        <td><button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#deleteVisitModal" onClick={() => setSelected(e['id']) }><i class="bi bi-trash"></i></button></td>
-      </tr>) }
-    </Table>
-    <ConfirmModal id="deleteVisitModal" title="label_delete" onOk={() => {
-      const searchParams = new URLSearchParams({ id: selected })
-      axios.get(`api/visit-cd?${searchParams.toString()}`).then(response => {
-        setRefresh(true)
-        setNotification('label_saved')
-      })
-    }} />
-  </>
+  const handleSubmit = (form) => {
+    axios.post('api/assignment', form, { headers: { 'Content-Type': 'multipart/form-data' }}).then(response => {
+      //form.reset()
+      console.debug(response.data)
+    })
+  }
+
+  return <ModalForm id={id} title="label_assign" onSubmit={handleSubmit}>
+  { assignment.map(a => <div class="form-check">
+    <input type="checkbox" class="form-check-input" id={`text_${a.clientId}accepted`} name={`accepted-${a.clientId}`} />
+    <label class="form-check-label" for={`text_${a.clientId}accepted`}>{t('label_accepted')}</label>
+  </div>) }
+  <input type="hidden" name="eventId" value={eventId} />
+</ModalForm>
 }
 
 
@@ -400,6 +384,7 @@ const CurrentWeek = ({ date, type }) => {
       </td>
     </tr>) }
   </Table>
+  <AssignModal id="assignModal" eventId={selected} />
   <EventModal id="editEventModal" itemId={selected} type={type} />
   <ConfirmModal id="deleteEventModal" title="label_delete" onOk={() => {
     const searchParams = new URLSearchParams({ id: selected })
