@@ -37,27 +37,13 @@
   }
 
   function post($repository) {
-    $client = trim($_POST["client"]);
-    $tenant = trim($_POST["tenant"]);
-    $groupPassword = trim($_POST["groupPassword"]);
+    $assignment = $_POST["assignment"];
     
-    if (!isset($client) || !isset($tenant) || !isset($groupPassword)) {
-      pot();
+    $result = "";
+    foreach($assignment as $id => $accepted) {
+      $result .= $repository -> updateAssignment($id, $accepted);
     }
-    
-    $hash = (($repository -> readGroupPassword($tenant))[0])["GROUPPASSWORD"];
-    if (!password_verify($groupPassword, $hash)) {
-      session_destroy();
-      pot();
-      return;
-    }
-    
-    $result = $repository -> readClientByName($client);
-    $clientId = 0 < count($result) ? $result[0]["ID"] : $repository -> createClient($client, $client);
-    $_SESSION["clientId"] = $clientId;
-    $_SESSION["tenant"] = $tenant;
-    $toJson = "{\"clientId\": ${clientId}, \"tenant\": \"${tenant}\"}";
-    echo($toJson);
+    echo($result);
   }
 
   function pot() {
