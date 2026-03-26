@@ -520,7 +520,7 @@ const Settings = () => {
         <label class="form-check-label" for="checkbox_settingsshowBooking">{t('label_show_booking')}</label>
       </div>
       <div class="mb-3">
-        <label for="input_settingsgrouppassword" class="form-label">{t('label_password_group')}</label>
+        <label for="input_settingsgrouppassword" class="form-label">{t('label_group_password')}</label>
         <input id="input_settingsgrouppassword" class="form-control" name="groupPassword" />
       </div>
     </Form>
