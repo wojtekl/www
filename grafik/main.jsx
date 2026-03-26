@@ -288,9 +288,9 @@ const Weeks = () => {
 
   return selectedWeek ? <>
     <nav aria-label="breadcrumb">
-      <ol class="breadcrumb">
+      <ol class="breadcrumb mt-3">
         <li class="breadcrumb-item"><a href="#" onClick={ () => setSelectedWeek(undefined) }>{t('label_back')}</a></li>
-        <li class="breadcrumb-item active" aria-current="page">{selectedWeek}</li>
+        <li class="breadcrumb-item active" aria-current="page"><DateFormatter timestamp={selectedWeek} locale={locale} format="date" /></li>
       </ol>
     </nav>
     <CurrentWeek date={selectedWeek} type={'eucharystia'} />
