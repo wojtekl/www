@@ -271,7 +271,7 @@ const AssignModal = ({ id, eventId }) => {
   return <ModalForm id={id} title="label_assign" onSubmit={handleSubmit}>
   { assignment.map(a => <div class="form-check">
     <input type="checkbox" class="form-check-input" id={`text_${a.id}accepted`} defaultChecked={a.accepted} name={a.id} />
-    <label class="form-check-label" for={`text_${a.id}accepted`}>{a.displayName}</label>
+    <label class="form-check-label" for={`text_${a.id}accepted`}>{a.displayName}({a.count})</label>
   </div>) }
 </ModalForm>
 }
