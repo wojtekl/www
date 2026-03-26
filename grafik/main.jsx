@@ -257,10 +257,10 @@ const AssignModal = ({ id, eventId }) => {
     }
     
     //setForm(document.getElementById(`form_${id}`), assignment.reduce((j, p) => ({ ...j, [`accepted-${p.clientId}`]: p.accepted }), {}))
-    console.debug('form', assignment.reduce((j, p) => ({ ...j, [`accepted-${p.clientId}`]: p.accepted }), {}))
   }, [assignment])
 
   const handleSubmit = (form) => {
+    console.debug('form', form)
     axios.post('api/assignment', form, { headers: { 'Content-Type': 'multipart/form-data' }}).then(response => {
       //form.reset()
       console.debug(response.data)
