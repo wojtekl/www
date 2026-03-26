@@ -941,10 +941,7 @@ const Reader = () => {
         <h1 class="text-body-emphasis">{t('label_reader_header')}</h1>
         <p class="fs-5 col-md-8 mb-5">{`${t('label_reader_description')}:${settings?.schedule}`}</p>
         <hr class="col-3 col-md-2 mb-5"></hr>
-        <div class="accordion" id="accordionExample">
-          <AccordionItem id="event" parent="accordionExample" show={true}>
-            <div class="row">
-              { dayOfWeek.map((e, i) => {
+        { dayOfWeek.map((e, i) => {
                 const currentDay = currentWeek.filter(f => f.dayOfWeek === e.order)
               return <>
                 <div class="col-lg-1 bg-info-subtle">{e.short}</div>
@@ -967,9 +964,6 @@ const Reader = () => {
                 <div class="w-100"></div>
               </>
               }) }
-            </div>
-          </AccordionItem>
-        </div>
       </div>
     </main>
     <footer class="text-body-secondary py-5">
