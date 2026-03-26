@@ -247,8 +247,8 @@ const AssignModal = ({ id, eventId }) => {
     
     const searchParams = new URLSearchParams({ eventId: eventId })
     axios.get(`api/assignment?${searchParams.toString()}`).then(response => {
-      setForm(document.getElementById(`form_${id}`), response.data.reduce((j, p) => { `accepted-${p.clientId}`: p.accepted }, {}))
-      console.debug('form', response.data.reduce((j, p) => { `accepted-${p.clientId}`: p.accepted }, {})
+      setForm(document.getElementById(`form_${id}`), {})
+      console.debug('form', response.data.reduce((j, p) => { ...j, `accepted-${p.clientId}`: p.accepted }, {})
       setAssignment(response.data)
       console.debug(response.data)
     })
