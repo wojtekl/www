@@ -287,7 +287,13 @@ const Weeks = () => {
   const { locale } = usePreferences()
 
   return selectedWeek ? <>
-    <button type="button" class="btn btn-sm btn-outline-secondary" onClick={ () => setSelectedWeek(undefined) }>{t('label_back')}</button>
+    <!--button type="button" class="btn btn-sm btn-outline-secondary" onClick={ () => setSelectedWeek(undefined) }>{t('label_back')}</button-->
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="#" onClick={ () => setSelectedWeek(undefined) }>{t('label_back')}</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{selectedWeek}</li>
+      </ol>
+    </nav>
     <CurrentWeek date={selectedWeek} type={'eucharystia'} />
   </> : <>
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
