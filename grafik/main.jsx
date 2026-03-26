@@ -260,12 +260,7 @@ const AssignModal = ({ id, eventId }) => {
   }, [assignment])*/
 
   const handleSubmit = (form) => {
-    const f = {
-      assignment: getForm(form),
-      eventId: eventId
-    }
-    console.debug('forma', f)
-    axios.post('api/assignment', f, { headers: { 'Content-Type': 'multipart/form-data' }}).then(response => {
+    axios.post('api/assignment', { assignment: getForm(form) }, { headers: { 'Content-Type': 'multipart/form-data' }}).then(response => {
       //form.reset()
       console.debug(response.data)
     })
@@ -273,8 +268,8 @@ const AssignModal = ({ id, eventId }) => {
 
   return <ModalForm id={id} title="label_assign" onSubmit={handleSubmit}>
   { assignment.map(a => <div class="form-check">
-    <input type="checkbox" class="form-check-input" id={`text_${a.clientId}accepted`} defaultChecked={a.accepted} name={`accepted-${a.clientId}`} />
-    <label class="form-check-label" for={`text_${a.clientId}accepted`}>{a.displayName}</label>
+    <input type="checkbox" class="form-check-input" id={`text_${a.id}accepted`} defaultChecked={a.accepted} name={a.id} />
+    <label class="form-check-label" for={`text_${a.id}accepted`}>{a.displayName}</label>
   </div>) }
 </ModalForm>
 }
