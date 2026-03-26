@@ -236,6 +236,7 @@ const Password = () => {
 /* AssignModal */
 const AssignModal = ({ id, eventId }) => {
   const { t } = useTranslation()
+  const { setNotification } = usePreferences()
 
   const [assignment, setAssignment] = useState([])
 
