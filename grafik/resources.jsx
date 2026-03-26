@@ -43,6 +43,8 @@ const resources = {
       "label_type": "Typ",
       "label_period": "Długość",
       "label_notes": "Notatki",
+      "label_confirmed": "Zatwierdzone",
+      "label_accepted": "Zaakceptowane",
       "label_settings": "Ustawienia",
       "label_show_booking": "Wyświetlaj zapisy",
       "label_firstname": "Imię",
