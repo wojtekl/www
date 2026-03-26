@@ -287,7 +287,6 @@ const Weeks = () => {
   const { locale } = usePreferences()
 
   return selectedWeek ? <>
-    <!--button type="button" class="btn btn-sm btn-outline-secondary" onClick={ () => setSelectedWeek(undefined) }>{t('label_back')}</button-->
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="#" onClick={ () => setSelectedWeek(undefined) }>{t('label_back')}</a></li>
