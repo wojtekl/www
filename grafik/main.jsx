@@ -392,8 +392,9 @@ const CurrentWeek = ({ date, type }) => {
       <td><DateFormatter timestamp={e['starting']} locale={locale} /></td>
       <td>{e['description']}</td>
       <td><NumberFormatter value={e['period']} locale={locale} /></td>
-      <td>{e['notes']}{ e.confirmed ? e.assignment.filter(a => a.accepted).map(a => <div>{a.displayName}</div>) : <a href="#" class="">{t('label_assign')}</a> }</td>
+      <td>{e['notes']}{ e.confirmed ? e.assignment.filter(a => a.accepted).map(a => <div>{a.displayName}</div>) : e.assignment.length }</td>
       <td>
+        { !e.confirmed && <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#assignModal" onClick={ () => setSelected(e['id']) }><i class="bi bi-people"></i></button> }
         <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#editEventModal" onClick={ () => setSelected(e['id']) }><i class="bi bi-pencil-square"></i></button>
         { !e.confirmed && <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#deleteEventModal" onClick={ () => setSelected(e['id']) }><i class="bi bi-trash"></i></button> }
       </td>
@@ -639,12 +640,6 @@ const Manage = () => {
     else if ('yearLink' === selectedTab) {
       return <Weeks />
     }
-    else if ('orderLink' === selectedTab) {
-      return <CurrentWeek type="eucharystia" />
-    }
-    else if ('departureLink' === selectedTab) {
-      return <CurrentWeek date={ datePart() } type="departure" />
-    }
     else if ('settingsLink' === selectedTab) {
       return <Settings />
     }
@@ -691,9 +686,6 @@ const Manage = () => {
                 </li>
                 <li class="nav-item">
                   <a class="nav-link d-flex align-items-center gap-2" href="#" id="yearLink" onClick={handleSwitchTab}><i class="bi bi-file-earmark-text"></i> {t('label_year')} </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link d-flex align-items-center gap-2" href="#" id="orderLink" onClick={handleSwitchTab}><i class="bi bi-file-earmark-text"></i> {t('label_order')} </a>
                 </li>
               </ul>
               <hr class="my-3" />
@@ -968,7 +960,7 @@ const Reader = () => {
                       data-bs-target={!isAssigned ? '#createAssignmentModal' : '#deleteAssignmentModal'} 
                       onClick={ () => setSelected(g.id) }
                     >
-                      <i class={!isAssigned ? 'bi bi-pencil-square' : 'bi bi-trash'}></i>
+                      <i class={!isAssigned ? 'bi bi-person-raised-hand' : 'bi bi-person-walking'}></i>
                     </a> }
                   </div>
                 }) }
