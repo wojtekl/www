@@ -263,7 +263,7 @@ const AssignModal = ({ id, eventId }) => {
   return <ModalForm id={id} title="label_assign" onSubmit={handleSubmit}>
   { assignment.map(a => <div class="form-check">
     <input type="checkbox" class="form-check-input" id={`text_${a.clientId}accepted`} name={`accepted-${a.clientId}`} />
-    <label class="form-check-label" for={`text_${a.clientId}accepted`}>{t('label_accepted')}</label>
+    <label class="form-check-label" for={`text_${a.clientId}accepted`}>{a.displayName}</label>
   </div>) }
   <input type="hidden" name="eventId" value={eventId} />
 </ModalForm>
