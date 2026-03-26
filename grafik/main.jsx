@@ -234,7 +234,7 @@ const Password = () => {
 
 
 /* AssignModal */
-const AssignModal = ({ id, eventId }) => {
+const AssignModal = ({ id, eventId, onSuccess }) => {
   const { t } = useTranslation()
 
   const [assignment, setAssignment] = useState([])
@@ -262,6 +262,7 @@ const AssignModal = ({ id, eventId }) => {
   const handleSubmit = (form) => {
     axios.post('api/assignment', { assignment: getForm(form) }, { headers: { 'Content-Type': 'multipart/form-data' }}).then(response => {
       //form.reset()
+      onSuccess()
       console.debug(response.data)
     })
   }
@@ -389,8 +390,8 @@ const CurrentWeek = ({ date, type }) => {
       </td>
     </tr>) }
   </Table>
-  <AssignModal id="assignModal" eventId={selected} />
-  <EventModal id="editEventModal" itemId={selected} type={type} />
+  <AssignModal id="assignModal" eventId={selected} onSuccess={ () => setRefresh(true) } />
+  <EventModal id="editEventModal" itemId={selected} type={type} onSuccess={ () => setRefresh(true) } />
   <ConfirmModal id="deleteEventModal" title="label_delete" onOk={() => {
     const searchParams = new URLSearchParams({ id: selected })
     axios.get(`api/event-cd?${searchParams.toString()}`).then(response => {
@@ -524,7 +525,7 @@ const Settings = () => {
 
 
 /* EventModal */
-const EventModal = ({ id, itemId, type }) => {
+const EventModal = ({ id, itemId, type, onSuccess }) => {
   const { t } = useTranslation()
 
   useEffect(() => {
@@ -543,6 +544,7 @@ const EventModal = ({ id, itemId, type }) => {
   const handleSubmit = (form) => {
     axios.post(!itemId ? 'api/event-cd' : 'api/event', form, { headers: { 'Content-Type': 'multipart/form-data' }}).then(response => {
       //form.reset()
+      onSuccess()
       console.debug(response.data)
     })
   }
