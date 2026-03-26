@@ -247,11 +247,14 @@ const AssignModal = ({ id, eventId }) => {
     const searchParams = new URLSearchParams({ eventId: eventId })
     axios.get(`api/assignment?${searchParams.toString()}`).then(response => {
       setAssignment(response.data)
-      //setForm(document.getElementById(`form_${id}`), response.data.reduce((j, p) => ({ ...j, [`accepted-${p.clientId}`]: p.accepted }), {}))
-      //console.debug('form', response.data.reduce((j, p) => ({ ...j, [`accepted-${p.clientId}`]: p.accepted }), {}))
       console.debug(response.data)
     })
   }, [eventId])
+
+  useEffect(() => {
+    setForm(document.getElementById(`form_${id}`), response.data.reduce((j, p) => ({ ...j, [`accepted-${p.clientId}`]: p.accepted }), {}))
+    console.debug('form', response.data.reduce((j, p) => ({ ...j, [`accepted-${p.clientId}`]: p.accepted }), {}))
+  }, [assignment])
 
   const handleSubmit = (form) => {
     axios.post('api/assignment', form, { headers: { 'Content-Type': 'multipart/form-data' }}).then(response => {
@@ -262,7 +265,7 @@ const AssignModal = ({ id, eventId }) => {
 
   return <ModalForm id={id} title="label_assign" onSubmit={handleSubmit}>
   { assignment.map(a => <div class="form-check">
-    <input type="checkbox" class="form-check-input" id={`text_${a.clientId}accepted`} {a.accepted ? 'checked' : ''} name={`accepted-${a.clientId}`} />
+    <input type="checkbox" class="form-check-input" id={`text_${a.clientId}accepted`} name={`accepted-${a.clientId}`} />
     <label class="form-check-label" for={`text_${a.clientId}accepted`}>{a.displayName}</label>
   </div>) }
   <input type="hidden" name="eventId" value={eventId} />
