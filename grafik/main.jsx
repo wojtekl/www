@@ -237,7 +237,7 @@ const Password = () => {
 const AssignModal = ({ id, eventId }) => {
   const { t } = useTranslation()
 
-  const [assignment, setAssignment] = useState()
+  const [assignment, setAssignment] = useState([])
 
   useEffect(() => {
     if (!eventId) {
