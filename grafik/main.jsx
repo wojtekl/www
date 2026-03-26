@@ -234,7 +234,7 @@ const Password = () => {
 
 
 /* AssignModal */
-const AssignModal = ({ id, eventId, onSuccess }) => {
+const AssignModal = ({ id, eventId }) => {
   const { t } = useTranslation()
 
   const [assignment, setAssignment] = useState([])
@@ -262,7 +262,6 @@ const AssignModal = ({ id, eventId, onSuccess }) => {
   const handleSubmit = (form) => {
     axios.post('api/assignment', { assignment: getForm(form) }, { headers: { 'Content-Type': 'multipart/form-data' }}).then(response => {
       //form.reset()
-      onSuccess()
       console.debug(response.data)
     })
   }
@@ -390,7 +389,7 @@ const CurrentWeek = ({ date, type }) => {
       </td>
     </tr>) }
   </Table>
-  <AssignModal id="assignModal" eventId={selected} onSuccess={ () => setRefresh(true) } />
+  <AssignModal id="assignModal" eventId={selected} />
   <EventModal id="editEventModal" itemId={selected} type={type} onSuccess={ () => setRefresh(true) } />
   <ConfirmModal id="deleteEventModal" title="label_delete" onOk={() => {
     const searchParams = new URLSearchParams({ id: selected })
