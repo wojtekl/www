@@ -392,10 +392,10 @@ const CurrentWeek = ({ date, type }) => {
       <td><DateFormatter timestamp={e['starting']} locale={locale} /></td>
       <td>{e['description']}</td>
       <td><NumberFormatter value={e['period']} locale={locale} /></td>
-      <td>{e['notes']}{e.assignment.map(a => <a href="#" class={`text-${a.accepted ? 'success' : 'warning'}`}> {a.displayName} </a>)}</td>
+      <td>{e['notes']}{ e.confirmed ? e.assignment.filter(a => a.accepted).map(a => a.displayName) : <a href="#" class="">{t('label_assign')}</a> }</td>
       <td>
         <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#editEventModal" onClick={ () => setSelected(e['id']) }><i class="bi bi-pencil-square"></i></button>
-        <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#deleteEventModal" onClick={ () => setSelected(e['id']) }><i class="bi bi-trash"></i></button>
+        { e.confirmed && <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#deleteEventModal" onClick={ () => setSelected(e['id']) }><i class="bi bi-trash"></i></button> }
       </td>
     </tr>) }
   </Table>
@@ -961,7 +961,7 @@ const Reader = () => {
                   const isAssigned = g.assignment.find(a => a.clientId === client.clientId)
                   return <div class={`bg-${g.confirmed ? 'secondary' : 'warning' }-subtle border border-secondary col-lg-${Math.round(g.period/3)}`}>
                   {`${g.time}`} - <DateFormatter timestamp={endTime} locale={locale} format="time" /> {g.description} 
-                    { !g.confirmed && <a 
+                    { g.confirmed ? g.assignment.filter(a => a.accepted).map(a => a.displayName) <a 
                       href="#" 
                       class="btn btn-sm" 
                       data-bs-toggle="modal" 
