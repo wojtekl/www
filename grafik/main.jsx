@@ -251,16 +251,19 @@ const AssignModal = ({ id, eventId }) => {
     })
   }, [eventId])
 
-  useEffect(() => {
+  /*useEffect(() => {
     if (!assignment) {
       return
     }
     
-    //setForm(document.getElementById(`form_${id}`), assignment.reduce((j, p) => ({ ...j, [`accepted-${p.clientId}`]: p.accepted }), {}))
-  }, [assignment])
+    setForm(document.getElementById(`form_${id}`), assignment.reduce((j, p) => ({ ...j, [`accepted-${p.clientId}`]: p.accepted }), {}))
+  }, [assignment])*/
 
   const handleSubmit = (form) => {
-    const f = getForm(form)
+    const f = {
+      assignment: getForm(form),
+      eventId: eventId
+    }
     console.debug('forma', f)
     axios.post('api/assignment', f, { headers: { 'Content-Type': 'multipart/form-data' }}).then(response => {
       //form.reset()
@@ -270,10 +273,9 @@ const AssignModal = ({ id, eventId }) => {
 
   return <ModalForm id={id} title="label_assign" onSubmit={handleSubmit}>
   { assignment.map(a => <div class="form-check">
-    <input type="checkbox" class="form-check-input" id={`text_${a.clientId}accepted`} checked={a.accepted} name={`accepted-${a.clientId}`} />
+    <input type="checkbox" class="form-check-input" id={`text_${a.clientId}accepted`} defaultChecked={a.accepted} name={`accepted-${a.clientId}`} />
     <label class="form-check-label" for={`text_${a.clientId}accepted`}>{a.displayName}</label>
   </div>) }
-  <input type="hidden" name="eventId" value={eventId} />
 </ModalForm>
 }
 
