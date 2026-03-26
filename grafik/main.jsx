@@ -992,11 +992,11 @@ const Reader = () => {
       })
     }} />
     <ConfirmModal id="deleteAssignmentModal" title="label_delete_assignment" onOk={() => {
-      const postData = {
+      const searchParams = new URLSearchParams({
         eventId: selected,
         clientId: client.clientId
-      }
-      axios.get('api/assignment-cd', postData, { headers: { 'Content-Type': 'multipart/form-data' }}).then(response => {
+      })
+      axios.get(`api/assignment-cd?${searchParams.toString()}`).then(response => {
         console.debug(response.data)
         setNotification('label_saved')
       })
