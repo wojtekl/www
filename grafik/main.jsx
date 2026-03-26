@@ -252,8 +252,12 @@ const AssignModal = ({ id, eventId }) => {
   }, [eventId])
 
   useEffect(() => {
-    setForm(document.getElementById(`form_${id}`), response.data.reduce((j, p) => ({ ...j, [`accepted-${p.clientId}`]: p.accepted }), {}))
-    console.debug('form', response.data.reduce((j, p) => ({ ...j, [`accepted-${p.clientId}`]: p.accepted }), {}))
+    if (!assignment) {
+      return
+    }
+    
+    setForm(document.getElementById(`form_${id}`), assignment.reduce((j, p) => ({ ...j, [`accepted-${p.clientId}`]: p.accepted }), {}))
+    console.debug('form', assignment.reduce((j, p) => ({ ...j, [`accepted-${p.clientId}`]: p.accepted }), {}))
   }, [assignment])
 
   const handleSubmit = (form) => {
