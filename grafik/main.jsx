@@ -260,7 +260,7 @@ const AssignModal = ({ id, eventId }) => {
   }, [assignment])
 
   const handleSubmit = (form) => {
-    const f = getForm(document.getElementById('form_settings'))
+    const f = getForm(form)
     console.debug('forma', f)
     axios.post('api/assignment', f, { headers: { 'Content-Type': 'multipart/form-data' }}).then(response => {
       //form.reset()
