@@ -876,11 +876,11 @@ const Reader = () => {
       setCurrentWeek(response.data)
       console.debug(response.data)
     })
+    const searchParams = new URLSearchParams({ tenant: group })
     axios.get(`api/settings?${searchParams.toString()}`).then(response => {
       setSettings(response.data)
       console.debug(response.data)
     })
-    const searchParams = new URLSearchParams({ tenant: group })
     axios.get(`api/contact?${searchParams.toString()}`).then(response => {
       setContact(response.data)
       console.debug(response.data)
