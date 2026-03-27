@@ -13,13 +13,12 @@
 
   function post($repository) {
     $today = isset($_POST["today"]) ? trim($_POST["today"]) : null;
-    $type = trim($_POST["type"]);
     $tenant = trim($_POST["tenant"]);
     if (!isset($tenant)) {
       pot();
     }
 
-    $result = $repository -> readEvent($today, $tenant, $type);
+    $result = $repository -> readEvent($today, $tenant);
     $toList = "[";
     foreach ($result as $e) {
       $a_result = $repository -> readAssignmentByEventId($e["ID"]);
