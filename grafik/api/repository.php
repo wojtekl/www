@@ -45,13 +45,12 @@ class Repository {
     return $this -> execute($statement);
   }
 
-  public function readEvent($today, $tenant, $type){
-    $statement = $this -> sql -> prepare("SELECT `ID`, `DESCRIPTION`, `STARTING`, `PERIOD`, `CONFIRMED`, `NOTES`, DAYOFWEEK(`STARTING`) AS `DAYOFWEEK`, DATE_FORMAT(`STARTING`, '%H:%i') AS `TIME`, `TYPE` FROM `EVENT` WHERE" . (null != $today ? " `STARTING` > DATE_ADD(:today, INTERVAL - WEEKDAY(:today) DAY) AND `STARTING` < DATE_ADD(:today, INTERVAL 7 - WEEKDAY(:today) DAY) AND" : " `STARTING` IS NULL AND") . " `TENANT` = :tenant AND `TYPE` = :type ORDER BY `STARTING` ASC");
+  public function readEvent($today, $tenant){
+    $statement = $this -> sql -> prepare("SELECT `ID`, `DESCRIPTION`, `STARTING`, `PERIOD`, `CONFIRMED`, `NOTES`, DAYOFWEEK(`STARTING`) AS `DAYOFWEEK`, DATE_FORMAT(`STARTING`, '%H:%i') AS `TIME`, `TYPE` FROM `EVENT` WHERE" . (null != $today ? " `STARTING` > DATE_ADD(:today, INTERVAL - WEEKDAY(:today) DAY) AND `STARTING` < DATE_ADD(:today, INTERVAL 7 - WEEKDAY(:today) DAY) AND" : " `STARTING` IS NULL AND") . " `TENANT` = :tenant ORDER BY `STARTING` ASC");
     if (null != $today) {
       $statement -> bindParam(":today", $today);
     }
     $statement -> bindParam(":tenant", $tenant);
-    $statement -> bindParam(":type", $type);
     
     return $this -> execute($statement);
   }
