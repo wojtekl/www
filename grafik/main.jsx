@@ -13,7 +13,6 @@ import axios from 'axios'
 
 const state = localStorage.getItem('redux')
 const initialState = !!state ? JSON.parse(state) : {
-  value: null,
   lang: (getUrlParam('lang') ?? navigator.language.substring(0, 2)).toLocaleLowerCase(),
   tenant: null
 }
@@ -23,13 +22,11 @@ const preferencesSlice = createSlice({
   name: "preferences",
   initialState: initialState,
   reducers: {
-    selectedAdded: (state, action: PayloadAction<String>) => { state.value = action.payload },
-    selectedRemoved: state => { state.value = undefined },
     langSet: (state, action: PayloadAction<String>) => { state.lang = action.payload },
     tenantSet: (state, action: PayloadAction<String>) => { state.tenant = action.payload }
   }
 })
-const { selectedAdded, selectedRemoved, langSet, tenantSet } = preferencesSlice.actions
+const { langSet, tenantSet } = preferencesSlice.actions
 
 const store = configureStore({ reducer: preferencesSlice.reducer })
 store.subscribe(() => localStorage.setItem('redux', JSON.stringify(store.getState())))
@@ -97,9 +94,7 @@ const Toast = ({ message, onClose }) => {
 
 
 /* ModalForm */
-const ModalForm = (props) => {
-  const { id, title, onSubmit, children } = props
-
+const ModalForm = ({ id, title, onSubmit, children }) => {
   const { t } = useTranslation()
   const { setNotification } = usePreferences()
   
@@ -268,7 +263,7 @@ const AssignModal = ({ id, eventId }) => {
     })
   }
 
-  return <ModalForm id={id} title="label_assign" onSubmit={handleSubmit}>
+  return <ModalForm id={id} title="label_assignment" onSubmit={handleSubmit}>
   { assignment.map(a => <div class="form-check">
     <input type="checkbox" class="form-check-input" id={`text_${a.id}accepted`} defaultChecked={a.accepted} name={a.id} />
     <label class="form-check-label" for={`text_${a.id}accepted`}>{a.displayName}({a.count})</label>
@@ -280,13 +275,14 @@ const AssignModal = ({ id, eventId }) => {
 /* Weeks */
 const Weeks = () => {
   const { t } = useTranslation()
+  const { locale } = usePreferences()
+  
   const [selectedWeek, setSelectedWeek] = useState()
 
   const months = [t('label_january'), t('label_february'), t('label_march'), t('label_april'), 
                   t('label_may'), t('label_june'), t('label_july'), t('label_august'), 
                   t('label_september'), t('label_october'), t('label_november'), t('label_december')]
   const weeks = getWeeks(months)
-  const { locale } = usePreferences()
 
   return selectedWeek ? <>
     <nav aria-label="breadcrumb">
@@ -295,7 +291,7 @@ const Weeks = () => {
         <li class="breadcrumb-item active" aria-current="page"><DateFormatter timestamp={selectedWeek} locale={locale} format="date" /></li>
       </ol>
     </nav>
-    <CurrentWeek date={selectedWeek} type={'eucharystia'} />
+    <CurrentWeek date={selectedWeek} />
   </> : <>
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
       <h1 class="h2">{t('label_statistics')}</h1>
@@ -321,19 +317,18 @@ const Weeks = () => {
 /* CurrentWeek */
 const CurrentWeek = ({ date, type }) => {
   const { t } = useTranslation()
+  const { locale, setNotification } = usePreferences()
 
   const [currentWeek, setCurrentWeek] = useState([])
   const [selected, setSelected] = useState()
   const [refresh, setRefresh] = useState(true)
 
   const tenant = useSelector(state => state.tenant)
-  const { locale, setNotification } = usePreferences()
 
   useEffect(() => {
     if (refresh) {
       const postData = {
         tenant: tenant,
-        type: type,
         today: date
       }
       axios.post('api/event-week', postData, { headers: { 'Content-Type': 'multipart/form-data' }}).then(response => {
@@ -348,19 +343,11 @@ const CurrentWeek = ({ date, type }) => {
   const handleSelect = (event) => {}
 
   const getTitle = () => {
-    if ('eucharystia' === type) {
-      if (!date) {
-        return t('label_order')
-      }
-      else if (datePart() === date) {
-        return t('label_current_week')
-      }
-      else {
-        return t('label_next_week')
-      }
+    if (datePart() === date) {
+      return t('label_current_week')
     }
-    else if ('departure' === type) {
-      return t('label_departure')
+    else {
+      return t('label_next_week')
     }
   }
   
@@ -397,7 +384,7 @@ const CurrentWeek = ({ date, type }) => {
     </tr>) }
   </Table>
   <AssignModal id="assignModal" eventId={selected} />
-  <EventModal id="editEventModal" itemId={selected} type={type} onSuccess={ () => setRefresh(true) } />
+  <EventModal id="editEventModal" itemId={selected} onSuccess={ () => setRefresh(true) } />
   <ConfirmModal id="deleteEventModal" title="label_delete" onOk={() => {
     const searchParams = new URLSearchParams({ id: selected })
     axios.get(`api/event-cd?${searchParams.toString()}`).then(response => {
@@ -409,15 +396,15 @@ const CurrentWeek = ({ date, type }) => {
 }
 
 
-/* Dashboard */
-const Dashboard = () => {
+/* Contact */
+const Contact = () => {
   const { t } = useTranslation()
+  const { setNotification } = usePreferences()
   
   const [contact, setContact] = useState()
   const [disabled, setDisabled] = useState(true)
 
   const tenant = useSelector(state => state.tenant)
-  const { setNotification } = usePreferences()
 
   useEffect(() => {
     const searchParams = new URLSearchParams({ tenant: tenant })
@@ -474,12 +461,12 @@ const Dashboard = () => {
 /* Settings */
 const Settings = () => {
   const { t } = useTranslation()
-
-  const [disabled, setDisabled] = useState(true)
-
-  const tenant = useSelector(state => state.tenant)
   const { setNotification } = usePreferences()
 
+  const tenant = useSelector(state => state.tenant)
+
+  const [disabled, setDisabled] = useState(true)
+  
   useEffect(() => {
     const searchParams = new URLSearchParams({ tenant: tenant })
     axios.get(`api/settings?${searchParams.toString()}`).then(response => {
@@ -586,12 +573,11 @@ const Manage = () => {
   const dispatch = useDispatch()
   
   const [tenant, setTenant] = useState(useSelector(state => state.tenant))
-  const [selectedTab, setSelectedTab] = useState('dashboardLink')
+  const [selectedTab, setSelectedTab] = useState('contactLink')
 
   useEffect(() => {
     axios.get('api/signin').then(response => {
       if (!response.data || response.data.length > 99 || response.data.includes(';')) {
-        //dispatch(tenantSet(undefined))
         //setTenant(undefined)
         if (!tenant) {
           navigate('/signin')
@@ -625,16 +611,16 @@ const Manage = () => {
   }
 
   const DisplayTab = () => {
-    if ('dashboardLink' === selectedTab) {
-      return <Dashboard />
+    if ('contactLink' === selectedTab) {
+      return <Contact />
     }
     else if ('currentWeekLink' === selectedTab) {
-      return <CurrentWeek date={ datePart() } type="eucharystia" />
+      return <CurrentWeek date={ datePart() } />
     }
     else if ('nextWeekLink' === selectedTab) {
       const nextWeek = new Date()
       nextWeek.setDate(nextWeek.getDate() + 7)
-      return <CurrentWeek date={ datePart(nextWeek) } type="eucharystia" />
+      return <CurrentWeek date={ datePart(nextWeek) } />
     }
     else if ('yearLink' === selectedTab) {
       return <Weeks />
@@ -667,7 +653,7 @@ const Manage = () => {
             <div class="offcanvas-body d-md-flex flex-column p-0 pt-lg-3 overflow-y-auto">
               <ul class="nav flex-column">
                 <li class="nav-item">
-                  <a class="nav-link d-flex align-items-center gap-2 active" aria-current="page" href="#" onClick={handleSwitchTab} id="dashboardLink"><i class="bi bi-house-fill"></i> {t('label_contact')} </a>
+                  <a class="nav-link d-flex align-items-center gap-2 active" aria-current="page" href="#" onClick={handleSwitchTab} id="contactLink"><i class="bi bi-house-fill"></i> {t('label_contact')} </a>
                 </li>
               </ul>
               <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-body-secondary text-uppercase">
@@ -704,7 +690,7 @@ const Manage = () => {
         </main>
       </div>
     </div>
-    <EventModal id="newEventModal" type="eucharystia" />
+    <EventModal id="newEventModal" />
   </>
 }
 
@@ -715,13 +701,14 @@ const Signin = () => {
   const { t } = useTranslation()
   const dispatch = useDispatch()
   
-  const [tenant, setTenant] = useState(useSelector(state => state.tenant))
+  //const [tenant, setTenant] = useState(useSelector(state => state.tenant))
   const [signinFailure, setSigninFailure] = useState(false)
 
   useEffect(() => {
     axios.get('api/client').then(response => {
       if (response.data && !response.data.includes(';')) {
         navigate(`/${reponse.data.tenant}`)
+        return
       }
       console.debug(response.data)
     })
@@ -729,6 +716,7 @@ const Signin = () => {
       if (response.data && !response.data.includes(';')) {
         dispatch(tenantSet(response.data))
         navigate('/')
+        return
       }
       console.debug(response.data)
     })
@@ -834,7 +822,7 @@ const Reader = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const { locale, setNotification } = usePreferences()
-  const { tenant } = useParams()
+  const { group } = useParams()
   
   const [currentWeek, setCurrentWeek] = useState([])
   const [contact, setContact] = useState()
@@ -866,12 +854,12 @@ const Reader = () => {
 
   useEffect(() => {
     axios.get('api/client').then(response => {
-      console.debug(response.data)
       if (response.data) {
         setClient(response.data)
       } else {
         navigate('/signin')
       }
+      console.debug(response.data)
     })
   }, [])
 
@@ -879,26 +867,26 @@ const Reader = () => {
     if (!client || !refresh) {
       return
     }
-    const searchParams = new URLSearchParams({ tenant: tenant })
-    axios.get(`api/contact?${searchParams.toString()}`).then(response => {
-      setContact(response.data)
-      console.debug(response.data)
-    })
-    axios.get(`api/settings?${searchParams.toString()}`).then(response => {
-      setSettings(response.data)
-      console.debug(response.data)
-    })
+
     const postData = {
-      tenant: tenant,
-      type: "eucharystia",
+      tenant: group,
       today: datePart()
     }
     axios.post('api/event-week', postData, { headers: { 'Content-Type': 'multipart/form-data' }}).then(response => {
       setCurrentWeek(response.data)
       console.debug(response.data)
     })
+    axios.get(`api/settings?${searchParams.toString()}`).then(response => {
+      setSettings(response.data)
+      console.debug(response.data)
+    })
+    const searchParams = new URLSearchParams({ tenant: group })
+    axios.get(`api/contact?${searchParams.toString()}`).then(response => {
+      setContact(response.data)
+      console.debug(response.data)
+    })
     setRefresh(false)
-  }, [tenant, client, refresh])
+  }, [group, client, refresh])
 
   return <>
     <header>
@@ -923,7 +911,7 @@ const Reader = () => {
       </div>
       <div class="navbar navbar-dark bg-dark shadow-sm">
         <div class="container">
-          <a class="navbar-brand d-flex align-items-center"><strong>{`${t('label_tenant')}: ${contact?.description}`}</strong></a>
+          <a class="navbar-brand d-flex align-items-center"><strong>{`${t('label_group')}: ${contact?.description}`}</strong></a>
           <ul class="navbar-nav">
             <li class="nav-item">
               <a class="nav-link d-flex align-items-center gap-2" href="#" id="signoutLink" onClick={handleSignout}><i class="bi bi-door-closed"></i> {t('label_signout')} </a>
@@ -944,35 +932,31 @@ const Reader = () => {
         <hr class="col-3 col-md-2 mb-5"></hr>
         <div class="row">
         { dayOfWeek.map((e, i) => {
-                const currentDay = currentWeek.filter(f => f.dayOfWeek === e.order)
-              return <>
-                <div class="col-lg-1 bg-info-subtle">{e.short}</div>
-                { 1 > currentDay.length ? <div class="col-lg-11">  - - -  </div> : currentDay.map(g => {
-                  const endTime = new Date(new Date(g.starting).getTime() + g.period * 60 * 60 * 1000)
-                  const isAssigned = g.assignment.find(a => a.clientId === client.clientId)
-                  return <div class={`bg-${g.confirmed ? 'secondary' : 'warning' }-subtle border border-secondary col-lg-${Math.round(g.period/3)}`}>
-                  {isAssigned && <i class="bi bi-check-lg"></i>}{`${g.time}`} - <DateFormatter timestamp={endTime} locale={locale} format="time" /> {g.description} 
-                    { g.confirmed ? g.assignment.filter(a => a.accepted).map(a => <div>{a.displayName}</div>) : <a 
-                      href="#" 
-                      class="btn btn-sm" 
-                      data-bs-toggle="modal" 
-                      data-bs-target={!isAssigned ? '#createAssignmentModal' : '#deleteAssignmentModal'} 
-                      onClick={ () => setSelected(g.id) }
-                    >
-                      <i class={!isAssigned ? 'bi bi-hand-thumbs-up' : 'bi bi-hand-thumbs-down'}></i>
-                    </a> }
-                  </div>
-                }) }
-                <div class="w-100"></div>
-              </>
-              }) }
+          const currentDay = currentWeek.filter(f => f.dayOfWeek === e.order)
+          return <>
+          <div class="col-lg-1 bg-info-subtle">{e.short}</div>
+          { 1 > currentDay.length ? <div class="col-lg-11">  - - -  </div> : currentDay.map(g => {
+            const endTime = new Date(new Date(g.starting).getTime() + g.period * 60 * 60 * 1000)
+            const isAssigned = g.assignment.find(a => a.clientId === client.clientId)
+            const width = Math.round(g.period/3)
+            return <div class={`${ g.confirmed ? 'bg-secondary-subtle' : 'bg-warning-subtle' } border border-secondary col-lg-${width}`}>
+            { isAssigned && <i class="bi bi-check-lg"></i> } {g.time} - <DateFormatter timestamp={endTime} locale={locale} format="time" /> {g.description} 
+            { g.confirmed ? g.assignment.filter(a => a.accepted).map(a => <div>{a.displayName}</div>) : 
+            <a href="#" class="btn btn-sm" data-bs-toggle="modal" data-bs-target={ !isAssigned ? '#createAssignmentModal' : '#deleteAssignmentModal' } onClick={ () => setSelected(g.id) }>
+              <i class={ !isAssigned ? 'bi bi-hand-thumbs-up' : 'bi bi-hand-thumbs-down' }></i>
+            </a> }
+          </div>
+          }) }
+          <div class="w-100"></div>
+          </>
+        }) }
         </div>
       </div>
     </main>
     <footer class="text-body-secondary py-5">
       <div class="container">
         <p class="float-end mb-1">
-          <a href={`#/${tenant}`}>{t('label_backtotop')}</a>
+          <a href={`#/${group}`}>{t('label_backtotop')}</a>
         </p>
         <p class="mb-1">{t('label_copyright')}</p>
         <p class="mb-0"><a href="/">{t('label_home')}</a></p>
@@ -984,9 +968,9 @@ const Reader = () => {
         clientId: client.clientId
       }
       axios.post('api/assignment-cd', postData, { headers: { 'Content-Type': 'multipart/form-data' }}).then(response => {
-        console.debug(response.data)
-        setNotification('label_saved')
         setRefresh(true)
+        setNotification('label_success')
+        console.debug(response.data)
       })
     }} />
     <ConfirmModal id="deleteAssignmentModal" title="label_delete_assignment" onOk={() => {
@@ -995,9 +979,9 @@ const Reader = () => {
         clientId: client.clientId
       })
       axios.get(`api/assignment-cd?${searchParams.toString()}`).then(response => {
-        console.debug(response.data)
-        setNotification('label_saved')
         setRefresh(true)
+        setNotification('label_success')
+        console.debug(response.data)
       })
     }} />
   </>
@@ -1028,7 +1012,7 @@ root.render(<Provider store={store}>
       <Route path="/" element={<Manage />} />
       <Route path="signin" element={<Signin />} />
       <Route path="password" element={<Password />} />
-      <Route path=":tenant" element={<Reader />} />
+      <Route path=":group" element={<Reader />} />
     </Routes>
   </Router>
   </Preferences>
