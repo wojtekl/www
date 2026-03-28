@@ -41,6 +41,12 @@ i18n.use(initReactI18next).init({
 })
 
 
+/* ActionButton */
+const ActionButton = ({ icon, onClick, modal }) => <button type="button" class="btn btn-sm btn-outline-secondary" onClick={onClick} data-bs-toggle={!modal ? undefined : 'modal'} data-bs-target={modal}>
+  <i class={`bi bi-${icon}`}></i>
+</button>
+
+
 /* InputText */
 const InputText = ({ name, label, className, formId, help }) => <div class={className}>
   <label for={`input_${formId}${name}`} class="form-label">{label}</label>
@@ -165,22 +171,6 @@ const Table = ({ columns, children }) => {
 }
 
 
-/* AccordionItem */
-const AccordionItem = ({ id, parent, show = false, children }) => {
-  const { t } = useTranslation()
-
-  return <div class="accordion-item">
-  <h2 class="accordion-header">
-    <button class={`accordion-button ${!show ? 'collapsed' : ''}`} type="button" data-bs-toggle="collapse" data-bs-target={`#collapse${id}`} aria-expanded="true" aria-controlls={`collapse${id}`}>{t(`label_${id}`)}</button>
-  </h2>
-  <div id={`collapse${id}`} class={`accordion-collapse collapse ${!!show ? 'show' : ''}`} data-bs-parent={`#${parent}`}>
-    <div class="accordion-body">
-      <div class="row">{children}</div>
-    </div>
-  </div>
-</div>}
-
-
 /* Password */
 const Password = () => {
   const navigate = useNavigate()
@@ -253,7 +243,7 @@ const AssignModal = ({ id, eventId }) => {
 
   const handleSubmit = (form) => {
     axios.post('api/assignment', { assignment: getForm(form) }, { headers: { 'Content-Type': 'multipart/form-data' }}).then(response => {
-      //form.reset()
+      form.reset()
       setNotification('label_saved')
       console.debug(response.data)
     })
@@ -303,7 +293,7 @@ const Weeks = () => {
         <td>{i + 1}</td>
         <td><DateFormatter timestamp={w.start} locale={locale} format="date" /></td>
         <td>{w.month}</td>
-        <td><button type="button" class="btn btn-sm btn-outline-secondary" onClick={ () => setSelectedWeek(w.start) }><i class="bi bi-calendar-week"></i></button></td>
+        <td><ActionButton icon="calendar-week" onClick={ () => setSelectedWeek(w.start) } /></td>
       </tr>) }
     </Table>
   </>
@@ -373,9 +363,9 @@ const CurrentWeek = ({ date, type }) => {
       <td><NumberFormatter value={e.period} locale={locale} /></td>
       <td>{e.notes}{ e.confirmed ? e.assignment.filter(a => a.accepted).map(a => <div>{a.displayName}</div>) : e.assignment.length }</td>
       <td>
-        { !e.confirmed && <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#assignModal" onClick={ () => setSelected(e.id) }><i class="bi bi-people"></i></button> }
-        <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#editEventModal" onClick={ () => setSelected(e.id) }><i class="bi bi-pencil-square"></i></button>
-        { !e.confirmed && <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#deleteEventModal" onClick={ () => setSelected(e.id) }><i class="bi bi-trash"></i></button> }
+        { !e.confirmed && <ActionButton icon="people" onClick={ () => setSelected(e.id) } modal="#assignModal" /> }
+        <ActionButton icon="pencil-square" onClick={ () => setSelected(e.id) } modal="#editEventModal" />
+        { !e.confirmed && <ActionButton icon="trash" onClick={ () => setSelected(e.id) } modal="#deleteEventModal" /> }
       </td>
     </tr>) }
   </Table>
@@ -406,8 +396,8 @@ const Contact = () => {
     const searchParams = new URLSearchParams({ tenant: tenant })
     axios.get(`api/contact?${searchParams.toString()}`).then(response => {
       setContact(response.data)
-      console.debug(response.data)
       setForm(document.getElementById('form_contact'), response.data)
+      console.debug(response.data)
     })
   }, [tenant])
 
@@ -427,7 +417,7 @@ const Contact = () => {
       <h1 class="h2">{t('label_contact')}</h1>
       <div class="btn-toolbar mb-2 mb-md-0">
         <div class="btn-group me-2">
-          <button type="button" class="btn btn-sm btn-outline-secondary" onClick={handleDisabled}>{ disabled ? <i class="bi bi-unlock"></i> : <i class="bi bi-lock"></i> }</button>
+          <ActionButton icon={disabled ? 'unlock' : 'lock'} onClick={handleDisabled} />
         </div>
       </div>
     </div>
@@ -487,7 +477,7 @@ const Settings = () => {
       <h1 class="h2">{t('label_settings')}</h1>
       <div class="btn-toolbar mb-2 mb-md-0">
         <div class="btn-group me-2">
-          <button type="button" class="btn btn-sm btn-outline-secondary" onClick={handleDisabled}>{ disabled ? <i class="bi bi-unlock"></i> : <i class="bi bi-lock"></i> }</button>
+          <ActionButton icon={disabled ? 'unlock' : 'lock'} onClick={handleDisabled} />
         </div>
       </div>
     </div>
@@ -528,7 +518,7 @@ const EventModal = ({ id, itemId, type, onSuccess }) => {
 
   const handleSubmit = (form) => {
     axios.post(!itemId ? 'api/event-cd' : 'api/event', form, { headers: { 'Content-Type': 'multipart/form-data' }}).then(response => {
-      //form.reset()
+      form.reset()
       onSuccess()
       setNotification('label_saved')
       console.debug(response.data)
@@ -903,7 +893,7 @@ const Reader = () => {
       </div>
       <div class="navbar navbar-dark bg-dark shadow-sm">
         <div class="container">
-          <a class="navbar-brand d-flex align-items-center"><strong>{`${t('label_group')}: ${contact?.description}`}</strong></a>
+          <a class="navbar-brand d-flex align-items-center"><strong>{`${t('label_tenant')}: ${contact?.description}`}</strong></a>
           <ul class="navbar-nav">
             <li class="nav-item">
               <a class="nav-link d-flex align-items-center gap-2" href="#" id="signoutLink" onClick={handleSignout}><i class="bi bi-door-closed"></i> {t('label_signout')} </a>
@@ -920,7 +910,7 @@ const Reader = () => {
     <main>
       <div class="container">
         <h1 class="text-body-emphasis">{t('label_reader_header')}</h1>
-        <p class="fs-5 col-md-8 mb-5">{`${t('label_reader_description')}:${settings?.schedule}`}</p>
+        <p class="fs-5 col-md-8 mb-5">{settings?.message}</p>
         <hr class="col-3 col-md-2 mb-5"></hr>
         <div class="row">
         { dayOfWeek.map((e, i) => {
