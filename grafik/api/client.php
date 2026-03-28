@@ -25,6 +25,7 @@
     }
     
     $toJson = "{\"id\": ${_SESSION["clientId"]}, \"tenant\": \"${_SESSION["group"]}\"}";
+    echo($toJson);
   }
 
   function post($repository) {
