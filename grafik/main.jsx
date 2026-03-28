@@ -298,7 +298,7 @@ const Weeks = () => {
       </div>
     </div>
     <h2>{t('label_weeks')}</h2>
-    <Table columns={['#', t('label_start'), t('label_month'), t('label_actions')]}>
+    <Table columns={['#', t('label_starting'), t('label_month'), t('label_actions')]}>
       { weeks.map((w, i) => <tr>
         <td>{i + 1}</td>
         <td><DateFormatter timestamp={w.start} locale={locale} format="date" /></td>
