@@ -19,13 +19,11 @@
   }
 
   function get() {
-    if (isset($_SESSION["tenant"])) {
-      echo($_SESSION["tenant"]);
+    if (empty($_SESSION["tenant"])) {
+      echo('');
     }
-    else {
-      //http_response_code(403);
-      echo("");
-    }
+    
+    echo("ok");
   }
 
   function post($repository) {
@@ -34,20 +32,22 @@
     $password = $_POST["password"];
       
     if (!isset($tenant) || !isset($password)) {
-        http_status_code(403);
-        echo("");
+      pot();
     }
     
     $hash = ($repository -> readHash($tenant))[0]["PASSWORD"];
     if (password_verify($password, $hash)) {
-      $_SESSION["tenant"] = $tenant;
-      $newHash = password_hash($password, PASSWORD_DEFAULT);
-      $repository -> updateHash($newHash, $address, $tenant);
-      echo($_SESSION["tenant"]);
+      pot();
     }
+    
+    $_SESSION["tenant"] = $tenant;
+    $newHash = password_hash($password, PASSWORD_DEFAULT);
+    $repository -> updateHash($newHash, $address, $tenant);
+    echo("ok");
   }
 
   function pot() {
+    http_response_code(401);
     echo("gotcha!");
   }
 ?>
