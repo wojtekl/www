@@ -808,7 +808,7 @@ const Reader = () => {
   
   const [currentWeek, setCurrentWeek] = useState([])
   const [contact, setContact] = useState()
-  const [settings, setSettings] = useState()
+  const [settings, setSettings] = useState({})
   const [client, setClient] = useState()
   const [selected, setSelected] = useState()
   const [refresh, setRefresh] = useState(true)
