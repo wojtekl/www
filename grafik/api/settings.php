@@ -30,16 +30,15 @@
     }
     
     $e = ($repository -> readSettings($tenant))[0];
-    $toJson = "{\"schedule\": \"${e["SCHEDULE"]}\", \"showVisits\": ${e["SHOWVISITS"]}, \"showBooking\": ${e["SHOWBOOKING"]}}";
+    $toJson = "{\"message\": \"${e["MESSAGE"]}\", \"disableBooking\": ${e["DISABLEBOOKING"]}}";
     echo($toJson);
   }
 
   function post($repository) {
-    $schedule = trim($_POST["schedule"]);
-    $showVisits = trim($_POST["showVisits"]) ? 1 : 0;
-    $showBooking = trim($_POST["showBooking"]) ? 1 : 0;
+    $message = trim($_POST["message"]);
+    $disableBooking = trim($_POST["disableBooking"]) ? 1 : 0;
     $tenant = $_SESSION["tenant"];
-    if (!isset($tenant) || !isset($schedule) || !isset($showVisits) || !isset($showBooking)) {
+    if (!isset($tenant) || !isset($message) || !isset($disableBooking)) {
       pot();
     }
     
@@ -49,7 +48,7 @@
       $repository -> updateGroupPassword($newHash, '', $tenant);
     }
 
-    $result = $repository -> updateSettings($schedule, $showVisits, $showBooking, $tenant);
+    $result = $repository -> updateSettings($message, $disableBooking, $tenant);
     echo(!!$result);
   }
 
