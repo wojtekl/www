@@ -321,7 +321,7 @@ const CurrentWeek = ({ date, type }) => {
         setCurrentWeek(response.data)
         setForm(document.getElementById('form_statistics'), {
           event: response.data.length,
-          period: response.data.reduce((a, v) => a + v, 0),
+          period: response.data.reduce((a, v) => a + v.period, 0),
           assignment: 0
         })
         console.debug(response.data)
