@@ -20,7 +20,7 @@
 
   function get() {
     if (empty($_SESSION["tenant"])) {
-      echo('');
+      echo("");
       return;
     }
     
