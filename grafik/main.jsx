@@ -912,7 +912,7 @@ const Reader = () => {
           <div class="col-lg-1 bg-info-subtle">{e.short}</div>
           { 1 > currentDay.length ? <div class="col-lg-11">  - - -  </div> : currentDay.map(g => {
             const endTime = new Date(new Date(g.starting).getTime() + g.period * 60 * 60 * 1000)
-            const isAssigned = g.assignment.find(a => a.clientId === client)
+            const isAssigned = g.assignment.find(a => a.clientId === client.id)
             const width = Math.round(g.period/3)
             return <div class={`${ g.confirmed ? 'bg-secondary-subtle' : 'bg-warning-subtle' } border border-secondary col-lg-${width}`}>
             { isAssigned && <i class="bi bi-check-lg"></i> } {g.time} - <DateFormatter timestamp={endTime} locale={locale} format="time" /> {g.description} 
@@ -938,7 +938,7 @@ const Reader = () => {
     <ConfirmModal id="createAssignmentModal" title="label_create_assignment" onOk={() => {
       const postData = {
         eventId: selected,
-        clientId: client
+        clientId: client.id
       }
       axios.post('api/assignment-cd', postData, multiPostHeader()).then(response => {
         setRefresh(true)
@@ -949,7 +949,7 @@ const Reader = () => {
     <ConfirmModal id="deleteAssignmentModal" title="label_delete_assignment" onOk={() => {
       const searchParams = new URLSearchParams({
         eventId: selected,
-        clientId: client
+        clientId: client.id
       })
       axios.get(`api/assignment-cd?${searchParams.toString()}`).then(response => {
         setRefresh(true)
