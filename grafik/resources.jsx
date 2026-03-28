@@ -49,7 +49,7 @@ const resources = {
       "label_delete_assignment": "Wycofaj się",
       "label_settings": "Ustawienia",
       "label_message": "Wiadomość",
-      "label_disable_booking": "Wyświetlaj zapisy",
+      "label_disable_booking": "Wyłącz zapisy",
       "label_group_password": "Hasło grupy",
       "label_firstname": "Imię",
       "label_surname": "Nazwisko",
