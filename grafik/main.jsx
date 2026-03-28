@@ -559,19 +559,14 @@ const Manage = () => {
 
   useEffect(() => {
     axios.get('api/signin').then(response => {
-      if (!response.data || response.data.length > 99 || response.data.includes(';')) {
-        //setTenant(undefined)
-        if (!tenant) {
-          navigate('/signin')
-        } else {
-          navigate(`/${tenant}`)
-        }
-      }
-      else {
+      if (response.data && !response.data.includes(';')) {
         dispatch(tenantSet(response.data))
         setTenant(response.data)
       }
-      console.debug(response.data)
+      else {
+        dispatch(tenantSet(undefined))
+        navigate('/signin')
+      }
     })
   }, [])
 
@@ -581,7 +576,6 @@ const Manage = () => {
     axios.get('api/signin-cd').then(response => {
       dispatch(tenantSet(undefined))
       navigate('/signin')
-      console.debug(response.data)
     })
   }
 
@@ -686,8 +680,8 @@ const Signin = () => {
 
   useEffect(() => {
     axios.get('api/client').then(response => {
-      if (response.data && !response.data.includes(';')) {
-        navigate(`/${reponse.data}`)
+      if (response.data?.id) {
+        navigate(`/${reponse.data.tenant}`)
       }
     })
     axios.get('api/signin').then(response => {
@@ -704,8 +698,8 @@ const Signin = () => {
     setSigninFailure(false)
     const form = document.getElementById('form_client')
     axios.post('api/client', form).then(response => {
-      if (response.data && !response.data.includes(';')) {
-        navigate(`/${response.data}`)
+      if (response.data?.id) {
+        navigate(`/${response.data.tenant}`)
       }
       else {
         setSigninFailure(true)
@@ -830,7 +824,7 @@ const Reader = () => {
 
   useEffect(() => {
     axios.get('api/client').then(response => {
-      if (response.data && !response.data.includes(';')) {
+      if (response.data?.id) {
         setClient(response.data)
       } else {
         navigate('/signin')
