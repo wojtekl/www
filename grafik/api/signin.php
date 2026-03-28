@@ -21,9 +21,10 @@
   function get() {
     if (empty($_SESSION["tenant"])) {
       echo('');
+      return;
     }
     
-    echo("ok");
+    echo($_SESSION["tenant"]);
   }
 
   function post($repository) {
@@ -33,17 +34,19 @@
       
     if (!isset($tenant) || !isset($password)) {
       pot();
+      return;
     }
     
     $hash = ($repository -> readHash($tenant))[0]["PASSWORD"];
     if (password_verify($password, $hash)) {
       pot();
+      return;
     }
     
     $_SESSION["tenant"] = $tenant;
     $newHash = password_hash($password, PASSWORD_DEFAULT);
     $repository -> updateHash($newHash, $address, $tenant);
-    echo("ok");
+    echo($tenant);
   }
 
   function pot() {
