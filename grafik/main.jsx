@@ -355,13 +355,14 @@ const CurrentWeek = ({ date, type }) => {
     </div>
   </Form>
   <h2>{getTitle()}</h2>
-  <Table columns={['#', t('label_date'), t('label_description'), t('label_period'), t('label_notes'), t('label_actions')]}>
+  <Table columns={['#', t('label_date'), t('label_period'), t('label_description'), t('label_notes'), t('label_assignment'), t('label_actions')]}>
     { currentWeek.map((e, i) => <tr>
       <td>{i + 1}</td>
       <td><DateFormatter timestamp={e.starting} locale={locale} /></td>
-      <td>{e.description}</td>
       <td><NumberFormatter value={e.period} locale={locale} /></td>
-      <td>{e.notes}{ e.confirmed ? e.assignment.filter(a => a.accepted).map(a => <div>{a.displayName}</div>) : e.assignment.length }</td>
+      <td>{e.description}</td>
+      <td>{e.notes}</td>
+      <td>{ e.confirmed ? e.assignment.filter(a => a.accepted).map(a => <div>{a.displayName}</div>) : e.assignment.length }</td>
       <td>
         { !e.confirmed && <ActionButton icon="people" onClick={ () => setSelected(e.id) } modal="#assignModal" /> }
         <ActionButton icon="pencil-square" onClick={ () => setSelected(e.id) } modal="#editEventModal" />
