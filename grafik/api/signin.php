@@ -38,7 +38,7 @@
     }
     
     $hash = ($repository -> readHash($tenant))[0]["PASSWORD"];
-    if (password_verify($password, $hash)) {
+    if (!password_verify($password, $hash)) {
       pot();
       return;
     }
