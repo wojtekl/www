@@ -216,10 +216,6 @@ const Password = () => {
           <label for="floatingPassword">{t('label_password')}</label>
         </div>
         <input type="hidden" name="code" value={code} />
-        <div class="form-check text-start my-3">
-          <input class="form-check-input" type="checkbox" value="remember-me" id="checkDefault" />
-          <label class="form-check-label" for="checkDefault">{t('label_remember_me')}</label>
-        </div>
         <button class="btn btn-primary w-100 py-2" type="submit">{t('label_sign_in')}</button>
         <p class="mt-5 mb-3 text-body-secondary">{t('label_copyright')}</p>
       </form>
@@ -302,12 +298,12 @@ const Weeks = () => {
       </div>
     </div>
     <h2>{t('label_weeks')}</h2>
-    <Table columns={['#', t('label_begining'), t('label_month'), t('label_actions')]}>
+    <Table columns={['#', t('label_start'), t('label_month'), t('label_actions')]}>
       { weeks.map((w, i) => <tr>
         <td>{i + 1}</td>
         <td><DateFormatter timestamp={w.start} locale={locale} format="date" /></td>
         <td>{w.month}</td>
-        <td><button type="button" class="btn btn-sm btn-outline-secondary" onClick={ () => setSelectedWeek(w.start) }><i class="bi bi-pencil-square"></i></button></td>
+        <td><button type="button" class="btn btn-sm btn-outline-secondary" onClick={ () => setSelectedWeek(w.start) }><i class="bi bi-calendar-week"></i></button></td>
       </tr>) }
     </Table>
   </>
@@ -333,7 +329,7 @@ const CurrentWeek = ({ date, type }) => {
       }
       axios.post('api/event-week', postData, { headers: { 'Content-Type': 'multipart/form-data' }}).then(response => {
         setCurrentWeek(response.data)
-        setForm(document.getElementById('form_statistics'), { count: response.data.length})
+        setForm(document.getElementById('form_statistics'), { count: response.data.length })
         console.debug(response.data)
       })
       setRefresh(false)
@@ -372,14 +368,14 @@ const CurrentWeek = ({ date, type }) => {
   <Table columns={['#', t('label_date'), t('label_description'), t('label_period'), t('label_notes'), t('label_actions')]}>
     { currentWeek.map((e, i) => <tr>
       <td>{i + 1}</td>
-      <td><DateFormatter timestamp={e['starting']} locale={locale} /></td>
-      <td>{e['description']}</td>
-      <td><NumberFormatter value={e['period']} locale={locale} /></td>
-      <td>{e['notes']}{ e.confirmed ? e.assignment.filter(a => a.accepted).map(a => <div>{a.displayName}</div>) : e.assignment.length }</td>
+      <td><DateFormatter timestamp={e.starting} locale={locale} /></td>
+      <td>{e.description}</td>
+      <td><NumberFormatter value={e.period} locale={locale} /></td>
+      <td>{e.notes}{ e.confirmed ? e.assignment.filter(a => a.accepted).map(a => <div>{a.displayName}</div>) : e.assignment.length }</td>
       <td>
-        { !e.confirmed && <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#assignModal" onClick={ () => setSelected(e['id']) }><i class="bi bi-people"></i></button> }
-        <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#editEventModal" onClick={ () => setSelected(e['id']) }><i class="bi bi-pencil-square"></i></button>
-        { !e.confirmed && <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#deleteEventModal" onClick={ () => setSelected(e['id']) }><i class="bi bi-trash"></i></button> }
+        { !e.confirmed && <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#assignModal" onClick={ () => setSelected(e.id) }><i class="bi bi-people"></i></button> }
+        <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#editEventModal" onClick={ () => setSelected(e.id) }><i class="bi bi-pencil-square"></i></button>
+        { !e.confirmed && <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#deleteEventModal" onClick={ () => setSelected(e.id) }><i class="bi bi-trash"></i></button> }
       </td>
     </tr>) }
   </Table>
@@ -497,16 +493,12 @@ const Settings = () => {
     </div>
     <Form id="form_settings" legend="label_settings" disabled={disabled} onSubmit={handleSubmit}>
       <div class="mb-3">
-        <label for="textarea_settingsschedule" class="form-label">{t('label_schedule')}</label>
-        <textarea id="textarea_settingsschedule" class="form-control" rows="4" name="schedule" />
+        <label for="textarea_settingsmessage" class="form-label">{t('label_message')}</label>
+        <textarea id="textarea_settingsmessage" class="form-control" rows="4" name="message" />
       </div>
       <div class="mb-3 form-check">
-        <input type="checkbox" class="form-check-input" id="checkbox_settingsshowVisits" name="showVisits" />
-        <label class="form-check-label" for="checkbox_settingsshowVisits">{t('label_show_visit')}</label>
-      </div>
-      <div class="mb-3 form-check">
-        <input type="checkbox" class="form-check-input" id="checkbox_settingsshowBooking" name="showBooking" />
-        <label class="form-check-label" for="checkbox_settingsshowBooking">{t('label_show_booking')}</label>
+        <input type="checkbox" class="form-check-input" id="checkbox_settingsdisableBooking" name="disableBooking" />
+        <label class="form-check-label" for="checkbox_settingsdisableBooking">{t('label_disable_booking')}</label>
       </div>
       <div class="mb-3">
         <label for="input_settingsgrouppassword" class="form-label">{t('label_group_password')}</label>
@@ -941,7 +933,7 @@ const Reader = () => {
             const width = Math.round(g.period/3)
             return <div class={`${ g.confirmed ? 'bg-secondary-subtle' : 'bg-warning-subtle' } border border-secondary col-lg-${width}`}>
             { isAssigned && <i class="bi bi-check-lg"></i> } {g.time} - <DateFormatter timestamp={endTime} locale={locale} format="time" /> {g.description} 
-            { g.confirmed ? g.assignment.filter(a => a.accepted).map(a => <div>{a.displayName}</div>) : 
+            { g.confirmed || settings.disableBooking ? g.assignment.filter(a => a.accepted).map(a => <div>{a.displayName}</div>) : 
             <a href="#" class="btn btn-sm" data-bs-toggle="modal" data-bs-target={ !isAssigned ? '#createAssignmentModal' : '#deleteAssignmentModal' } onClick={ () => setSelected(g.id) }>
               <i class={ !isAssigned ? 'bi bi-hand-thumbs-up' : 'bi bi-hand-thumbs-down' }></i>
             </a> }
