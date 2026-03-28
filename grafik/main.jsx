@@ -580,7 +580,6 @@ const Manage = () => {
     
     axios.get('api/signin-cd').then(response => {
       dispatch(tenantSet(undefined))
-      setTenant(undefined)
       navigate('/signin')
       console.debug(response.data)
     })
@@ -683,24 +682,19 @@ const Signin = () => {
   const { t } = useTranslation()
   const dispatch = useDispatch()
   
-  //const [tenant, setTenant] = useState(useSelector(state => state.tenant))
   const [signinFailure, setSigninFailure] = useState(false)
 
   useEffect(() => {
     axios.get('api/client').then(response => {
       if (response.data && !response.data.includes(';')) {
-        navigate(`/${reponse.data.tenant}`)
-        return
+        navigate(`/${reponse.data}`)
       }
-      console.debug(response.data)
     })
     axios.get('api/signin').then(response => {
       if (response.data && !response.data.includes(';')) {
         dispatch(tenantSet(response.data))
         navigate('/')
-        return
       }
-      console.debug(response.data)
     })
   }, [])
 
@@ -710,8 +704,8 @@ const Signin = () => {
     setSigninFailure(false)
     const form = document.getElementById('form_client')
     axios.post('api/client', form).then(response => {
-      if (response.data) {
-        navigate(`/${response.data.tenant}`)
+      if (response.data && !response.data.includes(';')) {
+        navigate(`/${response.data}`)
       }
       else {
         setSigninFailure(true)
@@ -727,7 +721,8 @@ const Signin = () => {
     setSigninFailure(false)
     const form = document.getElementById('form_tenant')
     axios.post('api/signin', form).then(response => {
-      if (response.data.length > 0) {
+      if (response.data && !response.data.includes(';')) {
+        dispatch(tenantSet(response.data))
         navigate('/')
       }
       else {
@@ -828,7 +823,6 @@ const Reader = () => {
 
     axios.get('api/client-cd').then(response => {
       navigate('/signin')
-      console.debug(response.data)
     })
     
     event.stopPropagation()
@@ -836,12 +830,11 @@ const Reader = () => {
 
   useEffect(() => {
     axios.get('api/client').then(response => {
-      if (response.data) {
+      if (response.data && !response.data.includes(';')) {
         setClient(response.data)
       } else {
         navigate('/signin')
       }
-      console.debug(response.data)
     })
   }, [])
 
@@ -919,7 +912,7 @@ const Reader = () => {
           <div class="col-lg-1 bg-info-subtle">{e.short}</div>
           { 1 > currentDay.length ? <div class="col-lg-11">  - - -  </div> : currentDay.map(g => {
             const endTime = new Date(new Date(g.starting).getTime() + g.period * 60 * 60 * 1000)
-            const isAssigned = g.assignment.find(a => a.clientId === client.clientId)
+            const isAssigned = g.assignment.find(a => a.clientId === client)
             const width = Math.round(g.period/3)
             return <div class={`${ g.confirmed ? 'bg-secondary-subtle' : 'bg-warning-subtle' } border border-secondary col-lg-${width}`}>
             { isAssigned && <i class="bi bi-check-lg"></i> } {g.time} - <DateFormatter timestamp={endTime} locale={locale} format="time" /> {g.description} 
@@ -945,7 +938,7 @@ const Reader = () => {
     <ConfirmModal id="createAssignmentModal" title="label_create_assignment" onOk={() => {
       const postData = {
         eventId: selected,
-        clientId: client.clientId
+        clientId: client
       }
       axios.post('api/assignment-cd', postData, multiPostHeader()).then(response => {
         setRefresh(true)
@@ -956,7 +949,7 @@ const Reader = () => {
     <ConfirmModal id="deleteAssignmentModal" title="label_delete_assignment" onOk={() => {
       const searchParams = new URLSearchParams({
         eventId: selected,
-        clientId: client.clientId
+        clientId: client
       })
       axios.get(`api/assignment-cd?${searchParams.toString()}`).then(response => {
         setRefresh(true)
