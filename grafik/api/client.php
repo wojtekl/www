@@ -19,14 +19,12 @@
   }
 
   function get($repository) {
-    if (isset($_SESSION["clientId"]) && isset($_SESSION["tenant"])) {
-      $toJson = "{\"clientId\": ${_SESSION["clientId"]}, \"tenant\": \"${_SESSION["tenant"]}\"}";
-      echo($toJson);
-    }
-    else {
-      //http_response_code(403);
+    if (empty($_SESSION["clientId"])) {
       echo("");
+      return;
     }
+    
+    echo($_SESSION["clientId"]);
   }
 
   function post($repository) {
@@ -36,11 +34,12 @@
     
     if (!isset($client) || !isset($tenant) || !isset($groupPassword)) {
       pot();
+      return;
     }
     
     $hash = (($repository -> readGroupPassword($tenant))[0])["GROUPPASSWORD"];
     if (!password_verify($groupPassword, $hash)) {
-      session_destroy();
+      //session_destroy();
       pot();
       return;
     }
@@ -48,12 +47,12 @@
     $result = $repository -> readClientByName($client);
     $clientId = 0 < count($result) ? $result[0]["ID"] : $repository -> createClient($client, $client);
     $_SESSION["clientId"] = $clientId;
-    $_SESSION["tenant"] = $tenant;
-    $toJson = "{\"clientId\": ${clientId}, \"tenant\": \"${tenant}\"}";
-    echo($toJson);
+    //$toJson = "{\"clientId\": ${clientId}, \"tenant\": \"${tenant}\"}";
+    echo($clientId);
   }
 
   function pot() {
+    http_response_code(401);
     echo("gotcha!");
   }
 ?>
