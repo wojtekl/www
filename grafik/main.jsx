@@ -680,8 +680,8 @@ const Signin = () => {
 
   useEffect(() => {
     axios.get('api/client').then(response => {
-      if (response.data?.id) {
-        navigate(`/${reponse.data.tenant}`)
+      if (response.data?.tenant) {
+        navigate(`/${response.data.tenant}`)
       }
     })
     axios.get('api/signin').then(response => {
@@ -698,7 +698,7 @@ const Signin = () => {
     setSigninFailure(false)
     const form = document.getElementById('form_client')
     axios.post('api/client', form).then(response => {
-      if (response.data?.id) {
+      if (response.data?.tenant) {
         navigate(`/${response.data.tenant}`)
       }
       else {
