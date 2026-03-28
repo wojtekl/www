@@ -245,7 +245,7 @@ class Repository {
   }
     
   public function readAssignmentByEventId($eventId) {
-    $statement = $this -> sql -> prepare("SELECT `a`.`ID`, `a`.`EVENT_ID`, `a`.`CLIENT_ID`, `a`.`ACCEPTED`, `c`.`DISPLAYNAME`, `q`.`COUNT` FROM `ASSIGNMENT` `a` LEFT JOIN `CLIENT` `c` ON `c`.`ID` = `a`.`CLIENT_ID` LEFT JOIN (SELECT `CLIENT_ID`, COUNT(*) AS `COUNT` FROM `ASSIGNMENT` GROUP BY `CLIENT_ID`) `q` ON `q`.`CLIENT_ID` = `c`.`ID` WHERE `EVENT_ID` = :eventId");
+    $statement = $this -> sql -> prepare("SELECT `a`.`ID`, `a`.`EVENT_ID`, `a`.`CLIENT_ID`, `a`.`ACCEPTED`, `c`.`DISPLAYNAME`, COALESCE(`q`.`COUNT`, 0) AS `COUNT` FROM `ASSIGNMENT` `a` LEFT JOIN `CLIENT` `c` ON `c`.`ID` = `a`.`CLIENT_ID` LEFT JOIN (SELECT `CLIENT_ID`, COUNT(*) AS `COUNT` FROM `ASSIGNMENT` WHERE `ACCEPTED` = 1 GROUP BY `CLIENT_ID`) `q` ON `q`.`CLIENT_ID` = `c`.`ID` WHERE `EVENT_ID` = :eventId");
     
     $statement -> bindParam(":eventId", $eventId);
     
