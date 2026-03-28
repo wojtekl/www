@@ -4,10 +4,6 @@
   if (!isset($_SESSION)) {
     session_start();
   }
-  $tenant = $_SESSION["tenant"];
-  if (!isset($tenant)) {
-    pot();
-  }
 
   require "./repository.php";
   
@@ -25,7 +21,7 @@
   function get($repository) {
 
     $tenant = trim($_GET["tenant"]);
-    if (!isset($tenant)) {
+    if (empty($tenant)) {
       pot();
     }
     
@@ -38,7 +34,7 @@
     $message = trim($_POST["message"]);
     $disableBooking = trim($_POST["disableBooking"]) ? 1 : 0;
     $tenant = $_SESSION["tenant"];
-    if (!isset($tenant) || !isset($message) || !isset($disableBooking)) {
+    if (empty($tenant) || !isset($message) || !isset($disableBooking)) {
       pot();
     }
     
