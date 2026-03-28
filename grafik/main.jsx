@@ -319,7 +319,11 @@ const CurrentWeek = ({ date, type }) => {
       }
       axios.post('api/event-week', postData, multiPostHeader()).then(response => {
         setCurrentWeek(response.data)
-        setForm(document.getElementById('form_statistics'), { count: response.data.length })
+        setForm(document.getElementById('form_statistics'), {
+          event: response.data.length,
+          period: response.data.reduce((a, v) => a + v, 0),
+          assignment: 0
+        })
         console.debug(response.data)
       })
       setRefresh(false)
@@ -348,9 +352,9 @@ const CurrentWeek = ({ date, type }) => {
   </div>
   <Form id="form_statistics" disabled={true}>
     <div class="row">
-      <InputText name="count" label={t('label_count')} className="col-sm-6" formId="statistics" />
-      <InputText name="" label={t('label_')} className="col-sm-6" formId="statistics" />
-      <InputText name="" label={t('label_')} className="col-sm-6" formId="statistics" />
+      <InputText name="event" label={t('label_event')} className="col-sm-6" formId="statistics" />
+      <InputText name="period" label={t('label_period')} className="col-sm-6" formId="statistics" />
+      <InputText name="assignment" label={t('label_assignment')} className="col-sm-6" formId="statistics" />
       <InputText name="" label={t('label_')} className="col-sm-6" formId="statistics" />
     </div>
   </Form>
