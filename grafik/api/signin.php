@@ -32,7 +32,7 @@
     $tenant = $_POST["tenant"];
     $password = $_POST["password"];
       
-    if (!isset($tenant) || !isset($password)) {
+    if (empty($tenant) || empty($password)) {
       pot();
       return;
     }
@@ -50,6 +50,7 @@
   }
 
   function pot() {
+    session_destroy();
     http_response_code(401);
     echo("gotcha!");
   }
