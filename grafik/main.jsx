@@ -113,7 +113,7 @@ const ModalForm = ({ id, title, onSubmit, children }) => {
     const modal = bootstrap.Modal.getInstance(document.getElementById(id))
     modal.hide()
     
-    setNotification('label_saved')
+    setNotification('label_success')
     
     event.stopPropagation()
   }
@@ -130,7 +130,7 @@ const ModalForm = ({ id, title, onSubmit, children }) => {
         </div>
         <div class="modal-footer">
           <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">{t('label_cancel')}</button>
-          <button type="submit" class="btn btn-primary" onClick={handleSubmit}>{t('label_save')}</button>
+          <button type="submit" class="btn btn-primary" onClick={handleSubmit}>{t('label_success')}</button>
         </div>
       </div>
     </div>
@@ -182,7 +182,7 @@ const Password = () => {
     event.preventDefault()
     
     const form = document.getElementById('form_password')
-    axios.post('api/event-cd', form, { headers: { 'Content-Type': 'multipart/form-data' }}).then(response => {
+    axios.post('api/event-cd', form, multiPostHeader()).then(response => {
       if (response.data) {
         navigate('/signin')
         window.history.replaceState({}, document.title, 'https://grafik.wlap.pl/#/signin')
@@ -242,9 +242,9 @@ const AssignModal = ({ id, eventId }) => {
   }, [assignment])*/
 
   const handleSubmit = (form) => {
-    axios.post('api/assignment', { assignment: getForm(form) }, { headers: { 'Content-Type': 'multipart/form-data' }}).then(response => {
+    axios.post('api/assignment', { assignment: getForm(form) }, multiPostHeader()).then(response => {
       form.reset()
-      setNotification('label_saved')
+      setNotification('label_success')
       console.debug(response.data)
     })
   }
@@ -317,7 +317,7 @@ const CurrentWeek = ({ date, type }) => {
         tenant: tenant,
         today: date
       }
-      axios.post('api/event-week', postData, { headers: { 'Content-Type': 'multipart/form-data' }}).then(response => {
+      axios.post('api/event-week', postData, multiPostHeader()).then(response => {
         setCurrentWeek(response.data)
         setForm(document.getElementById('form_statistics'), { count: response.data.length })
         console.debug(response.data)
@@ -375,7 +375,7 @@ const CurrentWeek = ({ date, type }) => {
     const searchParams = new URLSearchParams({ id: selected })
     axios.get(`api/event-cd?${searchParams.toString()}`).then(response => {
       setRefresh(true)
-      setNotification('label_saved')
+      setNotification('label_success')
     })
   }} />
 </>
@@ -407,7 +407,7 @@ const Contact = () => {
     event.preventDefault()
     
     const form = document.getElementById('form_contact')
-    axios.post('api/contact', form, { headers: { 'Content-Type': 'multipart/form-data' }}).then(response => setNotification(response.data))
+    axios.post('api/contact', form, multiPostHeader()).then(response => setNotification(response.data))
     
     event.stopPropagation()
   }
@@ -467,7 +467,7 @@ const Settings = () => {
     
     const form = getForm(document.getElementById('form_settings'))
     console.debug(form)
-    axios.post('api/settings', form, { headers: { 'Content-Type': 'multipart/form-data' }}).then(response => setNotification('label_saved'))
+    axios.post('api/settings', form, multiPostHeader()).then(response => setNotification('label_success'))
     
     event.stopPropagation()
   }
@@ -517,10 +517,10 @@ const EventModal = ({ id, itemId, type, onSuccess }) => {
   }, [itemId])
 
   const handleSubmit = (form) => {
-    axios.post(!itemId ? 'api/event-cd' : 'api/event', form, { headers: { 'Content-Type': 'multipart/form-data' }}).then(response => {
+    axios.post(!itemId ? 'api/event-cd' : 'api/event', form, multiPostHeader()).then(response => {
       form.reset()
       onSuccess()
-      setNotification('label_saved')
+      setNotification('label_success')
       console.debug(response.data)
     })
   }
@@ -854,7 +854,7 @@ const Reader = () => {
       tenant: group,
       today: datePart()
     }
-    axios.post('api/event-week', postData, { headers: { 'Content-Type': 'multipart/form-data' }}).then(response => {
+    axios.post('api/event-week', postData, multiPostHeader()).then(response => {
       setCurrentWeek(response.data)
       console.debug(response.data)
     })
@@ -924,9 +924,7 @@ const Reader = () => {
             return <div class={`${ g.confirmed ? 'bg-secondary-subtle' : 'bg-warning-subtle' } border border-secondary col-lg-${width}`}>
             { isAssigned && <i class="bi bi-check-lg"></i> } {g.time} - <DateFormatter timestamp={endTime} locale={locale} format="time" /> {g.description} 
             { g.confirmed || settings.disableBooking ? g.assignment.filter(a => a.accepted).map(a => <div>{a.displayName}</div>) : 
-            <a href="#" class="btn btn-sm" data-bs-toggle="modal" data-bs-target={ !isAssigned ? '#createAssignmentModal' : '#deleteAssignmentModal' } onClick={ () => setSelected(g.id) }>
-              <i class={ !isAssigned ? 'bi bi-hand-thumbs-up' : 'bi bi-hand-thumbs-down' }></i>
-            </a> }
+            <ActionButton icon={!isAssigned ? 'hand-thumbs-up' : 'hand-thumbs-down'} onClick={ () => setSelected(g.id) } modal={!isAssigned ? '#createAssignmentModal' : '#deleteAssignmentModal'} /> }
           </div>
           }) }
           <div class="w-100"></div>
@@ -949,7 +947,7 @@ const Reader = () => {
         eventId: selected,
         clientId: client.clientId
       }
-      axios.post('api/assignment-cd', postData, { headers: { 'Content-Type': 'multipart/form-data' }}).then(response => {
+      axios.post('api/assignment-cd', postData, multiPostHeader()).then(response => {
         setRefresh(true)
         setNotification('label_success')
         console.debug(response.data)
