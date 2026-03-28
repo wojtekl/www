@@ -130,7 +130,7 @@ const ModalForm = ({ id, title, onSubmit, children }) => {
         </div>
         <div class="modal-footer">
           <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">{t('label_cancel')}</button>
-          <button type="submit" class="btn btn-primary" onClick={handleSubmit}>{t('label_success')}</button>
+          <button type="submit" class="btn btn-primary" onClick={handleSubmit}>{t('label_save')}</button>
         </div>
       </div>
     </div>
