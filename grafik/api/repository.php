@@ -133,19 +133,18 @@ class Repository {
   }
   
   public function readSettings($tenant) {
-    $statement = $this -> sql -> prepare("SELECT `ID`, `SCHEDULE`, `SHOWVISITS`, `SHOWBOOKING` FROM `SETTINGS` WHERE `TENANT` = :tenant");
+    $statement = $this -> sql -> prepare("SELECT `ID`, `MESSAGE`, `DISABLEBOOKING` FROM `SETTINGS` WHERE `TENANT` = :tenant");
     
     $statement -> bindParam(":tenant", $tenant);
     
     return $this -> execute($statement);
   }
   
-  public function updateSettings($schedule, $showVisits, $showBooking, $tenant) {
-    $statement = $this -> sql -> prepare("UPDATE `SETTINGS` SET `SCHEDULE` = :schedule, `SHOWVISITS` = :showVisits, `SHOWBOOKING` = :showBooking WHERE `TENANT` = :tenant");
+  public function updateSettings($message, $disableBooking, $tenant) {
+    $statement = $this -> sql -> prepare("UPDATE `SETTINGS` SET `MESSAGE` = :message, `DISABLEBOOKING` = :disableBooking WHERE `TENANT` = :tenant");
     
-    $statement -> bindParam(":schedule", $schedule);
-    $statement -> bindParam(":showVisits", $showVisits);
-    $statement -> bindParam(":showBooking", $showBooking);
+    $statement -> bindParam(":message", $message);
+    $statement -> bindParam(":disableBooking", $disableBooking);
     $statement -> bindParam(":tenant", $tenant);
     
     return $this -> execute($statement);
