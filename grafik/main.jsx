@@ -371,7 +371,10 @@ const CurrentWeek = ({ date, type }) => {
     </tr>) }
   </Table>
   <AssignModal id="assignModal" eventId={selected} />
-  <EventModal id="editEventModal" itemId={selected} onSuccess={ () => setRefresh(true) } />
+  <EventModal id="editEventModal" itemId={selected} onSuccess={ () => {
+    setSelected(undefined)
+    setRefresh(true)
+  } } />
   <ConfirmModal id="deleteEventModal" title="label_delete" onOk={() => {
     const searchParams = new URLSearchParams({ id: selected })
     axios.get(`api/event-cd?${searchParams.toString()}`).then(response => {
