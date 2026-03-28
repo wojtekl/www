@@ -49,7 +49,7 @@
     $_SESSION["clientId"] = $clientId;
     $_SESSION["group"] = $tenant;
     $toJson = "{\"id\": ${clientId}, \"tenant\": \"${tenant}\"}";
-    echo($clientId);
+    echo($toJson);
   }
 
   function pot() {
