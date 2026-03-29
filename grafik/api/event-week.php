@@ -29,7 +29,7 @@
       $assignment .= "]";
       $assignment = (str_replace(",]", "]", $assignment));
         
-      $toList .= "{\"id\": \"${e["ID"]}\", \"description\": \"${e["DESCRIPTION"]}\", \"starting\": \"${e["STARTING"]}\", \"period\": \"${e["PERIOD"]}\", \"confirmed\": ${e["CONFIRMED"]}, \"notes\": \"${e["NOTES"]}\", \"dayOfWeek\": \"${e["DAYOFWEEK"]}\", \"time\": \"${e["TIME"]}\", \"type\": \"${e["TYPE"]}\", \"assignment\": ${assignment}},";
+      $toList .= "{\"id\": \"${e["ID"]}\", \"description\": \"${e["DESCRIPTION"]}\", \"starting\": \"${e["STARTING"]}\", \"period\": ${e["PERIOD"]}, \"confirmed\": ${e["CONFIRMED"]}, \"notes\": \"${e["NOTES"]}\", \"dayOfWeek\": \"${e["DAYOFWEEK"]}\", \"time\": \"${e["TIME"]}\", \"type\": \"${e["TYPE"]}\", \"assignment\": ${assignment}},";
     }
     $toList .= "]";
     echo(str_replace(",]", "]", $toList));
