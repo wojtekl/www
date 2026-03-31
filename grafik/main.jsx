@@ -558,6 +558,8 @@ const EventModal = ({ id, itemId, type, onSuccess }) => {
 
 /* Timeline */
 const Timeline = ({ currentWeek, settings, setSelected }) => {
+  const { t } = useTranslation()
+  
   const dayOfWeek = [
     { order: '2', name: t('label_monday'), short: 'pn'}, 
     { order: '3', name: t('label_tuesday'), short: 'wt'}, 
