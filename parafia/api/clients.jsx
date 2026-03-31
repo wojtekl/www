@@ -105,6 +105,32 @@ const clients = {
       "longitude": 22.019536
     },
     {
+      "name": "Busko Zdrój: Parafia pw Bożego Ciała",
+      "schedule": "https://bozecialobusko.pl/intentions",
+      "announcement": "https://bozecialobusko.pl/posts",
+      "contact": "https://bozecialobusko.pl/",
+      "other": "",
+      "live": "",
+      "week": ["07:00", "17:00*"],
+      "sunday": ["07:00", "09:00", "11:00", "12:30", "17:00"],
+      "description": "",
+      "latitude": 50.465883,
+      "longitude": 20.727328
+    },
+    {
+      "name": "Busko Zdrój: Parafia pw św. Brata Alberta",
+      "schedule": "https://albert-busko.pl/intencje-mszalne/",
+      "announcement": "https://albert-busko.pl/ogloszenia-dp/",
+      "contact": "https://albert-busko.pl/kontakt/",
+      "other": "",
+      "live": "https://www.youtube.com/channel/UCxfcJsyC1aubv9XGRLGzo6A/live",
+      "week": ["06:30", "17:00*"],
+      "sunday": ["07:00", "09:00", "10:30", "12:00", "17:00*"],
+      "description": "",
+      "latitude": 50.460550,
+      "longitude": 20.714089
+    },
+    {
       "name": "Bydgoszcz: Parafia św. Mateusza Apostoła i Ewangelisty",
       "schedule": "http://www.mateusz.bydgoszcz.pl/intencje-mszalne-33437/#page_content",
       "announcement": "http://www.mateusz.bydgoszcz.pl/ogloszenia/#announcements",
@@ -963,6 +989,19 @@ const clients = {
       "longitude": 16.48348
     },
     {
+      "name": "Lądek Zdrój: Parafia pw. Narodzenia NMP",
+      "schedule": "https://parafialadekzdroj.pl/nabozenstwa-i-aktualne-intencje/",
+      "announcement": "https://parafialadekzdroj.pl/aktualnosci/",
+      "contact": "https://parafialadekzdroj.pl/contacts/",
+      "other": "",
+      "live": "",
+      "week": ["07:00", "18:00"],
+      "sunday": ["08:00", "10:00", "12:00", "18:00"],
+      "description": "",
+      "latitude": 50.346368,
+      "longitude": 16.869480
+    },
+    {
       "name": "Leoncin: Parafia św. Małgorzaty Dziewicy i Męczennicy",
       "schedule": "http://parafia.leoncin.pl/msze-sw/",
       "announcement": "http://parafia.leoncin.pl/aktualnosci/",
@@ -1249,6 +1288,32 @@ const clients = {
       "longitude": 21.470616
     },
     {
+      "name": "Mielno: Parafia pw Przemienienia Pańskiego",
+      "schedule": "https://mielno.koszalin.opoka.org.pl/ogloszenia",
+      "announcement": "https://mielno.koszalin.opoka.org.pl/ogloszenia",
+      "contact": "http://mielno.koszalin.opoka.org.pl/kancelaria/",
+      "other": "",
+      "live": "",
+      "week": ["17:00"],
+      "sunday": ["09:00", "10:30", "12:00", "16:00"],
+      "description": "",
+      "latitude": 54.254500,
+      "longitude": 16.046002
+    },
+    {
+      "name": "Międzyzdroje: Parafia pw św. Piotra Apostoła",
+      "schedule": "http://parafia.miedzyzdroje.pl/aktualnosci",
+      "announcement": "http://parafia.miedzyzdroje.pl/gl",
+      "contact": "http://parafia.miedzyzdroje.pl/adres",
+      "other": "",
+      "live": "https://www.youtube.com/channel/UC5zVBy9-3R_3HwgrxXyxKBg/live",
+      "week": ["07:00", "09:00", "17:30*"],
+      "sunday": ["07:00", "09:00", "10:30", "12:00", "17:30", "19:00*"],
+      "description": "",
+      "latitude": 53.929885,
+      "longitude": 14.453888
+    },
+    {
       "name": "Milicz: Parafia pw św. Andrzeja Boboli",
       "schedule": "https://bobola-milicz.pl/index.php/o-parafii/msze-swiete",
       "announcement": "https://bobola-milicz.pl/index.php/blog",
@@ -1350,6 +1415,19 @@ const clients = {
       "description": "",
       "latitude": 53.35966,
       "longitude": 20.42423
+    },
+    {
+      "name": "Niechorze: Parafia pw św. Stanisława BM",
+      "schedule": "https://parafianiechorze.pl/aktualnosci/intencje",
+      "announcement": "https://parafianiechorze.pl/aktualnosci/wydarzenia",
+      "contact": "https://parafianiechorze.pl/kontakt",
+      "other": "",
+      "live": "https://www.youtube.com/watch?v=BlGtlAnaTTc",
+      "week": ["17:00"],
+      "sunday": ["10:00"],
+      "description": "",
+      "latitude": 54.096363,
+      "longitude": 15.080742
     },
     {
       "name": "Niwiska: Parafia św. Mikołaja",
@@ -1662,6 +1740,19 @@ const clients = {
       "description": "",
       "latitude": 54.603729,
       "longitude": 18.349397
+    },
+    {
+      "name": "Rewal: Parafia pw Najświętszego Zbawiciela",
+      "schedule": "https://parafiarewal.pl/intencje.html",
+      "announcement": "https://parafiarewal.pl/ogloszenia.html",
+      "contact": "https://parafiarewal.pl/kontakt.html",
+      "other": "",
+      "live": "",
+      "week": ["17:00"],
+      "sunday": ["09:00", "11:00", "17:00"],
+      "description": "",
+      "latitude": 54.080749,
+      "longitude": 15.014904
     },
     {
       "name": "Ropczyce: Parafia pw Przemienienia Pańskiego",
