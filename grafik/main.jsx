@@ -559,6 +559,7 @@ const EventModal = ({ id, itemId, type, onSuccess }) => {
 /* Timeline */
 const Timeline = ({ currentWeek, settings, setSelected }) => {
   const { t } = useTranslation()
+  const { locale } = usePreferences()
   
   const dayOfWeek = [
     { order: '2', name: t('label_monday'), short: 'pn'}, 
@@ -836,7 +837,7 @@ const Reader = () => {
   const { t } = useTranslation()
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const { locale, setNotification } = usePreferences()
+  const { setNotification } = usePreferences()
   const { group } = useParams()
   
   const [currentWeek, setCurrentWeek] = useState([])
@@ -933,7 +934,7 @@ const Reader = () => {
         <h1 class="text-body-emphasis">{t('label_reader_header')}</h1>
         <p class="fs-5 col-md-8 mb-5">{settings?.message}</p>
         <hr class="col-3 col-md-2 mb-5"></hr>
-        <Timeline currentWeek={currentWeek} />
+        <Timeline currentWeek={currentWeek} settings={settings} setSelected={setSelected} />
       </div>
     </main>
     <footer class="text-body-secondary py-5">
