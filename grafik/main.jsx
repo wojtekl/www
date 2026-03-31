@@ -556,6 +556,40 @@ const EventModal = ({ id, itemId, type, onSuccess }) => {
 }
 
 
+/* Timeline */
+const Timeline = ({ currentWeek, settings, setSelected }) => {
+  const dayOfWeek = [
+    { order: '2', name: t('label_monday'), short: 'pn'}, 
+    { order: '3', name: t('label_tuesday'), short: 'wt'}, 
+    { order: '4', name: t('label_wednesday'), short: 'śr'}, 
+    { order: '5', name: t('label_thursday'), short: 'czw'}, 
+    { order: '6', name: t('label_friday'), short: 'pt'}, 
+    { order: '7', name: t('label_saturday'), short: 'sb'}, 
+    { order: '1', name: t('label_sunday'), short: 'nd'}
+  ]
+  
+  return <div class="row">
+    { dayOfWeek.map((e, i) => {
+      const currentDay = currentWeek.filter(f => f.dayOfWeek === e.order)
+      return <>
+  <div class="col-lg-1 bg-info-subtle">{e.short}</div>
+  { 1 > currentDay.length ? <div class="col-lg-11">  - - -  </div> : currentDay.map(g => {
+    const endTime = new Date(new Date(g.starting).getTime() + g.period * 60 * 60 * 1000)
+    const isAssigned = g.assignment.find(a => a.clientId === client.id)
+    const width = Math.round(g.period/3)
+    return <div class={`${ g.confirmed ? 'bg-secondary-subtle' : 'bg-warning-subtle' } border border-secondary col-lg-${width}`}>
+      { isAssigned && <i class="bi bi-check-lg"></i> } {g.time} - <DateFormatter timestamp={endTime} locale={locale} format="time" /> {g.description} 
+      { g.confirmed || settings.disableBooking ? g.assignment.filter(a => a.accepted).map(a => <div>{a.displayName}</div>) : 
+      <ActionButton icon={!isAssigned ? 'hand-thumbs-up' : 'hand-thumbs-down'} onClick={ () => setSelected(g.id) } modal={!isAssigned ? '#createAssignmentModal' : '#deleteAssignmentModal'} /> }
+    </div>
+  }) }
+  <div class="w-100"></div>
+  </>
+  }) }
+</div>
+}
+
+
 /* Manage */
 const Manage = () => {
   const navigate = useNavigate()
@@ -810,16 +844,6 @@ const Reader = () => {
   const [selected, setSelected] = useState()
   const [refresh, setRefresh] = useState(true)
 
-  const dayOfWeek = [
-    { order: '2', name: t('label_monday'), short: 'pn'}, 
-    { order: '3', name: t('label_tuesday'), short: 'wt'}, 
-    { order: '4', name: t('label_wednesday'), short: 'śr'}, 
-    { order: '5', name: t('label_thursday'), short: 'czw'}, 
-    { order: '6', name: t('label_friday'), short: 'pt'}, 
-    { order: '7', name: t('label_saturday'), short: 'sb'}, 
-    { order: '1', name: t('label_sunday'), short: 'nd'}
-  ]
-
   const handleSignout = (event) => {
     event.preventDefault()
 
@@ -907,25 +931,7 @@ const Reader = () => {
         <h1 class="text-body-emphasis">{t('label_reader_header')}</h1>
         <p class="fs-5 col-md-8 mb-5">{settings?.message}</p>
         <hr class="col-3 col-md-2 mb-5"></hr>
-        <div class="row">
-        { dayOfWeek.map((e, i) => {
-          const currentDay = currentWeek.filter(f => f.dayOfWeek === e.order)
-          return <>
-          <div class="col-lg-1 bg-info-subtle">{e.short}</div>
-          { 1 > currentDay.length ? <div class="col-lg-11">  - - -  </div> : currentDay.map(g => {
-            const endTime = new Date(new Date(g.starting).getTime() + g.period * 60 * 60 * 1000)
-            const isAssigned = g.assignment.find(a => a.clientId === client.id)
-            const width = Math.round(g.period/3)
-            return <div class={`${ g.confirmed ? 'bg-secondary-subtle' : 'bg-warning-subtle' } border border-secondary col-lg-${width}`}>
-            { isAssigned && <i class="bi bi-check-lg"></i> } {g.time} - <DateFormatter timestamp={endTime} locale={locale} format="time" /> {g.description} 
-            { g.confirmed || settings.disableBooking ? g.assignment.filter(a => a.accepted).map(a => <div>{a.displayName}</div>) : 
-            <ActionButton icon={!isAssigned ? 'hand-thumbs-up' : 'hand-thumbs-down'} onClick={ () => setSelected(g.id) } modal={!isAssigned ? '#createAssignmentModal' : '#deleteAssignmentModal'} /> }
-          </div>
-          }) }
-          <div class="w-100"></div>
-          </>
-        }) }
-        </div>
+        <Timeline currentWeek={currentWeek} />
       </div>
     </main>
     <footer class="text-body-secondary py-5">
