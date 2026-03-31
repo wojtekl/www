@@ -1976,6 +1976,19 @@ const clients = {
       "longitude": 18.924245
     },
     {
+      "name": "Świnoujście: Parafia bł. Michała Kozala",
+      "schedule": "https://www.michalkozal.swi.pl/index.php/ogloszenia-duszpasterskie/intencje",
+      "announcement": "https://www.michalkozal.swi.pl/index.php/ogloszenia-duszpasterskie/ogloszenia",
+      "contact": "https://www.michalkozal.swi.pl/index.php/biuro-parafialne",
+      "other": "",
+      "live": "https://www.michalkozal.swi.pl/#sp-footer1",
+      "week": ["07:00", "18:00"],
+      "sunday": ["07:00", "08:30", "10:00", "11:30", "13:00", "18:30*"],
+      "description": "",
+      "latitude": 53.906127,
+      "longitude": 14.229231
+    },
+    {
       "name": "Tczew: Parafia NMP Matki Kościoła",
       "schedule": "http://www.nmp-tczew.pelplin.opoka.org.pl/index.php/msze-swiete",
       "announcement": "http://www.nmp-tczew.pelplin.opoka.org.pl/index.php/ogloszenia",
