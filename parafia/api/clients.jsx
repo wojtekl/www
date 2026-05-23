@@ -1677,6 +1677,19 @@ const clients = {
       "longitude": 18.942128
     },
     {
+      "name": "Rabka Zdrój: Parafia pw św. Marii Magdaleny",
+      "schedule": "http://www.parafia-rabka.pl/intencje-mszalne/",
+      "announcement": "http://www.parafia-rabka.pl/ogloszenia-1/",
+      "contact": "http://www.parafia-rabka.pl/kontakt/",
+      "other": "",
+      "live": "https://www.youtube.com/@rabka.parafia/streams",
+      "week": ["07:00", "07:30", "18:30"],
+      "sunday": ["09:30", "12:30", "18:30"],
+      "description": "",
+      "latitude": 49.611447,
+      "longitude": 19.950072
+    },
+    {
       "name": "Racibórz: Parafia Wniebowzięcia NMP",
       "schedule": "https://farny-raciborz.pl/parafia/intencje-ogloszenia/",
       "announcement": "https://farny-raciborz.pl/parafia/intencje-ogloszenia/#:~:text=ogłoszenia",
@@ -1909,6 +1922,19 @@ const clients = {
       "description": "",
       "latitude": 49.945635,
       "longitude": 21.292140
+    },
+    {
+      "name": "Sosnowiec: Parafia Najświętszego Serca Pana Jezusa",
+      "schedule": "http://parafia.sosnowiec.pl/intencjemszalne.html",
+      "announcement": "http://parafia.sosnowiec.pl/ogloszeniaduszpasterskie.html",
+      "contact": "http://parafia.sosnowiec.pl/kontakt.html",
+      "other": "",
+      "live": "https://www.youtube.com/parafianspjsosnowiec",
+      "week": ["08:00", "12:00", "18:00"],
+      "sunday": ["07:30", "09:00", "10:30", "12:00", "18:00*"],
+      "description": "",
+      "latitude": 50.279183,
+      "longitude": 19.127809
     },
     {
       "name": "Starogard Gdański: Parafia Jezusa Chrystusa Króla Wszechświata",
@@ -2377,6 +2403,19 @@ const clients = {
       "description": "",
       "latitude": 52.326473,
       "longitude": 17.564231
+    },
+    {
+      "name": "Wyry: Parafia pw Najświętszego Serca Pana Jezusa",
+      "schedule": "https://www.parafiawyry.pl/content/1",
+      "announcement": "https://www.parafiawyry.pl/content/2",
+      "contact": "https://www.parafiawyry.pl/site/contact",
+      "other": "",
+      "live": "https://www.youtube.com/embed/live_stream?channel=UCsB2deXjTIBJ2l2EvcdwXdw",
+      "week": ["07:00", "17:00"],
+      "sunday": ["07:00", "09:00", "11:00", "15:30"],
+      "description": "",
+      "latitude": 50.131601,
+      "longitude": 18.900765
     },
     {
       "name": "Wysocko Wielkie: Parafia Podwyższenia Krzyża Św",
