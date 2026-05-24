@@ -1573,6 +1573,32 @@ const clients = {
       "longitude": 18.984498
     },
     {
+      "name": "Paszyn: Parafia pw Matki Bożej Nieustającej Pomocy",
+      "schedule": "https://parafiapaszyn.jp.net.pl/bie%C5%BC%C4%85ce-wiadomo%C5%9Bci/intencje-mszalne.html",
+      "announcement": "https://parafiapaszyn.jp.net.pl/bie%C5%BC%C4%85ce-wiadomo%C5%9Bci/og%C5%82oszenia-parafialne.html",
+      "contact": "https://parafiapaszyn.jp.net.pl/kontakt.html",
+      "other": "",
+      "live": "https://www.youtube.com/watch?v=rQvzv4nE_AM",
+      "week": ["07:00", "18:00"],
+      "sunday": ["08:00", "11:00", "14:00"],
+      "description": "",
+      "latitude": 49.624393,
+      "longitude": 20.780508
+    },
+    {
+      "name": "Pierwoszyno: Parafia pw Podwyższenia Krzyża Świętego",
+      "schedule": "https://www.parafiapierwoszyno.pl/intencje-mszalne",
+      "announcement": "https://www.parafiapierwoszyno.pl/ogloszenia",
+      "contact": "https://www.parafiapierwoszyno.pl/kontakt-10444",
+      "other": "",
+      "live": "https://www.youtube.com/channel/UC4BPyPOzDWC_3eKWyz2Ha2A/live",
+      "week": ["08:15", "17:45"],
+      "sunday": ["07:00", "08:15", "09:45", "11:15", "16:15*"],
+      "description": "",
+      "latitude": 54.597517,
+      "longitude": 18.498544
+    },
+    {
       "name": "Płock: Parafia św. Bartłomieja",
       "schedule": "https://naszafara.pl/intencje/#main",
       "announcement": "https://naszafara.pl/ogloszenia-parafialne/#main",
@@ -1675,6 +1701,19 @@ const clients = {
       "description": "",
       "latitude": 49.978648,
       "longitude": 18.942128
+    },
+    {
+      "name": "Pszów: Parafia pw Narodzenia Najświętszej Maryi Panny",
+      "schedule": "https://bazylika-pszow.pl/intencje-mszalne/",
+      "announcement": "https://bazylika-pszow.pl/ogloszenia-duszpasterskie/",
+      "contact": "https://bazylika-pszow.pl/kontakt/",
+      "other": "",
+      "live": "https://www.youtube.com/watch?v=MODUuFaio5I",
+      "week": ["06:30", "08:00", "18:00"],
+      "sunday": ["07:00", "09:00", "10:30", "12:00", "14:00", "18:00"],
+      "description": "",
+      "latitude": 50.041075,
+      "longitude": 18.393466
     },
     {
       "name": "Rabka Zdrój: Parafia pw św. Marii Magdaleny",
@@ -1911,6 +1950,19 @@ const clients = {
       "longitude": 18.718198
     },
     {
+      "name": "Skołyszyn: Parafia pw św. Józefa",
+      "schedule": "https://parafiaskolyszyn.pl/category/intencje/",
+      "announcement": "https://parafiaskolyszyn.pl/category/ogloszenia/",
+      "contact": "https://parafiaskolyszyn.pl/kontakt/",
+      "other": "https://parafiaskolyszyn.pl/category/nekrologi/",
+      "live": "https://www.youtube.com/watch?v=QpiOUhZ9cfc",
+      "week": ["17:00*"],
+      "sunday": ["08:00", "11:00"],
+      "description": "",
+      "latitude": 49.751397,
+      "longitude": 21.335186
+    },
+    {
       "name": "Słotowa: Parafia Najświętszej Maryi Panny Królowej Polski",
       "schedule": "https://slotowa-wiz.diecezja.tarnow.pl/#start",
       "announcement": "https://slotowa-wiz.diecezja.tarnow.pl/#parafia",
@@ -1935,6 +1987,19 @@ const clients = {
       "description": "",
       "latitude": 50.279183,
       "longitude": 19.127809
+    },
+    {
+      "name": "Sromowce Niżne: Parafia pw Narodzenia Najświętszej Maryi Panny",
+      "schedule": "https://www.parafiasromowce.webd.pl/menu_g/intencje.html",
+      "announcement": "https://www.parafiasromowce.webd.pl/menu_g/aktualnosci.html",
+      "contact": "https://www.parafiasromowce.webd.pl/menu_g/kontakt.html",
+      "other": "https://polskie-cmentarze.info/?fara_cmentarze_container_id=1281",
+      "live": "https://www.youtube.com/watch?v=JigA_KzUKko",
+      "week": ["07:00", "18:00"],
+      "sunday": ["06:30", "09:00", "11:00", "19:00"],
+      "description": "",
+      "latitude": 49.393458,
+      "longitude": 20.404492
     },
     {
       "name": "Starogard Gdański: Parafia Jezusa Chrystusa Króla Wszechświata",
