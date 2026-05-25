@@ -443,6 +443,19 @@ const clients = {
       "longitude": 21.418042
     },
     {
+      "name": "Glinik: Parafia pw św. Maksymiliana Kolbe",
+      "schedule": "http://www.parafiaglinik.pl/category/intencje-mszalne/",
+      "announcement": "http://www.parafiaglinik.pl/category/ogloszenia-parafialne/",
+      "contact": "http://www.parafiaglinik.pl/",
+      "other": "http://www.parafiaglinik.pl/cmentarz-parafialny/",
+      "live": "https://www.youtube.com/@parafiaglinik2403/streams",
+      "week": ["17:00*"],
+      "sunday": ["07:00", "09:00", "11:00"],
+      "description": "",
+      "latitude": 49.970668,
+      "longitude": 21.581837
+    },
+    {
       "name": "Glinojeck: Parafia św. Stanisława BM",
       "schedule": "https://parafiaglinojeck.pl/intencje-mszalne/",
       "announcement": "https://parafiaglinojeck.pl/ogloszenia/",
@@ -729,6 +742,19 @@ const clients = {
       "longitude": 21.37323
     },
     {
+      "name": "Kęty: Parafia pw Najświętszego Serca Pana Jezusa",
+      "schedule": "https://nspjkety.pl/category/intencje-mszalne/",
+      "announcement": "https://nspjkety.pl/category/ogloszenia-duszpasterskie/",
+      "contact": "https://nspjkety.pl/kontakt/",
+      "other": "",
+      "live": "https://www.youtube.com/watch?v=QOe3GYVsbmc",
+      "week": ["06:30*", "07:30*", "18:00"],
+      "sunday": ["07:00", "08:30", "10:00", "11:30", "13:00", "18:00"],
+      "description": "",
+      "latitude": 49.875958,
+      "longitude": 19.215375
+    },
+    {
       "name": "Kielce: Parafia pw św. Jadwigi Królowej",
       "schedule": "https://jadwiga-kielce.pl/o-parafii/msze-swiete-i-nabozenstwa/",
       "announcement": "https://jadwiga-kielce.pl/ogloszenia/",
@@ -948,6 +974,19 @@ const clients = {
       "description": "",
       "latitude": 50.083642,
       "longitude": 19.975607
+    },
+    {
+      "name": "Kraków, Krowodrza: Parafia pw św. Jadwigi Królowej",
+      "schedule": "https://swietajadwiga.diecezja.pl/kalendarz",
+      "announcement": "https://swietajadwiga.diecezja.pl/ogloszenia",
+      "contact": "https://swietajadwiga.diecezja.pl/kontakt",
+      "other": "",
+      "live": "https://www.youtube.com/watch?v=MUmnnP_gCWE",
+      "week": ["06:30", "07:00", "08:00", "18:30"],
+      "sunday": ["07:00", "09:00", "11:00", "12:30", "18:30", "20:00"],
+      "description": "",
+      "latitude": 50.084023,
+      "longitude": 19.922740
     },
     {
       "name": "Krasnystaw: Parafia Św. Franciszka Ksawerego",
@@ -1221,6 +1260,19 @@ const clients = {
       "description": "",
       "latitude": 51.916939,
       "longitude": 22.369409
+    },
+    {
+      "name": "Maciejkowice: Parafia pw Matki Boskiej Nieustającej Pomocy i św. Rozalii",
+      "schedule": "https://www.parafiamaciejkowice.pl/intencje-mszalne.html",
+      "announcement": "https://www.parafiamaciejkowice.pl/ogloszenia.html",
+      "contact": "https://www.parafiamaciejkowice.pl/kontakt.html",
+      "other": "",
+      "live": "https://www.youtube.com/watch?v=pEd_o6C9rTg",
+      "week": ["18:00"],
+      "sunday": ["08:00", "10:30", "17:00"],
+      "description": "",
+      "latitude": 50.323358,
+      "longitude": 18.977796
     },
     {
       "name": "Maruszyna: Parafia Przemienienia Pańskiego",
@@ -1597,6 +1649,19 @@ const clients = {
       "description": "",
       "latitude": 54.597517,
       "longitude": 18.498544
+    },
+    {
+      "name": "Piwniczna-Zdrój: Parafia pw Narodzenia Najświętszej Maryi Panny",
+      "schedule": "https://www.parafia.piwniczna.com/d2-intencje-mszy-sw.html",
+      "announcement": "https://www.parafia.piwniczna.com/d1-ogloszenia-parafialne.html",
+      "contact": "https://www.parafia.piwniczna.com/s8-kontakt.html",
+      "other": "",
+      "live": "https://www.youtube.com/watch?v=zcIKCNyrdLI",
+      "week": ["06:30", "08:00", "17:00*"],
+      "sunday": ["07:00", "08:30", "10:00", "11:30", "17:00*"],
+      "description": "",
+      "latitude": 49.440862,
+      "longitude": 20.715972
     },
     {
       "name": "Płock: Parafia św. Bartłomieja",
@@ -2353,12 +2418,12 @@ const clients = {
       "longitude": 21.023691
     },
     {
-      "name": "Warszawa, Ursynów: Parafia św. Ojca Pio",
+      "name": "Warszawa, Kabaty: Parafia św. Ojca Pio",
       "schedule": "http://www.opio.pl/index.php?option=com_content&task=blogcategory&id=26&Itemid=50",
       "announcement": "http://www.opio.pl/index.php?option=com_content&task=blogcategory&id=34&Itemid=51",
       "contact": "http://www.opio.pl/index.php?option=com_content&task=view&id=79&Itemid=40",
       "other": "",
-      "live": "https://www.youtube.com/c/Parafia%C5%9BwOjcaPioWarszawaKabaty/streams",
+      "live": "https://www.youtube.com/watch?v=OXP36zONGBk",
       "week": ["07:00*", "08:00", "15:00", "19:00"],
       "sunday": ["07:30", "09:00", "10:30", "11:45", "13:00", "15:00*", "18:30", "20:00"],
       "description": "",
