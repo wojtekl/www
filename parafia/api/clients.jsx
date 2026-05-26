@@ -40,6 +40,19 @@ const clients = {
       "longitude": 22.277870
     },
     {
+      "name": "Biała: Parafia pw Wniebowzięcia Najświętszej Maryi Panny",
+      "schedule": "https://www.facebook.com/parafiabialaprudnicka",
+      "announcement": "https://www.facebook.com/parafiabialaprudnicka",
+      "contact": "https://www.facebook.com/parafiabialaprudnicka/about",
+      "other": "",
+      "live": "https://www.youtube.com/watch?v=elq08Tggc3s",
+      "week": ["18:00"],
+      "sunday": ["07:00", "09:00", "10:30", "12:00", "18:00"],
+      "description": "",
+      "latitude": 50.386145,
+      "longitude": 17.658935
+    },
+    {
       "name": "Białystok: Parafia św. Kazimierza Królewicza",
       "schedule": "https://kazimierz.archibial.pl/n/nabozenstwa.php",
       "announcement": "https://kazimierz.archibial.pl/n/ogloszenia.php",
@@ -1443,6 +1456,19 @@ const clients = {
       "longitude": 19.139197
     },
     {
+      "name": "Nabróż: Parafia pw Wniebowzięcia Najświętszej Maryi Panny",
+      "schedule": "http://www.nabroz.parafia.info.pl/?p=main&what=24",
+      "announcement": "http://www.nabroz.parafia.info.pl/?p=main&what=30",
+      "contact": "http://www.nabroz.parafia.info.pl/?p=main&what=8",
+      "other": "http://www.nabroz.parafia.info.pl/?p=main&what=32",
+      "live": "https://www.youtube.com/@sanktuariumnabroz6439/streams",
+      "week": ["18:00"],
+      "sunday": ["07:00", "08:00*", "10:00", "12:00*", "13:00*"],
+      "description": "",
+      "latitude": 50.583933,
+      "longitude": 23.786945
+    },
+    {
       "name": "Nidzica: Parafia bł. Bolesławy Lament",
       "schedule": "https://parafianidzica.pl/intencje",
       "announcement": "https://parafianidzica.pl/ogloszenia",
@@ -1924,6 +1950,19 @@ const clients = {
       "longitude": 18.857421
     },
     {
+      "name": "Ruda Śląska, Kłodnica: Parafia pw Podwyższenia Krzyża Świętego",
+      "schedule": "https://klodnica.rudaslaska.org/intencje/",
+      "announcement": "https://klodnica.rudaslaska.org/ogloszenia/",
+      "contact": "https://klodnica.rudaslaska.org/kontakt/",
+      "other": "https://www.ecmentarze.pl/parafia/klodnica-ruda-slaska",
+      "live": "https://www.youtube.com/@parafiapodwyzszeniakrzyzas1685/streams",
+      "week": ["07:00", "18:00"],
+      "sunday": ["07:30", "10:00", "11:30", "16:00*"],
+      "description": "",
+      "latitude": 50.237837,
+      "longitude": 18.870569
+    },
+    {
       "name": "Rumia: Parafia pw Podwyższenia Krzyża Świętego",
       "schedule": "https://www.rumiakrzyz.pl/intencje-mszalne-2/#:~:text=intencje",
       "announcement": "https://www.rumiakrzyz.pl/#:~:text=ogłoszenia%20duszpasterskie",
@@ -1961,6 +2000,19 @@ const clients = {
       "description": "",
       "latitude": 50.027057,
       "longitude": 22.025874
+    },
+    {
+      "name": "Rzeszów: Parafia pw Chrystusa Króla",
+      "schedule": "https://chrystuskrol.rzeszow.pl/intencje-mszalne",
+      "announcement": "https://chrystuskrol.rzeszow.pl/aktualnosci/kat/ogloszenia",
+      "contact": "https://chrystuskrol.rzeszow.pl/parafia",
+      "other": "",
+      "live": "https://www.youtube.com/watch?v=FRe5iVfTTjU",
+      "week": ["06:30", "07:30", "18:00"],
+      "sunday": ["06:00", "07:30", "09:00", "10:30", "12:00", "13:30*", "17:00*", "18:30"],
+      "description": "",
+      "latitude": 50.041157,
+      "longitude": 21.991933
     },
     {
       "name": "Rzeszów, Słocina: Parafia św. Rocha",
@@ -2429,6 +2481,19 @@ const clients = {
       "description": "",
       "latitude": 52.130837,
       "longitude": 21.055188
+    },
+    {
+      "name": "Warzyce: Parafia pw św. Wawrzyńca",
+      "schedule": "http://warzyce.pl/msze-swiete/",
+      "announcement": "http://warzyce.pl/ogloszenia-parafialne/",
+      "contact": "http://warzyce.pl/category/kosciol/",
+      "other": "",
+      "live": "https://www.youtube.com/watch?v=nkZCYf1QN6Y",
+      "week": ["07:00", "18:00"],
+      "sunday": ["07:00", "10:00", "11:30"],
+      "description": "",
+      "latitude": 49.769014,
+      "longitude": 21.539842
     },
     {
       "name": "Wieliczka: Parafia św. Klemensa",
