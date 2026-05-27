@@ -534,6 +534,32 @@ const clients = {
       "longitude": 21.16160
     },
     {
+      "name": "Gorzyce: Parafia pw św. Anioła Stróża",
+      "schedule": "https://www.parafiagorzyce.pl/wpisy/kategoria/porzadek-nabozenstw",
+      "announcement": "https://www.parafiagorzyce.pl/wpisy/kategoria/ogloszenia-parafialne",
+      "contact": "https://www.parafiagorzyce.pl/kontakt",
+      "other": "",
+      "live": "https://www.youtube.com/watch?v=WOvpQayuRIA",
+      "week": ["06:30", "17:00"],
+      "sunday": ["07:30", "09:30", "11:00", "16:00"],
+      "description": "",
+      "latitude": 49.957579,
+      "longitude": 18.401799
+    },
+    {
+      "name": "Gorzyce: Parafia pw św. Franciszka Salezego i św. Andrzeja Boboli",
+      "schedule": "http://www.parafia-gorzyce.pl/intencje/",
+      "announcement": "http://www.parafia-gorzyce.pl/ogloszenia_parafialne/",
+      "contact": "http://www.parafia-gorzyce.pl/kontakt/",
+      "other": "",
+      "live": "https://www.youtube.com/watch?v=4hWDnh9scbI",
+      "week": ["07:00", "18:00*"],
+      "sunday": ["07:00", "09:00", "10:30", "12:00", "16:00", "18:00*"],
+      "description": "",
+      "latitude": 50.666546,
+      "longitude": 21.838312
+    },
+    {
       "name": "Goszczanów: Parafia św. Marcina i św. Stanisława Biskupa",
       "schedule": "https://parafiagoszczanow.pl/intencje",
       "announcement": "https://parafiagoszczanow.pl/ogloszenia",
@@ -649,6 +675,19 @@ const clients = {
       "description": "",
       "latitude": 49.52496,
       "longitude": 18.85674
+    },
+    {
+      "name": "Jejkowice: Parafia pw Matki Bożej Szkaplerznej i św. Piusa X",
+      "schedule": "https://parafiajejkowice.pl/porzadek-nabozenstw/",
+      "announcement": "https://parafiajejkowice.pl/ogloszenia/",
+      "contact": "https://parafiajejkowice.pl/poczta/",
+      "other": "",
+      "live": "https://www.youtube.com/watch?v=zfOFviUyVLA",
+      "week": ["06:30", "18:00"],
+      "sunday": ["07:00", "09:00", "11:00", "14:00", "17:00"],
+      "description": "",
+      "latitude": 50.102245,
+      "longitude": 18.483400
     },
     {
       "name": "Jelenia Góra, Sobieszów: Parafia pw Świętego Marcina",
@@ -1976,6 +2015,19 @@ const clients = {
       "longitude": 18.403288
     },
     {
+      "name": "Rybnik: Parafia pw św. Wawrzyńca",
+      "schedule": "http://www.wawrzyniec.com/index.php?option=com_content&view=article&id=15&Itemid=2",
+      "announcement": "http://www.wawrzyniec.com/index.php?option=com_content&view=category&layout=blog&id=39&Itemid=50",
+      "contact": "http://www.wawrzyniec.com/index.php?option=com_content&view=article&id=101&Itemid=102",
+      "other": "",
+      "live": "https://www.youtube.com/watch?v=4Hnqw0V87II",
+      "week": ["08:00*", "18:00*"],
+      "sunday": ["08:00", "10:00", "16:00"],
+      "description": "",
+      "latitude": 50.089843,
+      "longitude": 18.597853
+    },
+    {
       "name": "Ryki: Parafia Najświętszego Zbawiciela",
       "schedule": "https://parafia-ryki.pl/",
       "announcement": "https://parafia-ryki.pl/ogloszenia",
@@ -2078,6 +2130,19 @@ const clients = {
       "description": "",
       "latitude": 49.751397,
       "longitude": 21.335186
+    },
+    {
+      "name": "Skoczów: Parafia pw św. Piotra i Pawła",
+      "schedule": "https://www.parafiaskoczow.ox.pl/strona/intencje-mszalne1",
+      "announcement": "https://www.parafiaskoczow.ox.pl/strona/ogloszenia",
+      "contact": "https://www.parafiaskoczow.ox.pl/strona/kancelaria-parafialna",
+      "other": "https://www.parafiaskoczow.ox.pl/strona/nowy-cmentarz",
+      "live": "https://www.youtube.com/watch?v=nsoU8Ppv0f8",
+      "week": ["06:15", "18:00"],
+      "sunday": ["07:00", "09:00", "11:00", "18:00"],
+      "description": "",
+      "latitude": 49.802143,
+      "longitude": 18.787450
     },
     {
       "name": "Słotowa: Parafia Najświętszej Maryi Panny Królowej Polski",
