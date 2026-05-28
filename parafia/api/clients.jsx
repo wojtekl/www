@@ -436,7 +436,7 @@ const clients = {
       "contact": "https://www.parafiawawrzynca.pl/kontakt/#contact_view",
       "other": "http://www.mogily.pl/wielkikack/",
       "live": "https://www.parafiawawrzynca.pl/transmisja-live-28936",
-      "week": ["07:00", "18:00"],
+      "week": ["07:00", "18:00*"],
       "sunday": ["08:00", "10:00", "11:30", "13:00", "18:00"],
       "description": "",
       "latitude": 54.468388,
@@ -664,6 +664,19 @@ const clients = {
       "longitude": 22.043662
     },
     {
+      "name": "Jastrzębia Góra: Parafia pw św. Ignacego Loyoli",
+      "schedule": "https://www.parafia-jastrzebiagora.pl/intencje-24218",
+      "announcement": "https://www.parafia-jastrzebiagora.pl/ogloszenia",
+      "contact": "https://www.parafia-jastrzebiagora.pl/kontakt-10444",
+      "other": "https://www.parafia-jastrzebiagora.pl/cmentarz-28419",
+      "live": "https://www.parafia-jastrzebiagora.pl/transmisja-28751",
+      "week": ["07:00", "09:00*", "18:00"],
+      "sunday": ["07:00*", "09:00", "11:00", "14:00", "18:00", "21:00*"],
+      "description": "",
+      "latitude": 54.830691,
+      "longitude": 18.310019
+    },
+    {
       "name": "Jaworzynka, Trzycatek: Parafia Matki Bożej Frydeckiej",
       "schedule": "https://www.parafia-trzycatek.pl/index.php/aktualnosci/intencje-mszalne/#main",
       "announcement": "https://www.parafia-trzycatek.pl/index.php/aktualnosci/ogloszenia-parafialne/#main",
@@ -779,6 +792,19 @@ const clients = {
       "description": "",
       "latitude": 50.202930,
       "longitude": 18.982964
+    },
+    {
+      "name": "Kazimierza Wielka: Parafia pw Podwyższenia Krzyża Świętego",
+      "schedule": "https://parafiakazimierza.pl/intencje-mszalne/",
+      "announcement": "https://parafiakazimierza.pl/ogloszenia-duszpasterskie/",
+      "contact": "https://parafiakazimierza.pl/kontakt/",
+      "other": "",
+      "live": "https://kazimierza.aztv.pl/kazimierza.php",
+      "week": ["07:00", "18:00"],
+      "sunday": ["07:00", "09:00", "10:30", "12:00", "16:00"],
+      "description": "",
+      "latitude": 50.264717,
+      "longitude": 20.495089
     },
     {
       "name": "Kętrzyn: Parafia św. Jerzego",
@@ -961,6 +987,19 @@ const clients = {
       "description": "",
       "latitude": 50.58653,
       "longitude": 19.18510
+    },
+    {
+      "name": "Koziegłówy: Parafia pw Matki Bożej Fatimskiej",
+      "schedule": "https://www.mbfatim.archpoznan.pl/index.php/#panel-intencje",
+      "announcement": "https://www.mbfatim.archpoznan.pl/index.php/#panel-ogloszenia",
+      "contact": "https://www.mbfatim.archpoznan.pl/index.php/#panel-kontakt",
+      "other": "",
+      "live": "https://www.youtube.com/watch?v=GxeY28w6kUI",
+      "week": ["08:00*", "18:00"],
+      "sunday": ["08:00", "10:00", "12:00", "15:00*", "19:00"],
+      "description": "",
+      "latitude": 52.454023,
+      "longitude": 16.996155
     },
     {
       "name": "Koźminek: Parafia pw św. Jana Apostoła",
@@ -1195,6 +1234,19 @@ const clients = {
       "description": "",
       "latitude": 51.397052,
       "longitude": 16.203901
+    },
+    {
+      "name": "Lubin: Parafia pw św. Jana Bosko",
+      "schedule": "https://www.parafiabosko.pl/index.php/parafia/intencje-mszalne",
+      "announcement": "https://www.parafiabosko.pl/index.php/parafia/ogloszenia-duszpasterskie",
+      "contact": "https://www.parafiabosko.pl/index.php/kontakt",
+      "other": "",
+      "live": "https://streaming.airmax.pl/lubinjbosko/embed.html",
+      "week": ["06:30", "18:00"],
+      "sunday": ["07:00", "08:30", "10:00", "11:30", "13:00*", "18:00"],
+      "description": "",
+      "latitude": 51.400882,
+      "longitude": 16.185015
     },
     {
       "name": "Lublin: Parafia Niepokalanego Serca Maryi i św. Franciszka",
@@ -1885,6 +1937,19 @@ const clients = {
       "longitude": 18.223341
     },
     {
+      "name": "Radlin, Biertułtowy: Parafia Wniebowzięcia Najświętszej Maryi Panny",
+      "schedule": "http://wniebowzietaradlin.pl/intencje-mszalne/",
+      "announcement": "http://wniebowzietaradlin.pl/ogloszenia-parafialne/",
+      "contact": "http://wniebowzietaradlin.pl/kontakt/",
+      "other": "",
+      "live": "https://player.webcamera.pl/radlin_cam_3a81bf",
+      "week": ["07:00+1", "18:00"],
+      "sunday": ["07:30", "09:00", "11:00", "12:15*", "18:00"],
+      "description": "",
+      "latitude": 50.048559,
+      "longitude": 18.476791
+    },
+    {
       "name": "Radom: Parafia pw Opieki Najświętszej Maryi Panny",
       "schedule": "https://katedra.radom.pl/KateraRadomska/bez-kategorii/#content-main",
       "announcement": "https://katedra.radom.pl/ogloszenia/#content-main",
@@ -2028,6 +2093,19 @@ const clients = {
       "longitude": 18.597853
     },
     {
+      "name": "Rybnik, Niedobczyce: Parafia pw Najświętszego Serca Pana Jezusa",
+      "schedule": "https://nspj-niedobczyce.pl/aktualnosci/intencje-mszalne/",
+      "announcement": "https://nspj-niedobczyce.pl/aktualnosci/ogloszenia/",
+      "contact": "https://nspj-niedobczyce.pl/o-parafii/kontakt/",
+      "other": "https://rybnikniedobczyce.grobonet.com/",
+      "live": "https://www.youtube.com/watch?v=71fre2lB36M",
+      "week": ["07:00", "18:00"],
+      "sunday": ["07:00", "09:00", "10:30", "12:00", "17:00+2"],
+      "description": "",
+      "latitude": 50.067329,
+      "longitude": 18.496932
+    },
+    {
       "name": "Ryki: Parafia Najświętszego Zbawiciela",
       "schedule": "https://parafia-ryki.pl/",
       "announcement": "https://parafia-ryki.pl/ogloszenia",
@@ -2078,6 +2156,19 @@ const clients = {
       "description": "",
       "latitude": 50.027438,
       "longitude": 22.044757
+    },
+    {
+      "name": "Sępólno Krajeńskie: Parafia pw św. Bartłomieja",
+      "schedule": "https://parafia-sepolno.pl/intencje/",
+      "announcement": "https://parafia-sepolno.pl/",
+      "contact": "https://parafia-sepolno.pl/kontakt/",
+      "other": "http://mogily.pl/sepolnokrajenskie",
+      "live": "https://www.youtube.com/watch?v=bTBslPA0vE4",
+      "week": ["09:00", "17:00+1"],
+      "sunday": ["08:00", "09:30", "11:00", "12:30", "17:00"],
+      "description": "",
+      "latitude": 53.450601,
+      "longitude": 17.532753
     },
     {
       "name": "Sianowo: Sanktuarium Matki Bożej Sianowskiej - Królowej Kaszub",
