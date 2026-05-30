@@ -1275,6 +1275,19 @@ const clients = {
       "longitude": 22.507280
     },
     {
+      "name": "Luzino: Parafia pw św. Wawrzyńca",
+      "schedule": "http://www.luzino.diecezja.gda.pl/intencje-16431",
+      "announcement": "http://www.luzino.diecezja.gda.pl/ogloszenia",
+      "contact": "http://www.luzino.diecezja.gda.pl/kontakt-12598",
+      "other": "https://luzino.grobonet.com/",
+      "live": "https://www.youtube.com/@luzinowawrzyniec/streams",
+      "week": ["07:00", "18:00"],
+      "sunday": ["07:30", "09:00", "10:30", "12:00", "13:30*", "17:30"],
+      "description": "",
+      "latitude": 54.560800,
+      "longitude": 18.105772
+    },
+    {
       "name": "Łańcut: Parafia pw św. Stanisława Biskupa",
       "schedule": "https://lancut.przemyska.pl/kancelaria/msza-swieta/#main",
       "announcement": "https://lancut.przemyska.pl/parafia/ogloszenia/#main",
@@ -1859,6 +1872,19 @@ const clients = {
       "longitude": 16.949107
     },
     {
+      "name": "Poznań: Parafia pw św. Wawrzyńca",
+      "schedule": "https://poznan.pallotyni.info/index.php/intencje-mszalne/",
+      "announcement": "https://poznan.pallotyni.info/index.php/ogloszenia-parafialne/",
+      "contact": "https://poznan.pallotyni.info/index.php/kontakt/",
+      "other": "",
+      "live": "https://www.youtube.com/@Parafia%C5%9Bw.Wawrzy%C5%84ca/streams",
+      "week": ["06:30", "07:30", "15:00", "19:00"],
+      "sunday": ["08:00", "09:30", "11:00", "12:30", "16:00", "17:00", "19:00"],
+      "description": "",
+      "latitude": 52.408866,
+      "longitude": 16.887585
+    },
+    {
       "name": "Płońsk: Parafia pw św. Michała Archanioła",
       "schedule": "https://michalplonsk.pl/intencje/#content",
       "announcement": "https://michalplonsk.pl/category/ogloszenia-parafialne/",
@@ -2379,6 +2405,19 @@ const clients = {
       "longitude": 18.576188
     },
     {
+      "name": "Strzelce Opolskie: Parafia pw św. Wawrzyńca",
+      "schedule": "https://parafia-strzelce.pl/aktualnosci/intencje-i-nabo%C5%BCe%C5%84stwa.html",
+      "announcement": "https://parafia-strzelce.pl/aktualnosci/og%C5%82oszenia-parafialne.html",
+      "contact": "https://parafia-strzelce.pl/kontakt.html",
+      "other": "",
+      "live": "https://streaming.airmax.pl/strzelce_pwawrzynca/embed.html",
+      "week": ["06:30", "07:00", "18:00"],
+      "sunday": ["06:45", "07:45", "09:00", "10:15", "11:30", "18:00"],
+      "description": "",
+      "latitude": 50.512285,
+      "longitude": 18.301415
+    },
+    {
       "name": "Syców: Parafia pw MB Częstochowskiej",
       "schedule": "http://www.parafiambcsycow.pl/?intencje-mszalne,3#page",
       "announcement": "http://www.parafiambcsycow.pl/#page",
@@ -2754,6 +2793,19 @@ const clients = {
       "description": "",
       "latitude": 50.283320,
       "longitude": 21.385958
+    },
+    {
+      "name": "Wołów: Parafia pw św. Wawrzyńca",
+      "schedule": "https://www.parafiawawrzyniec.pl/intencje-mszalne.html",
+      "announcement": "https://www.parafiawawrzyniec.pl/ogloszenia-duszpasterskie.html",
+      "contact": "https://www.parafiawawrzyniec.pl/kontakt.html",
+      "other": "",
+      "live": "https://streaming.airmax.pl/wolow_wawrzynca/embed.html",
+      "week": ["07:00", "18:00"],
+      "sunday": ["07:30", "09:00", "10:30", "12:00", "17:00"],
+      "description": "",
+      "latitude": 51.335456,
+      "longitude": 16.647197
     },
     {
       "name": "Wójcin: Parafia św. Katarzyny i św. Walentego",
