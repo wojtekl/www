@@ -1015,6 +1015,19 @@ const clients = {
       "longitude": 18.339569
     },
     {
+      "name": "Kraków: Parafia pw św. Najświętszego Serca Pana Jezusa",
+      "schedule": "https://bazylika.jezuici.pl/intencje-mszalne/",
+      "announcement": "https://bazylika.jezuici.pl/ogloszenia/",
+      "contact": "https://bazylika.jezuici.pl/o-bazylice/",
+      "other": "",
+      "live": "https://www.youtube.com/watch?v=v7E32OUXitc",
+      "week": ["06:00", "07:00", "08:00", "09:00", "15:30", "18:00"],
+      "sunday": ["06:00", "07:30", "09:00", "11:00", "12:30", "15:30", "18:00"],
+      "description": "",
+      "latitude": 50.062098,
+      "longitude": 19.948838
+    },
+    {
       "name": "Kraków, Nowa Huta: Parafia Matki Bożej Królowej Polski",
       "schedule": "https://www.arkapana.pl/index.php/parafia/msze-swiete-i-nabozenstwa.html#sp-component",
       "announcement": "https://www.arkapana.pl/index.php/aktualnosci/ogloszenia-parafialne.html#sp-component",
@@ -1254,7 +1267,7 @@ const clients = {
       "announcement": "https://poczekajka.pl/ogl-duszpasterskie/#main",
       "contact": "https://poczekajka.pl/kontakt/",
       "other": "",
-      "live": "",
+      "live": "https://www.youtube.com/watch?v=BW7XJ8wXZvU",
       "week": ["06:30", "07:15", "08:00", "18:00"],
       "sunday": ["07:00", "08:30", "10:00", "11:30", "13:00", "16:00*", "18:00", "19:30*"],
       "description": "",
@@ -1597,6 +1610,19 @@ const clients = {
       "description": "",
       "latitude": 54.096363,
       "longitude": 15.080742
+    },
+    {
+      "name": "Niepokalanów: Parafia pw Niepokalanego Poczęcia Najświętszej Maryi Panny",
+      "schedule": "https://parafia.niepokalanow.pl/?page_id=374#top",
+      "announcement": "https://parafia.niepokalanow.pl/?page_id=3449",
+      "contact": "https://parafia.niepokalanow.pl/?page_id=98",
+      "other": "https://paprotnia.grobonet.com/",
+      "live": "https://www.youtube.com/watch?v=BlGtlAnaTTc",
+      "week": ["11:00"],
+      "sunday": ["10:00", "13:00", "18:00"],
+      "description": "",
+      "latitude": 52.203741,
+      "longitude": 20.420290
     },
     {
       "name": "Niwiska: Parafia św. Mikołaja",
@@ -2637,6 +2663,19 @@ const clients = {
       "description": "",
       "latitude": 52.130837,
       "longitude": 21.055188
+    },
+    {
+      "name": "Warszawa, Radość: Parafia pw Matki Bożej Anielskiej",
+      "schedule": "http://www.radosc.parafia.info.pl/?p=main&what=154",
+      "announcement": "http://www.radosc.parafia.info.pl/?p=main&what=130",
+      "contact": "http://www.radosc.parafia.info.pl/",
+      "other": "",
+      "live": "https://www.youtube.com/@parafiam.b.anielskiejwarsz1325/streams",
+      "week": ["07:00", "07:30", "18:00"],
+      "sunday": ["07:00", "08:00", "09:30", "11:00", "12:30", "18:00"],
+      "description": "",
+      "latitude": 52.185530,
+      "longitude": 21.191951
     },
     {
       "name": "Warzyce: Parafia pw św. Wawrzyńca",
