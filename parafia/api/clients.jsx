@@ -79,6 +79,19 @@ const clients = {
       "longitude": 19.041973
     },
     {
+      "name": "Boguchwała: Parafia pw św. Stanisława",
+      "schedule": "https://www.parafiaboguchwala.pl/index.php/strona-glowna/intencje-mszalne",
+      "announcement": "https://www.parafiaboguchwala.pl/index.php/strona-glowna/ogloszenia-parafialne",
+      "contact": "https://www.parafiaboguchwala.pl/index.php/kancelaria-parafialna",
+      "other": "",
+      "live": "https://www.youtube.com/watch?v=lqy2h9gvclI",
+      "week": ["06:30", "18:00"],
+      "sunday": ["07:00", "09:00", "10:30", "12:00", "18:00+1"],
+      "description": "",
+      "latitude": 49.984421,
+      "longitude": 21.946081
+    },
+    {
       "name": "Bolewice: Parafia pw Chrystusa Króla",
       "schedule": "http://www.parafiabolewice.pl/Og%C5%82oszenia/Intencjemszalne/tabid/80/Default.aspx#main",
       "announcement": "http://www.parafiabolewice.pl/Og%C5%82oszenia/Og%C5%82oszeniaparafialne/tabid/74/Default.aspx#main",
@@ -727,6 +740,19 @@ const clients = {
       "description": "",
       "latitude": 50.641996,
       "longitude": 20.305891
+    },
+    {
+      "name": "Kalety Jędrysek: Parafia pw św. Józefa",
+      "schedule": "http://www.parafia-kalety.pl/aktualnosci.html",
+      "announcement": "http://www.parafia-kalety.pl/aktualnosci.html",
+      "contact": "http://www.parafia-kalety.pl/kontakt.html",
+      "other": "",
+      "live": "https://www.youtube.com/watch?v=YziU5GtmP5w",
+      "week": ["07:00", "17:00+1"],
+      "sunday": ["07:00", "09:00", "11:00", "18:00"],
+      "description": "",
+      "latitude": 50.557847,
+      "longitude": 18.880815
     },
     {
       "name": "Katowice: Parafia NSPJ i św. Jana Bosko",
@@ -2392,6 +2418,19 @@ const clients = {
       "longitude": 20.558665
     },
     {
+      "name": "Strachocina: Parafia pw św. Katarzyny Aleksandryjskiej",
+      "schedule": "https://strachocina.przemyska.pl/index.php?id=3&subpage=1",
+      "announcement": "https://strachocina.przemyska.pl/index.php?id=3&subpage=1",
+      "contact": "https://strachocina.przemyska.pl/index.php?id=7",
+      "other": "https://strachocina.przemyska.pl/index.php?id=5&subpage=7",
+      "live": "https://www.youtube.com/watch?v=HHOcCN21B68",
+      "week": ["18:00"],
+      "sunday": ["07:30", "10:30", "15:30"],
+      "description": "",
+      "latitude": 49.599615,
+      "longitude": 22.097454
+    },
+    {
       "name": "Straszyn: Parafia św. Jacka",
       "schedule": "http://www.parafiastraszyn.pl/intencje-mszalne",
       "announcement": "http://www.parafiastraszyn.pl/ogloszenia",
@@ -2403,6 +2442,19 @@ const clients = {
       "description": "",
       "latitude": 54.275491,
       "longitude": 18.576188
+    },
+    {
+      "name": "Strzebiń: Parafia św. Krzyża",
+      "schedule": "",
+      "announcement": "",
+      "contact": "https://www.youtube.com/@Parafia%C5%9Bw.Krzy%C5%BCaStrzebi%C5%84",
+      "other": "",
+      "live": "https://www.youtube.com/watch?v=wnMNQLPdT_g",
+      "week": ["07:00+1", "17:00+1"],
+      "sunday": ["08:00", "09:30+30", "11:00*", "15:30", "14:00*", "19:00"],
+      "description": "",
+      "latitude": 50.615004,
+      "longitude": 18.904088
     },
     {
       "name": "Strzelce Opolskie: Parafia pw św. Wawrzyńca",
@@ -2600,6 +2652,19 @@ const clients = {
       "longitude": 22.88484
     },
     {
+      "name": "Toronto: Parafia pw św. Kazimierza",
+      "schedule": "http://www.kazimierz.org/news/",
+      "announcement": "http://www.kazimierz.org/news/",
+      "contact": "http://www.kazimierz.org/kontakt/",
+      "other": "",
+      "live": "https://kazimierz.click2stream.com/",
+      "week": ["08:00", "19:00"],
+      "sunday": ["08:00", "09:30", "11:00", "13:00", "19:00"],
+      "description": "",
+      "latitude": 43.643783,
+      "longitude": -79.448455
+    },
+    {
       "name": "Toruń: Parafia św. Antoniego",
       "schedule": "https://antoni-torun.pl/category/intencje-mszalne/#main-content",
       "announcement": "https://antoni-torun.pl/ogloszenia-duszpasterskie/#main-content",
@@ -2702,6 +2767,19 @@ const clients = {
       "description": "",
       "latitude": 52.130837,
       "longitude": 21.055188
+    },
+    {
+      "name": "Warszawa, Natolin: Parafia pw bł. Władysława z Gielniowa",
+      "schedule": "https://blwlad.mkw.pl/kategoria/wydarzenia/",
+      "announcement": "https://blwlad.mkw.pl/ogloszenia/",
+      "contact": "https://blwlad.mkw.pl/",
+      "other": "",
+      "live": "https://www.youtube.com/watch?v=t1VyY6ZP8UM",
+      "week": ["07:00", "07:30*", "18:00", "19:00"],
+      "sunday": ["07:00", "09:00", "10:30", "12:00", "18:00", "20:00"],
+      "description": "",
+      "latitude": 52.137352,
+      "longitude": 21.065788
     },
     {
       "name": "Warszawa, Radość: Parafia pw Matki Bożej Anielskiej",
