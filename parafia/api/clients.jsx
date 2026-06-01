@@ -599,6 +599,19 @@ const clients = {
       "longitude": 18.669068
     },
     {
+      "name": "Grabownica Starzeńska: Parafia pw św. Mikołaja i św. Józefa",
+      "schedule": "https://parafiagrabownica.pl/index.php/ogloszenia",
+      "announcement": "https://parafiagrabownica.pl/index.php/ogloszenia",
+      "contact": "https://parafiagrabownica.pl/index.php/kontakt",
+      "other": "",
+      "live": "https://www.youtube.com/watch?v=rxPnLMj_Ogs",
+      "week": ["07:00", "17:00+1"],
+      "sunday": ["08:00", "09:30", "11:00", "16:00"],
+      "description": "",
+      "latitude": 49.659341,
+      "longitude": 22.073781
+    },
+    {
       "name": "Hajnówka: Parafia Rzymskokatolicka pw. Podwyższenia Krzyża Świętego",
       "schedule": "http://www.farahajnowka.pl/page/view/43/#text-news",
       "announcement": "http://www.farahajnowka.pl/ogloszenia/#text-news",
@@ -2260,6 +2273,19 @@ const clients = {
       "description": "",
       "latitude": 54.387966,
       "longitude": 18.089764
+    },
+    {
+      "name": "Sidzina: Parafia pw św. Mikołaja",
+      "schedule": "hhttps://www.facebook.com/parafiasidzina.mikolaj/",
+      "announcement": "https://www.facebook.com/parafiasidzina.mikolaj/",
+      "contact": "https://www.facebook.com/parafiasidzina.mikolaj/",
+      "other": "",
+      "live": "https://www.youtube.com/@ParafiaSidzina-o7k/streams",
+      "week": ["07:00", "17:00*"],
+      "sunday": ["07:30", "10:30", "17:00"],
+      "description": "",
+      "latitude": 49.612133,
+      "longitude": 19.728213
     },
     {
       "name": "Siedlce: Parafia pw. św. Teresy",
