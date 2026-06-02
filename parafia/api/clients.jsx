@@ -1,6 +1,19 @@
 const clients = {
   clients: [
     {
+      "name": "Aleksandrów Łódźki: Parafia pw św. Archaniołów Michała, Gabriela i Rafała",
+      "schedule": "https://www.parafiaarchaniolow.pl/intencje/",
+      "announcement": "https://www.parafiaarchaniolow.pl/ogloszenia/",
+      "contact": "https://www.parafiaarchaniolow.pl/kontakt/",
+      "other": "",
+      "live": "https://www.youtube.com/@parafiaswietycharchanioowr5367/streams",
+      "week": ["07:00", "17:30", "18:00"],
+      "sunday": ["07:00", "09:00", "10:30*", "12:00", "18:00"],
+      "description": "",
+      "latitude": 51.818978,
+      "longitude": 19.304129
+    },
+    {
       "name": "Bartąg: Parafia Świętego Jana Ewangelisty",
       "schedule": "https://parafiabartag.pl/int/#content",
       "announcement": "https://parafiabartag.pl/ogl/#content",
@@ -508,6 +521,19 @@ const clients = {
       "longitude": 18.69362
     },
     {
+      "name": "Gliwice: Parafia pw św. Jacka",
+      "schedule": "https://swjacek-gliwice.pl/intencje-mszalne",
+      "announcement": "https://swjacek-gliwice.pl/ogloszenia-parafialne",
+      "contact": "https://swjacek-gliwice.pl/kontakt",
+      "other": "",
+      "live": "https://www.youtube.com/@PoslaniecswJacka/streams",
+      "week": ["07:00", "08:00*", "18:00"],
+      "sunday": ["07:00", "09:00", "10:30", "12:00", "18:00"],
+      "description": "",
+      "latitude": 50.287619,
+      "longitude": 18.733618
+    },
+    {
       "name": "Głogówek: Parafia św. Bartłomieja Apostoła",
       "schedule": "https://parafia.glogovia.pl/aktulanosci/porzadek-nabozenstw.html#component",
       "announcement": "https://parafia.glogovia.pl/aktulanosci/porzadek-nabozenstw.html#:~:text=Ogłoszenia",
@@ -584,6 +610,19 @@ const clients = {
       "description": "",
       "latitude": 51.789828,
       "longitude": 18.504793
+    },
+    {
+      "name": "Górki Śląskie: Parafia pw Dobrego Pasterza",
+      "schedule": "https://www.dobrypasterz.com.pl/index.php/intencje",
+      "announcement": "https://www.dobrypasterz.com.pl/index.php/ogloszenia",
+      "contact": "https://www.dobrypasterz.com.pl/index.php/contact",
+      "other": "https://gorkislaskie.grobonet.com/",
+      "live": "https://www.youtube.com/@parafiadobregopasterzawgor3708/streams",
+      "week": ["07:30*", "18:00*"],
+      "sunday": ["08:00", "10:00"],
+      "description": "",
+      "latitude": 50.140803,
+      "longitude": 18.387739
     },
     {
       "name": "Górna Grupa: Parafia św. Teresy od Dzieciątka Jezus",
@@ -1254,7 +1293,7 @@ const clients = {
       "announcement": "https://lisia-gora.diecezja.tarnow.pl/category/ogloszenia-parafialne/#main",
       "contact": "https://lisia-gora.diecezja.tarnow.pl/kontakt/#main",
       "other": "https://lisiagora.grobonet.com/",
-      "live": "https://www.youtube.com/@parafia.lisiagora/streams",
+      "live": "https://www.youtube.com/watch?v=irIjbJH340Q",
       "week": ["06:30", "18:00"],
       "sunday": ["07:00", "09:00", "11:00", "16:00"],
       "description": "",
@@ -1599,6 +1638,32 @@ const clients = {
       "longitude": 18.768194
     },
     {
+      "name": "Mogilno: Parafia pw św. Marcina Biskupa",
+      "schedule": "https://parafia-mogilno.pl/intencje-mszalne.htm",
+      "announcement": "https://parafia-mogilno.pl/ogloszenia-parafialne.htm",
+      "contact": "https://parafia-mogilno.pl/kontakt.html",
+      "other": "",
+      "live": "https://www.youtube.com/@parafiamogilnomaopolskie5045/streams",
+      "week": ["06:30", "17:00+1"],
+      "sunday": ["07:00", "09:00", "11:00", "15:00"],
+      "description": "",
+      "latitude": 49.655358,
+      "longitude": 20.823145
+    },
+    {
+      "name": "Mszana: Parafia pw św. Jerzego",
+      "schedule": "https://parafiamszana.pl/category/intencje/",
+      "announcement": "https://parafiamszana.pl/category/ogloszenia-niedzielne/",
+      "contact": "https://parafiamszana.pl/kontakt/",
+      "other": "",
+      "live": "https://www.youtube.com/@parafiasw.jerzegowmszanie232/streams",
+      "week": ["07:00*", "17:00*"],
+      "sunday": ["07:00", "09:00+1", "11:00*", "16:00"],
+      "description": "",
+      "latitude": 49.966291,
+      "longitude": 18.528796
+    },
+    {
       "name": "Mysłowice: Parafia NSPJ",
       "schedule": "https://www.nspjmyslowice.pl/index.php/aktualnosci/intencje-mszalne.html#content",
       "announcement": "https://www.nspjmyslowice.pl/index.php/aktualnosci/ogloszenia-parafialne.html#content",
@@ -1805,6 +1870,19 @@ const clients = {
       "description": "",
       "latitude": 52.805763,
       "longitude": 21.898225
+    },
+    {
+      "name": "Oświęcim: Parafia pw Miłosierdzia Bożego",
+      "schedule": "http://salezjanskiecentrum.pl/parafia/intencje-mszy-sw/",
+      "announcement": "http://salezjanskiecentrum.pl/parafia/ogloszenia/",
+      "contact": "http://salezjanskiecentrum.pl/parafia/kancelaria/",
+      "other": "",
+      "live": "https://www.youtube.com/watch?v=BWkjAq469eU",
+      "week": ["06:30", "18:00"],
+      "sunday": ["08:00", "10:00", "11:30", "18:00"],
+      "description": "",
+      "latitude": 50.030099,
+      "longitude": 19.203316
     },
     {
       "name": "Pajęczno: Parafia pw Narodzenia Pańskiego",
@@ -2845,6 +2923,19 @@ const clients = {
       "description": "",
       "latitude": 49.98368,
       "longitude": 20.06023
+    },
+    {
+      "name": "Wietlin: Parafia pw Narodzenia Najświętszej Maryi Panny",
+      "schedule": "https://wietlin.przemyska.pl/intencje-mszalne/",
+      "announcement": "https://wietlin.przemyska.pl/ogloszenia/",
+      "contact": "https://wietlin.przemyska.pl/kontakt/",
+      "other": "",
+      "live": "https://www.youtube.com/@ParafiaWietlin",
+      "week": ["18:00"],
+      "sunday": ["07:30", "11:00"],
+      "description": "",
+      "latitude": 50.003455,
+      "longitude": 22.809379
     },
     {
       "name": "Władysławowo: Parafia pw Wniebowzięcia Najświętszej Maryi Panny",
