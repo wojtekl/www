@@ -2229,7 +2229,7 @@ const clients = {
       "contact": "https://chrystuskrol.rawa-maz.pl/kontakt/",
       "other": "",
       "live": "https://www.youtube.com/watch?v=GSjAIpHtdpA",
-      "week": ["07"00*", "18:00"],
+      "week": ["07:00*", "18:00"],
       "sunday": ["07:00", "09:00", "10:30", "12:00*", "16:00"],
       "description": "",
       "latitude": 51.774316,
