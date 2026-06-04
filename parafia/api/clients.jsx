@@ -58,7 +58,7 @@ const clients = {
       "announcement": "https://www.facebook.com/parafiabialaprudnicka",
       "contact": "https://www.facebook.com/parafiabialaprudnicka/about",
       "other": "",
-      "live": "https://www.youtube.com/watch?v=elq08Tggc3s",
+      "live": "https://www.youtube.com/watch?v=XIKmoH40vac",
       "week": ["18:00"],
       "sunday": ["07:00", "09:00", "10:30", "12:00", "18:00"],
       "description": "",
