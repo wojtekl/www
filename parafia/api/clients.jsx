@@ -287,6 +287,19 @@ const clients = {
       "longitude": 17.48923
     },
     {
+      "name": "Częstochowa: Parafia pw. Najświętszego Imienia Maryi",
+      "schedule": "https://www.rektoracki.pl/",
+      "announcement": "https://www.rektoracki.pl/",
+      "contact": "https://www.rektoracki.pl/",
+      "other": "",
+      "live": "https://www.youtube.com/watch?v=MZC4LgSLI2s",
+      "week": ["07:15", "12:00", "18:00"],
+      "sunday": ["10:00", "12:00", "13:30", "19:15"],
+      "description": "",
+      "latitude": 50.812521,
+      "longitude": 19.109446
+    },
+    {
       "name": "Ćmińsk: Parafia pw Trójcy Świętej i Matki Bożej Szkaplerznej",
       "schedule": "https://parafia.cminsk.pl/intencje/",
       "announcement": "https://parafia.cminsk.pl/ogloszenia/",
@@ -1184,6 +1197,19 @@ const clients = {
       "longitude": 19.922740
     },
     {
+      "name": "Krapkowice, Otmęt: Parafia pw Wniebowzięcie Najświętszej Maryi Panny",
+      "schedule": "http://www.parafiaotmet.pl/msze-swiete",
+      "announcement": "http://www.parafiaotmet.pl/",
+      "contact": "http://www.parafiaotmet.pl/kontakt",
+      "other": "",
+      "live": "https://www.youtube.com/watch?v=J9ttZzSsSSA",
+      "week": ["07:00", "18:00*"],
+      "sunday": ["07:00", "08:15", "09:45", "11:15", "17:00"],
+      "description": "",
+      "latitude": 50.486310,
+      "longitude": 17.970181
+    },
+    {
       "name": "Krasnystaw: Parafia Św. Franciszka Ksawerego",
       "schedule": "https://franciszek-ksawery.org/intencje-mszalne/#content",
       "announcement": "https://franciszek-ksawery.org/ogloszenia-parafialne/",
@@ -1859,6 +1885,19 @@ const clients = {
       "longitude": 19.27124
     },
     {
+      "name": "Opole: Parafia pw św. Jacka",
+      "schedule": "https://swjacek.opole.pl/intencje/",
+      "announcement": "https://swjacek.opole.pl/ogloszenia/",
+      "contact": "https://swjacek.opole.pl/",
+      "other": "",
+      "live": "https://www.youtube.com/watch?v=c-tyKVRjDBI",
+      "week": ["07:00", "18:00", "18:00"],
+      "sunday": ["08:00", "09:30", "11:00", "12:30", "18:00"],
+      "description": "",
+      "latitude": 50.669093,
+      "longitude": 17.979842
+    },
+    {
       "name": "Opole, Półwieś: Parafia pw św. Michała",
       "schedule": "http://www.sw-michal.opole.pl/42-home/najwazniejsze-informacje/4-intencje-mszalne.html",
       "announcement": "http://www.sw-michal.opole.pl/42-home/najwazniejsze-informacje/3-ogloszenia-duszpasterskie.html",
@@ -2143,6 +2182,19 @@ const clients = {
       "description": "",
       "latitude": 50.041075,
       "longitude": 18.393466
+    },
+    {
+      "name": "Puławy: Parafia pw Matki Bożej Różańcowej",
+      "schedule": "http://www.pulawymbr.parafia.info.pl/?p=main&what=36",
+      "announcement": "http://www.pulawymbr.parafia.info.pl/?p=main&what=2",
+      "contact": "http://www.pulawymbr.parafia.info.pl/?p=main&what=8",
+      "other": "",
+      "live": "https://www.youtube.com/watch?v=PzUJvTSuxOU",
+      "week": ["07:30", "08:00", "12:00", "18:00"],
+      "sunday": ["07:00", "08:30", "10:00", "11:30", "13:00", "16:30", "18:00"],
+      "description": "",
+      "latitude": 51.417039,
+      "longitude": 21.973979
     },
     {
       "name": "Rabka Zdrój: Parafia pw św. Marii Magdaleny",
