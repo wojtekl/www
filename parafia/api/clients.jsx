@@ -1028,6 +1028,19 @@ const clients = {
       "longitude": 17.27695
     },
     {
+      "name": "Koszalin: Parafia pw św. Matki Teresy z Kalkuty",
+      "schedule": "https://parafiamatkiteresyzkalkuty.pl/#msze",
+      "announcement": "https://parafiamatkiteresyzkalkuty.pl/#ogloszenia",
+      "contact": "https://parafiamatkiteresyzkalkuty.pl/#parafia",
+      "other": "",
+      "live": "https://www.youtube.com/watch?v=V-u0DtpuE6c",
+      "week": ["18:00*"],
+      "sunday": ["08:00", "11:30", "13:00", "18:00"],
+      "description": "",
+      "latitude": 54.219140,
+      "longitude": 16.175440
+    },
+    {
       "name": "Kościan: Parafia pw. Ducha Świętego",
       "schedule": "https://www.duchswiety.net/#content",
       "announcement": "https://www.duchswiety.net/#aktualnosci",
@@ -1221,6 +1234,19 @@ const clients = {
       "description": "",
       "latitude": 50.346368,
       "longitude": 16.869480
+    },
+    {
+      "name": "Legnica: Parafia pw. św. Tadeusza Apostoła",
+      "schedule": "https://swtadeusz.pl/intencje-mszalne/",
+      "announcement": "https://swtadeusz.pl/ogloszenia-duszpasterskie/",
+      "contact": "https://swtadeusz.pl/kontakt/",
+      "other": "",
+      "live": "https://www.youtube.com/watch?v=FU0b6g7-dnQ",
+      "week": ["18:00"],
+      "sunday": ["08:00", "10:00", "12:00", "15:00", "18:00"],
+      "description": "",
+      "latitude": 51.202459,
+      "longitude": 16.140509
     },
     {
       "name": "Leoncin: Parafia św. Małgorzaty Dziewicy i Męczennicy",
@@ -1677,6 +1703,19 @@ const clients = {
       "longitude": 19.139197
     },
     {
+      "name": "Mysłowice, Kosztowy: Parafia pw Matki Bożej Częstochowskiej",
+      "schedule": "https://www.parafiakosztowy.pl/intencje-mszalne",
+      "announcement": "https://www.parafiakosztowy.pl/intencje-mszalne",
+      "contact": "https://www.parafiakosztowy.pl/kontakt",
+      "other": "",
+      "live": "https://www.youtube.com/watch?v=EQqAjtC1318",
+      "week": ["08:00*", "18:00*"],
+      "sunday": ["08:00", "10:30", "12:00", "17:00"],
+      "description": "",
+      "latitude": 50.188268,
+      "longitude": 19.159217
+    },
+    {
       "name": "Nabróż: Parafia pw Wniebowzięcia Najświętszej Maryi Panny",
       "schedule": "http://www.nabroz.parafia.info.pl/?p=main&what=24",
       "announcement": "http://www.nabroz.parafia.info.pl/?p=main&what=30",
@@ -1820,6 +1859,19 @@ const clients = {
       "longitude": 19.27124
     },
     {
+      "name": "Opole, Półwieś: Parafia pw św. Michała",
+      "schedule": "http://www.sw-michal.opole.pl/42-home/najwazniejsze-informacje/4-intencje-mszalne.html",
+      "announcement": "http://www.sw-michal.opole.pl/42-home/najwazniejsze-informacje/3-ogloszenia-duszpasterskie.html",
+      "contact": "http://www.sw-michal.opole.pl/contacts.html",
+      "other": "",
+      "live": "https://www.youtube.com/watch?v=BfWqVo9xBOs",
+      "week": ["07:00", "18:00"],
+      "sunday": ["07:30", "09:00", "11:00", "18:00"],
+      "description": "",
+      "latitude": 50.677593,
+      "longitude": 17.889312
+    },
+    {
       "name": "Osiek: Parafia pw św. Andrzeja Apostoła",
       "schedule": "http://parafia-osiek.pl/intencje/#content",
       "announcement": "http://parafia-osiek.pl/#content",
@@ -1844,6 +1896,19 @@ const clients = {
       "description": "",
       "latitude": 49.944523,
       "longitude": 19.303746
+    },
+    {
+      "name": "Ostrołęka: Parafia pw św. Franciszka z Asyżu",
+      "schedule": "https://franciszekostroleka.pl/nabozenstwa/",
+      "announcement": "https://franciszekostroleka.pl/category/ogloszenia-duszpasterskie/",
+      "contact": "https://franciszekostroleka.pl/kancelaria-parafialna/",
+      "other": "",
+      "live": "https://www.youtube.com/watch?v=ZA-2jwsbPP4",
+      "week": ["06:30", "07:00", "17:30"],
+      "sunday": ["07:30", "09:00", "10:30", "12:00", "16:00", "17:30"],
+      "description": "",
+      "latitude": 53.072297,
+      "longitude": 21.594441
     },
     {
       "name": "Ostrów Mazowiecka: Parafia Chrystusa Dobrego Pasterza",
@@ -1911,6 +1976,19 @@ const clients = {
       "longitude": 20.780508
     },
     {
+      "name": "Pawęzów: Parafia pw Najświętszej Maryi Panny Królowej Świata",
+      "schedule": "http://parafia.pawezow.net/wp/intencje/",
+      "announcement": "http://parafia.pawezow.net/wp/",
+      "contact": "http://parafia.pawezow.net/wp/kontakt/",
+      "other": "",
+      "live": "https://www.youtube.com/watch?v=WT24cl5f8fU",
+      "week": ["06:30", "18:00*"],
+      "sunday": ["08:00", "11:00", "14:00"],
+      "description": "",
+      "latitude": 50.069846,
+      "longitude": 20.985091
+    },
+    {
       "name": "Pierwoszyno: Parafia pw Podwyższenia Krzyża Świętego",
       "schedule": "https://www.parafiapierwoszyno.pl/intencje-mszalne",
       "announcement": "https://www.parafiapierwoszyno.pl/ogloszenia",
@@ -1918,7 +1996,7 @@ const clients = {
       "other": "",
       "live": "https://www.youtube.com/channel/UC4BPyPOzDWC_3eKWyz2Ha2A/live",
       "week": ["08:15", "17:45"],
-      "sunday": ["07:00", "08:15", "09:45", "11:15", "16:15*"],
+      "sunday": ["07:30", "10:00", "16:00"],
       "description": "",
       "latitude": 54.597517,
       "longitude": 18.498544
@@ -2143,6 +2221,19 @@ const clients = {
       "description": "",
       "latitude": 51.953655,
       "longitude": 16.543243
+    },
+    {
+      "name": "Rawa Mazowiecka: Parafia pw Jezusa Chrystusa Króla Wszechświata",
+      "schedule": "https://chrystuskrol.rawa-maz.pl/intencje-mszalne/",
+      "announcement": "https://chrystuskrol.rawa-maz.pl/category/ogloszenia/",
+      "contact": "https://chrystuskrol.rawa-maz.pl/kontakt/",
+      "other": "",
+      "live": "https://www.youtube.com/watch?v=GSjAIpHtdpA",
+      "week": ["07"00*", "18:00"],
+      "sunday": ["07:00", "09:00", "10:30", "12:00*", "16:00"],
+      "description": "",
+      "latitude": 51.774316,
+      "longitude": 20.261643
     },
     {
       "name": "Reda: Parafia pw Wniebowzięcia NMP i św. Katarzyny Aleksandryjskiej",
@@ -2795,6 +2886,19 @@ const clients = {
       "longitude": 19.00088
     },
     {
+      "name": "Tychy: Parafia pw bł. Karoliny Kózkówny",
+      "schedule": "https://karolina.tychy.pl/intencje",
+      "announcement": "https://karolina.tychy.pl/ogloszenia",
+      "contact": "https://karolina.tychy.pl/kontakt",
+      "other": "",
+      "live": "https://www.youtube.com/watch?v=VlGOilCMKOU",
+      "week": ["07:00", "18:00"],
+      "sunday": ["07:30", "09:00", "10:30", "12:00", "15:30", "20:00"],
+      "description": "",
+      "latitude": 50.102983,
+      "longitude": 18.986244
+    },
+    {
       "name": "Tyszowce: Parafia św. Leonarda",
       "schedule": "http://parafia.tyszowce.pl/intencje-mszalne/#content",
       "announcement": "http://parafia.tyszowce.pl/ogloszenia-parafialne/#content",
@@ -2936,6 +3040,19 @@ const clients = {
       "description": "",
       "latitude": 50.003455,
       "longitude": 22.809379
+    },
+    {
+      "name": "Wiśniowa: Parafia pw św. Marcina",
+      "schedule": "https://parafia-wisniowa.pl/intencje-mszalne/",
+      "announcement": "https://parafia-wisniowa.pl/ogloszenia-parafialne/",
+      "contact": "https://parafia-wisniowa.pl/kontakt/",
+      "other": "https://parafia-wisniowa.pl/cmentarz-parafialny/",
+      "live": "https://www.youtube.com/watch?v=r0es7xQf2Q0",
+      "week": ["06:30*", "07:00", "18:00*"],
+      "sunday": ["07:00", "09:00", "11:00", "18:00"],
+      "description": "",
+      "latitude": 49.787557,
+      "longitude": 20.117404
     },
     {
       "name": "Władysławowo: Parafia pw Wniebowzięcia Najświętszej Maryi Panny",
