@@ -1755,6 +1755,19 @@ const clients = {
       "longitude": 19.159217
     },
     {
+      "name": "Mysłowice, Krasowy: Parafia pw św. Józefa",
+      "schedule": "https://www.swjozefkrasowy.pl/intencje-mszalne.html",
+      "announcement": "https://www.swjozefkrasowy.pl/ogloszenia-parafialne.html",
+      "contact": "https://www.swjozefkrasowy.pl/kontakt.html",
+      "other": "",
+      "live": "https://www.youtube.com/@parafiakrasowy8769/streams",
+      "week": ["18:00*"],
+      "sunday": ["08:00", "11:00", "16:00"],
+      "description": "",
+      "latitude": 50.183765,
+      "longitude": 19.142593
+    },
+    {
       "name": "Nabróż: Parafia pw Wniebowzięcia Najświętszej Maryi Panny",
       "schedule": "http://www.nabroz.parafia.info.pl/?p=main&what=24",
       "announcement": "http://www.nabroz.parafia.info.pl/?p=main&what=30",
@@ -1766,6 +1779,19 @@ const clients = {
       "description": "",
       "latitude": 50.583933,
       "longitude": 23.786945
+    },
+    {
+      "name": "Nędza: Parafia pw Matki Bożej Różańcowej",
+      "schedule": "https://parafia-nedza.pl/intencje-mszalne/",
+      "announcement": "https://parafia-nedza.pl/ogloszenia-parafialne/",
+      "contact": "https://parafia-nedza.pl/kontakt/",
+      "other": "https://parafia-nedza.pl/o-parafii/#cmentarz",
+      "live": "https://www.youtube.com/@parafiamatkiboskiejrozanco6562/streams",
+      "week": ["18:00*"],
+      "sunday": ["08:00*", "09:30", "11:00", "15:00"],
+      "description": "",
+      "latitude": 50.160714,
+      "longitude": 18.311543
     },
     {
       "name": "Nidzica: Parafia bł. Bolesławy Lament",
@@ -2624,6 +2650,19 @@ const clients = {
       "description": "",
       "latitude": 49.802143,
       "longitude": 18.787450
+    },
+    {
+      "name": "Skoczów: Parafia pw Matki Bożej Różańcowej",
+      "schedule": "https://parafiagornybor.pl/aktualnosci/intencje",
+      "announcement": "https://parafiagornybor.pl/aktualnosci/ogloszenia",
+      "contact": "https://parafiagornybor.pl/kontakt",
+      "other": "",
+      "live": "https://www.youtube.com/@parafiamatkibozejrozancowe997/streams",
+      "week": ["07:00", "17:00"],
+      "sunday": ["07:30", "09:30", "11:30", "16:30*"],
+      "description": "",
+      "latitude": 49.794058,
+      "longitude": 18.779513
     },
     {
       "name": "Słotowa: Parafia Najświętszej Maryi Panny Królowej Polski",
