@@ -1535,6 +1535,19 @@ const clients = {
       "longitude": 18.977796
     },
     {
+      "name": "Malec: Parafia pw św. Jana Kantego",
+      "schedule": "https://malec.parafialnastrona.pl/intencje-i-nabozenstwa",
+      "announcement": "https://malec.parafialnastrona.pl/ogloszenia",
+      "contact": "https://malec.parafialnastrona.pl/kontakt",
+      "other": "",
+      "live": "https://www.youtube.com/@parafiapw.sw.janakantegowm8114/streams",
+      "week": ["18:00"],
+      "sunday": ["08:00", "10:30", "16:00"],
+      "description": "",
+      "latitude": 49.916458,
+      "longitude": 19.238758
+    },
+    {
       "name": "Maruszyna: Parafia Przemienienia Pańskiego",
       "schedule": "http://www.maruszyna.parafia.info.pl/index.php?p=showart&id=61&ak=1&what=79",
       "announcement": "http://www.maruszyna.parafia.info.pl/index.php?p=showart&id=60&ak=1&what=79",
@@ -2145,6 +2158,19 @@ const clients = {
       "longitude": 20.585984
     },
     {
+      "name": "Pogwizdów: Parafia pw św. Jana Nepomucena",
+      "schedule": "https://parafiapogwizdow.ox.pl",
+      "announcement": "https://parafiapogwizdow.ox.pl/aktualnosci",
+      "contact": "https://parafiapogwizdow.ox.pl",
+      "other": "",
+      "live": "https://www.youtube.com/@parafiaswjananepomucenawpo2518/streams",
+      "week": ["07:00", "18:00"],
+      "sunday": ["07:30", "10:00", "11:30", "16:30"],
+      "description": "",
+      "latitude": 49.804657,
+      "longitude": 18.603684
+    },
+    {
       "name": "Przespolew: Parafia św. Katarzyny Aleksandryjskiej i MB Pocieszenia",
       "schedule": "https://diecezja.kalisz.pl/parafia/102",
       "announcement": "https://diecezja.kalisz.pl/parafia/102",
@@ -2312,6 +2338,19 @@ const clients = {
       "description": "",
       "latitude": 54.080749,
       "longitude": 15.014904
+    },
+    {
+      "name": "Rokietnica: Parafia pw Chrystusa Króla",
+      "schedule": "https://parafiarokietnica.pl/",
+      "announcement": "https://parafiarokietnica.pl/ogloszeniaparafialne.html#a",
+      "contact": "https://parafiarokietnica.pl/kontakt_7.html#a",
+      "other": "https://parafiarokietnica.pl/wyszukiwarka.html#a",
+      "live": "https://www.youtube.com/@parafiarokietnica9305/streams",
+      "week": ["09:00", "18:00", "19:00"],
+      "sunday": ["08:00", "10:00", "11:30", "13:00*", "15:15*", "18:00", "21:00"],
+      "description": "",
+      "latitude": 52.511642,
+      "longitude": 16.740187
     },
     {
       "name": "Ropczyce: Parafia pw Przemienienia Pańskiego",
@@ -2756,6 +2795,19 @@ const clients = {
       "longitude": 19.82025
     },
     {
+      "name": "Szówsko: Parafia pw Najświętszego Serca Pana Jezusa",
+      "schedule": "http://www.nspj.szowsko.parafia.info.pl/?p=main&what=61",
+      "announcement": "http://www.nspj.szowsko.parafia.info.pl/?p=main&what=2",
+      "contact": "http://www.nspj.szowsko.parafia.info.pl/?p=main&what=8",
+      "other": "",
+      "live": "https://www.youtube.com/@parafia.nspjszowsko/streams",
+      "week": ["07:00", "17:00+1"],
+      "sunday": ["07:00", "09:00", "11:00", "16:00+1"],
+      "description": "",
+      "latitude": 50.048457,
+      "longitude": 22.706511
+    },
+    {
       "name": "Świętochłowice: Parafia św. Apostołów Piotra i Pawła",
       "schedule": "https://www.parafia-swietochlowice.pl/intencje.html",
       "announcement": "https://www.parafia-swietochlowice.pl/ogloszenia.html",
@@ -2806,6 +2858,19 @@ const clients = {
       "description": "",
       "latitude": 53.906127,
       "longitude": 14.229231
+    },
+    {
+      "name": "Tarnów, Mościce: Parafia pw Najświętszej Maryi Panny Królowej Polski",
+      "schedule": "https://www.parafiamoscice.pl/parafia/nabozenstwa/",
+      "announcement": "https://www.parafiamoscice.pl/kategorie/news/",
+      "contact": "https://www.parafiamoscice.pl/parafia/kontakt/",
+      "other": "",
+      "live": "https://www.youtube.com/@parafiamosciceTV",
+      "week": ["06:00", "06:30", "07:00", "18:00+1"],
+      "sunday": ["05:55", "07:15", "08:30", "10:00", "11:30", "17:00", "19:00"],
+      "description": "",
+      "latitude": 50.009501,
+      "longitude": 20.919605
     },
     {
       "name": "Tczew: Parafia NMP Matki Kościoła",
