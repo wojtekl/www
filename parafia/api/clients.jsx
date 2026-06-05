@@ -2171,6 +2171,19 @@ const clients = {
       "longitude": 18.603684
     },
     {
+      "name": "Pruszków: Parafia pw św. Kazimierza",
+      "schedule": "https://parafiaswkazimierza.pl/intencje/",
+      "announcement": "https://parafiaswkazimierza.pl/ogloszenia/",
+      "contact": "https://parafiaswkazimierza.pl/kontakt/",
+      "other": "https://parafiaswkazimierza.pl/cmentarz/#",
+      "live": "https://www.youtube.com/@par.sw.kazimierza2569/streams",
+      "week": ["06:30", "08:00", "18:00"],
+      "sunday": ["06:00", "07:30", "09:00", "10:30", "12:00", "13:15", "16:00", "18:00"],
+      "description": "",
+      "latitude": 52.162345,
+      "longitude": 20.809599
+    },
+    {
       "name": "Przespolew: Parafia św. Katarzyny Aleksandryjskiej i MB Pocieszenia",
       "schedule": "https://diecezja.kalisz.pl/parafia/102",
       "announcement": "https://diecezja.kalisz.pl/parafia/102",
@@ -2494,6 +2507,19 @@ const clients = {
       "description": "",
       "latitude": 50.041157,
       "longitude": 21.991933
+    },
+    {
+      "name": "Rzeszów: Parafia pw Bożego Ciała i Matki Bożej z Lourdes",
+      "schedule": "https://bozegociala.pl/intencje-mszalne/",
+      "announcement": "https://bozegociala.pl/ogloszenia-parafialne/",
+      "contact": "https://bozegociala.pl/kontakt/",
+      "other": "",
+      "live": "https://www.youtube.com/@parafiabozegociaa1098/streams",
+      "week": ["06:30", "18:00"],
+      "sunday": ["07:00", "08:30", "10:00", "12:00", "17:00"],
+      "description": "",
+      "latitude": 50.060762,
+      "longitude": 21.973485
     },
     {
       "name": "Rzeszów, Słocina: Parafia św. Rocha",
