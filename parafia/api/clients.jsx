@@ -3120,6 +3120,19 @@ const clients = {
       "longitude": 22.88484
     },
     {
+      "name": "Tomaszów Lubelski: Parafia pw Najświętszego Serca Pana Jezusa",
+      "schedule": "https://nsjtomaszowlub.pl/intencje-mszalne-2/",
+      "announcement": "https://nsjtomaszowlub.pl/informacje-duszpasterskie/",
+      "contact": "https://nsjtomaszowlub.pl/kancelaria/",
+      "other": "",
+      "live": "https://www.youtube.com/@michakot8857/streams",
+      "week": ["06:30", "07:00", "18:00"],
+      "sunday": ["08:00", "09:30", "11:30", "13:00*", "16:00", "18:00"],
+      "description": "",
+      "latitude": 50.449867,
+      "longitude": 23.416444
+    },
+    {
       "name": "Toronto: Parafia pw św. Kazimierza",
       "schedule": "http://www.kazimierz.org/news/",
       "announcement": "http://www.kazimierz.org/news/",
