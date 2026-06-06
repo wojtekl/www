@@ -196,6 +196,19 @@ const clients = {
       "longitude": 17.991625
     },
     {
+      "name": "Chełm: Parafia pw Narodzenia Najświętszej Maryi Panny",
+      "schedule": "https://bazylika.net/index.php/intencje-mszalne",
+      "announcement": "https://bazylika.net/index.php/ogloszenia-duszpasterskie",
+      "contact": "https://bazylika.net/index.php/kontakt-z-parafia-top",
+      "other": "",
+      "live": "https://www.youtube.com/@sanktuariummbchelmskiej/streams",
+      "week": ["07:00", "08:00", "18:00"],
+      "sunday": ["07:00", "09:00", "10:30", "12:00", "16:00", "18:00"],
+      "description": "",
+      "latitude": 51.131436,
+      "longitude": 23.480527
+    },
+    {
       "name": "Chodzież: Parafia pw św. Floriana",
       "schedule": "https://florianchodziez.pl/index.php/intencje-mszalne/#jm-maincontent",
       "announcement": "https://florianchodziez.pl/index.php/ogloszenia-parafialne/#jm-maincontent",
@@ -306,11 +319,24 @@ const clients = {
       "contact": "https://parafia.cminsk.pl/kontakt/",
       "other": "http://mogily.pl/cminsk/",
       "live": "",
-      "week": ["17*:00"],
+      "week": ["17:00*"],
       "sunday": ["08:00", "10:00", "12:00", "16:00"],
       "description": "",
       "latitude": 50.978873,
       "longitude": 20.541518
+    },
+    {
+      "name": "Dąbrowa: Parafia pw św. Wawrzyńca",
+      "schedule": "http://www.dabrowaparafia.pl/index.php?page=intencje",
+      "announcement": "http://www.dabrowaparafia.pl/index.php?page=ogloszenia",
+      "contact": "http://www.dabrowaparafia.pl/index.php?page=kontakt",
+      "other": "http://dabrowaparafia.pl/index.php?page=nekrologi",
+      "live": "https://www.youtube.com/@dabrowaparafiaswietegowawr8402/streams",
+      "week": ["07:00*", "17:00*"],
+      "sunday": ["09:00", "11:30", "16:00"],
+      "description": "",
+      "latitude": 51.233432,
+      "longitude": 18.541368
     },
     {
       "name": "Dąbrowa Górnicza, Strzemieszyce Wielkie: Parafia pw Najświętszego Serca Pana Jezusa",
@@ -885,6 +911,19 @@ const clients = {
       "longitude": 18.982964
     },
     {
+      "name": "Katowice, Podlesie: Parafia pw Matki Boskiej Częstochowskiej",
+      "schedule": "https://www.parafia-podlesie.pl/aktualnosci,i3.html",
+      "announcement": "https://www.parafia-podlesie.pl/aktualnosci,i3.html",
+      "contact": "https://www.parafia-podlesie.pl/kontakt,i10.html",
+      "other": "https://www.parafia-podlesie.pl/cmentarz,i99.html",
+      "live": "https://www.youtube.com/@parafiapodlesiematkiboskie4542/streams",
+      "week": ["07:00", "18:00"],
+      "sunday": ["07:00", "09:00", "11:00", "16:00", "20:00"],
+      "description": "",
+      "latitude": 50.178726,
+      "longitude": 18.968453
+    },
+    {
       "name": "Kazimierza Wielka: Parafia pw Podwyższenia Krzyża Świętego",
       "schedule": "https://parafiakazimierza.pl/intencje-mszalne/",
       "announcement": "https://parafiakazimierza.pl/ogloszenia-duszpasterskie/",
@@ -935,6 +974,19 @@ const clients = {
       "description": "",
       "latitude": 50.889501,
       "longitude": 20.655845
+    },
+    {
+      "name": "Kielce: Parafia pw św. Franciszka z Asyżu",
+      "schedule": "https://kapucyni.ifranciszek.pl/intencje-mszalne.html",
+      "announcement": "https://kapucyni.ifranciszek.pl/ogloszenia.html",
+      "contact": "https://kapucyni.ifranciszek.pl/index.html#contacts2-m",
+      "other": "",
+      "live": "https://www.youtube.com/@kapucynikielce9113/streams",
+      "week": ["06:30", "08:00", "18:30"],
+      "sunday": ["07:00", "09:00", "10:30", "12:00", "17:00", "19:00", "20:30"],
+      "description": "",
+      "latitude": 50.878410,
+      "longitude": 20.634808
     },
     {
       "name": "Kielno: Parafia pw. św. Wojciecha Biskupa i Męczennika",
@@ -1221,6 +1273,19 @@ const clients = {
       "description": "",
       "latitude": 50.98258,
       "longitude": 23.17129
+    },
+    {
+      "name": "Krosno: Parafia pw św. Piotra i św. Jana z Dukli",
+      "schedule": "https://piotrajana.pl/parafia/intencje/",
+      "announcement": "https://piotrajana.pl/parafia/ogloszenia/",
+      "contact": "https://piotrajana.pl/kontakt/",
+      "other": "",
+      "live": "https://www.youtube.com/@parafiapiotrajana/streams",
+      "week": ["07:00", "17:30"],
+      "sunday": ["06:30", "08:00", "10:00", "11:30", "16:00", "18:00"],
+      "description": "",
+      "latitude": 49.680469,
+      "longitude": 21.766158
     },
     {
       "name": "Krzanowice: Parafia Św. Wacława",
@@ -2494,6 +2559,19 @@ const clients = {
       "description": "",
       "latitude": 50.067329,
       "longitude": 18.496932
+    },
+    {
+      "name": "Rychwałd: Parafia pw św. Mikołaja",
+      "schedule": "https://rychwald.franciszkanie.pl/aktualnosci/intencje/",
+      "announcement": "https://rychwald.franciszkanie.pl/aktualnosci/ogloszenia/",
+      "contact": "https://rychwald.franciszkanie.pl/kontakt/",
+      "other": "http://mogily.pl/rychwald",
+      "live": "https://www.youtube.com/@FranciszkanieRychwad/streams",
+      "week": ["07:00", "18:00"],
+      "sunday": ["07:00", "09:00", "11:00", "18:00"],
+      "description": "",
+      "latitude": 49.696846,
+      "longitude": 19.270234
     },
     {
       "name": "Ryki: Parafia Najświętszego Zbawiciela",
