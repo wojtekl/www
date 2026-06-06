@@ -846,6 +846,19 @@ const clients = {
       "longitude": 18.880815
     },
     {
+      "name": "Kalwaria Pacławska: Parafia pw Znalezienia Krzyża Świętego",
+      "schedule": "https://kalwaria.franciszkanie.pl/wydarzenia/",
+      "announcement": "https://kalwaria.franciszkanie.pl/category/ogloszenia/",
+      "contact": "https://kalwaria.franciszkanie.pl/",
+      "other": "",
+      "live": "https://www.youtube.com/@kalwariapacawska1364/streams",
+      "week": ["07:00", "18:00*"],
+      "sunday": ["07:30", "08:00+1", "11:00", "16:00", "18:00*"],
+      "description": "",
+      "latitude": 49.631384,
+      "longitude": 22.707321
+    },
+    {
       "name": "Katowice: Parafia NSPJ i św. Jana Bosko",
       "schedule": "https://nspj.katowice.pl/index.php/2014-11-19-11-23-45",
       "announcement": "https://nspj.katowice.pl/index.php/2014-11-19-11-23-15",
