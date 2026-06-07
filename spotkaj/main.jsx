@@ -250,11 +250,6 @@ const App = () => {
                     </div>
                     <div class="col-4 d-flex justify-content-end align-items-center">
                         <a class="link-secondary" href="#" aria-label="Search">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="mx-3" role="img" viewBox="0 0 24 24">
-                                <title>Search</title>
-                                <circle cx="10.5" cy="10.5" r="7.5"></circle>
-                                <path d="M21 21l-5.2-5.2"></path>
-                            </svg>
                         </a>
                         <a class="btn btn-sm btn-outline-secondary" href="#">Sign up</a>
                     </div>
@@ -298,17 +293,9 @@ const App = () => {
                             <a href="#" class="icon-link gap-1 icon-link-hover stretched-link">
                                 Continue reading
 
-                                <svg class="bi" aria-hidden="true">
-                                    <use xlink:href="#chevron-right"></use>
-                                </svg>
                             </a>
                         </div>
                         <div class="col-auto d-none d-lg-block">
-                            <svg aria-label="Placeholder: Thumbnail" class="bd-placeholder-img " height="250" preserveAspectRatio="xMidYMid slice" role="img" width="200" xmlns="http://www.w3.org/2000/svg">
-                                <title>Placeholder</title>
-                                <rect width="100%" height="100%" fill="#55595c"></rect>
-                                <text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text>
-                            </svg>
                         </div>
                     </div>
                 </div>
@@ -322,17 +309,9 @@ const App = () => {
                             <a href="#" class="icon-link gap-1 icon-link-hover stretched-link">
                                 Continue reading
 
-                                <svg class="bi" aria-hidden="true">
-                                    <use xlink:href="#chevron-right"></use>
-                                </svg>
                             </a>
                         </div>
                         <div class="col-auto d-none d-lg-block">
-                            <svg aria-label="Placeholder: Thumbnail" class="bd-placeholder-img " height="250" preserveAspectRatio="xMidYMid slice" role="img" width="200" xmlns="http://www.w3.org/2000/svg">
-                                <title>Placeholder</title>
-                                <rect width="100%" height="100%" fill="#55595c"></rect>
-                                <text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text>
-                            </svg>
                         </div>
                     </div>
                 </div>
@@ -508,9 +487,6 @@ const App = () => {
                             <ul class="list-unstyled">
                                 <li>
                                     <a class="d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 link-body-emphasis text-decoration-none border-top" href="#">
-                                        <svg aria-hidden="true" class="bd-placeholder-img " height="96" preserveAspectRatio="xMidYMid slice" width="100%" xmlns="http://www.w3.org/2000/svg">
-                                            <rect width="100%" height="100%" fill="#777"></rect>
-                                        </svg>
                                         <div class="col-lg-8">
                                             <h6 class="mb-0">Example blog post title</h6>
                                             <small class="text-body-secondary">January 15, 2024</small>
@@ -519,9 +495,6 @@ const App = () => {
                                 </li>
                                 <li>
                                     <a class="d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 link-body-emphasis text-decoration-none border-top" href="#">
-                                        <svg aria-hidden="true" class="bd-placeholder-img " height="96" preserveAspectRatio="xMidYMid slice" width="100%" xmlns="http://www.w3.org/2000/svg">
-                                            <rect width="100%" height="100%" fill="#777"></rect>
-                                        </svg>
                                         <div class="col-lg-8">
                                             <h6 class="mb-0">This is another blog post title</h6>
                                             <small class="text-body-secondary">January 14, 2024</small>
@@ -530,9 +503,6 @@ const App = () => {
                                 </li>
                                 <li>
                                     <a class="d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 link-body-emphasis text-decoration-none border-top" href="#">
-                                        <svg aria-hidden="true" class="bd-placeholder-img " height="96" preserveAspectRatio="xMidYMid slice" width="100%" xmlns="http://www.w3.org/2000/svg">
-                                            <rect width="100%" height="100%" fill="#777"></rect>
-                                        </svg>
                                         <div class="col-lg-8">
                                             <h6 class="mb-0">Longer blog post title: This one has multiple lines!</h6>
                                             <small class="text-body-secondary">January 13, 2024</small>
