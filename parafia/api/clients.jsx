@@ -2470,6 +2470,19 @@ const clients = {
       "longitude": 20.261643
     },
     {
+      "name": "Rawa Mazowiecka: Parafia pw Niepokalanego Poczęcia NMP",
+      "schedule": "https://www.parafia.rawa-maz.pl/ogloszenia-oraz-intencje",
+      "announcement": "https://www.parafia.rawa-maz.pl/ogloszenia-oraz-intencje",
+      "contact": "https://www.parafia.rawa-maz.pl/kancelaria",
+      "other": "https://rawamazowiecka.grobonet.com/",
+      "live": "",
+      "week": ["07:00", "08:00", "18:00"],
+      "sunday": ["07:00", "08:45", "10:00", "11:30", "13:00", "18:00"],
+      "description": "",
+      "latitude": 51.765806,
+      "longitude": 20.252392
+    },
+    {
       "name": "Reda: Parafia pw Wniebowzięcia NMP i św. Katarzyny Aleksandryjskiej",
       "schedule": "https://wnmp-reda.pl/intencje-mszalne/#content",
       "announcement": "https://wnmp-reda.pl/#content",
