@@ -1262,6 +1262,19 @@ const clients = {
       "longitude": 19.922740
     },
     {
+      "name": "Kraków, Wzgórza: Parafia pw Miłosierdzia Bożego",
+      "schedule": "https://wzgorza.diecezja.krakow.pl/intencje-mszy-sw/",
+      "announcement": "https://wzgorza.diecezja.krakow.pl/ogloszenia-duszpasterskie-7-czerwca-2026-r/",
+      "contact": "https://wzgorza.diecezja.krakow.pl/kontakt/",
+      "other": "",
+      "live": "https://www.youtube.com/@ParafiaWzgorzaKrakow/streams",
+      "week": ["07:00", "18:00"],
+      "sunday": ["06:30", "08:00", "09:30", "11:00", "12:30*", "16:00", "19:00"],
+      "description": "",
+      "latitude": 50.092465,
+      "longitude": 20.058184
+    },
+    {
       "name": "Krapkowice, Otmęt: Parafia pw Wniebowzięcie Najświętszej Maryi Panny",
       "schedule": "http://www.parafiaotmet.pl/msze-swiete",
       "announcement": "http://www.parafiaotmet.pl/",
@@ -2236,6 +2249,32 @@ const clients = {
       "longitude": 16.887585
     },
     {
+      "name": "Poznań: Parafia pw św. Jerzego",
+      "schedule": "https://docs.google.com/document/d/1ZGk0haMHBGmN8Ulfg10yXyItqBVQvUix5D0EdALs-oY/edit",
+      "announcement": "https://docs.google.com/document/d/1lGPSgHIXildB5gg4wOA59lq4DCpMJfO_hbWiIPbDKJc/edit",
+      "contact": "https://swjerzy-poznan.net/biuro-parafialne/",
+      "other": "",
+      "live": "https://www.youtube.com/@parafiasw.jerzegowpoznaniu9251/streams",
+      "week": ["08:00", "18:00"],
+      "sunday": ["08:00", "09:30", "11:00", "12:30", "15:30", "19:00"],
+      "description": "",
+      "latitude": 52.407130,
+      "longitude": 16.872956
+    },
+    {
+      "name": "Poznań, Zieliniec: Parafia pw Matki Bożej Różańcowej",
+      "schedule": "https://www.zieliniec-parafia.pl/index.html",
+      "announcement": "https://www.zieliniec-parafia.pl/oglo.html",
+      "contact": "https://www.zieliniec-parafia.pl/kontakt.html",
+      "other": "",
+      "live": "https://www.youtube.com/@parafiapoznanzieliniec/streams",
+      "week": ["18:00"],
+      "sunday": ["09:00", "11:00", "12:30"],
+      "description": "",
+      "latitude": 52.413374,
+      "longitude": 17.048547
+    },
+    {
       "name": "Płońsk: Parafia pw św. Michała Archanioła",
       "schedule": "https://michalplonsk.pl/intencje/#content",
       "announcement": "https://michalplonsk.pl/category/ogloszenia-parafialne/",
@@ -3185,6 +3224,19 @@ const clients = {
       "longitude": 18.986244
     },
     {
+      "name": "Tychy, Wartogłowiec: Parafia pw św. Józefa Robotnika",
+      "schedule": "https://www.parafiawartoglowiec.pl/index.php/intencje-mszalne",
+      "announcement": "https://www.parafiawartoglowiec.pl/index.php/ogloszenia-parafialne",
+      "contact": "https://www.parafiawartoglowiec.pl/index.php/kontakt/dane-kontaktowe",
+      "other": "",
+      "live": "https://www.youtube.com/@parafiasw.jozefarobotnikaw4293/streams",
+      "week": ["18:00*"],
+      "sunday": ["08:30", "11:00", "15:30"],
+      "description": "",
+      "latitude": 50.133342,
+      "longitude": 19.017203
+    },
+    {
       "name": "Tyszowce: Parafia św. Leonarda",
       "schedule": "http://parafia.tyszowce.pl/intencje-mszalne/#content",
       "announcement": "http://parafia.tyszowce.pl/ogloszenia-parafialne/#content",
@@ -3417,6 +3469,19 @@ const clients = {
       "description": "",
       "latitude": 51.175153,
       "longitude": 18.244815
+    },
+    {
+      "name": "Wrocław: Parafia pw Opieki św. Józefa",
+      "schedule": "https://wroclaw.karmelicibosi.pl/poslugi/msze-swiete/",
+      "announcement": "https://wroclaw.karmelicibosi.pl/aktualnosci/",
+      "contact": "https://wroclaw.karmelicibosi.pl/kontakt/",
+      "other": "",
+      "live": "https://www.youtube.com/@KarmeliTy/streams",
+      "week": ["07:00", "11:30", "18:00"],
+      "sunday": ["08:00", "10:00", "11:30", "13:00", "18:00", "19:30*"],
+      "description": "",
+      "latitude": 51.121437,
+      "longitude": 17.041635
     },
     {
       "name": "Września: Parafia pw Świętego Ducha",
