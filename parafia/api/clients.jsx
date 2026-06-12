@@ -118,6 +118,19 @@ const clients = {
       "longitude": 16.121093
     },
     {
+      "name": "Brzesko: Parafia pw NMP Matki Kościoła",
+      "schedule": "https://jakub.bwi.pl/intencje",
+      "announcement": "https://jakub.bwi.pl/ogloszenia",
+      "contact": "https://www.jakub.bwi.pl/kontakt",
+      "other": "https://jakub.bwi.pl/cmentarz-mapa/",
+      "live": "https://jakub.bwi.pl/kamera",
+      "week": ["06:00", "07:00", "08:00", "18:00"],
+      "sunday": ["06:00", "07:30", "09:00", "10:30", "12:00", "16:00", "19:00"],
+      "description": "",
+      "latitude": 49.968511,
+      "longitude": 20.608056
+    },
+    {
       "name": "Brzęczkowice: Parafia Matki Boskiej Bolesnej",
       "schedule": "https://parafiabrzeczkowice.pl/intencje/",
       "announcement": "https://parafiabrzeczkowice.pl/ogloszenia/",
@@ -272,6 +285,19 @@ const clients = {
       "description": "",
       "latitude": 52.87540,
       "longitude": 20.61378
+    },
+    {
+      "name": "Cieszyn, Pastwiska: Parafia pw Opatrzności Bożej",
+      "schedule": "http://opatrznoscbozacieszyn.pl/strona/intencje-mszalne",
+      "announcement": "http://opatrznoscbozacieszyn.pl/strona/ogloszenia-duszpasterskie",
+      "contact": "http://opatrznoscbozacieszyn.pl/strona/kontakt",
+      "other": "",
+      "live": "https://www.youtube.com/@parafiaopatrznoscibozejwci8682/streams",
+      "week": ["18:00"],
+      "sunday": ["09:30", "12:15", "18:00"],
+      "description": "",
+      "latitude": 49.764708,
+      "longitude": 18.620922
     },
     {
       "name": "Czerlejno: Parafia pw. NMP Wniebowziętej",
@@ -441,6 +467,19 @@ const clients = {
       "description": "",
       "latitude": 54.327772,
       "longitude": 18.590715
+    },
+    {
+      "name": "Gdańsk, Zaspa: Parafia pw Opatrzności Bożej",
+      "schedule": "https://www.opatrznosc.gda.pl/intencje-13984",
+      "announcement": "https://www.opatrznosc.gda.pl/ogloszenia",
+      "contact": "https://www.opatrznosc.gda.pl/kontakt",
+      "other": "",
+      "live": "https://www.youtube.com/@parafiaopatrznoscibozejgda116/streams",
+      "week": ["06:30", "07:30", "18:30"],
+      "sunday": ["07:00", "09:00", "10:30", "12:00", "13:00", "19:00"],
+      "description": "",
+      "latitude": 54.400760,
+      "longitude": 18.609810
     },
     {
       "name": "Gdańsk, Żabianka: Parafia Matki Bożej Fatimskiej",
@@ -1496,6 +1535,19 @@ const clients = {
       "longitude": 22.507280
     },
     {
+      "name": "Lublin: Parafia pw Świętej Rodziny",
+      "schedule": "https://www.rodzina.lublin.pl/ogloszenia-duszpasterskie/",
+      "announcement": "https://www.rodzina.lublin.pl/ogloszenia-duszpasterskie/",
+      "contact": "https://www.rodzina.lublin.pl/kontakt/",
+      "other": "",
+      "live": "https://www.youtube.com/@ParafiaRzymskokatolickapw.%C5%9Awi%C4%99/streams",
+      "week": ["07:00*", "07:30", "12:00", "18:00"],
+      "sunday": ["07:00", "08:30", "10:00", "11:30", "13:00", "16:30", "18:00"],
+      "description": "",
+      "latitude": 51.228225,
+      "longitude": 22.519701
+    },
+    {
       "name": "Luzino: Parafia pw św. Wawrzyńca",
       "schedule": "http://www.luzino.diecezja.gda.pl/intencje-16431",
       "announcement": "http://www.luzino.diecezja.gda.pl/ogloszenia",
@@ -2262,6 +2314,19 @@ const clients = {
       "longitude": 16.872956
     },
     {
+      "name": "Poznań: Parafia pw Świętej Trójcy",
+      "schedule": "http://swtrojca.archpoznan.pl/#intencje",
+      "announcement": "http://swtrojca.archpoznan.pl/#ogloszenia",
+      "contact": "https://swtrojca.archpoznan.pl/biuro/kontakt/",
+      "other": "",
+      "live": "https://www.youtube.com/@parafiasw.trojcypoznan8481/streams",
+      "week": ["07:00", "17:30", "18:30"],
+      "sunday": ["07:00", "08:45", "10:00", "11:15", "12:30*", "19:00+1"],
+      "description": "",
+      "latitude": 52.369290,
+      "longitude": 16.903045
+    },
+    {
       "name": "Poznań, Zieliniec: Parafia pw Matki Bożej Różańcowej",
       "schedule": "https://www.zieliniec-parafia.pl/index.html",
       "announcement": "https://www.zieliniec-parafia.pl/oglo.html",
@@ -2808,6 +2873,19 @@ const clients = {
       "longitude": 18.779513
     },
     {
+      "name": "Skrzyszów: Parafia pw św. Stanisława BM",
+      "schedule": "https://parafia-skrzyszow.pl/intencje/",
+      "announcement": "https://parafia-skrzyszow.pl/ogloszenia/",
+      "contact": "https://parafia-skrzyszow.pl/kontakt/",
+      "other": "https://www.ecmentarze.pl/cmentarz/skrzyszow",
+      "live": "https://parafia-skrzyszow.pl/transmisja/",
+      "week": ["06:30", "18:00"],
+      "sunday": ["07:00", "09:00", "11:00", "16:00"],
+      "description": "",
+      "latitude": 49.994804,
+      "longitude": 21.058803
+    },
+    {
       "name": "Słotowa: Parafia Najświętszej Maryi Panny Królowej Polski",
       "schedule": "https://slotowa-wiz.diecezja.tarnow.pl/#start",
       "announcement": "https://slotowa-wiz.diecezja.tarnow.pl/#parafia",
@@ -2819,6 +2897,19 @@ const clients = {
       "description": "",
       "latitude": 49.945635,
       "longitude": 21.292140
+    },
+    {
+      "name": "Sokołów Podlaski: Parafia Niepokalanego Serca NMP",
+      "schedule": "http://www.konkatedra.pl/intencje-mszy-sw",
+      "announcement": "http://www.konkatedra.pl/og%C5%82oszenia-parafialne",
+      "contact": "http://www.konkatedra.pl/kontakt",
+      "other": "",
+      "live": "http://www.konkatedra.pl/transmisja-online",
+      "week": ["06:30", "07:00*", "07:30*", "11:00*", "18:00"],
+      "sunday": ["06:30", "08:00", "09:30", "11:00", "12:30", "16:00", "20:00"],
+      "description": "",
+      "latitude": 52.408663,
+      "longitude": 22.251968
     },
     {
       "name": "Sosnowiec: Parafia Najświętszego Serca Pana Jezusa",
@@ -3289,6 +3380,19 @@ const clients = {
       "longitude": 21.027703
     },
     {
+      "name": "Warszawa: Parafia pw Nawrócenia św. Pawła",
+      "schedule": "https://nawrpawel.waw.pl/porzadek-nabozenstw/",
+      "announcement": "https://nawrpawel.waw.pl/category/ogloszenia/",
+      "contact": "https://nawrpawel.waw.pl/kancelaria/",
+      "other": "",
+      "live": "https://www.youtube.com/@nawrpawel/streams",
+      "week": ["06:30", "07:30", "08:00", "09:00", "18:30"],
+      "sunday": ["07:00", "08:30", "10:00", "11:30", "13:00", "18:00", "19:30"],
+      "description": "",
+      "latitude": 52.247434,
+      "longitude": 21.089745
+    },
+    {
       "name": "Warszawa, Bródno: Parafia św. Włodzimierza",
       "schedule": "https://wlodzimierz.waw.pl/category/intencje-mszalne/",
       "announcement": "https://wlodzimierz.waw.pl/category/ogloszenia-parafialne/",
@@ -3352,6 +3456,19 @@ const clients = {
       "description": "",
       "latitude": 52.185530,
       "longitude": 21.191951
+    },
+    {
+      "name": "Warszawa, Wilanów: Parafia pw Opatrzności Bożej",
+      "schedule": "https://parafiaopatrznoscibozej.pl/intencje/",
+      "announcement": "https://parafiaopatrznoscibozej.pl/ogloszenia-parafialne/",
+      "contact": "https://parafiaopatrznoscibozej.pl/kontakt/",
+      "other": "",
+      "live": "https://www.youtube.com/@centrumopatrznoscibozej-wo9209/streams",
+      "week": ["07:00", "12:00", "18:00", "20:00"],
+      "sunday": ["08:00", "09:00", "10:30", "12:00", "18:00", "19:30"],
+      "description": "",
+      "latitude": 52.158612,
+      "longitude": 21.072110
     },
     {
       "name": "Warzyce: Parafia pw św. Wawrzyńca",
