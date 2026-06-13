@@ -2236,6 +2236,19 @@ const clients = {
       "longitude": 20.715972
     },
     {
+      "name": "Pleśna: Parafia pw Wniebowzięcia NMP",
+      "schedule": "https://plesna.diecezjatarnow.pl/intencje",
+      "announcement": "https://plesna.diecezjatarnow.pl/ogloszenia",
+      "contact": "https://plesna.diecezjatarnow.pl/kontakt",
+      "other": "",
+      "live": "https://www.youtube.com/@parafiaplesna9233/streams",
+      "week": ["06:30", "17:00+1*"],
+      "sunday": ["07:00", "09:00", "11:30", "16:00"],
+      "description": "",
+      "latitude": 49.925089,
+      "longitude": 20.938791
+    },
+    {
       "name": "Płock: Parafia św. Bartłomieja",
       "schedule": "https://naszafara.pl/intencje/#main",
       "announcement": "https://naszafara.pl/ogloszenia-parafialne/#main",
@@ -2390,6 +2403,19 @@ const clients = {
       "description": "",
       "latitude": 52.162345,
       "longitude": 20.809599
+    },
+    {
+      "name": "Przejazdowo: Parafia pw Narodzenia Pańskiego",
+      "schedule": "https://betlejemka.eu/?page_id=1060",
+      "announcement": "https://betlejemka.eu/?page_id=5613",
+      "contact": "https://betlejemka.eu/?page_id=608",
+      "other": "",
+      "live": "https://www.youtube.com/@parafiapw.narodzeniapanski6684/streams",
+      "week": ["06:30*", "18:00*"],
+      "sunday": ["09:00", "11:00"],
+      "description": "",
+      "latitude": 54.323313,
+      "longitude": 18.742898
     },
     {
       "name": "Przespolew: Parafia św. Katarzyny Aleksandryjskiej i MB Pocieszenia",
@@ -2637,6 +2663,19 @@ const clients = {
       "description": "",
       "latitude": 50.304157,
       "longitude": 18.857421
+    },
+    {
+      "name": "Ruda Śląska, Halemba: Parafia pw Bożego Narodzenia",
+      "schedule": "https://www.parafia.halemba.pl/intencje-mszalne/",
+      "announcement": "https://www.parafia.halemba.pl/ogloszenia/",
+      "contact": "https://www.parafia.halemba.pl/#kontakt",
+      "other": "",
+      "live": "https://www.youtube.com/@parafiabozegonarodzeniawha4862/streams",
+      "week": ["07:00", "08:00", "18:00"],
+      "sunday": ["06:30", "08:00", "09:30", "11:00", "14:30", "16:00", "18:00"],
+      "description": "",
+      "latitude": 50.236243,
+      "longitude": 18.828356
     },
     {
       "name": "Ruda Śląska, Kłodnica: Parafia pw Podwyższenia Krzyża Świętego",
