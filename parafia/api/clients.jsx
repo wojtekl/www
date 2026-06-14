@@ -2015,6 +2015,19 @@ const clients = {
       "longitude": 21.63119
     },
     {
+      "name": "Nowa Sól: Parafia pw św. Józefa Rzemieślnika",
+      "schedule": "https://swiety-jozef.pl/index.php/category/intencje/",
+      "announcement": "https://swiety-jozef.pl/index.php/category/ogloszenia/",
+      "contact": "https://swiety-jozef.pl/index.php/kontakt/",
+      "other": "",
+      "live": "https://www.youtube.com/@SwietyJozefNowaSolLive/streams",
+      "week": ["07:00", "18:00"],
+      "sunday": ["07:30", "09:30", "11:00", "12:30", "18:30"],
+      "description": "",
+      "latitude": 51.802155,
+      "longitude": 15.698379
+    },
+    {
       "name": "Nowogard: Parafia Wniebowzięcia NMP",
       "schedule": "https://wnmp.nowogard.eu/",
       "announcement": "https://wnmp.nowogard.eu/ogloszenia",
