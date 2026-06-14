@@ -2581,7 +2581,7 @@ const clients = {
       "other": "https://www.parafiaradziechowy.pl/strona/plan-cmentarza,14",
       "live": "https://www.youtube.com/@parafiaradziechowy1453/streams",
       "week": ["06:15", "07:00", "18:00"],
-      "sunday": [07:00", "08:30", "10:00", "11:30", "18:00"],
+      "sunday": ["07:00", "08:30", "10:00", "11:30", "18:00"],
       "description": "",
       "latitude": 49.647002,
       "longitude": 19.128107
