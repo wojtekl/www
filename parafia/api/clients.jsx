@@ -417,6 +417,19 @@ const clients = {
       "longitude": 18.860218
     },
     {
+      "name": "Fasty: Parafia pw św. Franciszka z Asyżu",
+      "schedule": "http://parafia-fasty.pl/",
+      "announcement": "http://parafia-fasty.pl/",
+      "contact": "http://parafia-fasty.pl/",
+      "other": "",
+      "live": "https://www.youtube.com/@ParafiaFasty/streams",
+      "week": ["08:00*", "18:00*"],
+      "sunday": ["08:30", "09:00", "10:00", "11:00", "18:00"],
+      "description": "",
+      "latitude": 53.172396,
+      "longitude": 23.048933
+    },
+    {
       "name": "Gawłuszowice: Parafia pw św. Wojciecha Biskupa i Męczennika",
       "schedule": "https://parafiagawluszowice.pl/intencje-mszalne/#pagelayout_area",
       "announcement": "https://parafiagawluszowice.pl/ogloszenia-parafialne/#pagelayout_area",
@@ -2158,6 +2171,19 @@ const clients = {
       "longitude": 21.898225
     },
     {
+      "name": "Ostrzeszów: Parafia pw NMP Wniebowziętej",
+      "schedule": "https://faraostrzeszow.pl/intencje",
+      "announcement": "https://faraostrzeszow.pl/ogloszenia",
+      "contact": "https://faraostrzeszow.pl/kontakt",
+      "other": "https://ostrzeszow.grobonet.com/",
+      "live": "https://www.youtube.com/@faraostrzeszow-2025/streams",
+      "week": ["07:00", "17:00Z", "17:30L", "18:00Z", "18:30L"],
+      "sunday": ["07:30", "09:30", "11:00", "12:15", "16:00", "18:30"],
+      "description": "",
+      "latitude": 51.425131,
+      "longitude": 17.934258
+    },
+    {
       "name": "Oświęcim: Parafia pw Miłosierdzia Bożego",
       "schedule": "http://salezjanskiecentrum.pl/parafia/intencje-mszy-sw/",
       "announcement": "http://salezjanskiecentrum.pl/parafia/ogloszenia/",
@@ -2548,6 +2574,19 @@ const clients = {
       "longitude": 16.543243
     },
     {
+      "name": "Radziechowy: Parafia pw św. Marcina",
+      "schedule": "https://www.parafiaradziechowy.pl/wpisy/kategoria/intencje-mszalne",
+      "announcement": "https://www.parafiaradziechowy.pl/wpisy/kategoria/ogloszenia-parafialne",
+      "contact": "https://www.parafiaradziechowy.pl/",
+      "other": "https://www.parafiaradziechowy.pl/strona/plan-cmentarza,14",
+      "live": "https://www.youtube.com/@parafiaradziechowy1453/streams",
+      "week": ["06:15", "07:00", "18:00"],
+      "sunday": [07:00", "08:30", "10:00", "11:30", "18:00"],
+      "description": "",
+      "latitude": 49.647002,
+      "longitude": 19.128107
+    },
+    {
       "name": "Rawa Mazowiecka: Parafia pw Jezusa Chrystusa Króla Wszechświata",
       "schedule": "https://chrystuskrol.rawa-maz.pl/intencje-mszalne/",
       "announcement": "https://chrystuskrol.rawa-maz.pl/category/ogloszenia/",
@@ -2689,6 +2728,19 @@ const clients = {
       "description": "",
       "latitude": 50.237837,
       "longitude": 18.870569
+    },
+    {
+      "name": "Rudzica: Parafia pw Narodzenia św. Jana Chrzciciela",
+      "schedule": "http://parafiarudzica.org.pl/intencje-mszalne.html",
+      "announcement": "http://parafiarudzica.org.pl/og-oszenia.html",
+      "contact": "http://parafiarudzica.org.pl/kontakt.html",
+      "other": "",
+      "live": "https://www.youtube.com/@parafiarudzica4318/streams",
+      "week": ["06:30", "17:00Z*", "18:00L*"],
+      "sunday": ["06:30", "09:30", "11:00", "16:30"],
+      "description": "",
+      "latitude": 49.855533,
+      "longitude": 18.888478
     },
     {
       "name": "Rumia: Parafia pw Podwyższenia Krzyża Świętego",
@@ -3341,6 +3393,19 @@ const clients = {
       "longitude": 18.58034
     },
     {
+      "name": "Trzemeśnia: Parafia pw św. Klemensa Papieża i Męczennika",
+      "schedule": "https://parafia-trzemesnia.pl/index.php/msze-swiete/intencje",
+      "announcement": "https://parafia-trzemesnia.pl/index.php/ogloszenia/ogloszenia-parafialne",
+      "contact": "https://parafia-trzemesnia.pl/index.php/o-parafii/kontakt",
+      "other": "",
+      "live": "https://www.youtube.com/@parafiatrzemesnia2505/streams",
+      "week": ["06:30", "07:00", "18:00"],
+      "sunday": ["07:00", "09:00", "12:00", "14:00*", "18:00"],
+      "description": "",
+      "latitude": 49.820713,
+      "longitude": 20.020153
+    },
+    {
       "name": "Tychy: Parafia św. Maksymiliana",
       "schedule": "http://www.mkolbe.pl/index.html#content1-22",
       "announcement": "http://www.mkolbe.pl/index.html#content1-21",
@@ -3716,6 +3781,19 @@ const clients = {
       "description": "",
       "latitude": 49.441587,
       "longitude": 21.172942
+    },
+    {
+      "name": "Występa: Parafia pw św. Kazimierza",
+      "schedule": "https://parafiawystepa.pl/category/intencje/",
+      "announcement": "https://parafiawystepa.pl/category/ogloszenia/",
+      "contact": "https://parafiawystepa.pl/kontakt/",
+      "other": "",
+      "live": "https://www.youtube.com/@parafia-wystepa/streams",
+      "week": ["17:00Z", "18:00L"],
+      "sunday": ["09:00", "12:00"],
+      "description": "",
+      "latitude": 50.979988,
+      "longitude": 20.743641
     },
     {
       "name": "Zabrze: Parafia św. Wojciecha",
