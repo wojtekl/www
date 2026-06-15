@@ -105,6 +105,19 @@ const clients = {
       "longitude": 21.946081
     },
     {
+      "name": "Bojszowy: Parafia pw Narodzenia św. Jana Chrzciciela",
+      "schedule": "https://www.parafiabojszowy.pl/duszpasterstwo/intencje-mszalne",
+      "announcement": "https://www.parafiabojszowy.pl/duszpasterstwo/ogloszenia-duszpasterskie",
+      "contact": "https://www.parafiabojszowy.pl/kontakt",
+      "other": "https://www.ecmentarze.pl/cmentarz/bojszowy",
+      "live": "https://www.youtube.com/@ParafiaBojszowy-yl2cb/streams",
+      "week": ["06:30", "08:30W", "18:00"],
+      "sunday": ["07:00", "09:00", "10:30W", "11:00", "17:00"],
+      "description": "",
+      "latitude": 50.057717,
+      "longitude": 19.095274
+    },
+    {
       "name": "Bolewice: Parafia pw Chrystusa Króla",
       "schedule": "http://www.parafiabolewice.pl/Og%C5%82oszenia/Intencjemszalne/tabid/80/Default.aspx#main",
       "announcement": "http://www.parafiabolewice.pl/Og%C5%82oszenia/Og%C5%82oszeniaparafialne/tabid/74/Default.aspx#main",
@@ -1509,6 +1522,19 @@ const clients = {
       "longitude": 18.399895
     },
     {
+      "name": "Londyn, Ealing: Parafia pw NMP Matki Kościoła",
+      "schedule": "https://parafiaealing.co.uk/",
+      "announcement": "https://parafiaealing.co.uk/",
+      "contact": "https://parafiaealing.co.uk/kancelaria-2/",
+      "other": "",
+      "live": "https://www.youtube.com/@ealingparish/streams",
+      "week": ["09:00", "11:00", "20:00"],
+      "sunday": ["09:30", "11:00", "12:30", "14:00", "15:30*", "18:15*", "20:00"],
+      "description": "",
+      "latitude": 51.513695,
+      "longitude": -0.301236
+    },
+    {
       "name": "Lubin: Parafia pw Matki Bożej Częstochowskiej",
       "schedule": "https://mbczlubin.salezjanie.pl/?cat=7/#main-content",
       "announcement": "https://mbczlubin.salezjanie.pl/?cat=5/#main-content",
@@ -1572,6 +1598,19 @@ const clients = {
       "description": "",
       "latitude": 54.560800,
       "longitude": 18.105772
+    },
+    {
+      "name": "Łask, Kolumna: Parafia pw Wniebowzięcia NMP",
+      "schedule": "https://parafiakolumna.pl/category/intencje-mszalne/",
+      "announcement": "https://parafiakolumna.pl/category/ogloszenia_parafialne/",
+      "contact": "https://parafiakolumna.pl/kancelaria/godzin-przyjmowania-do-kancelarii/",
+      "other": "https://laskkolumna.grobonet.com/index.php",
+      "live": "https://www.youtube.com/@ParafiaKolumna1981/streams",
+      "week": ["06:30", "07:00", "18:00"],
+      "sunday": ["07:30", "09:00", "10:30", "12:00", "18:00"],
+      "description": "",
+      "latitude": 51.613252,
+      "longitude": 19.199086
     },
     {
       "name": "Łańcut: Parafia pw św. Stanisława Biskupa",
@@ -1896,6 +1935,19 @@ const clients = {
       "description": "",
       "latitude": 50.242721,
       "longitude": 19.139197
+    },
+    {
+      "name": "Mysłowice, Bończyk: Parafia pw Ścięcia św. Jana Chrzciciela",
+      "schedule": "https://www.parafia-bonczyk.pl/aktualnosci/intencje-mszalne.html",
+      "announcement": "https://www.parafia-bonczyk.pl/aktualnosci/ogloszenia-parafialne.html",
+      "contact": "https://www.parafia-bonczyk.pl/kontakt.html",
+      "other": "https://myslowiceparafialny.grobonet.com/grobonet/start.php",
+      "live": "https://www.youtube.com/@parafiabonczykmysowice4661/streams",
+      "week": ["07:00", "18:00"],
+      "sunday": ["07:00", "08:00L", "09:00Z", "10:30", "12:00", "18:00Z", "19:00L"],
+      "description": "",
+      "latitude": 50.243071,
+      "longitude": 19.111085
     },
     {
       "name": "Mysłowice, Kosztowy: Parafia pw Matki Bożej Częstochowskiej",
@@ -2652,6 +2704,19 @@ const clients = {
       "longitude": 15.014904
     },
     {
+      "name": "Rogów nad Olzą: Parafia pw NSPJ",
+      "schedule": "https://www.parafia.rogow.pl/intencje-i-ogloszenia/",
+      "announcement": "https://www.parafia.rogow.pl/ogloszenia-duszpasterskie-2/",
+      "contact": "https://www.parafia.rogow.pl/kontakt/",
+      "other": "",
+      "live": "https://www.youtube.com/@parafiarogow7/streams",
+      "week": ["06:30", "18:00"],
+      "sunday": ["07:00", "09:00", "11:00", "16:00"],
+      "description": "",
+      "latitude": 49.988366,
+      "longitude": 18.352374
+    },
+    {
       "name": "Rokietnica: Parafia pw Chrystusa Króla",
       "schedule": "https://parafiarokietnica.pl/",
       "announcement": "https://parafiarokietnica.pl/ogloszeniaparafialne.html#a",
@@ -2936,6 +3001,19 @@ const clients = {
       "description": "",
       "latitude": 51.590056,
       "longitude": 18.718198
+    },
+    {
+      "name": "Skawina, Ogrody: Parafia pw Miłosierdzia Bożego",
+      "schedule": "https://www.milosierdzieskawina.org/intencje",
+      "announcement": "https://www.milosierdzieskawina.org/ogloszenia-rozne",
+      "contact": "https://www.milosierdzieskawina.org/kontakt",
+      "other": "",
+      "live": "https://www.youtube.com/@parafiaskawinamilosierdzie/streams",
+      "week": ["07:00", "08:00", "18:00"],
+      "sunday": ["07:00", "08:30", "10:00", "11:30", "13:00*", "18:00"],
+      "description": "",
+      "latitude": 49.969243,
+      "longitude": 19.835169
     },
     {
       "name": "Skołyszyn: Parafia pw św. Józefa",
@@ -3729,6 +3807,19 @@ const clients = {
       "description": "",
       "latitude": 51.121437,
       "longitude": 17.041635
+    },
+    {
+      "name": "Wrocław: Parafia pw św. Klemensa Marii Dworzaka",
+      "schedule": "https://dworzak.jezuici.pl/intencje-mszalne",
+      "announcement": "https://dworzak.jezuici.pl/ogloszenia-parafialne",
+      "contact": "https://dworzak.jezuici.pl/kontakt/",
+      "other": "",
+      "live": "https://www.youtube.com/@parafiak.dworzaka149/streams",
+      "week": ["06:30", "08:00", "18:00", "19:30*"],
+      "sunday": ["07:30", "09:00", "10:30", "12:00", "16:00", "18:00", "20:00"],
+      "description": "",
+      "latitude": 51.092895,
+      "longitude": 16.986929
     },
     {
       "name": "Września: Parafia pw Świętego Ducha",
