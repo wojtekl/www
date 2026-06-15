@@ -1501,7 +1501,7 @@ const clients = {
       "announcement": "https://lisia-gora.diecezja.tarnow.pl/category/ogloszenia-parafialne/#main",
       "contact": "https://lisia-gora.diecezja.tarnow.pl/kontakt/#main",
       "other": "https://lisiagora.grobonet.com/",
-      "live": "https://www.youtube.com/watch?v=irIjbJH340Q",
+      "live": "https://www.youtube.com/@parafia.lisiagora/streams",
       "week": ["06:30", "18:00"],
       "sunday": ["07:00", "09:00", "11:00", "16:00"],
       "description": "",
