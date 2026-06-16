@@ -53,6 +53,19 @@ const clients = {
       "longitude": 22.277870
     },
     {
+      "name": "Bestwina: Parafia pw Wniebowzięcia NMP",
+      "schedule": "https://parafiabestwina.pl/index.php/intencje-3/",
+      "announcement": "https://parafiabestwina.pl/index.php/ogloszenia/",
+      "contact": "https://parafiabestwina.pl/",
+      "other": "http://mogily.pl/start/g-bestwina",
+      "live": "https://www.youtube.com/@parafiabestwina/streams",
+      "week": ["06:45", "18:00"],
+      "sunday": ["07:30", "09:00", "11:00", "15:00"],
+      "description": "",
+      "latitude": 49.903907,
+      "longitude": 19.058428
+    },
+    {
       "name": "Biała: Parafia pw Wniebowzięcia Najświętszej Maryi Panny",
       "schedule": "https://www.facebook.com/parafiabialaprudnicka",
       "announcement": "https://www.facebook.com/parafiabialaprudnicka",
@@ -430,6 +443,19 @@ const clients = {
       "longitude": 18.860218
     },
     {
+      "name": "Dziewkowice: Parafia pw św. Joachima i św. Anny",
+      "schedule": "https://www.facebook.com/profile.php?id=100066451425628",
+      "announcement": "https://www.facebook.com/profile.php?id=100066451425628",
+      "contact": "https://www.facebook.com/profile.php?id=100066451425628",
+      "other": "",
+      "live": "https://www.youtube.com/@parafiadziewkowice1453/streams",
+      "week": ["18:00*"],
+      "sunday": ["07:00", "11:00"],
+      "description": "",
+      "latitude": 50.512504,
+      "longitude": 18.339923
+    },
+    {
       "name": "Fasty: Parafia pw św. Franciszka z Asyżu",
       "schedule": "http://parafia-fasty.pl/",
       "announcement": "http://parafia-fasty.pl/",
@@ -727,6 +753,19 @@ const clients = {
       "description": "",
       "latitude": 50.140803,
       "longitude": 18.387739
+    },
+    {
+      "name": "Górki Wielkie: Parafia pw Wszystkich Świętych",
+      "schedule": "https://wszystkichsw-gw.pl/category/aktualnosci-i-ogloszenia/intencje/",
+      "announcement": "https://wszystkichsw-gw.pl/category/aktualnosci-i-ogloszenia/ogloszenia/",
+      "contact": "https://wszystkichsw-gw.pl/kontakt/",
+      "other": "http://mogily.pl/gorkiwielkie",
+      "live": "https://www.youtube.com/@parafiawszystkichswietychg7713/streams",
+      "week": ["07:00"],
+      "sunday": ["07:30", "09:00", "10:30", "16:00"],
+      "description": "",
+      "latitude": 49.773506,
+      "longitude": 18.855508
     },
     {
       "name": "Górna Grupa: Parafia św. Teresy od Dzieciątka Jezus",
@@ -3003,6 +3042,19 @@ const clients = {
       "longitude": 18.718198
     },
     {
+      "name": "Skawa: Parafia pw NMP Wspomożycielki Wiernych",
+      "schedule": "https://skawa.sdb.org.pl/intencje/",
+      "announcement": "https://skawa.sdb.org.pl/",
+      "contact": "https://skawa.sdb.org.pl/kontakt/",
+      "other": "",
+      "live": "https://www.youtube.com/@parafianmpwspomozeniawiern9663/streams",
+      "week": ["07:00", "17:00Z", "18:00L"],
+      "sunday": ["07:30", "09:00", "10:30", "17:00"],
+      "description": "",
+      "latitude": 49.599964,
+      "longitude": 19.910555
+    },
+    {
       "name": "Skawina, Ogrody: Parafia pw Miłosierdzia Bożego",
       "schedule": "https://www.milosierdzieskawina.org/intencje",
       "announcement": "https://www.milosierdzieskawina.org/ogloszenia-rozne",
@@ -3755,6 +3807,19 @@ const clients = {
       "description": "",
       "latitude": 52.661060,
       "longitude": 19.067837
+    },
+    {
+      "name": "Wojciechów: Parafia pw św. Teodora",
+      "schedule": "https://wojciechowparafia.pl/intencje-mszalne/",
+      "announcement": "https://wojciechowparafia.pl/ogloszenia/",
+      "contact": "https://wojciechowparafia.pl/kancelaria/",
+      "other": "https://wojciechowparafia.pl/cmentarz/",
+      "live": "https://www.youtube.com/@janhaasa8265/streams",
+      "week": ["07:00", "07:30*", "17:30*", "18:00"],
+      "sunday": ["09:30", "11:30", "17:00"],
+      "description": "",
+      "latitude": 51.232019,
+      "longitude": 22.247336
     },
     {
       "name": "Wola Mielecka: Parafia pw Bożej Opatrzności",
