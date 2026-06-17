@@ -248,6 +248,19 @@ const clients = {
       "longitude": 23.480527
     },
     {
+      "name": "Chełm: Parafia pw Rozesłania Świętych Apostołów",
+      "schedule": "https://rozeslanie.pl/glowne/msze-sw-i-nabozenstwa/",
+      "announcement": "https://rozeslanie.pl/category/ogloszenia/",
+      "contact": "https://rozeslanie.pl/glowne/kontakt/",
+      "other": "https://rozeslanie.pl/cmentarz/",
+      "live": "https://www.youtube.com/@rozeslanieTV/streams",
+      "week": ["07:00", "08:00", "18:00"],
+      "sunday": ["07:00", "08:30", "10:00", "12:00", "18:00"],
+      "description": "",
+      "latitude": 51.132461,
+      "longitude": 23.472070
+    },
+    {
       "name": "Chodzież: Parafia pw św. Floriana",
       "schedule": "https://florianchodziez.pl/index.php/intencje-mszalne/#jm-maincontent",
       "announcement": "https://florianchodziez.pl/index.php/ogloszenia-parafialne/#jm-maincontent",
@@ -1418,6 +1431,32 @@ const clients = {
       "longitude": 21.766158
     },
     {
+      "name": "Krośniewice: Parafia pw Wniebowzięcia NMP",
+      "schedule": "https://parafiakrosniewice.pl/intencje-mszalne/",
+      "announcement": "https://parafiakrosniewice.pl/",
+      "contact": "https://parafiakrosniewice.pl/kontakt/",
+      "other": "https://parafiakrosniewice.pl/cmentarz/",
+      "live": "https://www.youtube.com/@parafiakrosniewice4211/streams",
+      "week": ["07:00", "18:00"],
+      "sunday": ["07:00", "09:00", "10:30", "12:00", "18:00"],
+      "description": "",
+      "latitude": 52.254334,
+      "longitude": 19.170563
+    },
+    {
+      "name": "Krynica-Zdrój: Parafia pw Wniebowzięcia NMP",
+      "schedule": "https://wnmpkrynica.pl/",
+      "announcement": "https://wnmpkrynica.pl/ogloszeniaparafialne",
+      "contact": "https://wnmpkrynica.pl/kontakt",
+      "other": "",
+      "live": "https://www.youtube.com/@wnmp-krynica-zdroj/streams",
+      "week": ["06:15", "07:00", "09:00", "19:00"],
+      "sunday": ["06:00", "07:30", "09:00", "10:30", "12:00", "15:00", "19:00"],
+      "description": "",
+      "latitude": 49.422024,
+      "longitude": 20.959835
+    },
+    {
       "name": "Krzanowice: Parafia Św. Wacława",
       "schedule": "http://www.krzanowice.wiara.org.pl/aktualnosci/intencje-parafialne.html#stand",
       "announcement": "http://www.krzanowice.wiara.org.pl/aktualnosci/ogloszenia-parafialne-1.html#stand",
@@ -1663,6 +1702,19 @@ const clients = {
       "description": "",
       "latitude": 50.070273,
       "longitude": 22.229757
+    },
+    {
+      "name": "Łazany: Parafia pw Znalezienia Krzyża Świętego",
+      "schedule": "https://parafialazany.pl/intencje-mszalne-3/",
+      "announcement": "https://parafialazany.pl/ogloszenia-parafialne/",
+      "contact": "https://parafialazany.pl/kontakt/",
+      "other": "",
+      "live": "https://www.youtube.com/@parafiaazany9278/streams",
+      "week": ["07:00", "18:00"],
+      "sunday": ["07:30", "09:00", "10:30", "14:00"],
+      "description": "",
+      "latitude": 49.947870,
+      "longitude": 20.153512
     },
     {
       "name": "Łącko: Parafia pw św. Jana Chrzciciela",
@@ -2912,6 +2964,19 @@ const clients = {
       "longitude": 19.270234
     },
     {
+      "name": "Ryczów: Parafia pw Matki Bożej Królowej Polski",
+      "schedule": "https://parafiaryczow.pl/intencje",
+      "announcement": "https://parafiaryczow.pl/ogloszenia",
+      "contact": "https://parafiaryczow.pl/kontakt",
+      "other": "",
+      "live": "https://www.youtube.com/@parafiaryczow2214/streams",
+      "week": ["06:30", "17:00Z", "18:00L"],
+      "sunday": ["07:00", "09:00", "11:00", "16:00"],
+      "description": "",
+      "latitude": 49.980055,
+      "longitude": 19.551764
+    },
+    {
       "name": "Ryki: Parafia Najświętszego Zbawiciela",
       "schedule": "https://parafia-ryki.pl/",
       "announcement": "https://parafia-ryki.pl/ogloszenia",
@@ -3820,6 +3885,19 @@ const clients = {
       "description": "",
       "latitude": 51.232019,
       "longitude": 22.247336
+    },
+    {
+      "name": "Wojków: Parafia pw Niepokalanego Poczęcia NMP",
+      "schedule": "https://parafiawojkow.pl/category/intencje-mszalne/",
+      "announcement": "https://parafiawojkow.pl/category/ogloszenie/",
+      "contact": "https://parafiawojkow.pl/kontakt-2/",
+      "other": "",
+      "live": "https://www.youtube.com/@parafiawojkow7473/streams",
+      "week": ["18:00"],
+      "sunday": ["08:00", "10:00", "12:00"],
+      "description": "",
+      "latitude": 51.587546,
+      "longitude": 18.429807
     },
     {
       "name": "Wola Mielecka: Parafia pw Bożej Opatrzności",
