@@ -1054,6 +1054,19 @@ const clients = {
       "longitude": 18.968453
     },
     {
+      "name": "Katowice, Załęże: Parafia pw św. Józefa",
+      "schedule": "http://parafiazaleze.pl/wp-content/uploads/2020/03/i_swjozefzaleze.pdf",
+      "announcement": "http://parafiazaleze.pl/wp-content/uploads/2020/03/od_swjozefzaleze.pdf",
+      "contact": "http://parafiazaleze.pl/strona-glowna-2/podstawowe-informacje",
+      "other": "https://katowice-zaleze.grobonet.com/",
+      "live": "https://www.youtube.com/@parafiazaeze7534/streams",
+      "week": ["08:00", "18:00"],
+      "sunday": ["07:30", "09:30", "11:30", "16:00"],
+      "description": "",
+      "latitude": 50.263773,
+      "longitude": 19.000455
+    },
+    {
       "name": "Kazimierza Wielka: Parafia pw Podwyższenia Krzyża Świętego",
       "schedule": "https://parafiakazimierza.pl/intencje-mszalne/",
       "announcement": "https://parafiakazimierza.pl/ogloszenia-duszpasterskie/",
