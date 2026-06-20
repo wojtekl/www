@@ -105,6 +105,19 @@ const clients = {
       "longitude": 19.041973
     },
     {
+      "name": "Binarowa: Parafia św. Michała Archanioła",
+      "schedule": "https://www.parafiabinarowa.pl/grupy-parafialne/intencje-mszalne.html",
+      "announcement": "https://www.parafiabinarowa.pl/grupy-parafialne/ogloszenia-parafialne.html",
+      "contact": "https://www.parafiabinarowa.pl/kontakt.html",
+      "other": "https://www.parafiabinarowa.pl/aktualnosci/nekrologi.html",
+      "live": "https://www.youtube.com/@parafiabinarowa7205/streams",
+      "week": ["07:00", "17:00Z", "18:00L"],
+      "sunday": ["07:30", "09:00", "11:00", "12:00", "16:30", "18:00"],
+      "description": "",
+      "latitude": 49.757309,
+      "longitude": 21.227463
+    },
+    {
       "name": "Boguchwała: Parafia pw św. Stanisława",
       "schedule": "https://www.parafiaboguchwala.pl/index.php/strona-glowna/intencje-mszalne",
       "announcement": "https://www.parafiaboguchwala.pl/index.php/strona-glowna/ogloszenia-parafialne",
@@ -677,6 +690,19 @@ const clients = {
       "longitude": 18.733618
     },
     {
+      "name": "Gliwice: Parafia pw Wszystkich Świętych",
+      "schedule": "https://www.wszystkichswietych.org/intencje-mszalne-1.html",
+      "announcement": "https://www.wszystkichswietych.org/ogloszenia-parafialne.html",
+      "contact": "https://www.wszystkichswietych.org/kontakt.html",
+      "other": "",
+      "live": "https://www.youtube.com/@parafiawszystkichswietychw6539/streams",
+      "week": ["08:00", "18:30"],
+      "sunday": ["07:00", "09:00", "10:30", "12:00", "19:00"],
+      "description": "",
+      "latitude": 50.295095,
+      "longitude": 18.663835
+    },
+    {
       "name": "Głogówek: Parafia św. Bartłomieja Apostoła",
       "schedule": "https://parafia.glogovia.pl/aktulanosci/porzadek-nabozenstw.html#component",
       "announcement": "https://parafia.glogovia.pl/aktulanosci/porzadek-nabozenstw.html#:~:text=Ogłoszenia",
@@ -974,6 +1000,19 @@ const clients = {
       "description": "",
       "latitude": 49.631384,
       "longitude": 22.707321
+    },
+    {
+      "name": "Kamień: Parafia pw św. Michała Archanioła",
+      "schedule": "https://kamienparafia.pl/",
+      "announcement": "https://kamienparafia.pl/",
+      "contact": "https://kamienparafia.pl/kontakt/",
+      "other": "",
+      "live": "https://www.youtube.com/@parafiakamien3585/streams",
+      "week": ["17:30"],
+      "sunday": ["08:00", "09:30", "12:00"],
+      "description": "",
+      "latitude": 51.116270,
+      "longitude": 23.591048
     },
     {
       "name": "Katowice: Parafia NSPJ i św. Jana Bosko",
@@ -1819,6 +1858,19 @@ const clients = {
       "description": "",
       "latitude": 51.916939,
       "longitude": 22.369409
+    },
+    {
+      "name": "Łuków: Parafia pw NMP Matki Kościoła",
+      "schedule": "https://matkalukow.pl/sakramenty/#sacrament1",
+      "announcement": "https://matkalukow.pl/ogloszenia_duszpasterskie",
+      "contact": "https://matkalukow.pl/kontakt",
+      "other": "",
+      "live": "https://www.youtube.com/@ParafiapwNMPMatkiKoscioa/streams",
+      "week": ["06:30", "07:00", "18:00"],
+      "sunday": ["06:30", "09:00", "10:30", "12:00", "18:00"],
+      "description": "",
+      "latitude": 51.939382,
+      "longitude": 22.381417
     },
     {
       "name": "Maciejkowice: Parafia pw Matki Boskiej Nieustającej Pomocy i św. Rozalii",
@@ -3393,6 +3445,19 @@ const clients = {
       "longitude": 17.719705
     },
     {
+      "name": "Szamotuły: Parafia pw Świętego Krzyża",
+      "schedule": "https://parafiaswkrzyz.pl/intencje-mszalne/",
+      "announcement": "https://parafiaswkrzyz.pl/#ogloszenia-parafialne",
+      "contact": "https://parafiaswkrzyz.pl/#footer",
+      "other": "",
+      "live": "https://www.youtube.com/@parafiaswietykrzyzszamotuy9205/streams",
+      "week": ["08:30", "18:30"],
+      "sunday": ["08:00", "09:45", "11:00", "12:15", "20:00"],
+      "description": "",
+      "latitude": 52.608446,
+      "longitude": 16.581290
+    },
+    {
       "name": "Szczekociny: Parafia Św. Bartłomieja",
       "schedule": "https://parafiaszczekociny.pl/intencje-mszalne/#Subheader",
       "announcement": "https://parafiaszczekociny.pl/ogloszenia/#Subheader",
@@ -3677,6 +3742,19 @@ const clients = {
       "description": "",
       "latitude": 50.61047,
       "longitude": 23.70699
+    },
+    {
+      "name": "Walce: Parafia pw św. Walentego",
+      "schedule": "https://parafiawalce.pl/intencje",
+      "announcement": "https://parafiawalce.pl/ogloszenia-i-aktualnosci",
+      "contact": "https://parafiawalce.pl/kontakt",
+      "other": "",
+      "live": "https://www.youtube.com/@parafiawalce5258/streams",
+      "week": [],
+      "sunday": ["07:30", "09:00", "10:30"],
+      "description": "",
+      "latitude": 50.373387,
+      "longitude": 18.001957
     },
     {
       "name": "Wałcz: Parafia św. Antoniego",
@@ -4067,6 +4145,19 @@ const clients = {
       "description": "",
       "latitude": 50.323839,
       "longitude": 18.776246
+    },
+    {
+      "name": "Zaklików: Parafia św. Wojciecha",
+      "schedule": "https://parafiazaklikow.pl/intencje-mszy-swietej/",
+      "announcement": "https://parafiazaklikow.pl//////",
+      "contact": "https://parafiazaklikow.pl/kontakt/",
+      "other": "",
+      "live": "https://www.youtube.com/@parafiasw.annywzaklikowie7982/streams",
+      "week": ["07:00", "17:00Z", "18:00L"],
+      "sunday": ["07:00", "09:00", "10:30", "12:00", "17:00"],
+      "description": "",
+      "latitude": 50.759207,
+      "longitude": 22.103229
     },
     {
       "name": "Zakrzów: Parafia św. Anny",
