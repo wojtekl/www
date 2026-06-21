@@ -3016,6 +3016,19 @@ const clients = {
       "longitude": 18.496932
     },
     {
+      "name": "Rybnik, Popielów: Parafia pw Trójcy Przenajświętszej",
+      "schedule": "https://www.trojcaswieta.org.pl/index.php/intencje-mszalne",
+      "announcement": "https://www.trojcaswieta.org.pl/index.php/ogloszenia-duszpasterskie",
+      "contact": "https://www.trojcaswieta.org.pl/",
+      "other": "http://rybnikpopielow.polski-cmentarz.pl/grobonet/start.php?id=form",
+      "live": "https://www.youtube.com/@parafiatrojcyprzenajswiets5502/streams",
+      "week": ["07:00", "18:00"],
+      "sunday": ["07:00", "09:00", "11:00", "17:00"],
+      "description": "",
+      "latitude": 50.067329,
+      "longitude": 18.496932
+    },
+    {
       "name": "Rychwałd: Parafia pw św. Mikołaja",
       "schedule": "https://rychwald.franciszkanie.pl/aktualnosci/intencje/",
       "announcement": "https://rychwald.franciszkanie.pl/aktualnosci/ogloszenia/",
