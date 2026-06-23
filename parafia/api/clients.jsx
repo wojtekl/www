@@ -66,6 +66,19 @@ const clients = {
       "longitude": 19.058428
     },
     {
+      "name": "Będargowo: Parafia pw św. Antoniego z Padwy",
+      "schedule": "https://antoni.eparafia.pl/msze-sw",
+      "announcement": "https://antoni.eparafia.pl/ogloszenia-parafialne",
+      "contact": "https://antoni.eparafia.pl/kontakt",
+      "other": "",
+      "live": "https://www.youtube.com/@WspolnotaparafialnapwSwAntonie/streams",
+      "week": ["18:00*"],
+      "sunday": ["10:30"],
+      "description": "",
+      "latitude": 53.022046,
+      "longitude": 15.366912
+    },
+    {
       "name": "Biała: Parafia pw Wniebowzięcia Najświętszej Maryi Panny",
       "schedule": "https://www.facebook.com/parafiabialaprudnicka",
       "announcement": "https://www.facebook.com/parafiabialaprudnicka",
@@ -77,6 +90,19 @@ const clients = {
       "description": "",
       "latitude": 50.386145,
       "longitude": 17.658935
+    },
+    {
+      "name": "Biała Niżna: Parafia pw Matki Bożej Różańcowej",
+      "schedule": "https://parafiabialanizna.pl/intencje-mszalne/",
+      "announcement": "https://parafiabialanizna.pl/ogloszenia/",
+      "contact": "https://parafiabialanizna.pl/kontakt/",
+      "other": "https://parafiabialanizna.pl/cmentarz-parafialny/",
+      "live": "https://www.youtube.com/@parafiabiaanizna8579/streams",
+      "week": ["07:00", "17:00Z", "18:00L"],
+      "sunday": ["07:00", "09:00", "11:00", "15:30"],
+      "description": "",
+      "latitude": 49.641086,
+      "longitude": 20.972444
     },
     {
       "name": "Białystok: Parafia św. Kazimierza Królewicza",
@@ -129,6 +155,19 @@ const clients = {
       "description": "",
       "latitude": 49.984421,
       "longitude": 21.946081
+    },
+    {
+      "name": "Bogumiłowice: Parafia pw NMP Częstochowskiej",
+      "schedule": "https://bogumilowice.diecezjatarnow.pl/intencje",
+      "announcement": "https://bogumilowice.diecezjatarnow.pl/ogloszenia",
+      "contact": "https://bogumilowice.diecezjatarnow.pl/kontakt",
+      "other": "",
+      "live": "https://www.youtube.com/@parafiabogumiowice8873/streams",
+      "week": ["07:00"],
+      "sunday": ["07:00", "09:00", "11:00"],
+      "description": "",
+      "latitude": 50.003809,
+      "longitude": 20.873028
     },
     {
       "name": "Bojszowy: Parafia pw Narodzenia św. Jana Chrzciciela",
@@ -625,6 +664,19 @@ const clients = {
       "longitude": 18.494019
     },
     {
+      "name": "Giewartów: Parafia pw Podwyższenia Krzyża Świętego",
+      "schedule": "https://giewartow.eu/aktualnosci/intencje/",
+      "announcement": "https://giewartow.eu/aktualnosci/ogloszenia-parafialne/",
+      "contact": "https://giewartow.eu/kontakt/",
+      "other": "http://37.28.154.108/giewartow",
+      "live": "https://www.youtube.com/@parafiagiewartow7091/streams",
+      "week": ["17:00", "18:30"],
+      "sunday": ["07:30", "09:30", "11:30"],
+      "description": "",
+      "latitude": 52.375981,
+      "longitude": 17.949866
+    },
+    {
       "name": "Glinianka: Parafia św. Wawrzyńca",
       "schedule": "https://www.parafiaglinianka.pl/#text-4",
       "announcement": "https://www.parafiaglinianka.pl/category/ogloszenia/#content",
@@ -870,6 +922,19 @@ const clients = {
       "description": "",
       "latitude": 49.81958,
       "longitude": 20.58528
+    },
+    {
+      "name": "Janowice: Parafia pw św. Józefa Robotnika",
+      "schedule": "https://parafia-janowice.pl/intencje-mszalne/",
+      "announcement": "https://parafia-janowice.pl/ogloszenia-duszpasterskie/",
+      "contact": "https://parafia-janowice.pl/kontakt/",
+      "other": "",
+      "live": "https://www.youtube.com/@parafiajanowice3330/streams",
+      "week": ["07:00*", "18:00*"],
+      "sunday": ["07:00", "09:00", "11:00"],
+      "description": "",
+      "latitude": 49.885656,
+      "longitude": 19.093216
     },
     {
       "name": "Janów: Parafia pw Niepokalanego Poczęcia Najświętszej Maryi Panny",
@@ -1496,6 +1561,19 @@ const clients = {
       "longitude": 19.170563
     },
     {
+      "name": "Krużlowa Wyżna: Parafia pw Narodzenia NMP",
+      "schedule": "https://www.parafia-kruzlowa.pl/2026/06/20/intencje-mszalne-210/",
+      "announcement": "https://www.parafia-kruzlowa.pl/2026/06/20/ogloszenia-parafialne-215/",
+      "contact": "https://www.parafia-kruzlowa.pl/kontakt/",
+      "other": "",
+      "live": "https://www.youtube.com/@parafiakruzlowa2379/streams",
+      "week": ["06:30", "18:00"],
+      "sunday": ["07:00", "09:00", "11:00", "15:00"],
+      "description": "",
+      "latitude": 49.651701,
+      "longitude": 20.883701
+    },
+    {
       "name": "Krynica-Zdrój: Parafia pw Wniebowzięcia NMP",
       "schedule": "https://wnmpkrynica.pl/",
       "announcement": "https://wnmpkrynica.pl/ogloszeniaparafialne",
@@ -1767,6 +1845,19 @@ const clients = {
       "description": "",
       "latitude": 49.947870,
       "longitude": 20.153512
+    },
+    {
+      "name": "Łaziska Dolne: Parafia pw Niepokalanego Serca NMP",
+      "schedule": "https://www.parafialaziskadolne.pl/category/show/id/11",
+      "announcement": "https://www.parafialaziskadolne.pl/category/show/id/11",
+      "contact": "https://www.parafialaziskadolne.pl/page/show/id/21",
+      "other": "https://www.ecmentarze.pl/cmentarz/laziska-dolne",
+      "live": "https://www.youtube.com/@parafiaaziskadolne-niepoka5003/streams",
+      "week": ["18:00"],
+      "sunday": ["07:00", "09:00", "11:00"],
+      "description": "",
+      "latitude": 50.155368,
+      "longitude": 18.874517
     },
     {
       "name": "Łącko: Parafia pw św. Jana Chrzciciela",
@@ -2665,6 +2756,19 @@ const clients = {
       "longitude": 18.742898
     },
     {
+      "name": "Przemyśl: Parafia pw św. Józefa Sebastiana Biskupa",
+      "schedule": "https://pelczar.przemyska.pl/category/ogloszenia/",
+      "announcement": "https://pelczar.przemyska.pl/category/ogloszenia/",
+      "contact": "https://pelczar.przemyska.pl/kontakt/",
+      "other": "",
+      "live": "https://www.youtube.com/@parafiapelczar2418/streams",
+      "week": ["18:00"],
+      "sunday": ["09:00", "11:00"],
+      "description": "",
+      "latitude": 49.804433,
+      "longitude": 22.771678
+    },
+    {
       "name": "Przespolew: Parafia św. Katarzyny Aleksandryjskiej i MB Pocieszenia",
       "schedule": "https://diecezja.kalisz.pl/parafia/102",
       "announcement": "https://diecezja.kalisz.pl/parafia/102",
@@ -3339,6 +3443,19 @@ const clients = {
       "description": "",
       "latitude": 53.961462,
       "longitude": 18.533289
+    },
+    {
+      "name": "Starogard Gdański, Łapiszewo: Parafia pw NSPJ",
+      "schedule": "https://parafialapiszewo.pl/intencje-mszalne",
+      "announcement": "https://parafialapiszewo.pl/ogloszenia-parafialne",
+      "contact": "https://parafialapiszewo.pl/kontakt/",
+      "other": "",
+      "live": "https://www.youtube.com/@parafianspjapiszewo3208/streams",
+      "week": ["07:00", "18:00"],
+      "sunday": ["07:00", "09:15", "10:30", "11:45", "18:00"],
+      "description": "",
+      "latitude": 53.988665,
+      "longitude": 18.493566
     },
     {
       "name": "Staszów: Parafia św. Barbary",
