@@ -9,6 +9,7 @@ import { createSlice, configureStore } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 import { Provider, useSelector, useDispatch } from 'react-redux'
 import axios from 'axios'
+import Komponent from './Komponent'
 
 
 const state = localStorage.getItem('redux')
