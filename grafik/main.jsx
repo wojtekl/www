@@ -773,6 +773,7 @@ const Signin = () => {
   }
 
   const Komponent = lazy(() => import('Komponent'))
+  console.log(Komponent)
   
   return <div class="d-flex align-items-center py-4 bg-body-tertiary">
     <main class="form-signin w-100 m-auto" style={{maxWidth: '330px', padding: '1rem'}}>
@@ -829,6 +830,7 @@ const Signin = () => {
         </div>
       </div>
       <p class="mt-5 mb-3 text-body-secondary">{t('label_copyright')}</p>
+      <Komponent />
     </main>
   </div>
 }
