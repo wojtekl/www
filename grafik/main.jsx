@@ -9,7 +9,6 @@ import { createSlice, configureStore } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 import { Provider, useSelector, useDispatch } from 'react-redux'
 import axios from 'axios'
-import Komponent from 'https://raw.githubusercontent.com/wojtekl/www/main/grafik/Komponent.jsx'
 
 
 const state = localStorage.getItem('redux')
@@ -828,7 +827,6 @@ const Signin = () => {
         </div>
       </div>
       <p class="mt-5 mb-3 text-body-secondary">{t('label_copyright')}</p>
-      <Komponent />
     </main>
   </div>
 }
