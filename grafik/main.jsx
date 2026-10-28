@@ -9,6 +9,7 @@ import { createSlice, configureStore } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 import { Provider, useSelector, useDispatch } from 'react-redux'
 import axios from 'axios'
+import Komponent from 'Komponent'
 
 
 const state = localStorage.getItem('redux')
@@ -771,9 +772,6 @@ const Signin = () => {
 
     event.stopPropagation()
   }
-
-  const Komponent = lazy(() => import('Komponent'))
-  console.log(Komponent)
   
   return <div class="d-flex align-items-center py-4 bg-body-tertiary">
     <main class="form-signin w-100 m-auto" style={{maxWidth: '330px', padding: '1rem'}}>
