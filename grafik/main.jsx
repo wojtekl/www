@@ -1,5 +1,5 @@
 import * as bootstrap from 'bootstrap'
-import React, { useContext, useEffect, useState, createContext, createElement } from 'react'
+import React, { useContext, useEffect, useState, createContext, createElement, lazy } from 'react'
 import { createRoot } from 'react-dom/client'
 import { HashRouter as Router, Routes, Route, useNavigate, useParams } from 'react-router-dom'
 import i18n from 'i18next'
@@ -771,6 +771,8 @@ const Signin = () => {
 
     event.stopPropagation()
   }
+
+  const Komponent = lazy(() => import('Komponent'))
   
   return <div class="d-flex align-items-center py-4 bg-body-tertiary">
     <main class="form-signin w-100 m-auto" style={{maxWidth: '330px', padding: '1rem'}}>
@@ -782,6 +784,7 @@ const Signin = () => {
       </div>
       <h1 class="h3 mb-3 fw-normal">{t('label_please_sign_in')}</h1>
       {signinFailure && <div class="alert alert-danger" role="alert">{t('label_signin_failure')}</div>}
+      <Komponent />
       <ul class="nav nav-tabs" id="signinTab" role="tablist">
         <li class="nav-item" role="presentation">
           <button class="nav-link active" id="clientTab" data-bs-toggle="tab" data-bs-target="#client-tab-pane" type="button" role="tab" aria-controls="client-tab-pane" aria-selected="true">{t('label_client')}</button>
