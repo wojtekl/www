@@ -772,7 +772,7 @@ const Signin = () => {
     event.stopPropagation()
   }
 
-  const Komponent = lazy(() => import('https://raw.githubusercontent.com/wojtekl/www/main/grafik/komponent.jsx'))
+  const Komponent = lazy(() => import('./Komponent'))
   
   return <div class="d-flex align-items-center py-4 bg-body-tertiary">
     <main class="form-signin w-100 m-auto" style={{maxWidth: '330px', padding: '1rem'}}>
