@@ -784,7 +784,6 @@ const Signin = () => {
       </div>
       <h1 class="h3 mb-3 fw-normal">{t('label_please_sign_in')}</h1>
       {signinFailure && <div class="alert alert-danger" role="alert">{t('label_signin_failure')}</div>}
-      <Komponent />
       <ul class="nav nav-tabs" id="signinTab" role="tablist">
         <li class="nav-item" role="presentation">
           <button class="nav-link active" id="clientTab" data-bs-toggle="tab" data-bs-target="#client-tab-pane" type="button" role="tab" aria-controls="client-tab-pane" aria-selected="true">{t('label_client')}</button>
