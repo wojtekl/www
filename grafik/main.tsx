@@ -1,5 +1,5 @@
 import * as bootstrap from 'bootstrap'
-import React, { useContext, useEffect, useState, createContext, createElement, lazy } from 'react'
+import React, { useContext, useEffect, useState, createContext, createElement, lazy, StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { HashRouter as Router, Routes, Route, useNavigate, useParams } from 'react-router-dom'
 import i18n from 'i18next'
@@ -989,7 +989,7 @@ const usePreferences = () => useContext(PreferencesContext)
 
 const container = document.getElementById('root')
 const root = createRoot(container)
-root.render(<Provider store={store}>
+root.render(<StrictMode><Provider store={store}>
   <Preferences>
   <Router>
     <Routes>
@@ -1000,4 +1000,4 @@ root.render(<Provider store={store}>
     </Routes>
   </Router>
   </Preferences>
-</Provider>)
+</Provider></StrictMode>)
