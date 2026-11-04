@@ -1016,7 +1016,7 @@ const useAuth = () => {
     })
   }, [])
 
-  return [client, tenant, isLoading > 1]
+  return [client, tenant, isLoading < 2]
 }
 
 
@@ -1025,7 +1025,7 @@ const RequireAuth = () => {
   const location = useLocation()
   const [client, tenant, isLoading] = useAuth()
 
-  if (isLoading < 2) {
+  if (isLoading) {
     return null
   }
   else {
