@@ -993,7 +993,7 @@ const usePreferences = () => useContext(PreferencesContext)
 
 
 const useAuth = () => {
-  const [isLoading, setIsLoading] = useState(true)
+  const [isLoading, setIsLoading] = useState(0)
   const [client, setClient] = useState()
   const [tenant, setTenant] = useState()
   const dispatch = useDispatch()
@@ -1003,16 +1003,16 @@ const useAuth = () => {
       if (response.data?.id) {
         dispatch(clientSet(response.data))
         setClient(response.data)
-        setIsLoading(false)
       }
+      setIsLoading(prevState => prevState + 1)
     })
 
     axios.get('api/signin').then(response => {
       if (response.data && !response.data.includes(';')) {
         dispatch(tenantSet(response.data))
         setTenant(response.data)
-        setIsLoading(false)
       }
+      setIsLoading(prevState => prevState + 1)
     })
   }, [])
 
@@ -1025,7 +1025,7 @@ const RequireAuth = () => {
   const location = useLocation()
   const [client, tenant, isLoading] = useAuth()
 
-  if (isLoading) {
+  if (isLoading < 2) {
     return null
   }
   else {
