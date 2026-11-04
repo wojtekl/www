@@ -1,7 +1,7 @@
 import * as bootstrap from 'bootstrap'
 import React, { useContext, useEffect, useState, createContext, createElement, lazy, StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import { Navigate, Outlet, HashRouter as Router, Routes, Route, useLocation, useNavigate, useParams } from 'react-router-dom'
+import { Navigate, Outlet, HashRouter as Router, Routes, Route, useLoaderData, useLocation, useNavigate, useParams } from 'react-router-dom'
 import i18n from 'i18next'
 import { initReactI18next, useTranslation } from 'react-i18next'
 import { createStore } from 'redux'
@@ -997,31 +997,30 @@ const useAuth = () => {
   const [client, setClient] = useState()
   const [tenant, setTenant] = useState()
 
-  //const client = (await axios.get('api/client')).data
-  //const tenant = (await axios.get('api/signin')).data
+  useEffect(() => {
+    axios.get('api/client').then(response => {
+      if (response.data?.id) {
+        setClient(response.data)
+        setIsLoading(prevState => prevState + 1)
+      }
+    })
 
-  axios.get('api/client').then(response => {
-    if (response.data?.id) {
-      setClient(response.data)
-      setIsLoading(prevState => prevState + 1)
-    }
-  })
+    axios.get('api/signin').then(response => {
+      if (response.data && !response.data.includes(';')) {
+        setTenant(response.data)
+        setIsLoading(prevState => prevState + 1)
+      }
+    })
+  }, [])
 
-  axios.get('api/signin').then(response => {
-    if (response.data && !response.data.includes(';')) {
-      setTenant(response.data)
-      setIsLoading(prevState => prevState + 1)
-    }
-  })
-
-  return [client, tenant, isLoading]
+  return [client, tenant, isLoading > 1]
 }
 
 
 const RequireAuth = () => {
   const dispatch = useDispatch()
   const location = useLocation()
-  const [client, tenant, isLoading] = useAuth()
+  const [client, tenant, isLoading] = useLoaderData()
 
   if (isLoading < 2) {
     return null
@@ -1048,7 +1047,7 @@ root.render(<StrictMode><Provider store={store}>
     <Routes>
       <Route path="signin" element={<Signin />} />
       <Route path="password" element={<Password />} />
-      <Route element={<RequireAuth />}>
+      <Route element={<RequireAuth />} loader={() => useAuth()}>
         <Route path="/" element={<Manage />} />
         <Route path=":group" element={<Reader />} />
       </Route>
