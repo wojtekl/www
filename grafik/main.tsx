@@ -601,9 +601,10 @@ const Manage = () => {
   const { t } = useTranslation()
   const dispatch = useDispatch()
   
-  const [tenant, setTenant] = useState(useSelector(state => state.tenant))
+  //const [tenant, setTenant] = useState(useSelector(state => state.tenant))
   const [selectedTab, setSelectedTab] = useState('contactLink')
 
+  const tenant = useSelector(state => state.tenant)
   /*useEffect(() => {
     axios.get('api/signin').then(response => {
       if (response.data && !response.data.includes(';')) {
