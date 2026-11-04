@@ -995,13 +995,13 @@ const RequireAuth = () => {
   const dispatch = useDispatch()
   const location = useLocation()
 
-  const client = await axios.get('api/client').data
+  const client = (await axios.get('api/client')).data
   if (client?.id) {
       dispatch(clientSet(response.data))
       return <Outlet />
   }
   
-  const tenant = await axios.get('api/signin').data
+  const tenant = (await axios.get('api/signin')).data
   if (tenant && !tenant.includes(';')) {
     dispatch(tenantSet(response.data))
     return <Outlet />
