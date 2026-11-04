@@ -870,7 +870,7 @@ const Reader = () => {
     })
   }, [])*/
 
-  const tenant = useSelector(state => state.tenant)
+  const client = useSelector(state => state.client)
 
   useEffect(() => {
     if (!client || !refresh) {
