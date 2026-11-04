@@ -1001,7 +1001,7 @@ const useAuth = () => {
   useEffect(() => {
     axios.get('api/client').then(response => {
       if (response.data?.id) {
-        dispatch(clientSet(client))
+        dispatch(clientSet(response.data))
         setClient(response.data)
         setIsLoading(prevState => prevState + 1)
       }
@@ -1009,7 +1009,7 @@ const useAuth = () => {
 
     axios.get('api/signin').then(response => {
       if (response.data && !response.data.includes(';')) {
-        dispatch(tenantSet(tenant))
+        dispatch(tenantSet(response.data))
         setTenant(response.data)
         setIsLoading(prevState => prevState + 1)
       }
