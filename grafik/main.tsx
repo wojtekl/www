@@ -997,21 +997,20 @@ const RequireAuth = () => {
   const [client, setClient] = useState()
   const [tenant, setTenant] = useState()
 
-  useEffect(() => {
-    axios.get('api/client').then(response => {
-      if (response.data?.id) {
-        setClient(response.data)
-        dispatch(clientSet(response.data))
+  const auth = async () => {
+      const client = (await axios.get('api/client')).data
+      if (client?.id) {
+        setClient(client)
+        dispatch(clientSet(client))
       }
-    })
 
-    axios.get('api/signin').then(response => {
-      if (response.data && !response.data.includes(';')) {
-        setTenant(response.data)
-        dispatch(tenantSet(response.data))
+      const tenant = (await axios.get('api/signin')).data
+      if (tenant && !tenant.includes(';')) {
+        setTenant(tenant)
+        dispatch(tenantSet(tenant))
       }
-    })
-  }, [])
+    }
+    auth()
 
   return !client && !tenant ? <Navigate to="signin" state={{ from: location }} replace /> : <Outlet />
 }
