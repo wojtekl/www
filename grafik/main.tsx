@@ -1,7 +1,7 @@
 import * as bootstrap from 'bootstrap'
 import React, { useContext, useEffect, useState, createContext, createElement, lazy, StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import { Outlet, HashRouter as Router, Routes, Route, useLocation, useNavigate, useParams } from 'react-router-dom'
+import { Navigate, Outlet, HashRouter as Router, Routes, Route, useLocation, useNavigate, useParams } from 'react-router-dom'
 import i18n from 'i18next'
 import { initReactI18next, useTranslation } from 'react-i18next'
 import { createStore } from 'redux'
@@ -992,6 +992,7 @@ const usePreferences = () => useContext(PreferencesContext)
 
 
 const RequireAuth = () => {
+  const dispatch = useDispatch()
   const location = useLocation()
 
   axios.get('api/client').then(response => {
