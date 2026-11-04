@@ -994,20 +994,26 @@ const usePreferences = () => useContext(PreferencesContext)
 const RequireAuth = () => {
   const dispatch = useDispatch()
   const location = useLocation()
+  const [client, setClient] = useState()
+  const [tenant, setTenant] = useState()
 
-  const client = (await axios.get('api/client')).data
-  if (client?.id) {
-      dispatch(clientSet(response.data))
-      return <Outlet />
-  }
-  
-  const tenant = (await axios.get('api/signin')).data
-  if (tenant && !tenant.includes(';')) {
-    dispatch(tenantSet(response.data))
-    return <Outlet />
-  }
+  useEffect(() => {
+    axios.get('api/client').then(response => {
+      if (reponse.data?.id) {
+        setClient(reponse.data)
+        dispatch(clientSet(response.data))
+      }
+    })
 
-  return <Navigate to="signin" state={{ from: location }} replace />
+    axios.get('api/signin').then(response => {
+      if (response.data && !response.data.includes(';')) {
+        setTenant(response.data)
+        dispatch(tenantSet(response.data))
+      }
+    })
+  }, [])
+
+  return !client && !tenant ? <Navigate to="signin" state={{ from: location }} replace /> : <Outlet />
 }
 
 
