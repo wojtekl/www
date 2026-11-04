@@ -1,7 +1,7 @@
 import * as bootstrap from 'bootstrap'
 import React, { useContext, useEffect, useState, createContext, createElement, lazy, StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import { HashRouter as Router, Routes, Route, useNavigate, useParams } from 'react-router-dom'
+import { Outlet, HashRouter as Router, Routes, Route, useLocation, useNavigate, useParams } from 'react-router-dom'
 import i18n from 'i18next'
 import { initReactI18next, useTranslation } from 'react-i18next'
 import { createStore } from 'redux'
@@ -14,7 +14,8 @@ import axios from 'axios'
 const state = localStorage.getItem('redux')
 const initialState = !!state ? JSON.parse(state) : {
   lang: (getUrlParam('lang') ?? navigator.language.substring(0, 2)).toLocaleLowerCase(),
-  tenant: null
+  tenant: null,
+  client: null
 }
 initialState.lang = (getUrlParam('lang') ?? initialState.lang).toLocaleLowerCase()
 
@@ -24,9 +25,10 @@ const preferencesSlice = createSlice({
   reducers: {
     langSet: (state, action: PayloadAction<String>) => { state.lang = action.payload },
     tenantSet: (state, action: PayloadAction<String>) => { state.tenant = action.payload }
+    clientSet: (state, action: PayloadAction<String>) => { state.client = action.payload }
   }
 })
-const { langSet, tenantSet } = preferencesSlice.actions
+const { langSet, tenantSet, clientSet } = preferencesSlice.actions
 
 const store = configureStore({ reducer: preferencesSlice.reducer })
 store.subscribe(() => localStorage.setItem('redux', JSON.stringify(store.getState())))
@@ -843,7 +845,7 @@ const Reader = () => {
   const [currentWeek, setCurrentWeek] = useState([])
   const [contact, setContact] = useState()
   const [settings, setSettings] = useState({})
-  const [client, setClient] = useState()
+  //const [client, setClient] = useState()
   const [selected, setSelected] = useState()
   const [refresh, setRefresh] = useState(true)
 
@@ -857,7 +859,7 @@ const Reader = () => {
     event.stopPropagation()
   }
 
-  useEffect(() => {
+  /*useEffect(() => {
     axios.get('api/client').then(response => {
       if (response.data?.id) {
         setClient(response.data)
@@ -865,7 +867,9 @@ const Reader = () => {
         navigate('/signin')
       }
     })
-  }, [])
+  }, [])*/
+
+  const tenant = useSelector(state => state.tenant)
 
   useEffect(() => {
     if (!client || !refresh) {
@@ -987,16 +991,39 @@ const Preferences = ({ children }) => {
 const usePreferences = () => useContext(PreferencesContext)
 
 
+const RequireAuth = () => {
+  const location = useLocation()
+
+  axios.get('api/client').then(response => {
+    if (response.data?.id) {
+      dispatch(clientSet(response.data))
+      return <Outlet />
+    }
+  })
+  
+  axios.get('api/signin').then(response => {
+    if (response.data && !response.data.includes(';')) {
+      dispatch(tenantSet(response.data))
+      return <Outlet />
+    }
+  })
+
+  return <Navigate to="signin" state={{ from: location }} replace />
+}
+
+
 const container = document.getElementById('root')
 const root = createRoot(container)
 root.render(<StrictMode><Provider store={store}>
   <Preferences>
   <Router>
     <Routes>
-      <Route path="/" element={<Manage />} />
       <Route path="signin" element={<Signin />} />
       <Route path="password" element={<Password />} />
-      <Route path=":group" element={<Reader />} />
+      <Route element={<RequireAuth />}>
+        <Route path="/" element={<Manage />} />
+        <Route path=":group" element={<Reader />} />
+      </Route>
     </Routes>
   </Router>
   </Preferences>
