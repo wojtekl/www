@@ -1003,14 +1003,14 @@ const useAuth = () => {
   axios.get('api/client').then(response => {
     if (response.data?.id) {
       setClient(response.data)
-      setIsLoading(loading => loading + 1)
+      setIsLoading(prevState => prevState + 1)
     }
   })
 
   axios.get('api/signin').then(response => {
     if (response.data && !response.data.includes(';')) {
       setTenant(response.data)
-      setIsLoading(loading => loading + 1)
+      setIsLoading(prevState => prevState + 1)
     }
   })
 
