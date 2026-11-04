@@ -993,14 +993,12 @@ const usePreferences = () => useContext(PreferencesContext)
 
 
 const useAuth = () => {
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
   const [client, setClient] = useState()
   const [tenant, setTenant] = useState()
   const dispatch = useDispatch()
 
   useEffect(() => {
-    setIsLoading(true)
-    
     axios.get('api/client').then(response => {
       if (response.data?.id) {
         dispatch(clientSet(response.data))
