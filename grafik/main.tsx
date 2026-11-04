@@ -1018,11 +1018,11 @@ const RequireAuth = () => {
   const [client, tenant] = useAuth()
 
   if (client) {
-    dispatch(clientSet(client)
+    dispatch(clientSet(client))
     return <Outlet />
   }
   if (tenant) {
-    dispatch(tenantSet(tenant)
+    dispatch(tenantSet(tenant))
     return <Outlet />
   }
 
