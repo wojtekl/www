@@ -993,20 +993,23 @@ const usePreferences = () => useContext(PreferencesContext)
 
 
 const useAuth = () => {
-  const [client, setClient] = useState()
-  const [tenant, setTenant] = useState()
+  //const [client, setClient] = useState()
+  //const [tenant, setTenant] = useState()
 
-  axios.get('api/client').then(response => {
+  const client = (await axios.get('api/client')).data
+  const tenant = (await axios.get('api/signin')).data
+
+  /*axios.get('api/client').then(response => {
     if (response.data?.id) {
       setClient(response.data)
     }
-  })
+  })*/
 
-  axios.get('api/signin').then(response => {
+  /*axios.get('api/signin').then(response => {
     if (response.data && !response.data.includes(';')) {
       setTenant(response.data)
     }
-  })
+  })*/
 
   return [client, tenant]
 }
