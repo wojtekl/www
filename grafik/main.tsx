@@ -993,17 +993,19 @@ const usePreferences = () => useContext(PreferencesContext)
 
 
 const useAuth = () => {
-  const [isLoading, setIsLoading] = useState(0)
+  const [isLoading, setIsLoading] = useState(false)
   const [client, setClient] = useState()
   const [tenant, setTenant] = useState()
   const dispatch = useDispatch()
 
   useEffect(() => {
+    setIsLoading(true)
+    
     axios.get('api/client').then(response => {
       if (response.data?.id) {
         dispatch(clientSet(response.data))
         setClient(response.data)
-        setIsLoading(prevState => prevState + 1)
+        setIsLoading(false)
       }
     })
 
@@ -1011,7 +1013,7 @@ const useAuth = () => {
       if (response.data && !response.data.includes(';')) {
         dispatch(tenantSet(response.data))
         setTenant(response.data)
-        setIsLoading(prevState => prevState + 1)
+        setIsLoading(false)
       }
     })
   }, [])
@@ -1025,7 +1027,7 @@ const RequireAuth = () => {
   const location = useLocation()
   const [client, tenant, isLoading] = useAuth()
 
-  if (isLoading < 2) {
+  if (isLoading) {
     return null
   }
   else {
