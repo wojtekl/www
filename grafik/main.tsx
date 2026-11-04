@@ -604,7 +604,7 @@ const Manage = () => {
   const [tenant, setTenant] = useState(useSelector(state => state.tenant))
   const [selectedTab, setSelectedTab] = useState('contactLink')
 
-  useEffect(() => {
+  /*useEffect(() => {
     axios.get('api/signin').then(response => {
       if (response.data && !response.data.includes(';')) {
         dispatch(tenantSet(response.data))
@@ -615,7 +615,7 @@ const Manage = () => {
         navigate('/signin')
       }
     })
-  }, [])
+  }, [])*/
 
   const handleSignout = () => {
     event.preventDefault()
@@ -725,7 +725,7 @@ const Signin = () => {
   
   const [signinFailure, setSigninFailure] = useState(false)
 
-  useEffect(() => {
+  /*useEffect(() => {
     axios.get('api/client').then(response => {
       if (response.data?.tenant) {
         navigate(`/${response.data.tenant}`)
@@ -737,7 +737,7 @@ const Signin = () => {
         navigate('/')
       }
     })
-  }, [])
+  }, [])*/
 
   const handleClientSubmit = (event) => {
     event.preventDefault()
