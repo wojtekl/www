@@ -1002,17 +1002,19 @@ const RequireAuth = () => {
       if (client?.id) {
         setClient(client)
         dispatch(clientSet(client))
+        return <Outlet />
       }
 
       const tenant = (await axios.get('api/signin')).data
       if (tenant && !tenant.includes(';')) {
         setTenant(tenant)
         dispatch(tenantSet(tenant))
+        return <Outlet />
       }
+
+    return <Navigate to="signin" state={{ from: location }} replace />
     }
     auth()
-
-  return !client && !tenant ? <Navigate to="signin" state={{ from: location }} replace /> : <Outlet />
 }
 
 
