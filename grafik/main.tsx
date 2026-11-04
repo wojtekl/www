@@ -992,30 +992,41 @@ const Preferences = ({ children }) => {
 const usePreferences = () => useContext(PreferencesContext)
 
 
-const RequireAuth = () => {
-  const dispatch = useDispatch()
-  const location = useLocation()
+const useAuth = () => {
   const [client, setClient] = useState()
   const [tenant, setTenant] = useState()
 
-  const auth = async () => {
-      const client = (await axios.get('api/client')).data
-      if (client?.id) {
-        setClient(client)
-        dispatch(clientSet(client))
-        return <Outlet />
-      }
-
-      const tenant = (await axios.get('api/signin')).data
-      if (tenant && !tenant.includes(';')) {
-        setTenant(tenant)
-        dispatch(tenantSet(tenant))
-        return <Outlet />
-      }
-
-    return <Navigate to="signin" state={{ from: location }} replace />
+  axios.get('api/client').then(response => {
+    if (response.data?.id) {
+      setClient(response.data)
     }
-    auth()
+  })
+
+  axios.get('api/signin').then(response => {
+    if (response.data && !response.data.includes(';')) {
+      setTenant(response.data)
+    }
+  })
+
+  return [client, tenant]
+}
+
+
+const RequireAuth = () => {
+  const dispatch = useDispatch()
+  const location = useLocation()
+  const [client, tenant] = useAuth()
+
+  if (client) {
+    dispatch(clientSet(client)
+    return <Outlet />
+  }
+  if (tenant) {
+    dispatch(tenantSet(tenant)
+    return <Outlet />
+  }
+
+  return <Navigate to="signin" state={{ from: location }} replace />
 }
 
 
