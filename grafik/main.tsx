@@ -999,8 +999,8 @@ const RequireAuth = () => {
 
   useEffect(() => {
     axios.get('api/client').then(response => {
-      if (reponse.data?.id) {
-        setClient(reponse.data)
+      if (response.data?.id) {
+        setClient(response.data)
         dispatch(clientSet(response.data))
       }
     })
