@@ -993,43 +993,50 @@ const usePreferences = () => useContext(PreferencesContext)
 
 
 const useAuth = () => {
-  //const [client, setClient] = useState()
-  //const [tenant, setTenant] = useState()
+  const [isLoading, setIsLoading] = useState()
+  const [client, setClient] = useState()
+  const [tenant, setTenant] = useState()
 
-  const client = (await axios.get('api/client')).data
-  const tenant = (await axios.get('api/signin')).data
+  //const client = (await axios.get('api/client')).data
+  //const tenant = (await axios.get('api/signin')).data
 
-  /*axios.get('api/client').then(response => {
+  axios.get('api/client').then(response => {
     if (response.data?.id) {
       setClient(response.data)
+      setIsLoading(loading => loading + 1)
     }
-  })*/
+  })
 
-  /*axios.get('api/signin').then(response => {
+  axios.get('api/signin').then(response => {
     if (response.data && !response.data.includes(';')) {
       setTenant(response.data)
+      setIsLoading(loading => loading + 1)
     }
-  })*/
+  })
 
-  return [client, tenant]
+  return [client, tenant, isLoading]
 }
 
 
 const RequireAuth = () => {
   const dispatch = useDispatch()
   const location = useLocation()
-  const [client, tenant] = useAuth()
+  const [client, tenant, isLoading] = useAuth()
 
-  if (client) {
-    dispatch(clientSet(client))
-    return <Outlet />
+  if (isLoading != 2) {
+    return null
   }
-  if (tenant) {
-    dispatch(tenantSet(tenant))
-    return <Outlet />
+  else {
+    if (client) {
+      dispatch(clientSet(client))
+      return <Outlet />
+    }
+    if (tenant) {
+      dispatch(tenantSet(tenant))
+      return <Outlet />
+    }
+    return <Navigate to="signin" state={{ from: location }} replace />
   }
-
-  return <Navigate to="signin" state={{ from: location }} replace />
 }
 
 
