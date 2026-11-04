@@ -996,10 +996,12 @@ const useAuth = () => {
   const [isLoading, setIsLoading] = useState(0)
   const [client, setClient] = useState()
   const [tenant, setTenant] = useState()
+  const dispatch = useDispatch()
 
   useEffect(() => {
     axios.get('api/client').then(response => {
       if (response.data?.id) {
+        dispatch(clientSet(client))
         setClient(response.data)
         setIsLoading(prevState => prevState + 1)
       }
@@ -1007,6 +1009,7 @@ const useAuth = () => {
 
     axios.get('api/signin').then(response => {
       if (response.data && !response.data.includes(';')) {
+        dispatch(tenantSet(tenant))
         setTenant(response.data)
         setIsLoading(prevState => prevState + 1)
       }
@@ -1018,23 +1021,18 @@ const useAuth = () => {
 
 
 const RequireAuth = () => {
-  const dispatch = useDispatch()
+  
   const location = useLocation()
-  const [client, tenant, isLoading] = useLoaderData()
+  const [client, tenant, isLoading] = useAuth()
 
   if (isLoading < 2) {
     return null
   }
   else {
-    if (client) {
-      dispatch(clientSet(client))
-      return <Outlet />
+    if (!client && !tenant) {
+      return <Navigate to="signin" state={{ from: location }} replace />
     }
-    if (tenant) {
-      dispatch(tenantSet(tenant))
-      return <Outlet />
-    }
-    return <Navigate to="signin" state={{ from: location }} replace />
+    return <Outlet />
   }
 }
 
@@ -1047,7 +1045,7 @@ root.render(<StrictMode><Provider store={store}>
     <Routes>
       <Route path="signin" element={<Signin />} />
       <Route path="password" element={<Password />} />
-      <Route element={<RequireAuth />} loader={() => useAuth()}>
+      <Route element={<RequireAuth />} />
         <Route path="/" element={<Manage />} />
         <Route path=":group" element={<Reader />} />
       </Route>
