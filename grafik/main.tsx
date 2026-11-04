@@ -993,7 +993,7 @@ const usePreferences = () => useContext(PreferencesContext)
 
 
 const useAuth = () => {
-  const [isLoading, setIsLoading] = useState()
+  const [isLoading, setIsLoading] = useState(0)
   const [client, setClient] = useState()
   const [tenant, setTenant] = useState()
 
@@ -1023,7 +1023,7 @@ const RequireAuth = () => {
   const location = useLocation()
   const [client, tenant, isLoading] = useAuth()
 
-  if (isLoading != 2) {
+  if (isLoading < 2) {
     return null
   }
   else {
