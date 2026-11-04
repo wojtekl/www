@@ -1045,7 +1045,7 @@ root.render(<StrictMode><Provider store={store}>
     <Routes>
       <Route path="signin" element={<Signin />} />
       <Route path="password" element={<Password />} />
-      <Route element={<RequireAuth />} />
+      <Route element={<RequireAuth />}>
         <Route path="/" element={<Manage />} />
         <Route path=":group" element={<Reader />} />
       </Route>
