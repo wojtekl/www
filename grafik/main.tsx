@@ -24,7 +24,7 @@ const preferencesSlice = createSlice({
   initialState: initialState,
   reducers: {
     langSet: (state, action: PayloadAction<String>) => { state.lang = action.payload },
-    tenantSet: (state, action: PayloadAction<String>) => { state.tenant = action.payload }
+    tenantSet: (state, action: PayloadAction<String>) => { state.tenant = action.payload },
     clientSet: (state, action: PayloadAction<String>) => { state.client = action.payload }
   }
 })
