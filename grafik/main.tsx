@@ -992,47 +992,78 @@ const Preferences = ({ children }) => {
 const usePreferences = () => useContext(PreferencesContext)
 
 
-const useAuth = () => {
-  const [isLoading, setIsLoading] = useState(0)
+const useClient = () => {
+  const [isLoading, setIsLoading] = useState(true)
   const [client, setClient] = useState()
-  const [tenant, setTenant] = useState()
   const dispatch = useDispatch()
 
   useEffect(() => {
+    setIsLoading(true)
     axios.get('api/client').then(response => {
       if (response.data?.id) {
         dispatch(clientSet(response.data))
         setClient(response.data)
       }
-      setIsLoading(prevState => prevState + 1)
+      setIsLoading(false)
     })
+  }, [])
 
+  return [client, isLoading]
+}
+
+
+const ClientAuth = () => {
+  const location = useLocation()
+  const [client, isLoading] = useClient()
+
+  if (isLoading) {
+    return null
+  }
+  else {
+    if (!client) {
+      return <Navigate to="signin" state={{ from: location }} replace />
+    }
+    else {
+      return <Outlet />
+    }
+  }
+}
+
+
+const useTenant = () => {
+  const [isLoading, setIsLoading] = useState(true)
+  const [tenant, setTenant] = useState()
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    setIsLoading(true)
     axios.get('api/signin').then(response => {
       if (response.data && !response.data.includes(';')) {
         dispatch(tenantSet(response.data))
         setTenant(response.data)
       }
-      setIsLoading(prevState => prevState + 1)
+      setIsLoading(false)
     })
   }, [])
 
-  return [client, tenant, isLoading]
+  return [tenant, isLoading]
 }
 
 
-const RequireAuth = () => {
-  
+const TenantAuth = () => {
   const location = useLocation()
-  const [client, tenant, isLoading] = useAuth()
+  const [tenant, isLoading] = useTenant()
 
-  if (isLoading < 2) {
+  if (isLoading) {
     return null
   }
   else {
-    if (!client && !tenant) {
+    if (!tenant) {
       return <Navigate to="signin" state={{ from: location }} replace />
     }
-    return <Outlet />
+    else {
+      return <Outlet />
+    }
   }
 }
 
@@ -1045,8 +1076,10 @@ root.render(<StrictMode><Provider store={store}>
     <Routes>
       <Route path="signin" element={<Signin />} />
       <Route path="password" element={<Password />} />
-      <Route element={<RequireAuth />}>
+      <Route element={<TenantAuth />}>
         <Route path="/" element={<Manage />} />
+      </Route>
+      <Route element={<ClientAuth />}>
         <Route path=":group" element={<Reader />} />
       </Route>
     </Routes>
