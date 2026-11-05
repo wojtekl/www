@@ -512,6 +512,7 @@ const Settings = () => {
 /* EventModal */
 const EventModal = ({ id, itemId, type, onSuccess }) => {
   const { t } = useTranslation()
+  const { setNotification } = usePreferences()
 
   useEffect(() => {
     if (!itemId) {
@@ -529,7 +530,9 @@ const EventModal = ({ id, itemId, type, onSuccess }) => {
   const handleSubmit = (form) => {
     axios.post(!itemId ? 'api/event-cd' : 'api/event', form, multiPostHeader()).then(response => {
       form.reset()
-      onSuccess()
+      if (onSuccess) {
+        onSuccess()
+      }
       setNotification('label_success')
       console.debug(response.data)
     })
@@ -559,7 +562,7 @@ const EventModal = ({ id, itemId, type, onSuccess }) => {
 
 
 /* Timeline */
-const Timeline = ({ currentWeek, settings, setSelected }) => {
+const Timeline = ({ currentWeek, settings, setSelected, client }) => {
   const { t } = useTranslation()
   const { locale } = usePreferences()
   
@@ -939,7 +942,7 @@ const Reader = () => {
         <h1 class="text-body-emphasis">{t('label_reader_header')}</h1>
         <p class="fs-5 col-md-8 mb-5">{settings?.message}</p>
         <hr class="col-3 col-md-2 mb-5"></hr>
-        <Timeline currentWeek={currentWeek} settings={settings} setSelected={setSelected} />
+        <Timeline currentWeek={currentWeek} settings={settings} setSelected={setSelected} client={client} />
       </div>
     </main>
     <footer class="text-body-secondary py-5">
