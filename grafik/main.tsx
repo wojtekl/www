@@ -33,8 +33,15 @@ const preferencesSlice = createSlice({
 })
 const { langSet, tenantSet, clientSet } = preferencesSlice.actions
 
+const persistConfig = {
+  key: 'grafik.wlap.pl',
+  storage,
+}
+
+const persistedReducer = persistReducer(persistConfig, preferencesSlice.reducer)
+
 const store = configureStore({ 
-  reducer: preferencesSlice.reducer, 
+  reducer: persistedReducer, /* preferencesSlice.reducer*/ 
   middleware: (getDefaultMiddleware) => getDefaultMiddleware({
     serializableCheck: {
       ignoredActions: ['persist/PERSIST', 'persist/REHYDRATE'],
@@ -42,13 +49,6 @@ const store = configureStore({
   }),
 })
 store.subscribe(() => localStorage.setItem('redux', JSON.stringify(store.getState())))
-
-const persistConfig = {
-  key: 'grafik.wlap.pl',
-  storage,
-}
-
-const persistedReducer = persistReducer(persistConfig, preferencesSlice.reducer)
 
 const persistor = persistStore(store)
 
