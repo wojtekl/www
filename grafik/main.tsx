@@ -35,12 +35,11 @@ const { langSet, tenantSet, clientSet } = preferencesSlice.actions
 
 const store = configureStore({ 
   reducer: preferencesSlice.reducer, 
-  middleware: (getDefaultMiddleware) => {
-    getDefaultMiddleware({
-      serializableCheck: {
-        ignoredActions: ['persist/PERSIST', 'persist/REHYDRATE'],
-    })
-  }
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware({
+    serializableCheck: {
+      ignoredActions: ['persist/PERSIST', 'persist/REHYDRATE'],
+    },
+  }),
 })
 store.subscribe(() => localStorage.setItem('redux', JSON.stringify(store.getState())))
 
