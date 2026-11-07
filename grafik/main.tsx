@@ -33,7 +33,15 @@ const preferencesSlice = createSlice({
 })
 const { langSet, tenantSet, clientSet } = preferencesSlice.actions
 
-const store = configureStore({ reducer: preferencesSlice.reducer })
+const store = configureStore({ 
+  reducer: preferencesSlice.reducer, 
+  middleware: (getDefaultMiddleware) => {
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: ['persist/PERSIST', 'persist/REHYDRATE']
+    })
+  }
+})
 store.subscribe(() => localStorage.setItem('redux', JSON.stringify(store.getState())))
 
 const persistConfig = {
@@ -1085,7 +1093,7 @@ const TenantAuth = () => {
 
 const container = document.getElementById('root')
 const root = createRoot(container)
-root.render(<StrictMode><Provider store={store}><PersistGate loading={null} persistor={persistor}>
+root.render(<StrictMode><Provider store={store}><PersistGate loading={<>{loadingStore}</>} persistor={persistor}>
   <Preferences>
   <Router>
     <Routes>
