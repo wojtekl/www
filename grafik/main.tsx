@@ -8,6 +8,9 @@ import { createStore } from 'redux'
 import { createSlice, configureStore } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 import { Provider, useSelector, useDispatch } from 'react-redux'
+import { persistStore, persistReducer } from 'redux-persist'
+import { PersistGate } from 'redux-persist/integration/react'
+import storage from 'redux-persist/lib/storage'
 import axios from 'axios'
 
 
@@ -32,6 +35,15 @@ const { langSet, tenantSet, clientSet } = preferencesSlice.actions
 
 const store = configureStore({ reducer: preferencesSlice.reducer })
 store.subscribe(() => localStorage.setItem('redux', JSON.stringify(store.getState())))
+
+const persistConfig = {
+  key: 'grafik.wlap.pl',
+  storage,
+}
+
+const persistedReducer = persistReducer(persistConfig, preferencesSlice.reducer)
+
+const persistor = persistStore(store)
 
 i18n.use(initReactI18next).init({
   resources: resources,
@@ -1073,7 +1085,7 @@ const TenantAuth = () => {
 
 const container = document.getElementById('root')
 const root = createRoot(container)
-root.render(<StrictMode><Provider store={store}>
+root.render(<StrictMode><Provider store={store}><PersistGate loading={null} persistor={persistor}>
   <Preferences>
   <Router>
     <Routes>
@@ -1088,4 +1100,4 @@ root.render(<StrictMode><Provider store={store}>
     </Routes>
   </Router>
   </Preferences>
-</Provider></StrictMode>)
+</PersistGate></Provider></StrictMode>)
