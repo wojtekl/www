@@ -1092,7 +1092,7 @@ const TenantAuth = () => {
 
 const container = document.getElementById('root')
 const root = createRoot(container)
-root.render(<StrictMode><Provider store={store}><PersistGate loading={<>{loadingStore}</>} persistor={persistor}>
+root.render(<StrictMode><Provider store={store}><PersistGate loading={<>{'loadingStore'}</>} persistor={persistor}>
   <Preferences>
   <Router>
     <Routes>
