@@ -1,6 +1,19 @@
 const clients = {
   clients: [
     {
+      "name": "Adamówka: Matki Bożej Królowej Rodzin",
+      "schedule": "",
+      "announcement": "",
+      "contact": "",
+      "other": "",
+      "live": "https://www.youtube.com/@kosciowadamowce7933/streams",
+      "week": [],
+      "sunday": ["16:30"],
+      "description": "",
+      "latitude": 0,
+      "longitude": 0
+    },
+    {
       "name": "Aleksandrów Łódźki: Parafia pw św. Archaniołów Michała, Gabriela i Rafała",
       "schedule": "https://www.parafiaarchaniolow.pl/intencje/",
       "announcement": "https://www.parafiaarchaniolow.pl/ogloszenia/",
@@ -25,6 +38,19 @@ const clients = {
       "description": "",
       "latitude": 53.71666,
       "longitude": 20.46954
+    },
+    {
+      "name": "Batorz: Parafia pw św. Stanisława Biskupa i Męczennika",
+      "schedule": "https://www.parafiabatorz.pl/intencje-mszalne/",
+      "announcement": "https://www.parafiabatorz.pl/category/ogloszenia/",
+      "contact": "https://www.parafiabatorz.pl/kontakt/kancelaria-kontakt/",
+      "other": "",
+      "live": "https://www.parafiabatorz.pl/transmisja-on-line/",
+      "week": ["06:45", "07:30"],
+      "sunday": ["07:30", "11:00", "16:00"],
+      "description": "",
+      "latitude": 0,
+      "longitude": 0
     },
     {
       "name": "Bączal Dolny: Parafia Świętego Mikołaja",
@@ -287,6 +313,19 @@ const clients = {
       "longitude": 17.991625
     },
     {
+      "name": "Bytom, Miechowice: Parafia pw Bożego Ciała",
+      "schedule": "https://www.bcmiechowice.pl/index.php?strona=porzadek",
+      "announcement": "https://www.bcmiechowice.pl/index.php?strona=ogloszenia",
+      "contact": "https://www.bcmiechowice.pl/index.php?strona=kontakt",
+      "other": "",
+      "live": "https://www.youtube.com/@parafiabozegociaawbytomiu-4448/streams",
+      "week": ["08:00", "18:00"],
+      "sunday": ["07:00", "08:30", "10:00", "11:30", "13:00", "18:00"],
+      "description": "",
+      "latitude": 0,
+      "longitude": 0
+    },
+    {
       "name": "Chełm: Parafia pw Narodzenia Najświętszej Maryi Panny",
       "schedule": "https://bazylika.net/index.php/intencje-mszalne",
       "announcement": "https://bazylika.net/index.php/ogloszenia-duszpasterskie",
@@ -493,6 +532,19 @@ const clients = {
       "description": "",
       "latitude": 50.048977,
       "longitude": 21.426467
+    },
+    {
+      "name": "Dobrzeń Wielki: Parafia pw św. Katarzyny Aleksandryjskiej",
+      "schedule": "http://www.parafia-dobrzen.pl/index.php",
+      "announcement": "http://www.parafia-dobrzen.pl/index.php",
+      "contact": "http://www.parafia-dobrzen.pl/index.php/kontakt",
+      "other": "",
+      "live": "https://www.youtube.com/@parafiadobrzenwielki6486/streams",
+      "week": ["07:00", "18:00*"],
+      "sunday": ["07:00", "09:00", "11:00"],
+      "description": "",
+      "latitude": 0,
+      "longitude": 0
     },
     {
       "name": "Działoszyn: Parafia pw św. Marii Magdaleny",
@@ -1429,6 +1481,19 @@ const clients = {
       "description": "",
       "latitude": 50.062098,
       "longitude": 19.948838
+    },
+    {
+      "name": "Kraków: Parafia pw św. Franciszka z Asyżu",
+      "schedule": "",
+      "announcement": "",
+      "contact": "https://franciszkanska.pl/",
+      "other": "",
+      "live": "https://www.youtube.com/@Bazylika%C5%9Bw.Franciszka/streams",
+      "week": ["16:30", "18:00", "19:00"],
+      "sunday": ["09:30", "11:00", "12:00", "16:30", "19:00"],
+      "description": "",
+      "latitude": 0,
+      "longitude": 0
     },
     {
       "name": "Kraków, Nowa Huta: Parafia Matki Bożej Królowej Polski",
@@ -2574,6 +2639,19 @@ const clients = {
       "longitude": 20.715972
     },
     {
+      "name": "Pilzno: Parafia pw św. Jana Chrzciciela",
+      "schedule": "https://www.parafia-pilzno.pl/?page_id=2286",
+      "announcement": "https://www.parafia-pilzno.pl/",
+      "contact": "https://www.parafia-pilzno.pl/?page_id=2413",
+      "other": "",
+      "live": "https://www.youtube.com/@parafiapilzno7705/streams",
+      "week": ["06:30", "07:00", "18:00"],
+      "sunday": ["06:30", "08:80", "09:00", "10:30", "12:00", "18:00"],
+      "description": "",
+      "latitude": 0,
+      "longitude": 0
+    },
+    {
       "name": "Pleśna: Parafia pw Wniebowzięcia NMP",
       "schedule": "https://plesna.diecezjatarnow.pl/intencje",
       "announcement": "https://plesna.diecezjatarnow.pl/ogloszenia",
@@ -2728,6 +2806,19 @@ const clients = {
       "description": "",
       "latitude": 49.804657,
       "longitude": 18.603684
+    },
+    {
+      "name": "Poznań: Parafia pw św. Jadwigi Królowej",
+      "schedule": "",
+      "announcement": "",
+      "contact": "https://jadwiga.poznan.pl/",
+      "other": "",
+      "live": "https://www.youtube.com/@parafiapw.sw.jadwigikrolow9071/streams",
+      "week": ["08:00", "18:00"],
+      "sunday": ["08:00", "09:30", "11:00", "12:30", "19:00*"],
+      "description": "",
+      "latitude": 0,
+      "longitude": 0
     },
     {
       "name": "Pruszków: Parafia pw św. Kazimierza",
@@ -3809,6 +3900,32 @@ const clients = {
       "longitude": 18.58034
     },
     {
+      "name": "Toruń: Parafia pw Matki Bożej Zwycięzkiej",
+      "schedule": "https://mbzwycieska.diecezjatorun.pl/",
+      "announcement": "https://mbzwycieska.diecezjatorun.pl/",
+      "contact": "https://mbzwycieska.diecezjatorun.pl/lokalizacja/",
+      "other": "",
+      "live": "https://www.youtube.com/@MBZTorun",
+      "week": ["08:00", "18:00"],
+      "sunday": ["07:00", "08:30", "10:00", "11:30", "13:00", "15:00", "18:00"],
+      "description": "",
+      "latitude": 0,
+      "longitude": 0
+    },
+    {
+      "name": "Toruń, Czerniewice: Parafia pw Matki Bożej Łaskawej",
+      "schedule": "https://parafiaczerniewice.pl/intencje/intencje.html",
+      "announcement": "https://parafiaczerniewice.pl/ogloszenia/ogloszenia.html",
+      "contact": "https://parafiaczerniewice.pl/kontakt/kontakt.html",
+      "other": "",
+      "live": "https://www.youtube.com/@parafiaczerniewice/streams",
+      "week": ["08:00*", "18:00*"],
+      "sunday": ["08:00", "10:00", "12:00"],
+      "description": "",
+      "latitude": 0,
+      "longitude": 0
+    },
+    {
       "name": "Trzemeśnia: Parafia pw św. Klemensa Papieża i Męczennika",
       "schedule": "https://parafia-trzemesnia.pl/index.php/msze-swiete/intencje",
       "announcement": "https://parafia-trzemesnia.pl/index.php/ogloszenia/ogloszenia-parafialne",
@@ -3859,6 +3976,19 @@ const clients = {
       "description": "",
       "latitude": 50.133342,
       "longitude": 19.017203
+    },
+    {
+      "name": "Tymbark: Parafia pw Narodzenia Najświętszej Maryi Panny",
+      "schedule": "https://tymbark.diecezjatarnow.pl/intencje-mszalne/",
+      "announcement": "https://tymbark.diecezjatarnow.pl/ogloszenia/",
+      "contact": "https://tymbark.diecezjatarnow.pl/kontakt/",
+      "other": "",
+      "live": "https://www.youtube.com/@parafiatymbark2017/streams",
+      "week": ["06:30*", "07:00", "17:00*"],
+      "sunday": ["07:00", "08:30", "10:00", "11:30", "17:00*"],
+      "description": "",
+      "latitude": 0,
+      "longitude": 0
     },
     {
       "name": "Tyszowce: Parafia św. Leonarda",
