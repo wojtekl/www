@@ -235,6 +235,19 @@ const clients = {
       "longitude": 20.608056
     },
     {
+      "name": "Brzeźce: Parafia pw Matki Bożej Szkaplerznej",
+      "schedule": "",
+      "announcement": "",
+      "contact": "https://www.parafiabrzezce.pl/",
+      "other": "",
+      "live": "https://www.youtube.com/@parafiambszkaplerznejbrzez4455/streams",
+      "week": ["18:00*"],
+      "sunday": ["08:00", "10:30", "15:00"],
+      "description": "",
+      "latitude": 0,
+      "longitude": 0
+    },
+    {
       "name": "Brzęczkowice: Parafia Matki Boskiej Bolesnej",
       "schedule": "https://parafiabrzeczkowice.pl/intencje/",
       "announcement": "https://parafiabrzeczkowice.pl/ogloszenia/",
@@ -716,6 +729,19 @@ const clients = {
       "longitude": 18.494019
     },
     {
+      "name": "Gierałtowice: Parafia pw Matki Bożej Szkaplerznej",
+      "schedule": "",
+      "announcement": "",
+      "contact": "https://szkaplerznej.pl/",
+      "other": "",
+      "live": "https://www.youtube.com/@ParafiaSzkaplerznej/streams",
+      "week": ["06:30", "18:00*"],
+      "sunday": ["07:00", "09:00", "11:00", "16:00"],
+      "description": "",
+      "latitude": 0,
+      "longitude": 0
+    },
+    {
       "name": "Giewartów: Parafia pw Podwyższenia Krzyża Świętego",
       "schedule": "https://giewartow.eu/aktualnosci/intencje/",
       "announcement": "https://giewartow.eu/aktualnosci/ogloszenia-parafialne/",
@@ -961,6 +987,19 @@ const clients = {
       "description": "",
       "latitude": 49.685184,
       "longitude": 22.030005
+    },
+    {
+      "name": "Imielin: Parafia pw Matki Boskiej Szkaplerznej",
+      "schedule": "",
+      "announcement": "",
+      "contact": "https://www.imielin.katowice.opoka.org.pl/",
+      "other": "",
+      "live": "https://www.imielin.katowice.opoka.org.pl/transmisja",
+      "week": ["07:00", "18:00"],
+      "sunday": ["06:30", "08:00", "09:30", "11:00", "16:00"],
+      "description": "",
+      "latitude": 0,
+      "longitude": 0
     },
     {
       "name": "Iwkowa: Parafia Podwyższenia Krzyża Św.",
@@ -3640,6 +3679,19 @@ const clients = {
       "longitude": 18.301415
     },
     {
+      "name": "Strzelce Wielkie: Parafia pw św. Sebastiana",
+      "schedule": "",
+      "announcement": "",
+      "contact": "https://parafia-strzelce.pl/kontakt.html",
+      "other": "",
+      "live": "https://www.youtube.com/@StrzelceTV/streams",
+      "week": ["06:30"],
+      "sunday": ["07:30", "09:00", "10:30"],
+      "description": "",
+      "latitude": 0,
+      "longitude": 0
+    },
+    {
       "name": "Syców: Parafia pw MB Częstochowskiej",
       "schedule": "http://www.parafiambcsycow.pl/?intencje-mszalne,3#page",
       "announcement": "http://www.parafiambcsycow.pl/#page",
@@ -3755,6 +3807,19 @@ const clients = {
       "description": "",
       "latitude": 53.906127,
       "longitude": 14.229231
+    },
+    {
+      "name": "Tarnów: Parafia pw Matki Bożej Szkaplerznej",
+      "schedule": "",
+      "announcement": "",
+      "contact": "https://www.mbsz.diecezja.tarnow.pl/",
+      "other": "",
+      "live": "https://www.youtube.com/@parafiambszkaplerznejwtarn8549/streams",
+      "week": ["06:30", "07:30", "18:30*"],
+      "sunday": ["08:00", "10:30", "18:30"],
+      "description": "",
+      "latitude": 0,
+      "longitude": 0
     },
     {
       "name": "Tarnów, Mościce: Parafia pw Najświętszej Maryi Panny Królowej Polski",
