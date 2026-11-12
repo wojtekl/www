@@ -149,7 +149,7 @@ const clients = {
       "announcement": "https://www.komorowice.bielsko.pl/aktualnosci/ogloszenia/",
       "contact": "https://www.komorowice.bielsko.pl/kontakt/",
       "other": "https://www.komorowice.bielsko.pl/cmentarz-2/",
-      "live": "https://www.youtube.com/@komorowice.bielsko/featured",
+      "live": "https://www.youtube.com/watch?v=vOggE1CaNbo",
       "week": ["06:30", "08:15", "18:00"],
       "sunday": ["06:30", "07:30", "09:00", "10:30", "12:00", "16:30", "18:00"],
       "description": "",
@@ -1392,6 +1392,19 @@ const clients = {
       "longitude": 18.91859
     },
     {
+      "name": "Kobielice: Parafia pw Najświętszej Maryi Panny Królowej Polski",
+      "schedule": "",
+      "announcement": "",
+      "contact": "https://www.parafiakobielice.pl/index.php",
+      "other": "",
+      "live": "https://www.parafiakobielice.pl/transmisja-na-zywo.html",
+      "week": ["07:00w", "08:00*", "17:00t", "18:00*"],
+      "sunday": ["08:00", "10:30", "16:00"],
+      "description": "",
+      "latitude": 0,
+      "longitude": 0
+    },
+    {
       "name": "Kodeń: Sanktuarium Maryjne",
       "schedule": "https://koden.com.pl/intencje-2/",
       "announcement": "https://koden.com.pl/biuro-parafialne/ogloszenia/",
@@ -1546,6 +1559,19 @@ const clients = {
       "description": "",
       "latitude": 50.084990,
       "longitude": 20.029321
+    },
+    {
+      "name": "Kraków, Olszanica: Parafia pw Matki Bożej Częstochowskiej",
+      "schedule": "",
+      "announcement": "",
+      "contact": "http://parafiaolszanica.kapucyni.pl/",
+      "other": "",
+      "live": "https://parafiaolszanica.kapucyni.pl/15072-2/",
+      "week": ["18:30"],
+      "sunday": ["07:00", "08:30", "10:00", "11:30", "18:00"],
+      "description": "",
+      "latitude": 0,
+      "longitude": 0
     },
     {
       "name": "Kraków, Opatkowice: Parafia św. Maksymiliana",
@@ -3040,6 +3066,19 @@ const clients = {
       "description": "",
       "latitude": 49.647002,
       "longitude": 19.128107
+    },
+    {
+      "name": "Radzionków: Parafia pw św. Wojciecha Biskupa i Męczennika",
+      "schedule": "",
+      "announcement": "",
+      "contact": "https://www.parafia.radzionkow.pl/parafia/",
+      "other": "",
+      "live": "https://www.youtube.com/@parafiasw.wojciechawradzio1745/streams",
+      "week": ["06:30", "07:30", "18:00"],
+      "sunday": ["06:00", "08:00", "10:00", "12:00", "17:00", "20:00"],
+      "description": "",
+      "latitude": 0,
+      "longitude": 0
     },
     {
       "name": "Rawa Mazowiecka: Parafia pw Jezusa Chrystusa Króla Wszechświata",
