@@ -144,6 +144,19 @@ const clients = {
       "longitude": 23.122541
     },
     {
+      "name": "Bielsko-Biała, Hałcnów: Matki Bożej Bolesnej",
+      "schedule": "",
+      "announcement": "",
+      "contact": "https://parafiahalcnow.pl/",
+      "other": "",
+      "live": "https://www.youtube.com/@BazylikaHacnow/streams",
+      "week": ["06:30*", "07:15", "18:15"],
+      "sunday": ["06:15", "07:30", "09:15", "10:30", "12:15", "18:15"],
+      "description": "",
+      "latitude": 0,
+      "longitude": 0
+    },
+    {
       "name": "Bielsko-Biała, Komorowice: Parafia św. Jana Chrzciciela",
       "schedule": "https://www.komorowice.bielsko.pl/aktualnosci/intencje/",
       "announcement": "https://www.komorowice.bielsko.pl/aktualnosci/ogloszenia/",
@@ -1249,6 +1262,19 @@ const clients = {
       "longitude": 18.968453
     },
     {
+      "name": "Katowice, SCC: Parafia pw św. Barbary",
+      "schedule": "",
+      "announcement": "",
+      "contact": "https://kaplicaswbarbary.pl/",
+      "other": "",
+      "live": "https://www.youtube.com/channel/UCKaMn4FXbJrXzw9wUCUoxfw/live",
+      "week": ["19:00*"],
+      "sunday": ["09:00", "19:00"],
+      "description": "",
+      "latitude": 0,
+      "longitude": 0
+    },
+    {
       "name": "Katowice, Załęże: Parafia pw św. Józefa",
       "schedule": "http://parafiazaleze.pl/wp-content/uploads/2020/03/i_swjozefzaleze.pdf",
       "announcement": "http://parafiazaleze.pl/wp-content/uploads/2020/03/od_swjozefzaleze.pdf",
@@ -1444,14 +1470,14 @@ const clients = {
       "longitude": 17.27695
     },
     {
-      "name": "Koszalin: Parafia pw św. Matki Teresy z Kalkuty",
+      "name": "Koszalin, Jamno: Parafia pw św. Matki Teresy z Kalkuty",
       "schedule": "https://parafiamatkiteresyzkalkuty.pl/#msze",
       "announcement": "https://parafiamatkiteresyzkalkuty.pl/#ogloszenia",
       "contact": "https://parafiamatkiteresyzkalkuty.pl/#parafia",
       "other": "",
-      "live": "https://www.youtube.com/watch?v=V-u0DtpuE6c",
+      "live": "https://www.youtube.com/@parafiasw.matkiteresyzkalk4905/streams",
       "week": ["18:00*"],
-      "sunday": ["08:00", "11:30", "13:00", "18:00"],
+      "sunday": ["10:00"],
       "description": "",
       "latitude": 54.219140,
       "longitude": 16.175440
