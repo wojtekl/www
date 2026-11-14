@@ -1,7 +1,7 @@
 const clients = {
   clients: [
     {
-      "name": "Adamówka: Matki Bożej Królowej Rodzin",
+      "name": "Adamówka: Matki Bożej Królowej Rodziny",
       "schedule": "",
       "announcement": "",
       "contact": "",
@@ -10,8 +10,8 @@ const clients = {
       "week": [],
       "sunday": ["16:30"],
       "description": "",
-      "latitude": 0,
-      "longitude": 0
+      "latitude": 50.254984,
+      "longitude": 22.695329
     },
     {
       "name": "Aleksandrów Łódźki: Parafia pw św. Archaniołów Michała, Gabriela i Rafała",
@@ -49,8 +49,8 @@ const clients = {
       "week": ["06:45", "07:30"],
       "sunday": ["07:30", "11:00", "16:00"],
       "description": "",
-      "latitude": 0,
-      "longitude": 0
+      "latitude": 50.846990,
+      "longitude": 22.492560
     },
     {
       "name": "Bączal Dolny: Parafia Świętego Mikołaja",
@@ -153,8 +153,8 @@ const clients = {
       "week": ["06:30*", "07:15", "18:15"],
       "sunday": ["06:15", "07:30", "09:15", "10:30", "12:15", "18:15"],
       "description": "",
-      "latitude": 0,
-      "longitude": 0
+      "latitude": 49.849483,
+      "longitude": 19.092001
     },
     {
       "name": "Bielsko-Biała, Komorowice: Parafia św. Jana Chrzciciela",
@@ -257,8 +257,8 @@ const clients = {
       "week": ["18:00*"],
       "sunday": ["08:00", "10:30", "15:00"],
       "description": "",
-      "latitude": 0,
-      "longitude": 0
+      "latitude": 49.984474,
+      "longitude": 18.832313
     },
     {
       "name": "Brzęczkowice: Parafia Matki Boskiej Bolesnej",
@@ -348,8 +348,8 @@ const clients = {
       "week": ["08:00", "18:00"],
       "sunday": ["07:00", "08:30", "10:00", "11:30", "13:00", "18:00"],
       "description": "",
-      "latitude": 0,
-      "longitude": 0
+      "latitude": 50.364985,
+      "longitude": 18.850197
     },
     {
       "name": "Chełm: Parafia pw Narodzenia Najświętszej Maryi Panny",
@@ -569,8 +569,8 @@ const clients = {
       "week": ["17:30"],
       "sunday": ["09:00", "11:00"],
       "description": "",
-      "latitude": 0,
-      "longitude": 0
+      "latitude": 53.354029,
+      "longitude": 15.429496
     },
     {
       "name": "Dobrzeń Wielki: Parafia pw św. Katarzyny Aleksandryjskiej",
@@ -582,8 +582,8 @@ const clients = {
       "week": ["07:00", "18:00*"],
       "sunday": ["07:00", "09:00", "11:00"],
       "description": "",
-      "latitude": 0,
-      "longitude": 0
+      "latitude": 50.760674,
+      "longitude": 17.844796
     },
     {
       "name": "Działoszyn: Parafia pw św. Marii Magdaleny",
@@ -764,8 +764,8 @@ const clients = {
       "week": ["06:30", "18:00*"],
       "sunday": ["07:00", "09:00", "11:00", "16:00"],
       "description": "",
-      "latitude": 0,
-      "longitude": 0
+      "latitude": 50.223181,
+      "longitude": 18.727047
     },
     {
       "name": "Giewartów: Parafia pw Podwyższenia Krzyża Świętego",
@@ -989,6 +989,19 @@ const clients = {
       "longitude": 22.073781
     },
     {
+      "name": "Grodno: Parafia pw św. Franciszka Ksawerego",
+      "schedule": "",
+      "announcement": "",
+      "contact": "https://katedra-grodno.by/",
+      "other": "",
+      "live": "https://www.youtube.com/watch?v=rxPnLMj_Ogs",
+      "week": ["05:00", "06:00", "07:00", "10:00", "17:00"],
+      "sunday": ["05:00", "07:00", "08:30", "10:00", "14:30", "17:00"],
+      "description": "",
+      "latitude": 53.678197,
+      "longitude": 23.831518
+    },
+    {
       "name": "Hajnówka: Parafia Rzymskokatolicka pw. Podwyższenia Krzyża Świętego",
       "schedule": "http://www.farahajnowka.pl/page/view/43/#text-news",
       "announcement": "http://www.farahajnowka.pl/ogloszenia/#text-news",
@@ -1024,8 +1037,8 @@ const clients = {
       "week": ["07:00", "18:00"],
       "sunday": ["06:30", "08:00", "09:30", "11:00", "16:00"],
       "description": "",
-      "latitude": 0,
-      "longitude": 0
+      "latitude": 50.145972,
+      "longitude": 19.186683
     },
     {
       "name": "Iwkowa: Parafia Podwyższenia Krzyża Św.",
@@ -1284,8 +1297,8 @@ const clients = {
       "week": ["19:00*"],
       "sunday": ["09:00", "19:00"],
       "description": "",
-      "latitude": 0,
-      "longitude": 0
+      "latitude": 50.269302,
+      "longitude": 19.005409
     },
     {
       "name": "Katowice, Załęże: Parafia pw św. Józefa",
@@ -1440,8 +1453,8 @@ const clients = {
       "week": ["07:00w", "08:00*", "17:00t", "18:00*"],
       "sunday": ["08:00", "10:30", "16:00"],
       "description": "",
-      "latitude": 0,
-      "longitude": 0
+      "latitude": 50.012690,
+      "longitude": 18.858697
     },
     {
       "name": "Kodeń: Sanktuarium Maryjne",
@@ -1583,8 +1596,8 @@ const clients = {
       "week": ["16:30", "18:00", "19:00"],
       "sunday": ["09:30", "11:00", "12:00", "16:30", "19:00"],
       "description": "",
-      "latitude": 0,
-      "longitude": 0
+      "latitude": 50.059221,
+      "longitude": 19.936092
     },
     {
       "name": "Kraków, Nowa Huta: Parafia Matki Bożej Królowej Polski",
@@ -1609,8 +1622,8 @@ const clients = {
       "week": ["18:30"],
       "sunday": ["07:00", "08:30", "10:00", "11:30", "18:00"],
       "description": "",
-      "latitude": 0,
-      "longitude": 0
+      "latitude": 50.072168,
+      "longitude": 19.833992
     },
     {
       "name": "Kraków, Opatkowice: Parafia św. Maksymiliana",
@@ -2752,8 +2765,8 @@ const clients = {
       "week": ["06:30", "07:00", "18:00"],
       "sunday": ["06:30", "08:80", "09:00", "10:30", "12:00", "18:00"],
       "description": "",
-      "latitude": 0,
-      "longitude": 0
+      "latitude": 49.979417,
+      "longitude": 21.291378
     },
     {
       "name": "Pleśna: Parafia pw Wniebowzięcia NMP",
@@ -2921,8 +2934,8 @@ const clients = {
       "week": ["08:00", "18:00"],
       "sunday": ["08:00", "09:30", "11:00", "12:30", "19:00*"],
       "description": "",
-      "latitude": 0,
-      "longitude": 0
+      "latitude": 52.474253,
+      "longitude": 16.938399
     },
     {
       "name": "Pruszków: Parafia pw św. Kazimierza",
@@ -3116,8 +3129,8 @@ const clients = {
       "week": ["06:30", "07:30", "18:00"],
       "sunday": ["06:00", "08:00", "10:00", "12:00", "17:00", "20:00"],
       "description": "",
-      "latitude": 0,
-      "longitude": 0
+      "latitude": 50.403369,
+      "longitude": 18.907109
     },
     {
       "name": "Rawa Mazowiecka: Parafia pw Jezusa Chrystusa Króla Wszechświata",
@@ -3760,14 +3773,14 @@ const clients = {
       "name": "Strzelce Wielkie: Parafia pw św. Sebastiana",
       "schedule": "",
       "announcement": "",
-      "contact": "https://parafia-strzelce.pl/kontakt.html",
+      "contact": "https://sites.google.com/view/strzelce-wielkie/strona-g%C5%82%C3%B3wna",
       "other": "",
       "live": "https://www.youtube.com/@StrzelceTV/streams",
       "week": ["06:30"],
       "sunday": ["07:30", "09:00", "10:30"],
       "description": "",
-      "latitude": 0,
-      "longitude": 0
+      "latitude": 50.102443,
+      "longitude": 20.579064
     },
     {
       "name": "Syców: Parafia pw MB Częstochowskiej",
@@ -3818,8 +3831,8 @@ const clients = {
       "week": ["07:00", "18:00"],
       "sunday": ["07:00", "09:00", "10:30", "12:00", "14:00", "18:00", "20:00w"],
       "description": "",
-      "latitude": 0,
-      "longitude": 0
+      "latitude": 53.380428,
+      "longitude": 14.633623
     },
     {
       "name": "Szczekociny: Parafia Św. Bartłomieja",
@@ -3909,8 +3922,8 @@ const clients = {
       "week": ["06:30", "07:30", "18:30*"],
       "sunday": ["08:00", "10:30", "18:30"],
       "description": "",
-      "latitude": 0,
-      "longitude": 0
+      "latitude": 50.008828,
+      "longitude": 20.988213
     },
     {
       "name": "Tarnów, Mościce: Parafia pw Najświętszej Maryi Panny Królowej Polski",
@@ -4065,8 +4078,8 @@ const clients = {
       "week": ["08:00", "18:00"],
       "sunday": ["07:00", "08:30", "10:00", "11:30", "13:00", "15:00", "18:00"],
       "description": "",
-      "latitude": 0,
-      "longitude": 0
+      "latitude": 53.022302,
+      "longitude": 18.609571
     },
     {
       "name": "Toruń, Czerniewice: Parafia pw Matki Bożej Łaskawej",
@@ -4078,8 +4091,8 @@ const clients = {
       "week": ["08:00*", "18:00*"],
       "sunday": ["08:00", "10:00", "12:00"],
       "description": "",
-      "latitude": 0,
-      "longitude": 0
+      "latitude": 52.975108,
+      "longitude": 18.684383
     },
     {
       "name": "Trzemeśnia: Parafia pw św. Klemensa Papieża i Męczennika",
@@ -4143,8 +4156,8 @@ const clients = {
       "week": ["06:30*", "07:00", "17:00*"],
       "sunday": ["07:00", "08:30", "10:00", "11:30", "17:00*"],
       "description": "",
-      "latitude": 0,
-      "longitude": 0
+      "latitude": 49.729025,
+      "longitude": 20.323943
     },
     {
       "name": "Tyszowce: Parafia św. Leonarda",
