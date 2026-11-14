@@ -560,6 +560,19 @@ const clients = {
       "longitude": 21.426467
     },
     {
+      "name": "Dobrzany: Parafia pw św. Michała Archanioła",
+      "schedule": "",
+      "announcement": "",
+      "contact": "https://www.parafiadobrzany.com/",
+      "other": "",
+      "live": "https://www.parafiadobrzany.com/transmisja-na-%C5%BCywo",
+      "week": ["17:30"],
+      "sunday": ["09:00", "11:00"],
+      "description": "",
+      "latitude": 0,
+      "longitude": 0
+    },
+    {
       "name": "Dobrzeń Wielki: Parafia pw św. Katarzyny Aleksandryjskiej",
       "schedule": "http://www.parafia-dobrzen.pl/index.php",
       "announcement": "http://www.parafia-dobrzen.pl/index.php",
@@ -3794,6 +3807,19 @@ const clients = {
       "description": "",
       "latitude": 52.608446,
       "longitude": 16.581290
+    },
+    {
+      "name": "Szczecin: Parafia pw Świętego Ducha",
+      "schedule": "",
+      "announcement": "",
+      "contact": "http://parafiazdroje.pl/",
+      "other": "",
+      "live": "https://www.youtube.com/@ParafiaZdrojeSzczecin/streams",
+      "week": ["07:00", "18:00"],
+      "sunday": ["07:00", "09:00", "10:30", "12:00", "14:00", "18:00", "20:00w"],
+      "description": "",
+      "latitude": 0,
+      "longitude": 0
     },
     {
       "name": "Szczekociny: Parafia Św. Bartłomieja",
