@@ -1093,6 +1093,19 @@ const clients = {
       "longitude": 17.501626
     },
     {
+      "name": "Jasienica: św. Jerzego",
+      "schedule": "",
+      "announcement": "",
+      "contact": "https://parafiajasienica.eu/",
+      "other": "https://parafiajasienica.eu/2025/08/04/cmentarze-2/",
+      "live": "https://www.youtube.com/@ParafiaJasienica/streams",
+      "week": ["07:00*", "17:00"],
+      "sunday": ["07:00", "08:30", "10:00", "11:30", "17:00"],
+      "description": "",
+      "latitude": 49.817591,
+      "longitude": 18.923634
+    },
+    {
       "name": "Jasienica: Parafia pw św. Rocha",
       "schedule": "https://parafiajasienica.kylos.pl/nowajasienica/index.php/porzadek-mszy-sw-i-nabozenstw",
       "announcement": "https://parafiajasienica.kylos.pl/nowajasienica/index.php/ogloszenia",
@@ -1600,6 +1613,45 @@ const clients = {
       "longitude": 19.936092
     },
     {
+      "name": "Kraków: Zesłania Ducha Świętego",
+      "schedule": "",
+      "announcement": "",
+      "contact": "https://www.ruczaj.diecezja.pl/index.php",
+      "other": "",
+      "live": "https://www.youtube.com/@parafiazeslaniaduchaswkrk/videos",
+      "week": ["06:30", "07:00", "18:00"],
+      "sunday": ["07:15", "08:30", "10:00", "11:30", "13:00", "16:00", "18:00", "19:30"],
+      "description": "",
+      "latitude": 50.027848,
+      "longitude": 19.916451
+    },
+    {
+      "name": "Kraków, Bronowickie: św. Wojciecha",
+      "schedule": "",
+      "announcement": "",
+      "contact": "https://swwojciech.com/",
+      "other": "",
+      "live": "https://www.youtube.com/@parafiap.w.sw.wojciechawkr4696",
+      "week": ["06:30a", "07:00", "18:00"],
+      "sunday": ["07:30", "09:00", "10:30", "12:00", "13:15", "18:00"],
+      "description": "",
+      "latitude": 50.074360,
+      "longitude": 19.895312
+    },
+    {
+      "name": "Kraków, Kliny Zacisze: św. Rafała Kalinowskiego",
+      "schedule": "",
+      "announcement": "",
+      "contact": "http://www.kalinowski.malopolska.pl/",
+      "other": "",
+      "live": "https://www.youtube.com/@parafiap.w.sw.rafaakalinow3011/streams",
+      "week": ["07:00", "18:30"],
+      "sunday": ["08:00", "10:00", "12:00", "18:30"],
+      "description": "",
+      "latitude": 49.998855,
+      "longitude": 19.894253
+    },
+    {
       "name": "Kraków, Nowa Huta: Parafia Matki Bożej Królowej Polski",
       "schedule": "https://www.arkapana.pl/index.php/parafia/msze-swiete-i-nabozenstwa.html#sp-component",
       "announcement": "https://www.arkapana.pl/index.php/aktualnosci/ogloszenia-parafialne.html#sp-component",
@@ -1668,7 +1720,7 @@ const clients = {
       "name": "Kraków, Krowodrza: Parafia pw św. Jadwigi Królowej",
       "schedule": "https://swietajadwiga.diecezja.pl/kalendarz",
       "announcement": "https://swietajadwiga.diecezja.pl/ogloszenia",
-      "contact": "https://swietajadwiga.diecezja.pl/kontakt",
+      "contact": "https://jadwiga.eparafia.pl/",
       "other": "",
       "live": "https://www.youtube.com/watch?v=MUmnnP_gCWE",
       "week": ["06:30", "07:00", "08:00", "18:30"],
@@ -1676,6 +1728,19 @@ const clients = {
       "description": "",
       "latitude": 50.084023,
       "longitude": 19.922740
+    },
+    {
+      "name": "Kraków, Swoszowice: Opatrzności Bożej",
+      "schedule": "",
+      "announcement": "",
+      "contact": "https://opatrznosc.net/index.php",
+      "other": "",
+      "live": "https://www.youtube.com/@parafiaopatrznoscibozejkra8207/streams",
+      "week": ["07:00", "08:00s", "18:30"],
+      "sunday": ["08:00", "10:00", "12:00", "18:30"],
+      "description": "",
+      "latitude": 49.994088,
+      "longitude": 19.933657
     },
     {
       "name": "Kraków, Wzgórza: Parafia pw Miłosierdzia Bożego",
@@ -3131,6 +3196,19 @@ const clients = {
       "description": "",
       "latitude": 50.403369,
       "longitude": 18.907109
+    },
+    {
+      "name": "Radzymin: Przemienienia Pańskiego",
+      "schedule": "",
+      "announcement": "",
+      "contact": "https://parafiaradzymin.waw.pl/",
+      "other": "",
+      "live": "https://www.youtube.com/@ParafiaRadzyminwaw/featured",
+      "week": ["07:00", "08:00", "18:00"],
+      "sunday": ["07:00", "08:30", "10:00", "11:30", "13:00", "18:00", "19:30"],
+      "description": "",
+      "latitude": 52.418110,
+      "longitude": 21.182209
     },
     {
       "name": "Rawa Mazowiecka: Parafia pw Jezusa Chrystusa Króla Wszechświata",
