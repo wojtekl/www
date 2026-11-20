@@ -378,6 +378,19 @@ const clients = {
       "longitude": 23.472070
     },
     {
+      "name": "Chicago: Najświętszego Serca Pana Jezusa",
+      "schedule": "",
+      "announcement": "",
+      "contact": "https://jezuici.org/",
+      "other": "",
+      "live": "https://www.youtube.com/@jezuicichicago8629/streams",
+      "week": ["15:00", "01:00*", "02:00"],
+      "sunday": ["15:00", "16:30", "18:00", "20:00", "02:00", "03:30"],
+      "description": "",
+      "latitude": 41.952908,
+      "longitude": -87.773286
+    },
+    {
       "name": "Chodzież: Parafia pw św. Floriana",
       "schedule": "https://florianchodziez.pl/index.php/intencje-mszalne/#jm-maincontent",
       "announcement": "https://florianchodziez.pl/index.php/ogloszenia-parafialne/#jm-maincontent",
@@ -597,6 +610,19 @@ const clients = {
       "description": "",
       "latitude": 51.117684,
       "longitude": 18.860218
+    },
+    {
+      "name": "Dziekanowice: Macierzyństwa NMP",
+      "schedule": "",
+      "announcement": "",
+      "contact": "https://www.dziekanowice.pl/",
+      "other": "",
+      "live": "https://www.youtube.com/@sanktuariummacierzynstwanm7549/streams",
+      "week": ["07:00", "18:00"],
+      "sunday": ["07:00", "09:00", "11:00", "16:00"],
+      "description": "",
+      "latitude": 49.901207,
+      "longitude": 20.099176
     },
     {
       "name": "Dziewkowice: Parafia pw św. Joachima i św. Anny",
@@ -937,6 +963,19 @@ const clients = {
       "longitude": 18.504793
     },
     {
+      "name": "Górecko Kościelne: Św. Stanisława",
+      "schedule": "",
+      "announcement": "",
+      "contact": "http://gorecko.pl/",
+      "other": "http://mogily.pl/goreckokoscielne",
+      "live": "https://gorecko.pl/transmisja/",
+      "week": ["17:00"],
+      "sunday": ["08:00", "10:00", "12:00"],
+      "description": "",
+      "latitude": 50.500942,
+      "longitude": 22.972635
+    },
+    {
       "name": "Górki Śląskie: Parafia pw Dobrego Pasterza",
       "schedule": "https://www.dobrypasterz.com.pl/index.php/intencje",
       "announcement": "https://www.dobrypasterz.com.pl/index.php/ogloszenia",
@@ -994,8 +1033,8 @@ const clients = {
       "announcement": "",
       "contact": "https://katedra-grodno.by/",
       "other": "",
-      "live": "https://www.youtube.com/watch?v=rxPnLMj_Ogs",
-      "week": ["05:00", "06:00", "07:00", "10:00", "17:00"],
+      "live": "https://www.youtube.com/@grodnokatedra4463/streams",
+      "week": ["05:00", "06:00", "07:00", "10:00", "16:00"],
       "sunday": ["05:00", "07:00", "08:30", "10:00", "14:30", "17:00"],
       "description": "",
       "latitude": 53.678197,
@@ -3510,6 +3549,19 @@ const clients = {
       "longitude": 21.973485
     },
     {
+      "name": "Rzeszów: Podwyższenia Krzyża Świętego",
+      "schedule": "",
+      "announcement": "",
+      "contact": "https://podwyzszenie.pl/",
+      "other": "",
+      "live": "https://www.youtube.com/@parafiapodwyzszeniakrzyzas4737/streams",
+      "week": ["06:30", "18:00"],
+      "sunday": ["07:00", "08:30", "10:00", "11:30", "12:45", "18:00"],
+      "description": "",
+      "latitude": 50.047768,
+      "longitude": 21.978136
+    },
+    {
       "name": "Rzeszów, Słocina: Parafia św. Rocha",
       "schedule": "https://roch.rzeszow.pl/category/intencje/#main",
       "announcement": "https://roch.rzeszow.pl/category/ogloszenia/#main",
@@ -3801,8 +3853,8 @@ const clients = {
       "announcement": "https://strachocina.przemyska.pl/index.php?id=3&subpage=1",
       "contact": "https://strachocina.przemyska.pl/index.php?id=7",
       "other": "https://strachocina.przemyska.pl/index.php?id=5&subpage=7",
-      "live": "https://www.youtube.com/watch?v=HHOcCN21B68",
-      "week": ["18:00"],
+      "live": "https://strachocina.przemyska.pl/index.php?id=2&subpage=21",
+      "week": ["17:00"],
       "sunday": ["07:30", "10:30", "15:30"],
       "description": "",
       "latitude": 49.599615,
